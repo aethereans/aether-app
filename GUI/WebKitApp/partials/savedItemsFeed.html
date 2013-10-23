@@ -1,0 +1,42 @@
+<div id="saved-items-feed" ng-controller="SavedItemsController">
+    <div class="subject-intro-box">
+        <span id="subject-header">Saved Items</span>
+        <!-- <div class="export-button">
+            SAVE ALL TO DRIVE
+        </div> -->
+        <div class="subject-global-actions-box">
+
+            <span class="date-picker"
+            ng-class="{'date-picker-selected': activePicker == 1 || activePicker == undefined}"
+            ng-click="timespan = 0; activePicker = 1;"
+            >All</span>
+
+            <span class="date-picker"
+            ng-class="{'date-picker-selected': activePicker == 2}"
+            ng-click="timespan = 30; activePicker = 2;"
+            >This Month</span>
+
+            <span class="date-picker"
+            ng-class="{'date-picker-selected': activePicker == 3}"
+            ng-click="timespan = 7; activePicker = 3;"
+            >This Week</span>
+
+            <span class="date-picker"
+            ng-class="{'date-picker-selected': activePicker == 4}"
+            ng-click="timespan = 1; activePicker = 4;"
+            >Today</span><br>
+        </div>
+    </div>
+
+    <div id="subjects-item-container">
+        <div class="subjects-listing-box-css-column clearfix"
+                ng-style="secondFrameColumnCountStyle">
+            <div ng-repeat="post in savedPosts"
+            ng-include="'contentBlocks/postBox.html'">
+            </div>
+        </div>
+        <div id="footer">
+            <img src="img/aethersign.icon.slimmer.colored.svg" alt="" id="aether-footer-brand">
+        </div>
+    </div>
+</div>

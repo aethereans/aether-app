@@ -1,0 +1,27 @@
+<div id="topics-feed-lite" ng-controller="TopicsController">
+    <div id="third-frame-header">
+        <h1 id="third-frame-header-text">
+            Topics
+        </h1>
+        <i class="icon-chevron-down go-to-subjects-icon"
+        ng-show="thereIsASelectedSubject"
+        ng-click="returnToSubjects()"></i>
+        <i class="icon-cog add-topic-icon"
+        ng-class="{'non-first': thereIsASelectedSubject,
+        'selected': isActive('findOrCreateTopic')}"
+        ng-click="toggleFindOrCreateTopic()"></i>
+    </div>
+    <div class="topics-item-container" ng-show="userProfile.selectedTopics.length">
+        <div ng-repeat="topic in topics"
+        ng-include="'contentBlocks/topic.html'">
+        </div>
+    </div>
+    <div class="topics-no-item-container" ng-hide="userProfile.selectedTopics.length">
+        <div class="info-message" ng-hide="newborn">
+            You can add topics from the gear sign above.
+        </div>
+        <div class="info-message newborn" ng-show="newborn">
+            Welcome!<br> Choose a few topics from the left to start.
+        </div>
+    </div>
+</div>

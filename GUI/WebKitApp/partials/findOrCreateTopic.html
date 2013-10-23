@@ -1,0 +1,38 @@
+<div id="find-or-create-topic-feed" ng-controller="FindOrCreateTopicController">
+    <div class="topic-boxes-holder">
+
+        <div class="topic-box" ng-repeat="topic in allAvailableTopics"
+        ng-click="toggleAdditionToSelectedTopics(topic.PostFingerprint)"
+        ng-class="{'currently-selected': isCurrentlySelected(topic.PostFingerprint)}">
+            <span class="topic-name">{{topic.Subject}}</span>
+            <span class="topic-count">{{topic.ReplyCount - 1 | positiveNumber }}</span>
+            <!-- <span class="topic-count-meta">Avg. subjects per Month</span> -->
+        </div>
+        <div class="topic-box add-topic-box" ng-click="showCreateFields()" ng-class="{'frozen': createFieldsActive}">
+            <span>+</span>
+            <div class="topic-name-entry"
+            contenteditable="plaintext-only"
+            ng-show="createFieldsActive"
+            ng-model="postText">
+            </div>
+            <div class="topic-create-button"
+            ng-class="{'disabled':postButtonDisabled}"
+            ng-click="postButtonDisabled || createTopic()"
+            ng-show="createFieldsActive">
+                CREATE
+            </div>
+            <div class="topic-letter-remaining" ng-show="createFieldsActive">
+                {{60 - topicLetterCount | positiveNumber}}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+

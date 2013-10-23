@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-app="aether">
+    <head>
+        <title>
+            Aether
+        </title>
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    </head>
+    <body id="root-body" ng-style="viewportStyle">
+        <div id="first-frame" ng-style="firstFrameCSSStyle">
+            <div id="first-frame-contents" ng-controller="FirstFrameController">
+                <div class="normalButtons" ng-show="onboardingComplete">
+                  <button id="home-button"
+                  ng-class="{'selected': currentApplicationRegion == 'Home'}"
+                  ng-click="homeButtonClick()">
+                      <i class="icon-home icon-2x" id="home-icon">
+                      </i>
+                  </button>
+                  <button id="topics-button"
+                  ng-class="{'selected': currentApplicationRegion == 'Details'}"
+                  ng-click="topicsButtonClick()">
+                      <i class="icon-inbox icon-2x" id="topics-icon">
+                      </i>
+                  </button>
+                  <button id="saved-items-button"
+                  ng-class="{'selected': currentApplicationRegion == 'SavedItems'}"
+                  ng-click="savedItemsButtonClick()">
+                      <i class="icon-archive icon-2x" id="saved-items-icon">
+                      </i>
+                  </button>
+                  <button id="settings-button"
+                  ng-class="{'selected': currentApplicationRegion == 'Settings'}"
+                  ng-click="settingsButtonClick()">
+                      <i class="icon-cogs icon-2x" id="settings-icon">
+                      </i>
+                  </button>
+                  <div id="branding">
+                      <img src="img/aethersign.icon.slimmer.white.svg" alt="" id="aether-brand">
+                  </div>
+                </div>
+                <div class="onboarding" ng-hide="onboardingComplete">
+                  <div class="onboarding-checkpoint" ng-class="{'lightup': currentStateNumber > 0}"></div>
+                  <div class="onboarding-connector-line" ng-class="{'lightup': currentStateNumber > 1}"></div>
+                  <div class="onboarding-checkpoint" ng-class="{'lightup': currentStateNumber > 1}"></div>
+                  <div class="onboarding-connector-line" ng-class="{'lightup': currentStateNumber > 2}"></div>
+                  <div class="onboarding-checkpoint" ng-class="{'lightup': currentStateNumber > 2}"></div>
+                  <div class="onboarding-connector-line" ng-class="{'lightup': currentStateNumber > 3}"></div>
+                  <div class="onboarding-checkpoint" ng-class="{'lightup': currentStateNumber > 3}"></div>
+                  <div class="onboarding-connector-line" ng-class="{'lightup': currentStateNumber > 4}"></div>
+                  <div class="onboarding-checkpoint" ng-class="{'lightup': currentStateNumber > 4}"></div>
+                  <div class="onboarding-connector-line" ng-class="{'lightup': currentStateNumber > 5}"></div>
+                  <div class="onboarding-checkpoint" ng-class="{'lightup': currentStateNumber > 5}"></div>
+                  <div class="onboarding-connector-line"></div>
+                  <div id="branding">
+                      <img src="img/aethersign.icon.slimmer.white.svg" alt="" id="aether-brand">
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div id="second-frame" ng-style="secondFrameCSSStyle">
+            <div id="second-frame-contents" ng-controller="SecondFrameController">
+                <ng-include src="selectedTemplate.url"></ng-include>
+            </div>
+        </div>
+        <div id="third-frame" ng-style="thirdFrameCSSStyle">
+            <div id="third-frame-contents" ng-controller="ThirdFrameController">
+                <ng-include src="selectedTemplate.url"></ng-include>
+            </div>
+        </div>
+          <!-- Requirements -->
+          <script src="js/angular.min.js"></script>
+          <!-- Angular Bootstrappers & Small modules -->
+          <script src="js/app.js"></script>
+          <script src="js/filters.js"></script>
+          <script src="js/directives.js"></script>
+          <!-- Controllers -->
+          <script src="js/controllers/frameControllers.js"></script>
+          <script src="js/controllers/createLiteController.js"></script>
+          <script src="js/controllers/homeController.js"></script>
+          <script src="js/controllers/postsController.js"></script>
+          <script src="js/controllers/subjectsController.js"></script>
+          <script src="js/controllers/subjectsLiteController.js"></script>
+          <script src="js/controllers/topicsController.js"></script>
+          <script src="js/controllers/userProfileController.js"></script>
+          <script src="js/controllers/createSubjectController.js"></script>
+          <script src="js/controllers/findOrCreateTopicController.js"></script>
+          <script src="js/controllers/settingsController.js"></script>
+          <script src="js/controllers/savedItemsController.js"></script>
+          <script src="js/controllers/singlePostController.js"></script>
+          <script src="js/controllers/repliesController.js"></script>
+          <script src="js/controllers/unregisteredUserFeed.js"></script>
+          <script src="js/controllers/onboardingController.js"></script>
+          <!-- Services -->
+          <script src="js/services/broadcastServices.js"></script>
+          <script src="js/services/gateService.js"></script>
+          <script src="js/services/gateReaderServices.js"></script>
+          <!-- External Dependencies -->
+          <script src="js/cld-min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,98 @@
+<div id="home-feed" ng-controller="HomeController">
+    <div id="home-item-container">
+        <div class="info-bar">
+            <div class="aether-icon-home">
+                <div class="aether-icon-inner-box">
+                    <img src="img/aethersign.icon.slimmer.black.svg" id="aether-welcome-sign">
+                </div>
+            </div>
+            <div class="home-info-block meta-info">
+                <span class="line-within info-text home-aether-name"
+                ng-hide="updateAvailable">Aether {{ appVersion }}
+                </span>
+                <span class="line-within info-text"
+                ng-show="updateAvailable">Aether {{ appVersion }}
+                </span>
+                <span class="line-within" ng-show="updateAvailable">
+                    There is an update available.
+                </span>
+                <span class="line-within" ng-show="updateAvailable">
+                    <a class="button-inline update-button" href="http://getaether.net/update">
+                        GET UPDATE
+                    </a>
+                </span>
+            </div>
+            <div class="home-info-block">
+                <span class="line-within" ng-show="totalReplyCount > 1">
+                    <span class="button-inline"
+                    ng-click="replyButtonClick()">
+                        {{ totalReplyCount }} replies
+                    </span> to your posts.<br>
+                </span>
+                <span class="line-within" ng-show="totalReplyCount == 1">
+                    <span class="button-inline"
+                    ng-click="replyButtonClick()">
+                        1 reply
+                    </span> to your posts.<br>
+                </span>
+                <span class="line-within" ng-show="totalReplyCount < 1">
+                    You have no replies.<br>
+                </span><br>
+                <!-- <span class="line-within">
+                    <span class="button-inline">47 posts</span> in your reading list.
+                </span> -->
+            </div>
+            <div class="home-info-block">
+                <span class="line-within">
+                    <span class="button-inline">{{ onlineNodeCount }} nodes</span> are connected.
+                </span>
+                <span class="line-within">
+                    <span class="button-inline">{{ totalTopicCount }} topics</span> and
+                </span>
+                <span class="line-within">
+                    <span class="button-inline">{{ totalSubjectCount }} subjects</span> are available.
+                </span>
+            </div>
+            <div class="home-info-block play-pause-block">
+                <span class="line-within">
+                    {{lastTimeText}}
+                </span>
+<!--                 <span class="button-inline refresh-button"
+                ng-show="appIsPaused"
+                ng-click="togglePauseClick()">Resume</span>
+                <span class="button-inline refresh-button"
+                ng-hide="appIsPaused"
+                ng-click="togglePauseClick()">Pause</span>
+                <span class="line-within left-leaning">
+                </span> -->
+            </div>
+
+    </div>
+        <div class="topic-block" ng-repeat="topic in topics">
+            <div class="topic-block-header">
+                <h1>{{ topic.TopicName }}</h1>
+            </div>
+            <div class="header-container">
+                <div class="home-column-1">
+                    <div ng-repeat="topic in topic.HomeCol1"
+                    ng-include="'contentBlocks/topicHeaderBox.html'">
+                    </div>
+                </div>
+                <div class="home-column-2">
+                    <div ng-repeat="topic in topic.HomeCol2"
+                    ng-include="'contentBlocks/topicHeaderBox.html'">
+                    </div>
+                </div>
+                <div class="home-column-3">
+                    <div ng-repeat="topic in topic.HomeCol3"
+                    ng-include="'contentBlocks/topicHeaderBox.html'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <img src="img/aethersign.icon.slimmer.colored.svg" alt="" id="aether-footer-brand">
+    </div>
+</div>
+

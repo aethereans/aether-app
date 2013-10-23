@@ -1,0 +1,31 @@
+<div class="topic-header-item" ng-click="topicHeaderClick(topic.PostFingerprint)">
+    <div class="header-bar"></div>
+    <div class="content-area">
+
+
+        <div class="meta">
+            <div class="counters">
+                <i class="icon-arrow-up upvote-counter-icon">
+                </i>
+                {{ topic.UpvoteCount }}&nbsp;&nbsp;
+                <i class="icon-comment comment-icon">
+                </i>
+                {{ topic.ReplyCount - 1 | positiveNumber }}
+            </div>
+        </div>
+        <div class="owner-information">
+            <span class="subject-owner">
+                <img src="img/aethersign.icon.slimmer.DDD.svg" alt="" class="header-aether-sign">
+                {{ topic.OwnerUsername }}
+            </span>
+        </div>
+        <div class="meta">
+            <div class="time">
+                {{ topic.CreationDate + '000' | date:'MMM d, H:mm' }}
+            </div>
+        </div>
+        <div class="header">
+            {{ topic.Subject }}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="topic-item"
+    ng-click="
+    topicClick(topic.PostFingerprint)
+    "
+    ng-class="
+    {'selected': isSelected(topic.PostFingerprint) };
+    ">
+    <span class="topic-item-name">{{ topic.Subject}}</span>
+    <!-- <span class="new-item-count">{{ topic.newitemcount }}</span> -->
+</div>

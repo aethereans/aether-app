@@ -1,0 +1,39 @@
+<div id="subject-header">
+    <h1 id="header-text">
+        {{ subject.Subject }}
+    </h1>
+    <div class="counters">
+        <i class="icon-arrow-up upvote-counter-icon">
+        </i>
+        {{ subject.UpvoteCount - subject.DownvoteCount }}&nbsp;&nbsp;
+        <i class="icon-comment comment-icon">
+        </i>
+        {{ subject.ReplyCount - 1 | positiveNumber}}
+    </div>
+    <span id="header-owner" ng-click="clickToUsername(subject.OwnerUsername)">
+        <img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">
+        <div class="owner-name">{{ subject.OwnerUsername }}</div>
+    </span>
+    <span id="header-date">
+        {{ subject.CreationDate + '000' | date:'MMM d EEEE, H:mm' }}
+    </span>
+    <div class="meta">
+        <i class="icon-arrow-up upvote-icon"
+        ng-click="upvotePost(subject.PostFingerprint)"
+        ng-class="{'highlighted': subject.Upvoted}">
+        </i>
+        <i class="icon-arrow-down downvote-icon"
+        ng-click="downvotePost(subject.PostFingerprint)"
+        ng-class="{'highlighted': subject.Downvoted}">
+        </i>
+        <!-- <i class="icon-bookmark save-icon"
+        ng-click="savePost(subject.PostFingerprint)"
+        ng-class="{'highlighted': subject.Saved}">
+        </i> -->
+       <!--  <i class="icon-share share-icon">
+        </i> -->
+        <!-- <i class="icon-eye-close hide-icon"></i> -->
+        <i class="icon-reply reply-icon" ng-click="openReplyPane(subject.PostFingerprint)">
+        </i>
+    </div>
+</div>

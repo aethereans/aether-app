@@ -1,0 +1,17 @@
+<div class="user-feed-post-item" ng-click="clickToPostItem(post.PostFingerprint)">
+    <div class="content-area">
+        <div class="digest" ng-show="post.Body">
+            {{ post.Body | truncate:750 }}
+        </div>
+        <div class="meta">
+            <div class="counters">
+                <i class="icon-arrow-up upvote-counter-icon">
+                </i>
+                {{ post.UpvoteCount }}&nbsp;&nbsp;
+            </div>
+            <div class="time">
+                {{ post.CreationDate + '000' | date:'MMM d, H:mm' }}
+            </div>
+        </div>
+    </div>
+</div>

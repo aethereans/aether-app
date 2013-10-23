@@ -1,0 +1,23 @@
+<div class="subject-item" ng-click="changeState('postsFeed', '', subject.PostFingerprint)"
+        ng-class="{'selected':subject.PostFingerprint == requestedId}">
+    <span class="subject-headline">
+        {{ subject.Subject }}
+        <span class="subject-owner">
+            <img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">
+            {{ subject.OwnerUsername }}
+        </span>
+    </span>
+    <span class="subject-timestamp">
+        {{ subject.CreationDate + '000' | date:'MMM d EEEE, H:mm' }}
+    </span>
+    <span class="subject-meta">
+        <div class="counters">
+            <i class="icon-arrow-up upvote-counter-icon">
+            </i>
+            {{ subject.UpvoteCount - subject.DownvoteCount }}&nbsp;&nbsp;
+            <i class="icon-comment comment-icon">
+            </i>
+            {{ subject.ReplyCount - 1 | positiveNumber}}
+        </div>
+    </span>
+</div>

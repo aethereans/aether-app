@@ -1,0 +1,55 @@
+<div id="create-feed-lite" ng-controller="CreateLiteController"
+    ng-class="{'create-feed-lite-fullscreen':createPaneIsFullscreen}">
+    <div id="third-frame-header">
+        <h1 id="third-frame-header-text">
+            You are Replying to:
+        </h1>
+        <i class="icon-fullscreen enlarge-icon" ng-click="togglePaneSize()"></i>
+    </div>
+    <div class="subject-item selected" ng-show="parentIsSubject">
+        <span class="subject-headline">
+            {{ targetPostObject.Subject}}
+        </span>
+        <span class="subject-meta">
+            <span class="subject-owner">
+                <img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">
+                {{ targetPostObject.OwnerUsername }}
+            </span>
+            <div class="counters">
+                <span class="subject-timestamp">
+                    {{ targetPostObject.CreationDate + '000' | date:'MMMM d EEEE, H:mm' }}
+                </span>
+                <i class="icon-arrow-up upvote-counter-icon">
+                </i>
+                {{ targetPostObject.UpvoteCount }}&nbsp;&nbsp;
+                <i class="icon-comment comment-icon">
+                </i>
+                {{ targetPostObject.ReplyCount - 1 }}
+            </div>
+        </span>
+    </div>
+
+    <div class="post-item selected" ng-hide="parentIsSubject">
+        <div class="post-meta">
+            <div class="counters">
+                <i class="icon-arrow-up upvote-counter-icon"></i>
+                {{ targetPostObject.UpvoteCount }}
+            </div>
+            <div class="post-owner">
+                <img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">
+                <div class="post-owner-text">{{ targetPostObject.OwnerUsername }}</div>
+            </div>
+        </div>
+        <div class="post-excerpt">
+            {{ targetPostObject.Body | truncate:160 }}
+        </div>
+    </div>
+
+    <div class="create-box" contenteditable="plaintext-only" ng-model="postText"></div>
+    <div class="create-buttons">
+        <div class="create-button reply disabled"
+        ng-click="postButtonDisabled || postReply()"
+        ng-class="{'disabled':postButtonDisabled}">REPLY</div>
+        <div  class="create-button cancel" ng-click="closeReplyPane()">Cancel</div>
+    </div>
+</div>

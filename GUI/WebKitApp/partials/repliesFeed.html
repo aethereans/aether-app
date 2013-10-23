@@ -1,0 +1,20 @@
+<div id="replies-feed" ng-controller="RepliesController">
+    <div class="subject-intro-box">
+        <span id="subject-header"><i class="icon-envelope-alt replies-header-icon"></i></span>
+        <div class="mark-all-as-read-button" ng-click="clickToMarkAllAsRead()">
+            CLEAN REPLIES
+        </div>
+    </div>
+
+    <div id="subjects-item-container">
+        <div class="subjects-listing-box-css-column clearfix"
+                ng-style="secondFrameColumnCountStyle">
+            <div ng-repeat="post in replies"
+            ng-include="'contentBlocks/replyBox.html'">
+            </div>
+        </div>
+        <div id="footer">
+            <img src="img/aethersign.icon.slimmer.colored.svg" alt="" id="aether-footer-brand">
+        </div>
+    </div>
+</div>

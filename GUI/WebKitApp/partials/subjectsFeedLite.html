@@ -1,0 +1,12 @@
+<div id="subjects-feed-lite" ng-controller="SubjectsLiteController">
+    <div id="third-frame-header">
+        <h1 id="third-frame-header-text">
+            {{ selectedTopic.Subject}}
+        </h1>
+        <i class="icon-chevron-up go-to-topics-icon" ng-click="returnToTopics()"></i>
+    </div>
+    <div ng-repeat="subject in subjects"
+    ng-include="'contentBlocks/subjectBoxLite.html'">
+    </div>
+
+</div>

@@ -1,0 +1,3 @@
+function UserProfileController($scope, frameViewStateBroadcast) {
+
+}

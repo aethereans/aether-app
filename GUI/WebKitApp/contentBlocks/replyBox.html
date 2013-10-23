@@ -1,0 +1,23 @@
+<div class="post-item" ng-click="clickToReply(post.PostFingerprint)">
+    <div class="content-area" ng-class="{ 'unread': post.Unread }">
+        <div class="owner-information">
+            <span class="subject-owner">
+                <img src="img/aethersign.icon.slimmer.svg" alt="" class="aether-icon">
+                {{ post.OwnerUsername }}
+            </span>
+        </div>
+        <div class="digest" ng-show="post.Body">
+            {{ post.Body | truncate:750 }}
+        </div>
+        <div class="meta">
+            <div class="counters">
+                <i class="icon-arrow-up upvote-counter-icon">
+                </i>
+                {{ post.UpvoteCount }}&nbsp;&nbsp;
+            </div>
+            <div class="time">
+                {{ post.CreationDate + '000' | date:'MMM d EEEE, H:mm' }}
+            </div>
+        </div>
+    </div>
+</div>

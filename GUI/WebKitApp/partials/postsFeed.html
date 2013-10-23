@@ -1,0 +1,31 @@
+<div id="posts-feed" ng-controller="PostsController" ng-class="{'fullscreen-centering-flow': isFullscreen}">
+
+            <div ng-include="'contentBlocks/subjectHeader.html'">
+            </div>
+
+            <div ng-repeat="post in feed"
+            ng-include="'contentBlocks/comment.html'">
+            </div>
+
+    <div id="footer">
+        <img src="img/aethersign.icon.slimmer.colored.svg" alt="" id="aether-footer-brand">
+    </div>
+    <div class="feed-global-icons" ng-class="{'feed-faded-out-global-icons': isFullscreen}">
+        <div class="feed-global-icons-inner"> <!-- THIS IS A GIANT HACK-->
+            <!-- <span class="text-size-icon">Aa
+                <div class="text-size-hoverbox">
+                    <div class="inner">
+                        <i class="icon-zoom-in enlarge-text-icon" ng-click="enlargeText()"></i>
+                        <i class="icon-zoom-out shrink-text-icon" ng-click="shrinkText()"></i>
+                    </div>
+                </div>
+            </span> -->
+            <i class="hide-sidebar-icon" ng-click="toggleSidebar()"
+            ng-class="{'icon-double-angle-left hide-sidebar-icon-left-position-correction': isFullscreen,
+                        'icon-double-angle-right': !isFullscreen}"
+            >
+            </i>
+        </div>
+    </div>
+
+</div>

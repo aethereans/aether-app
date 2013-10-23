@@ -1,0 +1,39 @@
+<div id="create-subject-feed" ng-controller="CreateSubjectController">
+    <div class="subject-name-entry-container">
+        <div class="subject-name-entry" ng-model="subjectHeaderText"
+        contenteditable="plaintext-only"></div>
+        <div class="subject-name-entry-remaining">
+            {{225 - headerLetterCount | positiveNumber}}
+        </div>
+    </div>
+
+    <div class="subject-body-entry" contenteditable="plaintext-only"
+    ng-model="subjectBodyText"></div>
+    <div class="actions" ng-switch="writeInProgress">
+        <div class="subject-create-button post post-button-disabled" ng-click="postButtonDisabled || postSubject()"
+        ng-class="{'post-button-disabled': postButtonDisabled}">POST</div>
+        <div class="subject-create-button cancel" ng-click="cancel()">Cancel</div>
+        <span class="meta-text" ng-switch-when="true">
+            {{ bodyWordCount}} words, {{ timeItTakesToRead }} read.
+            <select name="in-progress-language-selector" class="aether-select"
+            id="in-progress-language-selector"
+            ng-model="selectedLanguage"
+            ng-options="lang for lang in possLangs"
+            ng-change="setLang(selectedLanguage)">
+            </select>
+        </span>
+        <span class="meta-text" ng-switch-when="false">
+            This doesn't look like any of your languages. What language is this?
+            <select name="language-selector" class="aether-select" id="language-selector"
+            ng-model="selectedLanguage"
+            ng-options="lang.name group by lang.langGroup for lang in possibleLanguages"
+            ng-change="setLang(selectedLanguage.name)">
+            </select>
+        </span>
+    </div>
+</div>
+
+<!--
+TODO: To this screen I need to add the username that the user posts with,
+along with an option to post anonymously.
+ -->

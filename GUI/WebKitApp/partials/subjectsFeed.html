@@ -1,0 +1,116 @@
+<div id="subjects-feed" ng-controller="SubjectsController"
+    ng-class="{'subjects-full-size-for-no-items': noSubjectsAvailable}">
+    <div id="subjects-item-container" ng-hide="noSubjectsAvailable">
+
+        <div class="subjects-listing-box clearfix"
+                ng-style="secondFrameColumnCountStyle">
+            <div class="subject-intro-box">
+                <span id="subject-header">{{ selectedTopic.Subject }}</span>
+                <div class="subject-global-actions-box">
+
+                    <span class="date-picker"
+                    ng-class="{'date-picker-selected': activePicker == 1 || activePicker == undefined}"
+                    ng-click="timespan = 0; activePicker = 1;"
+                    >All</span>
+
+                    <span class="date-picker"
+                    ng-class="{'date-picker-selected': activePicker == 2}"
+                    ng-click="timespan = 30; activePicker = 2;"
+                    >This Month</span>
+
+                    <span class="date-picker"
+                    ng-class="{'date-picker-selected': activePicker == 3}"
+                    ng-click="timespan = 7; activePicker = 3;"
+                    >This Week</span>
+
+                    <span class="date-picker"
+                    ng-class="{'date-picker-selected': activePicker == 4}"
+                    ng-click="timespan = 1; activePicker = 4;"
+                    >Today</span><br>
+
+                </div>
+                <div class="new-subject-button"
+                ng-click="changeState('createSubject','','')">
+                    CREATE SUBJECT
+                </div>
+            </div>
+            <div class="column-container">
+                <div class="column-1">
+                    <div ng-repeat="subject in subjectsCol1"
+                    ng-include="'contentBlocks/subjectBox.html'">
+                    </div>
+                </div>
+                <div class="column-2">
+                    <div ng-repeat="subject in subjectsCol2"
+                    ng-include="'contentBlocks/subjectBox.html'">
+                    </div>
+                </div>
+                <div class="column-3">
+                    <div ng-repeat="subject in subjectsCol3"
+                    ng-include="'contentBlocks/subjectBox.html'">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <img src="img/aethersign.icon.slimmer.colored.svg" alt="" id="aether-footer-brand">
+        </div>
+    </div>
+    <div id="subjects-no-item-container" ng-show="noSubjectsAvailable">
+        <div class="flex-spacer"></div>
+        <span id="subject-header">{{ selectedTopic.Subject }}</span>
+        <div id="footer">
+            <img src="img/aethersign.icon.slimmer.AAA.svg" alt="" id="aether-footer-brand">
+        </div>
+        <div ng-switch="timespanIsFiltered">
+            <div class="aether-error" ng-switch-when="false">
+                <div class="error-text">
+                    <span class="error-header">
+                        Aether could not find any subjects or posts in this topic. :(
+                    </span>
+                    This can happen if you have created this topic (let other people know about it!),
+                    the topic is not very active, or if you are not connected to the Internet.
+                </div>
+                <div class="new-subject-button"
+                ng-click="changeState('createSubject','','')">
+                    CREATE SUBJECT
+                </div>
+            </div>
+            <div class="aether-error" ng-switch-when="true">
+                <div class="error-text">
+                    <span class="error-header">
+                        Aether could not find any subject or posts in the time range
+                        you selected. :(
+                    </span>
+                    This can happen if you have created this topic (let other people know about it!),
+                    the topic is not very active, or if you are not connected to the Internet.
+                </div>
+                <div class="subject-global-actions-box">
+
+                    <span class="date-picker"
+                    ng-class="{'date-picker-selected': activePicker == 1 || activePicker == undefined}"
+                    ng-click="$parent.timespan = 0; $parent.activePicker = 1;"
+                    >All</span>
+
+                    <span class="date-picker"
+                    ng-class="{'date-picker-selected': activePicker == 2}"
+                    ng-click="$parent.timespan = 30; $parent.activePicker = 2;"
+                    >This Month</span>
+
+                    <span class="date-picker"
+                    ng-class="{'date-picker-selected': activePicker == 3}"
+                    ng-click="$parent.timespan = 7; $parent.activePicker = 3;"
+                    >This Week</span>
+
+                    <span class="date-picker"
+                    ng-class="{'date-picker-selected': activePicker == 4}"
+                    ng-click="$parent.timespan = 1; $parent.activePicker = 4;"
+                    >Today</span><br>
+
+                </div>
+            </div>
+        </div>
+        <div class="flex-spacer"></div>
+
+    </div>
+</div>

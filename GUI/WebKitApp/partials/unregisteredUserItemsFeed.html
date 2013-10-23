@@ -1,0 +1,18 @@
+<div id="unregistered-user-items-feed" ng-controller="UnregisteredUserFeed">
+    <div class="feed-header-container">
+        <span id="feed-header">Posts by {{ requestedUsername }}</span>
+    </div>
+    <div class="items-feed-container">
+        <div ng-repeat="post in feed"
+        ng-include="decideNgInclude(post.Subject)">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

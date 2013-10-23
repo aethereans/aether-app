@@ -1,0 +1,319 @@
+<div id="onboarding-feed" ng-controller="OnboardingController">
+    <div class="onboarding-top-flex"></div>
+
+    <div class="onboarding-page welcome" ng-show="currentState == 'welcome'">
+        <!-- <button ng-click="advanceState()" type="button">advance</button> -->
+        <div class="onboarding-container">
+            <img class="entry-logo" src="img/largelogo.svg">
+            <p class="single-welcome"
+            ng-hide="currentLangShown != 1">Welcome to Aether.</p>
+            <p class="single-welcome"
+            ng-hide="currentLangShown != 2">Bienvenido al Aether.</p>
+            <p class="single-welcome"
+            ng-hide="currentLangShown != 3">Bienvenue à l’Aether.</p>
+            <p class="single-welcome"
+            ng-hide="currentLangShown != 4">Willkommen in den Aether.</p>
+            <p class="single-welcome"
+            ng-hide="currentLangShown != 5">Aether’e hoşgeldiniz.</p>
+            <p class="single-welcome"
+            ng-hide="currentLangShown != 6">欢迎来到乙醚。</p>
+
+            <div class="aether-button next-button" ng-click="advanceState()">Begin</div>
+
+        </div>
+    </div>
+
+    <div class="onboarding-page license" ng-show="currentState == 'license'">
+        <div class="onboarding-container">
+            <div class="up-container">
+                <div class="header">
+                    <h2>You should read this before agreeing.</h2>
+                </div>
+            </div>
+            <div class="license-container">
+                <div class="license">
+                    <title>End User License Agreement</title>
+
+                    </head>
+                    <body>
+                    <h1>End User License Agreement</h1>
+
+                    <p>Copyright &copy; 2013 Burak Nehbit. All rights reserved.</p>
+
+                    <p>By accepting this agreement or by installing Aether (the “Software”), you agree to the following terms.</p>
+
+                    <p>These terms will be governed by and construed in accordance with the laws of State of New York, The United States of America, without regard to conflicts of law rules.</p>
+
+                    <h2>License to use the Software</h2>
+
+                    <p>Subject to your compliance with these terms and conditions, Burak Nehbit (the “Author”), grants you a royalty-free, non-exclusive, non-transferable license to use the Software, solely for your personal, non-commercial purposes. The Author reserves all rights in the Software not expressly granted to you here.</p>
+
+                    <h2>Your Content</h2>
+
+                    <p>You agree that all content you add to the Software is under Creative Commons Attribution-ShareAlike (CC BY-SA) license. The details of that license can be found at <a href="https://creativecommons.org/licenses/by-sa/3.0/">https://creativecommons.org/licenses/by-sa/3.0/</a>.</p>
+
+                    <p>There may be other content licenses you can use contingent on your registration status. If you are eligible and if you opt in to any of the other licenses,  the selected license replaces the license mentioned above as the license in force.</p>
+
+                    <p>You cannot use the Software to distribute illegal content.</p>
+
+                    <p>If you quote or otherwise bring content that does not belong to you, you agree to be solely responsible for any potential infringement that act may cause. The content in the network cannot be deleted or edited because of its distributed nature, and only expire after a certain timespan. Therefore it is the responsibility of the user to be aware of licensing restrictions of the external content the user distributes. The Author disclaims any responsibility for actions of third parties. This is addition to Disclaimer of Warranty and Disclaimer of Liability sections of this agreement.</p>
+
+                    <h3>CC BY-SA Attribution Requirement</h3>
+
+                    <p>If you want to reproduce content distributed on the Software, the Author requires that the Attribution requirement in CC BY-SA license aforementioned must be satisfied by providing in the same medium:</p>
+
+                    <p>1) Aether handle of the producer of the content mentioned,</p>
+
+                    <p>2) If that handle is a registered Aether user, a hyperlink to the user's name to the user's profile,</p>
+
+                    <p>3) A text informing that the content originates from Aether, hyperlinked to Aether's web presence at <a href="http://www.getaether.net">www.getaether.net.</a></p>
+
+                    <p>4) The attribution defined above should be close enough to the main body of the licensed text to allow the viewer of the medium to identify the attribution as belonging to the licensed content.</p>
+
+                    <p>For hyperlinks mentioned above, these rules apply:</p>
+
+                    <p>1) Each hyperlink is required to point directly to the target in standard HTML.</p>
+
+                    <p>2) Domain shorteners or obfuscators are not permitted.</p>
+
+                    <p>3) The hyperlink must not have &ldquo;nofollow&rdquo; property.</p>
+
+                    <p>4) The hyperlink must be within the plain HTML and visible to search engines and users of the said medium..</p>
+
+                    <h2>Privacy</h2>
+
+                    <p>The Software may collect, with your consent, anonymous diagnostic data for purposes of betterment of Software. This ability is optional and you can opt out.</p>
+
+                    <h2>Aether Technology</h2>
+
+                    <p>You affirm that the Software distributes the content you take explicit action upon to approve (the &ldquo;Upvote&rdquo;) or disapprove (the &ldquo;Downvote&rdquo;). You also agree that under certain conditions the Software can distribute content without your explicit action for purposes of health of the network environment the Software is using (the &ldquo;Network&rdquo;). If the Software deems it necessary to take such a step, the distributed content will be marked to convey the information that you did not take an action enabling that act of distribution.</p>
+
+                    <h2>Other Content</h2>
+
+                    <p>The posts may contain links to third-party websites or resources. The Author does not endorse and is not responsible or liable for their availability or accuracy. You are solely responsible for your use of any such websites or resources.</p>
+
+                    <h2>Indemnity</h2>
+
+                    <p>You agree to indemnify and hold the Author and its subsidiaries, affiliates, officers, agents, employees, co-branders or other partners, and licensors harmless from any claim or demand, including reasonable attorneys&rsquo; fees, due to or arising out of your content, your use of the services or materials, your connection to the services, the actions of any member of your group, your access to or use of linked sites and your connections therewith, any claim that your content caused damage to a third party, any dealings between you and any third parties advertising or promoting via the services or materials, your violation of the Terms, or your violation of any rights of another, including any Intellectual Property Rights.</p>
+
+                    <h2>Miscellaneous</h2>
+
+                    <p>You affirm that you are above the legal age of residence in your jurisdiction and acknowledge that this Software and content were not intended for people below legal age.</p>
+
+                    <p>If for any reason a court of competent jurisdiction finds any provision of the Terms, or portion thereof, to be unenforceable, that provision shall be enforced to the maximum extent permissible so as to affect the intent of the parties as reflected by that provision, and the remainder of the Terms shall continue in full force and effect.</p>
+
+                    <p>Any failure by the Author to enforce or exercise any provision of the Terms, or any related right, shall not constitute a waiver of that provision or right.</p>
+
+                    <p>You agree that any claim or dispute you may have must be resolved by a court located in New York City, State of New York, The United States of America.</p>
+
+                    <p>The Author complies with U.S. Law Enforcement requests to the extent required by the laws of The United States of America.</p>
+
+                    <h2>Disclaimer of Warranty</h2>
+
+                    <p>THE AUTHOR OF THIS SOFTWARE EXPRESSLY DISCLAIMS ANY WARRANTY FOR THE SOFTWARE. THE SOFTWARE AND ANY RELATED DOCUMENTATION IS PROVIDED &ldquo;AS IS&rdquo; WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OR MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. THE ENTIRE RISK ARISING OUT OF USE OR PERFORMANCE OF THE SOFTWARE REMAINS WITH YOU.</p>
+
+                    <h2>Disclaimer of Liability</h2>
+
+                    <p>IN NO EVENT SHALL THE AUTHOR OF THIS SOFTWARE BE LIABLE FOR ANY SPECIAL, CONSEQUENTIAL, INCIDENTAL OR INDIRECT DAMAGES WHATSOEVER (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR ANY OTHER PECUNIARY LOSS) ARISING OUT OF THE USE OF OR INABILITY TO USE THIS PRODUCT, EVEN IF THE AUTHOR OF THIS SOFTWARE IS AWARE OF THE POSSIBILITY OF SUCH DAMAGES AND KNOWN DEFECTS. IN ADDITION, THE AUTHOR DISCLAIMS ANY LIABILITY FOR PSYCHOLOGICAL OR OTHER DAMAGES YOU MAY SUFFER AS A RESULT OF CONSUMPTION OF THE MATERIAL DISTRIBUTED IN THE SOFTWARE.</p>
+
+                    <h2>Changes</h2>
+
+                    <p>You understand and agree that if you use the Software after the date on which the terms have changed, the Author will treat your use as acceptance of the updated terms.</p>
+
+                    <p>You agree that the Author may provide you with notices, including those regarding changes to the terms, by postings on <a href="http://www.getaether.net/license">www.getaether.net/license</a>. This is the Author's complete and exclusive understanding with you regarding your use of the Software as an end user.</p>
+                </div>
+            </div>
+            <div class="down-container">
+                <div class="aether-button incremental-next-button" ng-click="advanceState()">Agree</div>
+                <div class="aether-button incremental-next-button" ng-click="quitApp()">Decline</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="onboarding-page shorthand-license" ng-show="currentState == 'shorthandLicense'">
+        <div class="onboarding-container">
+            <div class="up-container">
+                <div class="header">
+                    <h2>The gist of the license</h2>
+                </div>
+            </div>
+            <div class="license-container">
+                <div class="left-container">
+                    <img src="img/licenseExplanationFirst.svg" class="license-explanation-image" alt="">
+                    <p>Everything you post on Aether is under a Creative Commons (CC BY-SA) license. You can think of this as contagious public domain.</p>
+
+                </div>
+                <div class="middle-container">
+                    <img src="img/licenseExplanationSecond.svg" class="license-explanation-image" alt="">
+                    <p>Don't share stuff you don't have rights to share. For example, don't copy and paste articles from newspapers. If you do that, the blame and potential lawsuits are wholly yours.</p>
+                </div>
+                <div class="right-container">
+                    <img src="img/licenseExplanationThird.svg" class="license-explanation-image" alt="">
+                    <p>Aether and its author is not responsible for anything you might see within. You agree that you're above legal age in your country, because <em>all</em> content here is mature content. </p>
+                </div>
+                <p class="mini-disclaimer">Refer to the license for actual terms.</p>
+            </div>
+            <div class="down-container">
+                <div class="aether-button incremental-next-button" ng-click="advanceState()">Next</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="onboarding-page handle" ng-show="currentState == 'handle'">
+        <div class="onboarding-container">
+            <div class="up-container">
+                <div class="header">
+                    <h2>Pick a handle for yourself.</h2>
+                </div>
+            </div>
+            <div class="onboarding-body-container">
+                <div class="onboarding-body">
+                    <p>You can pick anything you want. You can also change it any time. Names are not unique; someone else can take the same name as you.</p>
+                    <p>This also means you should not trust other users, as they might or might not be the people they say they are.</p>
+                    <p>You cannot edit or delete what you write, and it only goes away after 6 months. Be careful of what you say if you use a name indicative of your person.</p>
+                    <p class="field-name">
+                        I WANT TO BE KNOWN AS
+                    </p>
+                    <input type="text" class="username-entry" ng-model="userProfile.UserDetails.Username"
+                    maxlength="25">
+                </div>
+            </div>
+            <div class="down-container">
+                <div class="aether-button incremental-next-button"
+                ng-class="{'aether-button-disabled': userProfile.UserDetails.Username.length<3}"
+                ng-click="userProfile.UserDetails.Username.length<3 || advanceState()">Next</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="onboarding-page defaults" ng-show="currentState == 'defaults'">
+        <div class="onboarding-container">
+            <div class="up-container">
+                <div class="header">
+                    <h2>Setting some defaults</h2>
+                </div>
+            </div>
+            <div class="onboarding-body-container">
+                <div class="onboarding-body">
+                    <div class="defaults-question">
+                        <span class="question-name">Open in background at startup</span><span class="question-explanation">This increases the amount of things you see.</span>
+                        <form class="aether-radio-set" action="">
+                            <input type="radio" class="aether-radio-item" name="openAtStartup" id="openAtStartup" value="Yes" checked="checked"><span class="radio-item-text">YES</span>
+                            <input type="radio" class="aether-radio-item" name="openAtStartup" value="No"><span class="radio-item-text">NO</span>
+                        </form>
+                    </div>
+                    <div class="defaults-question">
+                        <span class="question-name">Keep anonymous diagnostic logs</span><span class="question-explanation">It's helpful if you encounter a bug, also it helps development.</span>
+                        <form class="aether-radio-set" action="">
+                            <input type="radio" class="aether-radio-item" name="keepLogs" id="keepLogs" value="Yes" checked="checked"><span class="radio-item-text">YES</span>
+                            <input type="radio" class="aether-radio-item" name="keepLogs" value="No"><span class="radio-item-text">NO</span>
+                        </form>
+                    </div>
+                    <div class="defaults-question">
+                        <span class="question-name language-header">Your Languages</span>
+                        <span class="question-explanation">Aether only fetches and shows posts in languages you know.</span>
+                        <div class="possible-langs">
+                            <div class="lang-button"
+                            ng-class="{'selected-lang':EnglishSelected}"
+                            ng-click="langClick('English')">
+                            English</div>
+                            <div class="lang-button"
+                            ng-class="{'selected-lang':SpanishSelected}"
+                            ng-click="langClick('Spanish')">
+                            Español</div>
+                            <div class="lang-button"
+                            ng-class="{'selected-lang':FrenchSelected}"
+                            ng-click="langClick('French')">
+                            Français</div>
+                            <div class="lang-button"
+                            ng-class="{'selected-lang':GermanSelected}"
+                            ng-click="langClick('German')">
+                            Deutsch</div>
+                            <div class="lang-button"
+                            ng-class="{'selected-lang':TurkishSelected}"
+                            ng-click="langClick('Turkish')">
+                            Türkçe</div>
+                            <div class="lang-button"
+                            ng-class="{'selected-lang':PortugueseSelected}"
+                            ng-click="langClick('Portuguese')">
+                            Português</div>
+                            <div class="lang-button russian"
+                            ng-class="{'selected-lang':RussianSelected}"
+                            ng-click="langClick('Russian')">
+                            русский</div>
+                            <div class="lang-button"
+                            ng-class="{'selected-lang':ChineseSelected}"
+                            ng-click="langClick('Chinese')">
+                            简体中文</div>
+                            <div class="lang-button"
+                            ng-class="{'selected-lang':ChinesetSelected}"
+                            ng-click="langClick('Chineset')">
+                            繁體中文</div>
+                        </div>
+                    </div>
+                    <div class="defaults-question">
+                        <span class="question-name">Optional starting point</span><span class="question-explanation">If you know a friend currently using Aether and is online now, add it here.</span>
+                        <div class="textbox-container">
+                            <p class="field-name">
+                                IP ADDRESS (Ex: 192.168.0.1)
+                            </p>
+                            <input type="text" class="text-entry" ng-model="optionalBootstrapNodeIP"
+                            maxlength="22">
+                        </div>
+                        <div class="textbox-container">
+                            <p class="field-name">
+                                PORT (Ex: 45212)
+                            </p>
+                            <input type="text" class="text-entry" ng-model="optionalBootStrapNodePort"
+                            maxlength="5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="down-container">
+                <div class="aether-button incremental-next-button" ng-click="advanceState(insertDefaultOptions)">Next</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="onboarding-page ethics" ng-show="currentState == 'ethics'">
+        <div class="onboarding-container">
+            <div class="up-container">
+                <div class="header">
+                    <h2>Beyond the city walls, or laws of the realm</h2>
+                </div>
+            </div>
+            <div class="onboarding-body-container">
+                <div class="onboarding-body">
+                    <div class="left-column">
+                        <p>The Internet can be a dark place.</p>
+                        <p>A strikingly large number of us are likely to forget what they are screaming at are not just ghosts on the wires. For all achievements of the last 20 years of the Internet, this is one lesson in sobriety: that most people, even the most successful, smart, caring, can sometimes fail at delineating the banter from the toxic when online. </p>
+                        <p>Don’t take it personally.</p>
+                        <p>Aether is a distributed network. That means the people who write are anonymous. There are brilliant, undiscovered people in this world, but there are also undiscovered scum–of–earth. Your best bet to defend yourself against these people is not to be a spoilsport and make laws because your ego got bruised, but to nurture a thicker skin. In the end, those are just words. </p>
+
+                    </div>
+                    <div class="right-column">
+                        <p>It’s all just words.</p>
+                        <p>In exchange Aether gives you the full, unfettered free speech. So long as you can express with words, you’re free to say. You can be the unpopular guy, say all the inconvenient things, or play the devil’s advocate. </p>
+                        <p>But please be decent.</p>
+                        <p>Aether is an experiment. An experiment both in the technical sense, but also one in human nature. An experiment where everything is a lie unless you know it to be otherwise, and in which everybody is the judge, jury and the executioner. This might or might not work. This might even be a terrible idea. Even if you think so, please let me know.</p>
+                        <p>Burak<br>
+                        October 2013</p>
+                    </div>
+                </div>
+            </div>
+            <div class="down-container">
+                <div class="aether-button incremental-next-button" ng-click="advanceState()">Finish</div>
+            </div>
+        </div>
+    </div>
+    <div class="onboarding-bottom-flex"></div>
+</div>
+
+
+
+
+
+
+
+
