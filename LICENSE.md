@@ -14,4 +14,4 @@ Backend (the rest) is a little bit thornier. I haven't had the time to think abo
 
 * You cannot release your modified copy. Internal use on your own network is fine.
 
-* You cannot use this code for any commercial purpose.
+* You cannot use this code for any commercial purposes.
