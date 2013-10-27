@@ -5,7 +5,7 @@ Copyright &copy; 2013 Burak Nehbit. All rights reserved.
 
 The frontend is under MIT license. You can find the frontend in GUI / WebKitApp. 
 
-Backend (the rest) is a little bit thornier. I haven't had the time to think about this, so this is probably only a very temporary license, at some near point in time I am planning to convert this to an OSL-compatible one. In fact, this is so hastily drawn that there isn't even a license text, so I'll just state intent.
+Backend (the rest) is a little bit thornier. I haven't had the time to think about this, so this is probably only a very temporary license, at some near point in time I am planning to convert this to an OSI-compatible one. In fact, this is so hastily drawn that there isn't even a license text, so I'll just state intent.
 
 * You can compile this in any way you want and use your unmodified copy. 
 
