@@ -96,7 +96,7 @@ nuked = True if not os.path.exists(basedir + 'Database/aether.db') and \
                   os.path.exists(basedir + 'UserProfile/backendSettings.dat') else False
 
 if nuked:
-    print('Aether has just ben nuked. I\'m keeping the settings and Node ID, but creating a new database.')
+    print('Aether has just been nuked. I\'m keeping the settings and Node ID, but creating a new database.')
 
 
 # This gets the stored config details from the file.
