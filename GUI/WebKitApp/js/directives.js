@@ -20,7 +20,7 @@ angular.module('aether.directives')
       $element.bind('input', function(e) {
         $scope.$apply(function() {
           var html, html2, rerender
-          html = $element.html()
+          html = $element.text() // This was normally html, causing the nbsp bugs. Fixed.
           rerender = false
           if (attrs.stripBr && attrs.stripBr !== "false") {
             html = html.replace(/<br>$/, '')
@@ -86,3 +86,5 @@ angular.module('aether.directives')
       }
     }
   }}])
+
+

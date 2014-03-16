@@ -4,7 +4,7 @@
 
 @font-face {
   font-family:"Oswald-Bold";
-  src: url("../typefaces/Oswald/Oswald-Bold.ttf") format('truetype');
+  src: url("../typefaces/Oswald/Oswald-Bold.ttf");
 }
 
 // @font-face {
@@ -14,14 +14,14 @@
 
 @font-face {
   font-family:"Oswald-Regular";
-  src: url("../typefaces/Oswald/Oswald-Regular.ttf") format('truetype');
+  src: url("../typefaces/Oswald/Oswald-Regular.ttf");
 }
 
 // Source Sans Pro
 
 @font-face {
   font-family:"SourceSansPro-Black";
-  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-Black.ttf") format('truetype');
+  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-Black.ttf");
 }
 
 // @font-face {
@@ -31,12 +31,11 @@
 
 @font-face {
   font-family:"SourceSansPro-Bold";
-  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-Bold.ttf") format('truetype');
+  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-Bold.ttf");
 }
-
 @font-face {
   font-family:"SourceSansPro-BoldItalic";
-  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-BoldItalic.ttf") format('truetype');
+  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-BoldItalic.ttf");
 }
 
 // @font-face {
@@ -51,7 +50,7 @@
 
 @font-face {
   font-family:"SourceSansPro-Italic";
-  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-Italic.ttf") format('truetype');
+  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-Italic.ttf");
 }
 
 // @font-face {
@@ -66,48 +65,49 @@
 
 @font-face {
   font-family:"SourceSansPro-Regular";
-  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-Regular.ttf") format('truetype');
+  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-Regular.ttf");
 }
 
 @font-face {
   font-family:"SourceSansPro-Semibold";
-  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-Semibold.ttf") format('truetype');
+  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-Semibold.ttf");
 }
 
 @font-face {
   font-family:"SourceSansPro-SemiboldItalic";
-  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-SemiboldItalic.ttf") format('truetype');
+  src: url("../typefaces/Source_Sans_Pro/SourceSansPro-SemiboldItalic.ttf");
 }
 
 // Sorts Mill Goudy
 
 @font-face {
   font-family:"SortsMillGoudy-Italic";
-  src: url("../typefaces/Sorts_Mill_Goudy/SortsMillGoudy-Italic.ttf") format('truetype');
+  src: url("../typefaces/Sorts_Mill_Goudy/SortsMillGoudy-Italic.ttf");
 }
 
 @font-face {
   font-family:"SortsMillGoudy-Regular";
-  src: url("../typefaces/Sorts_Mill_Goudy/SortsMillGoudy-Regular.ttf") format('truetype');
+  src: url("../typefaces/Sorts_Mill_Goudy/SortsMillGoudy-Regular.ttf");
 }
 
 // EB Garamond
+//
 
+// FIXME for Windows compile.
 @font-face {
   font-family:"EBGaramond-Regular";
-  src: url("../typefaces/EB_Garamond/EBGaramond-Regular.ttf") format('truetype');
+  src: url("../typefaces/EB_Garamond_mac/EBGaramond12-Regular.ttf");
 }
 
 @font-face {
   font-family:"EBGaramond-Italic";
-  src: url("../typefaces/EB_Garamond/EBGaramond-Italic.ttf") format('truetype');
+  src: url("../typefaces/EB_Garamond_mac/EBGaramond12-Italic.ttf");
 }
 
 @font-face {
   font-family:"EBGaramond-Smallcaps";
-  src: url("../typefaces/EB_Garamond/EBGaramond-Smallcaps.ttf") format('truetype');
+  src: url("../typefaces/EB_Garamond_mac/EBGaramond12-AllSC.ttf");
 }
-
 
 //GLOBALS
 
@@ -151,7 +151,7 @@
 
 }
 ::-webkit-scrollbar-thumb:vertical:active {
-  background: #F6F6F6; /* Some darker color when you click it */
+  background: #EEEEEE; /* Some darker color when you click it */
   //-webkit-border-radius: 100px 0 0 100px;
 }
 
@@ -195,6 +195,8 @@
   line-height: 20px;
   color: #333;
   text-rendering:optimizelegibility;
+  -webkit-user-select: none;
+  user-select: none;
 
 }
 
@@ -235,6 +237,7 @@ img
       padding:0;
       background-color: @bgcolor;
       margin-bottom:10px;
+      cursor: pointer;
     }
 
     .menubutton()
@@ -289,7 +292,6 @@ img
 
     .avatar-button
     {
-      border:0;
       border:2px solid #444;
       width:38px;
       height:38px;
@@ -297,11 +299,10 @@ img
       padding:0;
       border-radius:3px;
       box-shadow: 0 1px 0 1px #222;
-      -webkit-transition: all ease 0.2s;
+      -webkit-transition: all ease 0.2s, border-color ease 0.25s;
       position:relative;
       -webkit-filter:  ~"saturate(50%)"; //" // This is broken in less package
       -webkit-transform: translateZ(0);
-      -webkit-transition: border-color ease 0.25s;
 
       &:hover
       {
@@ -339,6 +340,7 @@ img
     #home-icon
     {
       .icon;
+      margin-top:1px;
     }
 
     #saved-items-button
@@ -350,6 +352,7 @@ img
     #saved-items-icon
     {
       .icon;
+      margin-top: 2px;
     }
 
     #topics-button
@@ -358,9 +361,22 @@ img
       .menubutton;
     }
 
+    #threads-button
+    {
+      .button(#999);
+      .menubutton;
+    }
+
+    #threads-icon
+    {
+      .icon;
+      margin-top: 2px;
+    }
+
     #topics-icon
     {
       .icon;
+      margin-top: 4px;
     }
 
     #settings-button
@@ -372,7 +388,37 @@ img
     #settings-icon
     {
       .icon;
+      margin-top:1px;
     }
+
+    #profile-button
+    {
+      .button(#999);
+      .menubutton;
+    }
+
+    #profile-icon
+    {
+      .icon;
+      margin-top:1px;
+    }
+
+    #replies-button
+    {
+      .button(#999);
+      .menubutton;
+    }
+
+    #replies-icon
+    {
+      .icon;
+    }
+
+    .replies-icon-lightup
+    {
+      color:#fff !important;
+    }
+
 
     #aether-brand
     {
@@ -396,7 +442,7 @@ img
     {
       width: 11px;
       height: 11px;
-      background-color: #333;
+      background-color: #111;
       border-radius: 6px;
       margin-left: 12px;
       position:relative;
@@ -407,7 +453,7 @@ img
     {
       width: 3px;
       height: 15%;
-      background-color: #333;
+      background-color: #111;
       margin-left: 16px;
       margin-top: -1px;
       margin-bottom: -1px;
@@ -417,7 +463,7 @@ img
 
     .lightup
     {
-      background-color:#FFF;
+      background-color:#fff;
     }
   }
 }
@@ -435,6 +481,11 @@ img
 
   // Below are specific containers in the second frame.
 
+  .bold-text
+  {
+    font-family: "SourceSansPro-Black", "Arial Narrow Bold", sans-serif;
+  }
+
   .aether-button
   {
     display: inline-block;
@@ -446,7 +497,7 @@ img
     text-align: center;
     -webkit-transition: background-color ease 0.8s, color ease 0.8s, border-color ease 0.8s;
     text-transform: uppercase;
-    font-family: "SourceSansPro-Bold";
+    font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
     padding-top: 8px;
     font-size: 15px;
 
@@ -512,7 +563,7 @@ img
     border-color:#666;
     color:#333;
     opacity:0.1;
-    webkit-animation:none;
+    -webkit-animation:none;
 
     &:hover
     {
@@ -524,17 +575,53 @@ img
   {
     width:100%;
     height:100%;
+
+    .waiting-spinner
+    {
+      height:100%;
+      width:80%;
+      display:-webkit-flex;
+      -webkit-flex-direction: column;
+      background-color:#eee;
+
+      .aether-logo-main
+      {
+        margin:auto auto 15px auto;
+      }
+
+      .loading-text
+      {
+        margin:15px auto auto auto;
+        text-align:center;
+        width:400px;
+
+        font-family: "SourceSansPro-Regular", "Arial Narrow Bold", sans-serif;
+        font-size: 18px;
+        line-height: 140%;
+
+        em
+        {
+          font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
+          font-size:24px;
+          margin-bottom:20px;
+          display:inline-block;
+        }
+      }
+
+    }
     .topic-boxes-holder
     {
       // -webkit-column-count:6;
       // -webkit-column-gap:10px;
-      height:100%;
+      //height:100%;
+      width:80%;
+      margin-bottom:20px;
 
       .topic-box
       {
         min-height: 150px;
         width: 18%;
-        font-family: "SourceSansPro-Black";
+        font-family: "SourceSansPro-Black", "Arial Narrow Bold", sans-serif;
         font-size: 17px;
         color: #ffffff;
         line-height: 108%;
@@ -585,7 +672,7 @@ img
           font-size: 36px;
           float: right;
           margin-top: 12px;
-          color:#F6F6F6;
+          color:#EEEEEE;
           letter-spacing:1px;
 
 
@@ -613,7 +700,7 @@ img
 
         .topic-count
         {
-          color:#F6F6F6;
+          color:#EEEEEE;
         }
 
         &:hover
@@ -648,7 +735,7 @@ img
         {
           background-color: #FFF;
 
-          font-family: "SourceSansPro-Black";
+          font-family: "SourceSansPro-Black", "Arial Narrow Bold", sans-serif;
           font-size: 17px;
           line-height: 108%;
           letter-spacing: 0;
@@ -656,6 +743,12 @@ img
           color: #111;
           padding: 7px 10px 5px 6px;
           min-height:74px;
+          -webkit-user-select: text;
+          user-select: text;
+          width:100%;
+          -webkit-appaearance:none;
+          border:none;
+          resize:vertical;
 
         }
 
@@ -668,7 +761,7 @@ img
           border: 3px solid #FFF;
           padding: 1px 4px;
           text-align: center;
-          font-family: "SourceSansPro-Bold";
+          font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
           -webkit-transition: background-color ease 0.4s, color ease 0.4s, border-color ease 0.4s;
           font-size: 12px;
           margin: 8px 0 0 0;
@@ -691,7 +784,7 @@ img
 
         .topic-letter-remaining
         {
-          font-family: "Oswald-Bold", sans-serif;
+          font-family: "Oswald-Bold", "Arial Narrow Bold", sans-serif;
           display: inline-block;
           font-size: 18px;
           text-align: right;
@@ -745,18 +838,20 @@ img
       display:-webkit-flex;
       .subject-name-entry
       {
-        background-color: #F6F6F6;
+        background-color: #EEEEEE;
         box-sizing: border-box;
         width: 100%;
         padding: 15px 15px 15px 15px;
         font-size: 24px;
         color: #333;
-        font-family: "Oswald-Regular", sans-serif;
+        font-family: "Oswald-Regular", "Arial Narrow Bold", sans-serif;
         font-weight: normal;
         line-height: 146%;
         margin-bottom: 10px;
         margin-top: 10px;
         word-break: break-word;
+        -webkit-user-select: text;
+        user-select: text;
 
         &:focus
         {
@@ -766,8 +861,8 @@ img
 
       .subject-name-entry-remaining
       {
-        -webkit-flex: 1;
-        font-family: "Oswald-Bold", sans-serif;
+        //-webkit-flex: 1;
+        font-family: "Oswald-Bold", "Arial Narrow Bold", sans-serif;
         color: #EEE;
         margin: auto;
         font-size: 19px;
@@ -783,17 +878,19 @@ img
 
     .subject-body-entry
     {
-      background-color: #F6F6F6;
+      background-color: #EEEEEE;
       box-sizing: border-box;
       width: 100%;
       padding: 15px 15px 11px 15px;
-      font-family: "EBGaramond-Regular";
+      font-family: "EBGaramond-Regular", serif;
       color: #333;
       font-size: 19px;
       line-height: 155%;
       overflow: hidden;
       display: inline-block;
       -webkit-flex:1;
+      -webkit-user-select: text;
+      user-select: text;
 
       &:focus
       {
@@ -816,7 +913,7 @@ img
         border: 3px solid #111;
         padding: 8px;
         text-align: center;
-        font-family: "SourceSansPro-Bold";
+        font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
         -webkit-transition: background-color ease 0.8s, color ease 0.8s, border-color ease 0.8s;
 
         //margin: 9px 0 0 9px;
@@ -862,8 +959,19 @@ img
 
   }
 
-  #settings
+  #settings, #unregistered-user-profile
   {
+
+    .settings-h2
+    {
+      margin-bottom: 20px;
+      margin-top: 20px;
+      line-height: 20px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size:17px;
+      font-family: "Oswald-Regular", "Arial Narrow Bold", sans-serif;
+    }
 
     .settings-ok-button
     {
@@ -874,8 +982,9 @@ img
       border: 3px solid #111;
       padding: 0 15px;
       text-align: center;
-      font-family: "SourceSansPro-Bold";
+      font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
       -webkit-transition: background-color ease 0.8s, color ease 0.8s, border-color ease 0.8s;
+      line-height:245%;
 
       &:hover
       {
@@ -896,7 +1005,7 @@ img
     .question-explanation, .question-name, .aether-radio-item
     {
       font-size: 18px;
-      font-family: "SourceSansPro-Semibold";
+      font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
       line-height: 27px;
     }
 
@@ -915,7 +1024,7 @@ img
     .radio-item-text
     {
       font-size: 15px;
-      font-family: "SourceSansPro-Semibold";
+      font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
       line-height: 27px;
       letter-spacing: 1px;
     }
@@ -924,7 +1033,7 @@ img
     {
       margin-bottom: 22px;
       margin-top: 10px;
-      background-color: #F6F6F6;
+      background-color: #EEEEEE;
       box-sizing: border-box;
       padding: 11px 45px 10px 15px;
       display: inline-block;
@@ -944,7 +1053,7 @@ img
 
     .language-header
     {
-      font-family: "SourceSansPro-Semibold";
+      font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
     }
 
     .possible-langs
@@ -954,11 +1063,11 @@ img
 
       .lang-button
       {
-        background-color:#F6F6F6;
+        background-color:#EEEEEE;
         box-sizing:border-box;
         padding:2px 7px 0px 7px;
-        font-family: "SourceSansPro-Semibold";
-        border: 3px solid #F6F6F6;
+        font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
+        border: 3px solid #EEEEEE;
         -webkit-transition: border-color ease 0.4s, background-color ease 0.4s;
         display:inline-block;
         font-size:14px;
@@ -977,7 +1086,7 @@ img
       }
       .russian
       {
-        font-family: "SourceSansPro-Regular";
+        font-family: "SourceSansPro-Regular", "Arial Narrow Bold", sans-serif;
       }
     }
 
@@ -992,7 +1101,7 @@ img
       {
         font-size: 15px;
         line-height: 170%;
-        font-family: "SourceSansPro-Regular";
+        font-family: "SourceSansPro-Regular", "Arial Narrow Bold", sans-serif;
         box-sizing: border-box;
         padding: 8px 15px 7px 10px;
         max-width: 100%;
@@ -1006,7 +1115,7 @@ img
       .field-name
       {
         font-size: 14px;
-        font-family: "SourceSansPro-Bold";
+        font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
         line-height: 27px;
         margin: 0;
         letter-spacing: 1px;
@@ -1020,14 +1129,14 @@ img
     .pane-header
     {
 
-      font-family: "Oswald-Bold";
+      font-family: "Oswald-Bold", "Arial Narrow Bold", sans-serif;
       font-size: 32px;
       text-align: left;
       width: 100%;
       display: inline-block;
       line-height: 120%;
 
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       margin-top: 3px;
       color: #666;
     }
@@ -1040,7 +1149,7 @@ img
     h2
     {
 
-      font-family: "SourceSansPro-Bold";
+      font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
       font-size: 22px;
       margin-bottom: 10px;
       margin-top: 4px;
@@ -1053,7 +1162,7 @@ img
       line-height: 20px;
       text-transform: uppercase;
       letter-spacing: 3px;
-      font-family: "Oswald-Regular";
+      font-family: "Oswald-Regular", "Arial Narrow Bold", sans-serif;
       margin-bottom: 13px;
     }
 
@@ -1064,7 +1173,7 @@ img
       line-height: 20px;
       text-transform: uppercase;
       letter-spacing: 3px;
-      font-family: "EBGaramond-Regular";
+      font-family: "EBGaramond-Regular", serif;
       margin-bottom: 5px;
       margin-top: 0;
     }
@@ -1075,7 +1184,7 @@ img
 
       .inline-link
       {
-        font-family:"EBGaramond-Regular";
+        font-family:"EBGaramond-Regular", serif;
         font-size:18px;
       }
 
@@ -1094,7 +1203,7 @@ img
       a
       {
         color:@aether-green-hover*0.7;
-        font-family: "SourceSansPro-Semibold", sans-serif;
+        font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
         display:inline-block;
         font-size:14px;
 
@@ -1117,8 +1226,9 @@ img
       em
       {
       font-family: "EBGaramond-Smallcaps", serif;
-      font-size:16px;
+      //font-size:12px;
       letter-spacing:1px;
+      //text-transform:uppercase;
       }
 
       em.numbers
@@ -1190,12 +1300,12 @@ img
       {
         font-size: 22px;
         line-height: 170%;
-        font-family: "SourceSansPro-Regular";
+        font-family: "SourceSansPro-Regular", "Arial Narrow Bold", sans-serif;
         box-sizing: border-box;
         padding: 5px 15px 5px 10px;
         max-width: 100%;
         display: inline-block;
-        background-color: #F6F6F6;
+        background-color: #EEEEEE;
         min-width: 200px;
         border:none;
         margin-left:0;
@@ -1285,7 +1395,7 @@ img
         line-height: 20px;
         text-transform: none;
         letter-spacing: 3px;
-        font-family: "Oswald-Regular";
+        font-family: "Oswald-Regular", "Arial Narrow Bold", sans-serif;
         margin-bottom: 30px;
       }
 
@@ -1298,14 +1408,13 @@ img
         .license
         {
           box-sizing: border-box;
-          background-color: #F6F6F6;
+          background-color: #EEEEEE;
           width: 100%;
           padding: 45px;
-          font-family: "EBGaramond-Regular";
+          font-family: "EBGaramond-Regular", serif;
           font-size: 17px;
           line-height: 180%;
           padding-top: 33px;
-          padding-left: 45px;
           padding-right: 56px;
 
           a
@@ -1319,7 +1428,7 @@ img
 
         h1, h2, h3, h4, h5, h6
         {
-          font-family:"SourceSansPro-Regular";
+          font-family:"SourceSansPro-Regular", "Arial Narrow Bold", sans-serif;
           margin-top:30px;
           margin-left:-1px;
         }
@@ -1356,12 +1465,11 @@ img
       border: 3px solid #111;
       padding: 8px;
       text-align: center;
-      font-family: "SourceSansPro-Bold";
+      font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
       -webkit-transition: background-color ease 0.4s, color ease 0.4s;
       float:right;
       cursor:pointer;
-      margin-top:37px;
-      width:200px;
+      width:225px;
 
       &:hover
       {
@@ -1391,7 +1499,7 @@ img
       {
         font-size: 18px;
         color: #333;
-        font-family: "Oswald-Bold",sans-serif;
+        font-family: "Oswald-Bold","Arial Narrow Bold", sans-serif;
         font-weight: normal;
         line-height: 130%;
         margin-top:0;
@@ -1404,9 +1512,15 @@ img
     {
 
       margin-left:0;
+
       .centered-header-text
       {
         text-align:center;
+      }
+
+      #header-text.centered-header-text
+      {
+         width:100%;
       }
     }
 
@@ -1423,6 +1537,7 @@ img
     .centered-counters
     {
       margin-left:0;
+      color:#999;
     }
 
     .text
@@ -1458,14 +1573,16 @@ img
 
     .subject-body-entry
     {
-      background-color: #F6F6F6;
+      background-color: #EEEEEE;
       box-sizing: border-box;
       width: 100%;
       padding: 25px 25px 35px 25px;
-      font-family: "EBGaramond-Regular";
+      font-family: "EBGaramond-Regular", serif;
       color: #333;
       font-size: 19px;
       line-height: 160%;
+      -webkit-user-select: text;
+      user-select: text;
       &:focus
       {
         outline:none;
@@ -1488,7 +1605,7 @@ img
         border: 3px solid #111;
         padding: 8px;
         text-align: center;
-        font-family: "SourceSansPro-Bold";
+        font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
         -webkit-transition: background-color ease 0.4s, color ease 0.4s, border-color ease 0.4s;
 
         &:hover
@@ -1543,7 +1660,7 @@ img
     .meta
     {
       margin:0 auto;
-      width:157px;
+      width:126px;
       margin-top: 13px;
       margin-bottom: 30px;
     }
@@ -1565,7 +1682,7 @@ img
 
       .home-column-1, .home-column-2, .home-column-3
       {
-        width:32%;
+        width:31%;
         height:100%;
         display:inline-block;
         padding-left:18px;
@@ -1612,32 +1729,11 @@ img
       margin-top:23px;
       margin-bottom:10px;
     }
-    .mark-all-as-read-button
-    {
-      display: inline-block;
-      box-sizing: border-box;
-      height: 40px;
-      color: #111;
-      border: 3px solid #111;
-      padding: 8px;
-      text-align: center;
-      font-family: "SourceSansPro-Bold";
-      -webkit-transition: background-color ease 0.4s, color ease 0.4s;
-      float:right;
-      cursor:pointer;
-      width:200px;
 
-      &:hover
-      {
-        text-decoration: none;
-        background-color: #DDD;
-      }
-    }
 
     #subject-header
     {
       width:auto;
-      color:#111;
       margin-top:0;
     }
 
@@ -1658,7 +1754,7 @@ img
 
       #feed-header
       {
-        font-family: "Oswald-Bold";
+        font-family: "Oswald-Bold", "Arial Narrow Bold", sans-serif;
         font-size: 32px;
         text-align: left;
         width: 100%;
@@ -1671,8 +1767,20 @@ img
 
     .items-feed-container
     {
-      -webkit-column-count:2;
-      -webkit-column-gap:20px;
+
+      display: -webkit-flex;
+      .left-column
+      {
+         -webkit-flex:3;
+        box-sizing:border-box;
+        padding-right:10px;
+      }
+      .right-column
+      {
+        -webkit-flex:3;
+        box-sizing:border-box;
+        padding-left:10px;
+      }
 
     }
 
@@ -1748,7 +1856,7 @@ img
         {
           font-size: 22px;
           line-height: 180%;
-          font-family: "EBGaramond-Regular";
+          font-family: "EBGaramond-Regular", serif;
           height: 80%;
 
         }
@@ -1772,7 +1880,7 @@ img
       {
         .header
         {
-          font-family: "SourceSansPro-Semibold";
+          font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
           font-size: 14px;
           height: 30px;
           margin-top: 10px;
@@ -1801,7 +1909,7 @@ img
         height: 50px;
         width: 400px;
         left: 430px;
-        font-family:"SourceSansPro-Semibold";
+        font-family:"SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
 
         @-webkit-keyframes fadeinout {
           0% {color:#FFF;}
@@ -1839,7 +1947,7 @@ img
         &::-webkit-scrollbar {
           width: 5px; //px wider than Lion. */
           //This is more usable for users trying to click it.
-          background-color: #F6F6F6;
+          background-color: #EEEEEE;
           //-webkit-border-radius: 100px 0 0 100px;
         }
         //hover effect for both scrollbar area, and scrollbar 'thumb'
@@ -1863,14 +1971,13 @@ img
         .license
         {
           box-sizing: border-box;
-          background-color: #F6F6F6;
+          background-color: #EEEEEE;
           width: 100%;
           padding: 45px;
-          font-family: "EBGaramond-Regular";
+          font-family: "EBGaramond-Regular", serif;
           font-size: 17px;
           line-height: 180%;
           padding-top: 33px;
-          padding-left: 45px;
           padding-right: 56px;
 
 
@@ -1878,7 +1985,7 @@ img
           a
           {
             color:#333;
-            font-family: "SortsMillGoudy-Italic";
+            font-family: "SortsMillGoudy-Italic", serif;
             text-decoration:underline;
           }
         }
@@ -1886,7 +1993,7 @@ img
 
         h1, h2, h3, h4, h5, h6
         {
-          font-family:"SourceSansPro-Regular";
+          font-family:"SourceSansPro-Regular", "Arial Narrow Bold", sans-serif;
           margin-top:30px;
           margin-left:-1px;
         }
@@ -1905,7 +2012,7 @@ img
       {
         font-size:17px;
         line-height:158%;
-        font-family: "EBGaramond-Regular";
+        font-family: "EBGaramond-Regular", serif;
         height:80%;
 
         .left-container, .middle-container, .right-container
@@ -1924,7 +2031,7 @@ img
         .license
         {
           box-sizing: border-box;
-          background-color: #F6F6F6;
+          background-color: #EEEEEE;
           width: 100%;
           padding: 45px;
           padding-top: 33px;
@@ -1945,7 +2052,7 @@ img
       {
         font-size:13px;
         color:#999;
-        font-family:'SourceSansPro-Semibold';
+        font-family:'SourceSansPro-Semibold', "Arial Narrow Bold", sans-serif;
       }
     }
 
@@ -1956,12 +2063,12 @@ img
       {
         font-size: 22px;
         line-height: 170%;
-        font-family: "SourceSansPro-Regular";
+        font-family: "SourceSansPro-Regular", "Arial Narrow Bold", sans-serif;
         box-sizing: border-box;
         padding: 5px 15px 5px 10px;
         max-width: 100%;
         display: inline-block;
-        background-color: #F6F6F6;
+        background-color: #EEEEEE;
         min-width: 200px;
         border:none;
         margin-left:0;
@@ -1970,7 +2077,7 @@ img
       .field-name
       {
         font-size: 14px;
-        font-family: "SourceSansPro-Bold";
+        font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
         line-height: 27px;
         margin: 0;
         letter-spacing: 1px;
@@ -2001,7 +2108,7 @@ img
         {
           font-size: 15px;
           line-height: 170%;
-          font-family: "SourceSansPro-Regular";
+          font-family: "SourceSansPro-Regular", "Arial Narrow Bold", sans-serif;
           box-sizing: border-box;
           padding: 8px 15px 7px 10px;
           max-width: 100%;
@@ -2015,7 +2122,7 @@ img
         .field-name
         {
           font-size: 14px;
-          font-family: "SourceSansPro-Bold";
+          font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
           line-height: 27px;
           margin: 0;
           letter-spacing: 1px;
@@ -2025,7 +2132,7 @@ img
       .question-explanation, .question-name, .aether-radio-item
       {
         font-size: 18px;
-        font-family: "SourceSansPro-Semibold";
+        font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
         line-height: 27px;
       }
 
@@ -2038,7 +2145,7 @@ img
       .radio-item-text
       {
         font-size: 15px;
-        font-family: "SourceSansPro-Semibold";
+        font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
         line-height: 27px;
         letter-spacing: 1px;
       }
@@ -2047,7 +2154,7 @@ img
       {
         margin-bottom: 22px;
         margin-top: 10px;
-        background-color: #F6F6F6;
+        background-color: #EEEEEE;
         box-sizing: border-box;
         padding: 10px 15px 10px 15px;
       }
@@ -2060,7 +2167,7 @@ img
 
       .language-header
       {
-        font-family: "SourceSansPro-Semibold";
+        font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
       }
 
       .possible-langs
@@ -2070,11 +2177,11 @@ img
 
         .lang-button
         {
-          background-color:#F6F6F6;
+          background-color:#EEEEEE;
           box-sizing:border-box;
           padding:2px 7px 0px 7px;
-          font-family: "SourceSansPro-Semibold";
-          border: 3px solid #F6F6F6;
+          font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
+          border: 3px solid #EEEEEE;
           -webkit-transition: border-color ease 0.4s, background-color ease 0.4s;
           display:inline-block;
           font-size:14px;
@@ -2093,7 +2200,7 @@ img
         }
         .russian
         {
-          font-family: "SourceSansPro-Regular";
+          font-family: "SourceSansPro-Regular", "Arial Narrow Bold", sans-serif;
         }
       }
     }
@@ -2110,6 +2217,7 @@ img
         display:inline-block;
         font-size: 17px;
         line-height: 158%;
+        float:left;
       }
       .left-column
       {
@@ -2120,8 +2228,6 @@ img
       {
         padding-right:5px;
         width:50%;
-        position: relative;
-        bottom: 9px;
       }
 
       .onboarding-body
@@ -2163,7 +2269,7 @@ img
     {
       background-color:#FFF;
       padding: 15px 10px 5px 10px;
-      border: 10px solid #FAFAFA;
+      border: 10px solid #eeeeee;
       display:inline-block;
       margin-bottom:20px;
       -webkit-transition:border-color ease 0.8s;
@@ -2222,7 +2328,7 @@ img
     {
       font-size: 18px;
       color: #444;
-      font-family: "Oswald-Bold", sans-serif;
+      font-family: "Oswald-Bold", "Arial Narrow Bold", sans-serif;
       font-weight: normal;
       line-height: 130%;
       margin-bottom: 10px;
@@ -2237,13 +2343,13 @@ img
     box-sizing:border-box;
     padding: 17px 35px 15px 15px;
     margin-bottom:20px;
-    border-left: 10px solid #F6F6F6;
+    border-left: 10px solid #EEEEEE;
     -webkit-transition: background-color ease 0.4s;
     background-color:#FFF;
 
     &:hover
     {
-      background-color:#F6F6F6;
+      background-color:#EEEEEE;
     }
 
     .content-area
@@ -2298,7 +2404,7 @@ img
       .owner-information
       {
         display:inline-block;
-        font-family: "SourceSansPro-Semibold";
+        font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
         font-size: 14px;
         margin-left:2px;
 
@@ -2313,7 +2419,7 @@ img
       {
         font-size: 17px;
         color: #444;
-        font-family: "Oswald-Bold", sans-serif;
+        font-family: "Oswald-Bold", "Arial Narrow Bold", sans-serif;
         font-weight: normal;
         line-height: 145%;
         display: block;
@@ -2337,7 +2443,7 @@ img
         .time
         {
           display:inline;
-          font-family: "SourceSansPro-Italic";
+          font-family: "SourceSansPro-Italic", "Arial Narrow Bold", sans-serif;
           padding-left:10px;
           font-size:15px;
         }
@@ -2373,7 +2479,7 @@ img
 
     .column-1, .column-2, .column-3
     {
-      width:31.592%;
+      width:31%;
       height:100%;
       display:inline-block;
       padding-left:18px;
@@ -2388,16 +2494,14 @@ img
 
   .inline-owner
   {
-    background-color: white;
     border-radius: 2px;
     box-sizing: border-box;
     display: inline;
-    padding: 1px 2px 1px 3px;
     margin-right: 4px;
 
     .owner-name
     {
-      font-family: "SourceSansPro-Semibold";
+      font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
     }
 
     .header-aether-sign
@@ -2440,7 +2544,7 @@ img
   .date-picker
   {
     display: inline-block;
-    font-family: "SourceSansPro-Semibold";
+    font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
     box-sizing: border-box;
     padding: 2px 5px 3px 5px;
     line-height: 12px;
@@ -2492,17 +2596,19 @@ img
   .comment-owner
   {
     margin-left: 5px;
-    font-family: "SourceSansPro-Semibold";
+    font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
     font-size: 15px;
-    -webkit-transition: background-color ease 0.4s;
+    -webkit-transition: background-color ease 0.4s, color ease 0.4s;
     box-sizing: border-box;
     padding: 1px 0px 1px 4px;
     border-radius: 3px;
     cursor: pointer;
+    color:#999;
 
     &:hover
     {
-      background-color:#F6F6F6;
+      background-color:#AAA;
+      color:#FFF;
     }
 
 
@@ -2521,22 +2627,28 @@ img
   {
     .framecontents;
     padding:15px 30px 0 30px;
-    font-family: "SourceSansPro-Regular";
+    font-family: "SourceSansPro-Regular", "Arial Narrow Bold", sans-serif;
     height:100%;
 
   }
   #subject-header
   {
-    width: 80%;
+    width: 100%;
+    position:relative;
 
     .meta
     {
-      margin-top:10px;
+      display: inline-block;
+      position: absolute;
+      top: 5px;
+      right: 10%;
     }
 
     .counters
     {
       margin-right:10px;
+      color:#999;
+
     }
   }
 
@@ -2544,18 +2656,20 @@ img
   {
     font-size: 28px;
     color: #333;
-    font-family: "Oswald-Bold", sans-serif;
+    font-family: "Oswald-Bold", "Arial Narrow Bold", sans-serif;
     font-weight: normal;
     line-height: 140%;
     margin-bottom: 0;
     margin-top: 25px;
+    width:80%;
   }
 
   #header-date
   {
-    font-family: "SourceSansPro-Italic";
+    font-family: "SourceSansPro-Italic", "Arial Narrow Bold", sans-serif;
     padding-left: 10px;
     font-size: 15px;
+    color:#999;
   }
 
   .header-aether-sign
@@ -2567,18 +2681,20 @@ img
   {
 
     margin-left: 5px;
-    font-family: "SourceSansPro-Semibold";
+    font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
     font-size: 15px;
-    -webkit-transition: background-color ease 0.4s;
+    -webkit-transition: background-color ease 0.4s, color ease 0.4s;
     box-sizing: border-box;
     padding: 1px 0px 1px 4px;
     border-radius: 3px;
     cursor: pointer;
+    color:#999;
 
 
     &:hover
     {
-      background-color:#F6F6F6;
+      background-color:#AAA;
+      color:#FFF;
     }
 
     .owner-name
@@ -2611,7 +2727,6 @@ img
         font-size:19px;
         width:90%;
         line-height:160%;
-        margin-top:10px;
         color:#333;
         font-family:"EBGaramond-Regular", serif;
         margin:25px 0 10px 0;
@@ -2621,7 +2736,7 @@ img
     .counters
     {
 
-    font-family: "Oswald-Bold";
+    font-family: "Oswald-Bold", "Arial Narrow Bold", sans-serif;
     margin-left:1px;
     margin-top:7px;
     display:inline-block;
@@ -2733,22 +2848,23 @@ img
   .icon
   {
     cursor:pointer;
-    -webkit-transition: color, 0.4s;
-    -webkit-transition: background-color, 0.4s;
-    margin: 0 3px;
-    background-color: #EEE;
+    -webkit-transition: color ease 0.4s, background-color ease 0.4s;
+    //margin: 0 3px;
+    margin:0;
+    background-color: #fff;
     //border-radius: 2px;
-    padding:4px;
+    padding:7px;
     //box-shadow: 1px 1px 0px 1px #CCC;
     display:inline-block;
-    color:#FFF;
-    width:22px;
-    height:22px;
+    color:#111;
+    width:29px;
+    height:29px;
     box-sizing:border-box;
 
     &:hover
     {
       background-color:@aether-green-hover;
+      color:#111;
     }
   }
 
@@ -2758,42 +2874,40 @@ img
   {
     .icon;
 
-    &:hover
-    {
-      color:@aether-green-hover*0.8;
-    }
+//    &:hover
+//    {
+//      color:@aether-green-hover*0.8;
+//    }
   }
 
   .downvote-icon
   {
     .icon;
-    &:hover
-    {
-      color:@aether-green-hover*0.8;
-    }
+//    &:hover
+//    {
+//      color:@aether-green-hover*0.8;
+//    }
   }
 
   .save-icon
   {
     .icon;
-    padding-left:6px;
-    &:hover
-    {
-      color:@aether-green-hover*0.8;
-    }
+    padding-left:9px;
+//    &:hover
+//    {
+//      color:@aether-green-hover*0.8;
+//    }
   }
 
   .share-icon
   {
     .icon;
-    padding-top:4px;
-    padding-left:5px;
     //position:relative;
     //top:1px;
-    &:hover
-    {
-      color:@aether-green-hover*0.8;
-    }
+//    &:hover
+//    {
+//      color:@aether-green-hover*0.8;
+//    }
   }
 
   .hide-switch
@@ -2814,7 +2928,7 @@ img
     .icon;
     &:hover
     {
-      color:@aether-green-hover*0.8;
+      //color:@aether-green-hover*0.8;
     }
   }
 
@@ -2832,7 +2946,7 @@ img
       margin-top: 0;
       font-size: 19px;
       line-height: 160%;
-      font-family: "EBGaramond-Regular";
+      font-family: "EBGaramond-Regular", serif;
       width: 90%;
 
     }
@@ -2860,7 +2974,7 @@ img
         margin-top: 0;
         font-size: 19px;
         line-height: 160%;
-        font-family: "EBGaramond-Regular";
+        font-family: "EBGaramond-Regular", serif;
         width: 90%;
       }
 
@@ -2889,13 +3003,14 @@ img
     {
       margin-top:0;
       margin-bottom:5px;
+      color:#999;
     }
     .text
     {
-      margin-top: 0;
+      margin-top: 12px;
       font-size: 19px;
       line-height: 160%;
-      font-family: "EBGaramond-Regular";
+      font-family: "EBGaramond-Regular", serif;
     }
     .hide-icon
     {
@@ -2957,17 +3072,18 @@ img
   }
   .topic-block-header
   {
-    text-align:center;
     h1
     {
-      font-family: "SourceSansPro-Black";
+      font-family: "SourceSansPro-Black", "Arial Narrow Bold", sans-serif;
       font-size: 19px;
-      color: #999;
-      border-top: 3px solid #FAFAFA;
-      border-bottom: 3px solid #FAFAFA;
+      color: #333;
+      border-left: 3px solid #333;
+      border-right: 3px solid #333;
       box-sizing: border-box;
       padding: 13px 0 10px 0;
       letter-spacing: 2px;
+      background-color: #eee;
+      padding-left: 10px;
     }
     margin-bottom:10px;
   }
@@ -3296,6 +3412,7 @@ img
 {
   .frame(@third-frame-width);
   background-color:#111;
+  display:none;
 
   #third-frame-contents
   {
@@ -3338,17 +3455,19 @@ img
           margin: auto;
           width: 200px;
           height: 120px;
-          font-family: 'Oswald-Regular';
+          font-family: 'Oswald-Regular', "Arial Narrow Bold", sans-serif;
           font-size: 24px;
           text-align: center;
           line-height: 140%;
-          color: #F6F6F6;
+          color: #EEEEEE;
           letter-spacing: 1px;
+          padding-right: 5px;
         }
         .newborn
         {
           height: 115px;
           letter-spacing: 1px;
+          padding-right: 5px;
         }
       }
 
@@ -3359,7 +3478,7 @@ img
         box-sizing:border-box;
         padding:8px 15px;
         border-bottom: 1px solid #333;
-        font-family: "SourceSansPro-Semibold";
+        font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
         font-size: 15px;
         cursor: pointer;
         -webkit-transition: background-color, 0.5s;
@@ -3423,12 +3542,12 @@ img
     {
       display:-webkit-flex;
       -webkit-flex-direction:column;
-      height:100%;
+      min-height:100%;
 
       .post-item, .subject-item
       {
         overflow: hidden;
-        border-left: 15px solid #F6F6F6;
+        border-left: 15px solid #EEEEEE;
       }
 
       .subject-item
@@ -3446,23 +3565,33 @@ img
 
       #third-frame-header
       {
-
         border-bottom:0;
+        position:static;
+        width:100%;
 
         .enlarge-icon
         {
-          .secondary-icon
+          .secondary-icon;
+          float:right;
+          position:static;
+          margin-right:0;
         }
+      }
+
+      #third-frame-header-space-holder
+      {
+        height:26px;
+        width:100%;
       }
 
 
       .create-box
       {
-        background-color: #f6f6f6;
+        background-color: #EEEEEE;
         box-sizing: border-box;
         width: 100%;
         padding: 20px;
-        font-family: "EBGaramond-Regular";
+        font-family: "EBGaramond-Regular", serif;
         color: #333;
         font-size: 19px;
         line-height: 160%;
@@ -3470,6 +3599,11 @@ img
         -webkit-flex: 1;
         white-space: pre-line;
         letter-spacing: 0;
+        -webkit-user-select: text;
+        user-select: text;
+        -webkit-appearance: none;
+        border: none;
+        margin: 0;
         &:focus
         {
           outline: none;
@@ -3480,7 +3614,7 @@ img
       .create-buttons
       {
           height:57px;
-          background-color: #f6f6f6;
+          background-color: #EEEEEE;
 
         .create-button
         {
@@ -3491,7 +3625,7 @@ img
           border: 3px solid #444;
           padding: 8px;
           text-align: center;
-          font-family: "SourceSansPro-Bold";
+          font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
           -webkit-transition: background-color ease 0.4s, color ease 0.4s, border-color ease 0.4s;
           margin: 9px 9px 0 9px;
 
@@ -3550,7 +3684,7 @@ img
 
       .create-box
       {
-        padding: 24px 30% 15px 46px !important;
+        padding: 24px 30% 15px 25px !important;
         font-size: 22px !important;
         line-height: 150% !important;
         // this is happening because create-feed-lite is an id but
@@ -3575,7 +3709,7 @@ img
         box-sizing: border-box;
         padding: 8px 15px;
         border-bottom: 1px solid #333;
-        font-family: "SourceSansPro-Semibold";
+        font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
         font-size: 15px;
         cursor: pointer;
         -webkit-transition: background-color, 0.5s;
@@ -3601,8 +3735,8 @@ img
     .secondary-icon
     {
       color: white;
-      float: right;
-      margin-top: 1px;
+      //float: right;
+      //margin-top: 1px;
       width: 30px;
       height: 25px;
       margin-right: -10px;
@@ -3610,6 +3744,9 @@ img
       padding: 5px 7px;
       -webkit-transition: background-color ease 0.4s, color ease 0.1s;
       cursor:pointer;
+      position:relative;
+      left:26px;
+
 
       &:hover
       {
@@ -3669,7 +3806,7 @@ img
       .subject-part()
       {
         display:inline-block;
-        font-size: 90%;
+        font-size: 13px;
         line-height: 140%;
 
         width:100%;
@@ -3680,7 +3817,7 @@ img
         display: inline-block;
         line-height: 170%;
         width: 100%;
-        font-family: "Oswald-Regular", sans-serif;
+        font-family: "Oswald-Regular", "Arial Narrow Bold", sans-serif;
         font-size: 13px;
         margin-bottom: 5px;
       }
@@ -3688,8 +3825,7 @@ img
       .subject-owner
       {
         .subject-part;
-        font-size:13px;
-        font-family:"SourceSansPro-Semibold";
+        font-family:"SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
         display:inline-block;
 
 
@@ -3698,7 +3834,7 @@ img
       .subject-timestamp
       {
         .subject-part;
-        font-family: "SourceSansPro-Italic";
+        font-family: "SourceSansPro-Italic", "Arial Narrow Bold", sans-serif;
         font-size:13px;
         display:inline;
         line-height: 21px;
@@ -3710,7 +3846,7 @@ img
         display:inline;
         text-align:right;
         font-size:11px;
-        font-family:"Oswald-Bold";
+        font-family:"Oswald-Bold", "Arial Narrow Bold", sans-serif;
 
         .counters
         {
@@ -3746,8 +3882,9 @@ img
   {
 
     box-sizing:border-box;
-    width:100%;
+    width:243px;
     padding:0 10px;
+    padding-right:0;
     border-bottom: 1px solid #DDD;
     background-color:#111;
     color:#FFF;
@@ -3763,7 +3900,7 @@ img
       line-height: 16px;
       text-transform: uppercase;
       letter-spacing: 3px;
-      font-family: "Oswald-Bold";
+      font-family: "Oswald-Bold", "Arial Narrow Bold", sans-serif;
       position: relative;
       display: inline-block;
       text-overflow: ellipsis;
@@ -3793,7 +3930,7 @@ img
   height:100%;
 }
 
-#subjects-feed, #saved-items-feed, #replies-feed
+#subjects-feed, #saved-items-feed, #replies-feed, #unregistered-user-profile
 {
 
   #subject-header
@@ -3838,21 +3975,22 @@ img
     {
       display: inline-block;
       text-align: center;
-      color:#AAA;
+      color: #333;
+      font-size: 24px;
+      letter-spacing: 1px;
     }
 
     #footer
     {
       width:100%;
-      height:170px;
+      height:120px;
       margin:20px 0;
+      display: -webkit-flex;
 
       #aether-footer-brand
       {
-        width: 170px;
-        height: 170px;
         position: static;
-        margin: 0 auto;
+        margin: auto;
         display: block;
       }
     }
@@ -3863,16 +4001,16 @@ img
       font-size:14px;
       line-height:170%;
       width:70%;
-      color:#CCC;
+      color:#999;
       margin:0 auto;
       display:block;
 
       .error-header
       {
-        font-family: "SourceSansPro-Bold";
+        font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
         font-size: 16px;
         display: block;
-        color: #AAA;
+        color: #333;
         margin-bottom: 10px;
       }
     }
@@ -3901,15 +4039,16 @@ img
     box-sizing: border-box;
     height: 31px;
     color: #BBB;
-    background-color: #F6f6f6;
+    background-color: #EEEEEE;
     border: 3px solid #DDD;
     padding: 3px;
     text-align: center;
-    font-family: "SourceSansPro-Bold";
+    font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
     -webkit-transition: background-color ease 0.4s, color ease 0.4s, border-color ease 0.4s;
     margin-top: 70px;
-    width: 140px;
-    margin-bottom: 18px;
+    width: 175px;
+    margin-bottom: 27px;
+    cursor: pointer;
 
     &:hover
     {
@@ -3933,7 +4072,7 @@ img
 
   #subject-header
   {
-    font-family: "Oswald-Bold";
+    font-family: "Oswald-Bold", "Arial Narrow Bold", sans-serif;
     font-size: 32px;
     text-align: left;
     width: 100%;
@@ -3944,18 +4083,16 @@ img
 
   .subject-item
   {
-    margin-bottom:23px;
-    box-sizing:border-box;
-    display:inline-block;
+    box-sizing: border-box;
+    display: inline-block;
     .curved-bottom;
-    border-left: 3px solid #DDD;
-    border-right: 3px solid #DDD;
-    width:100%;
+    border-top: 3px solid #DDD;
+    width: 100%;
 
     .subject-owner
     {
-      font-family:"SourceSansPro-Semibold";
-      font-size:14px;
+      font-family: "SourceSansPro-SemiboldItalic", "Arial Narrow Bold", sans-serif;
+      color: #999;
     }
 
     .header-bar
@@ -3973,7 +4110,6 @@ img
       padding: 15px 10px 5px 10px;
       cursor:pointer;
       -webkit-transition: background-color, 0.5s;
-      background-color:#FAFAFA;
       &:hover
       {
         background-color:@aether-green-hover;
@@ -3982,13 +4118,12 @@ img
 
     .meta
     {
-      height:22px;
-      width:100%;
-      background-color:white;
-      box-sizing:border-box;
-      margin-top:8px;
-      padding: 1px 5px;
-      padding-top:3px;
+      height: 22px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 8px;
+      padding: 0;
+      color:#999;
 
       .counters
       {
@@ -4001,38 +4136,36 @@ img
         float: right;
         display: inline-block;
         color: #999;
-        font-size: 13px;
-        font-family: "SourceSansPro-Regular";
+        font-family: "SourceSansPro-Regular", "Arial Narrow Bold", sans-serif;
         line-height: 16px;
+        padding-top: 2px;
       }
     }
 
     .owner-information
     {
-      width:100%;
-      background-color:white;
-      box-sizing:border-box;
-      margin-bottom:8px;
-      padding: 0 5px;
-      padding-top:5px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 30px;
+      margin-top:2px;
     }
 
     .header
     {
-      font-size: 15px;
-      color:#333;
-      font-family: "SourceSansPro-Bold";
-      margin-bottom:8px;
-      margin-top:15px;
+      font-size: 18px;
+      color: #111;
+      font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
+      margin-top: 5px;
+      line-height: 130%;
     }
 
     .digest
     {
-      font-family: "SourceSansPro-Regular";
-      font-size: 14px;
-      margin-bottom: 10px;
+      font-family: "SourceSansPro-Regular", "Arial Narrow Bold", sans-serif;
+      font-size: 16px;
+      margin-bottom: 30px;
       margin-right: 5px;
-      line-height: 170%;
+      line-height: 160%;
     }
   }
 
@@ -4099,7 +4232,7 @@ img
   }
   .post-excerpt
   {
-    font-family: "EBGaramond-Regular";
+    font-family: "EBGaramond-Regular", serif;
     font-size: 16px;
     line-height: 140%;
   }
@@ -4109,7 +4242,7 @@ img
     .counters, .post-owner
     {
       display:inline-block;
-      font-family:"Oswald-Bold";
+      font-family:"Oswald-Bold", "Arial Narrow Bold", sans-serif;
       font-size:11px;
 
 
@@ -4121,7 +4254,7 @@ img
     }
     .post-owner
     {
-      font-family:"SourceSansPro-Semibold";
+      font-family:"SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
       font-size:14px;
 
 
@@ -4159,9 +4292,10 @@ img
 
   .comment-datetime
   {
-    font-family: "SourceSansPro-Italic";
+    font-family: "SourceSansPro-Italic", "Arial Narrow Bold", sans-serif;
     padding-left: 10px;
     font-size: 15px;
+    color:#999;
   }
 
 
@@ -4232,7 +4366,7 @@ img
   {
     .icon;
     color:#111;
-    font-family: "EBGaramond-Regular";
+    font-family: "EBGaramond-Regular", serif;
     font-size:22px;
     padding:10px 5px;
     letter-spacing:-1px;
@@ -4287,7 +4421,6 @@ img
       position:absolute;
       top:0;
       right:20px;
-      top: 0px;
       -webkit-transition: opacity ease 0.4s;
 
       .inner
@@ -4338,7 +4471,6 @@ img
 
 .info-bar
 {
-  margin-bottom: 35px;
   margin-top: 16px;
   width:100%;
   border-left: 3px solid #111;
@@ -4346,6 +4478,7 @@ img
   padding-top:20px;
   padding-bottom:12px;
   background-color:@aether-green-hover;
+  box-sizing:border-box;
   //overflow: hidden;
 
   .right-leaning
@@ -4379,7 +4512,7 @@ img
     color: #111;
     border: 2px solid #111;
     background-color: #FFF;
-    font-family: "SourceSansPro-Black";
+    font-family: "SourceSansPro-Black", "Arial Narrow Bold", sans-serif;
     box-sizing: border-box;
     padding: 1px 3px 3px 3px;
     line-height: 12px;
@@ -4456,7 +4589,7 @@ img
 {
   display: block;
   box-sizing: border-box;
-  font-family: "SourceSansPro-Semibold";
+  font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
   font-size: 15px;
   position: relative;
   bottom: 2px;
@@ -4465,9 +4598,9 @@ img
 
 .info-text ~ .info-text
 {
-  width: ;
-  box-sizing: ;
-  padding-left: ;
+  width: none;
+  box-sizing: none;
+  padding-left: none; // These were empty, return if sth is broken. FIXME
 }
 
 .info-text-right
@@ -4542,3 +4675,338 @@ img
   }
 }
 
+.onboarding
+{
+  display:none;
+}
+
+.show-onboarding
+{
+  display:block;
+  //background-color:#DDD !important;
+}
+
+#third-frame-header
+{
+  border-bottom:0;
+  position:fixed;
+  z-index:2;
+}
+
+#third-frame-header-space-holder
+{
+  height:26px;
+  width:100%;
+}
+
+.export-button-single
+{
+  display: block;
+  box-sizing: border-box;
+  height: 31px;
+  color: #BBB;
+  background-color: #EEEEEE;
+  border: 3px solid #DDD;
+  padding: 3px;
+  text-align: center;
+  font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
+  -webkit-transition: background-color ease 0.4s, color ease 0.4s, border-color ease 0.4s;
+  width: 175px;
+  cursor: pointer;
+  margin: 30px auto 10px auto;
+  text-transform:uppercase;
+
+  &:hover
+  {
+    text-decoration: none;
+    background-color: #333;
+    border-color: #333;
+    color: #FFF;
+  }
+
+}
+
+.mark-all-as-read-button
+  {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 40px;
+    color: #111;
+    border: 3px solid #111;
+    padding: 8px;
+    text-align: center;
+    font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
+    -webkit-transition: background-color ease 0.4s, color ease 0.4s;
+    float:right;
+    cursor:pointer;
+    width:200px;
+
+    &:hover
+    {
+      text-decoration: none;
+      background-color: #DDD;
+    }
+  }
+
+.saved-items-feed-header
+{
+  width:55% !important;
+}
+
+#saved-items-feed
+{
+  .mark-all-as-read-button
+  {
+    margin-right:5px;
+  }
+}
+
+
+
+#find-or-create-topic-feed
+{
+  display:-webkit-flex;
+
+  #subject-header
+  {
+    font-family: "Oswald-Bold", "Arial Narrow Bold", sans-serif;
+    font-size: 32px;
+    text-align: left;
+    width: 100%;
+    display: inline-block;
+    line-height: 120%;
+    margin-bottom: 5px;
+    color:#666;
+  }
+
+  .subject-intro-box
+  {
+    width: 20%;
+    margin-top: 23px;
+  }
+
+  #topics-header
+  {
+  }
+
+  .explanation
+  {
+    margin-top:15px;
+    font-family: EBGaramond-Regular, serif;
+    font-size: 18px;
+    line-height: 27px;
+    margin-right: 20px;
+  }
+}
+
+.view-type-box
+{
+  display:inline-block;
+  float:right;
+
+  .view-type-icon
+  {
+    cursor:pointer;
+    box-sizing:border-box;
+    padding:5px 7px;
+    -webkit-transition: background-color ease 0.4s;
+    width: 30px;
+    height: 25px;
+    display:inline-block;
+    float:left;
+
+    &:hover
+    {
+      background-color:#FFF;
+    }
+  }
+
+  .view-type-icon.selected
+  {
+    background-color:#FFF;
+  }
+}
+
+#third-frame #topics-feed-lite #third-frame-header #third-frame-header-text
+{
+  width:100px;
+}
+
+#topic-search-box
+{
+  -webkit-appearance: none;
+  border: 3px solid #111;
+  box-sizing: border-box;
+  width: 93%;
+  //margin-top: 20px;
+  font-size: 15px;
+  line-height: 170%;
+  font-family: "SourceSansPro-Semibold", "Arial Narrow Bold", sans-serif;
+  padding: 8px 15px 7px 10px;
+  display: inline-block;
+  background-color: #FFF;
+
+}
+
+.secondary-header
+{
+  margin-bottom: 10px;
+margin-top: 30px;
+line-height: 20px;
+text-transform: uppercase;
+letter-spacing: 3px;
+font-size: 17px;
+font-family: "Oswald-Regular", "Arial Narrow Bold", sans-serif;
+display: inline-block;
+}
+
+#subjects-feed .subject-item.single-column
+{
+
+  margin-bottom: 0;
+  border: 3px solid #ddd;
+  border-width: 3px 0 0 0;
+
+
+  .content-area
+  {
+    padding-top: 3px;
+    padding-right: 10px;
+    padding-left: 15px;
+    padding-bottom: 1px;
+    background-color:#FFF;
+
+    &:hover
+    {
+      background-color: #dff7f7;
+    }
+    .subject-owner
+    {
+      margin-left:15px;
+      font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
+    }
+
+    .time
+    {
+      margin-left:15px;
+      float:none;
+      font-size:inherit;
+    }
+
+    .header
+    {
+      font-size: 20px;
+      line-height: 130%;
+      padding-bottom: 5px;
+      margin-bottom:0;
+      margin-top: 18px;
+    }
+
+    .meta
+    {
+      background-color:transparent;
+      padding:0;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .digest
+    {
+      margin-bottom:20px;
+      .inline-owner
+      {
+        background-color:transparent;
+        padding-left:0;
+        .owner-name
+        {
+          font-family: "SourceSansPro-Bold", "Arial Narrow Bold", sans-serif;
+        }
+      }
+    }
+
+  }
+
+}
+
+.larger-height
+{
+  height:auto !important;
+}
+
+.block-explanation
+{
+  display:block;
+  margin-left:0 !important;
+}
+
+.text-entry-advanced
+{
+  width:60px !important;
+  min-width:60px !important;
+}
+
+.subject-item.single-column .meta .counters
+{
+  color: #999;
+}
+
+.comment .meta
+{
+  display: inline-block;
+  position: absolute;
+  top: 16px;
+  right: 10%;
+}
+
+.onboarding-screenshot-image
+{
+  width:269px;
+  margin:0 auto;
+  display:block;
+}
+
+.tutorial-text
+{
+  em
+  {
+    font-family: SourceSansPro-Bold;
+  }
+
+  i
+  {
+    display: inline-block;
+    padding: 0 2px;
+    font-size: 14px;
+  }
+}
+
+.tutorial-text.final-text
+{
+  font-size: 14px;
+  font-family: SourceSansPro-Semibold;
+  line-height: 185%;
+  display: inline-block;
+  margin-top: 45px;
+}
+
+.tutorial-body
+{
+  width:70%;
+  p
+  {
+    font-family: "EBGaramond-Regular", serif;
+    font-size:18px;
+    line-height: 180%;
+  }
+
+  a, a:visited
+  {
+    color: #9cadad;
+  }
+
+  .tutorial-image
+  {
+    width:100%;
+    margin-left:-8px;
+  }
+}

@@ -1,6 +1,15 @@
 <div id="find-or-create-topic-feed" ng-controller="FindOrCreateTopicController">
-    <div class="topic-boxes-holder">
-
+    <div class="subject-intro-box">
+        <span id="subject-header">Boards</span>
+        <div class="explanation">
+             Select the boards you want to subscribe to. After selecting them heYou can access them from ‘Threads’ ( <i class="fa fa-bars"></i> ) to the left.
+        </div>
+        <div class="topic-search">
+            <span class="secondary-header" ng-show="countsAvailable">SEARCH TOPICS</span>
+            <input id="topic-search-box" type="text" ng-model="topicSearchBoxText" ng-change="filterByBoxText()" ng-show="countsAvailable">
+        </div>
+    </div>
+    <div class="topic-boxes-holder" ng-show="allAvailableTopics && countsAvailable">
         <div class="topic-box" ng-repeat="topic in allAvailableTopics"
         ng-click="toggleAdditionToSelectedTopics(topic.PostFingerprint)"
         ng-class="{'currently-selected': isCurrentlySelected(topic.PostFingerprint)}">
@@ -26,7 +35,15 @@
             </div>
         </div>
     </div>
-
+    <div class="waiting-spinner" ng-hide="allAvailableTopics && countsAvailable">
+        <img src="img/aether-logo.svg" class="aether-logo-main" alt="">
+        <span class="loading-text">
+            <em>Please wait</em><br>
+            Aether is still finishing the first sync.<br>
+            You'll see available boards here in a few minutes.<br>
+            It might take longer if you have a slower connection.
+        </span>
+    </div>
 </div>
 
 

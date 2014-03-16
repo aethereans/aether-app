@@ -1,18 +1,18 @@
 <div class="subject-item" ng-click="changeState('postsFeed', 'subjectsFeedLite', subject.PostFingerprint)">
     <div class="header-bar"></div>
     <div class="content-area">
-        <div class="owner-information">
-            <span class="subject-owner">
-                <img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">
-                {{ subject.OwnerUsername }}
-            </span>
-        </div>
         <div class="header">
             {{ subject.Subject }}
         </div>
+        <div class="owner-information">
+            <span class="subject-owner">
+                <!--<img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">-->
+                {{ subject.OwnerUsername }}
+            </span>
+        </div>
         <div class="digest" ng-show="subject.FirstPostBody">
             <div class="inline-owner">
-            <img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">
+            <!--<img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">-->
                 <span class="owner-name">
                     {{ subject.FirstPostOwner }}
                 </span>
@@ -22,15 +22,15 @@
         </div>
         <div class="meta">
             <div class="counters">
-                <i class="icon-arrow-up upvote-counter-icon">
+                <i class="fa fa-arrow-up upvote-counter-icon">
                 </i>
                 {{ subject.UpvoteCount }}&nbsp;&nbsp;
-                <i class="icon-comment comment-icon">
+                <i class="fa fa-comment comment-icon">
                 </i>
                 {{ subject.ReplyCount - 1 | positiveNumber }}
             </div>
             <div class="time">
-                {{ subject.CreationDate + '000' | date:'MMM d EEEE, H:mm' }}
+                {{ subject.CreationDate + '000' | date:'MMM d, H:mm' }}
             </div>
         </div>
     </div>

@@ -1,47 +1,68 @@
 <!DOCTYPE html>
-<html ng-app="aether">
+<html ng-app="aether" >
     <head>
         <title>
             Aether
         </title>
         <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
-
     </head>
     <body id="root-body" ng-style="viewportStyle">
         <div id="first-frame" ng-style="firstFrameCSSStyle">
-            <div id="first-frame-contents" ng-controller="FirstFrameController">
+            <div id="first-frame-contents" ng-controller="FirstFrameController" ng-class="{'show-onboarding': !onboardingComplete}">
                 <div class="normalButtons" ng-show="onboardingComplete">
-                  <button id="home-button"
+
+                  <button id="home-button" title="Home"
                   ng-class="{'selected': currentApplicationRegion == 'Home'}"
                   ng-click="homeButtonClick()">
-                      <i class="icon-home icon-2x" id="home-icon">
+                      <i class="fa fa-home fa-2x" id="home-icon">
                       </i>
                   </button>
-                  <button id="topics-button"
+                  <button id="profile-button" title="Profile"
+                  ng-class="{'selected': currentApplicationRegion == 'Profile'}"
+                  ng-click="profileButtonClick()">
+                      <i class="fa fa-user fa-2x" id="profile-icon">
+                      </i>
+                  </button>
+                  <button id="threads-button" title="Threads"
                   ng-class="{'selected': currentApplicationRegion == 'Details'}"
-                  ng-click="topicsButtonClick()">
-                      <i class="icon-inbox icon-2x" id="topics-icon">
+                  ng-click="threadsButtonClick()">
+                      <i class="fa fa-bars fa-2x" id="threads-icon">
                       </i>
                   </button>
-                  <button id="saved-items-button"
+                    <button id="topics-button" title="Boards"
+                  ng-class="{'selected': currentApplicationRegion == 'Topics'}"
+                  ng-click="topicsButtonClick()">
+                      <i class="fa fa-th-large fa-2x" id="topics-icon">
+                      </i>
+                  </button>
+                  <button id="replies-button" title="Replies"
+                  ng-class="{'selected': currentApplicationRegion == 'Replies'}"
+                  ng-click="repliesButtonClick()">
+                      <i class="fa fa-2x" id="replies-icon" ng-class="{'fa-envelope replies-icon-lightup': totalReplyCount, 'fa-envelope-o': !totalReplyCount }">
+                      </i>
+                  </button>
+                  <button id="saved-items-button" title="Saved Items"
                   ng-class="{'selected': currentApplicationRegion == 'SavedItems'}"
                   ng-click="savedItemsButtonClick()">
-                      <i class="icon-archive icon-2x" id="saved-items-icon">
+                      <i class="fa fa-floppy-o fa-2x" id="saved-items-icon">
                       </i>
                   </button>
-                  <button id="settings-button"
+                  <button id="settings-button" title="Settings"
                   ng-class="{'selected': currentApplicationRegion == 'Settings'}"
                   ng-click="settingsButtonClick()">
-                      <i class="icon-cogs icon-2x" id="settings-icon">
+                      <i class="fa fa-cog fa-2x" id="settings-icon">
                       </i>
                   </button>
-                  <div id="branding">
+
+
+                  <div id="branding"
+                  title="&ldquo;If liberty means anything at all, it means the right to tell people what they do not want to hear. &rdquo; &mdash; George Orwell">
                       <img src="img/aethersign.icon.slimmer.white.svg" alt="" id="aether-brand">
                   </div>
                 </div>
-                <div class="onboarding" ng-hide="onboardingComplete">
-                  <div class="onboarding-checkpoint" ng-class="{'lightup': currentStateNumber > 0}"></div>
+                <div class="onboarding" ng-class="{'show-onboarding': !onboardingComplete}">
+                  <div class="onboarding-checkpoint" ng-class="{'lightup': currentStateNumber > 1}"></div>
                   <div class="onboarding-connector-line" ng-class="{'lightup': currentStateNumber > 1}"></div>
                   <div class="onboarding-checkpoint" ng-class="{'lightup': currentStateNumber > 1}"></div>
                   <div class="onboarding-connector-line" ng-class="{'lightup': currentStateNumber > 2}"></div>
@@ -53,18 +74,21 @@
                   <div class="onboarding-connector-line" ng-class="{'lightup': currentStateNumber > 5}"></div>
                   <div class="onboarding-checkpoint" ng-class="{'lightup': currentStateNumber > 5}"></div>
                   <div class="onboarding-connector-line"></div>
-                  <div id="branding">
-                      <img src="img/aethersign.icon.slimmer.white.svg" alt="" id="aether-brand">
+                  <div id="branding"
+                  title="&ldquo;If liberty means anything at all, it means the right to tell people what they do not want to hear. &rdquo; &mdash; George Orwell">
+                      <img src="img/aethersign.icon.slimmer.white.svg" alt="" id="aether-brand" ng-class="{'show-onboarding': !onboardingComplete}">
                   </div>
                 </div>
             </div>
         </div>
         <div id="second-frame" ng-style="secondFrameCSSStyle">
+            <div id="scroll-target-second-frame"></div>
             <div id="second-frame-contents" ng-controller="SecondFrameController">
                 <ng-include src="selectedTemplate.url"></ng-include>
             </div>
         </div>
         <div id="third-frame" ng-style="thirdFrameCSSStyle">
+            <div id="scroll-target-third-frame"></div>
             <div id="third-frame-contents" ng-controller="ThirdFrameController">
                 <ng-include src="selectedTemplate.url"></ng-include>
             </div>
@@ -92,11 +116,13 @@
           <script src="js/controllers/repliesController.js"></script>
           <script src="js/controllers/unregisteredUserFeed.js"></script>
           <script src="js/controllers/onboardingController.js"></script>
+          <script src="js/controllers/unregisteredUserProfileController.js"></script>
           <!-- Services -->
           <script src="js/services/broadcastServices.js"></script>
           <script src="js/services/gateService.js"></script>
           <script src="js/services/gateReaderServices.js"></script>
           <!-- External Dependencies -->
           <script src="js/cld-min.js"></script>
+          <!--<script src="js/mousetrap.min.js"></script> This could be useful later...-->
     </body>
 </html>

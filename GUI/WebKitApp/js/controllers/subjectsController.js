@@ -1,7 +1,7 @@
 function SubjectsController($scope, $rootScope, frameViewStateBroadcast, gateReaderServices) {
 
     $scope.$watch('requestedId + timespan', function() {
-        if ($rootScope.requestedId !== undefined) {
+        if ($rootScope.requestedId === undefined) {
             // This if is needed because otherwise the first load calls an undefined
             // requestedId, forcing the app to load topics to memory when not needed.
 
@@ -9,65 +9,79 @@ function SubjectsController($scope, $rootScope, frameViewStateBroadcast, gateRea
             // comment counts for each of the subjects. This could be handled in
             // the API, but then all calls would have this property, needlessly
             // slowing things down when it is not needed.
-            if ($scope.timespan === undefined || $scope.timespan === 0) {
-                //console.log("timespan undefined or zero")
-                gateReaderServices.getSubjects(subjectsArrived,
-                    $rootScope.requestedId, 180) // six months.
+            //$rootScope.requestedId = $rootScope.userProfile.selectedTopics[$rootScope.userProfile.selectedTopics.length-1]
+        }
+        if ($scope.timespan === undefined || $scope.timespan === 0) {
+            console.log("timespan undefined or zero")
+            gateReaderServices.getSubjects(subjectsArrived,
+                $rootScope.requestedId, 180) // six months.
 
-                $scope.timespanIsFiltered = false
-            }
-            else {
-                //console.log("timespan NOT undefined or zero")
-                gateReaderServices.getSubjects(subjectsArrived,
-                    $rootScope.requestedId, $scope.timespan)
+            $scope.timespanIsFiltered = false
+        }
+        else {
+            console.log("timespan NOT undefined or zero")
+            gateReaderServices.getSubjects(subjectsArrived,
+                $rootScope.requestedId, $scope.timespan)
 
-                $scope.timespanIsFiltered = true
-            }
+            $scope.timespanIsFiltered = true
+        }
 
-            function subjectsArrived(data) {
-                console.log('subjects arrived!')
-                console.log(data)
-                var column1 = []
-                var column2 = []
-                var column3 = []
-                for (var i=0;i<data.length;i++) {
-                    if (i%3===0) {
-                        column1.push(data[i])
-                    }
-                    else if(i%3===1) {
-                        column2.push(data[i])
-                    }
-                    else {
-                        column3.push(data[i])
-                    }
+        function subjectsArrived(data) {
+
+            // here, sort data according to score.
+
+            //data = data.sort($rootScope.sortByScore)
+
+            $scope.singleCol = data
+
+            var column1 = []
+            var column2 = []
+            var column3 = []
+            for (var i=0;i<data.length;i++) {
+                if (i%3===0) {
+                    column1.push(data[i])
                 }
-                $scope.subjectsCol1 = column1
-                $scope.subjectsCol2 = column2
-                $scope.subjectsCol3 = column3
-
-                var length = column1.length + column2.length + column3.length
-                // This allows me to hide the unsightly page in case a topic has
-                // no available subjects in it to show a good sadface.
-                console.log("subjects in scope ", $scope.subjects)
-                if(length === 0) {
-                    $rootScope.noSubjectsAvailable = true
+                else if(i%3===1) {
+                    column2.push(data[i])
                 }
                 else {
-                    $rootScope.noSubjectsAvailable = false
+                    column3.push(data[i])
                 }
+            }
+            $scope.subjectsCol1 = column1
+            $scope.subjectsCol2 = column2
+            $scope.subjectsCol3 = column3
 
+            var length = column1.length + column2.length + column3.length
+            // This allows me to hide the unsightly page in case a topic has
+            // no available subjects in it to show a good sadface.
+            console.log("subjects in scope ", $scope.subjects)
+            if(length === 0) {
+                $rootScope.noSubjectsAvailable = true
+            }
+            else {
+                $rootScope.noSubjectsAvailable = false
             }
 
-            gateReaderServices.getSinglePost(topicArrived, $rootScope.requestedId)
-            function topicArrived(data) {
-                $scope.selectedTopic = data
-            }
         }
-        else
-        {
-            $rootScope.noSubjectsAvailable = true
+
+        gateReaderServices.getSinglePost(topicArrived, $rootScope.requestedId)
+        function topicArrived(data) {
+            $scope.selectedTopic = data
         }
+
     })
+
+    $rootScope.currentPaneIsSubjects = true
+    $scope.$on("$destroy", function() {
+        $rootScope.currentPaneIsSubjects = false
+        // This is needed so I can switch off the pane view on third pane when we're out of it.
+    })
+
+
+
+
+
 
 
     // TODO: Here, check if the controller can access 2ndframeid. If it can, it's

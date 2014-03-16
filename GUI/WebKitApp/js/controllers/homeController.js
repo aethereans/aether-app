@@ -25,11 +25,31 @@ function HomeController($scope, $rootScope, frameViewStateBroadcast,
 
     $scope.totalTopicCount = 0
     $scope.totalSubjectCount = 0
-    console.log('asking for topic count')
-    gateReaderServices.countTopics(topicCountArrived)
-    function topicCountArrived(count) {
-        $scope.totalTopicCount = count
+    //console.log('asking for topic count')
+//    gateReaderServices.countTopics(topicCountArrived)
+//    function topicCountArrived(count) {
+//        $scope.totalTopicCount = count
+//    }
+    // This costs me extra 20ms compared to above. Determine if worth it. TODO
+    gateReaderServices.getUppermostTopics(topicsArrived)
+    function topicsArrived(data) {
+        //$scope.subjectCountObject = {}
+        var filteredTopics = []
+        for (var i=0; i<data.length; i++) {
+            if (data[i].ReplyCount === 1 && data[i].LocallyCreated === false) {
+                continue
+            }
+            else {
+                filteredTopics.push(data[i])
+            }
+        }
+        $scope.totalTopicCount = filteredTopics.length
+
     }
+
+
+
+
     gateReaderServices.countSubjects(subjectCountArrived)
     function subjectCountArrived(count) {
         $scope.totalSubjectCount = count
@@ -38,6 +58,7 @@ function HomeController($scope, $rootScope, frameViewStateBroadcast,
     gateReaderServices.getHomeScreen(homeScrArrived, 10,12)
     function homeScrArrived(data) {
 
+
         var filteredArray = []
         for (var i=0;i<data.length;i++) {
             if (data[i].Subjects.length > 0) {
@@ -45,6 +66,7 @@ function HomeController($scope, $rootScope, frameViewStateBroadcast,
                 topic.HomeCol1 = []
                 topic.HomeCol2 = []
                 topic.HomeCol3 = []
+                //console.log(topic.Subjects)
                 for (var j=0;j<topic.Subjects.length;j++) {
                     if (j%3===0) {
                         topic.HomeCol1.push(topic.Subjects[j])
@@ -67,10 +89,6 @@ function HomeController($scope, $rootScope, frameViewStateBroadcast,
         $scope.onlineNodeCount = count
     })
 
-    gateReaderServices.countReplies(countArrived)
-    function countArrived(count) {
-        $scope.totalReplyCount = count
-    }
 
     gateReaderServices.getUpdateAvailable(function(reply) {
         $rootScope.updateAvailable = reply
@@ -89,6 +107,7 @@ function HomeController($scope, $rootScope, frameViewStateBroadcast,
         }
 
         $rootScope.thirdFrameCSSStyle = {
+            'display':'block'
         }
     }
 

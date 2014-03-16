@@ -238,6 +238,13 @@ angular.module('aether.services')
             }
         }
 
+        this.getOperatingSystem = function(callback) {
+            gateService.readGetOperatingSystem(replyArrived)
+            function replyArrived(reply) {
+                callback(reply)
+            }
+        }
+
         this.getSubjects = function(callback, postFingerprint, daysToSubtract) {
             gateService.readGetSubjects(replyArrived, postFingerprint, daysToSubtract)
             function replyArrived(reply) {
@@ -313,6 +320,13 @@ angular.module('aether.services')
             }
         }
 
+        this.markAllSavedsAsNotSaved = function(callback) {
+            gateService.writeMarkAllSavedsAsNotSaved(answerArrived)
+            function answerArrived(answer) {
+                callback(answer)
+            }
+        }
+
         this.quitApp = function() {
             gateService.writeQuitApp()
         }
@@ -323,6 +337,20 @@ angular.module('aether.services')
 
         this.connectToNodeWithIP = function(ip, port) {
             gateService.writeConnectToNodeWithIP(ip, port)
+        }
+
+        this.exportSinglePost = function(callback, post) {
+            gateService.writeExportSinglePost(answerArrived, post)
+            function answerArrived(answer) {
+                callback(answer)
+            }
+        }
+
+        this.exportAllPosts = function(callback, posts) {
+            gateService.writeExportAllPosts(answerArrived, posts)
+            function answerArrived(answer) {
+                callback(answer)
+            }
         }
 
         // Below are the functions used in aether sort algorithms.

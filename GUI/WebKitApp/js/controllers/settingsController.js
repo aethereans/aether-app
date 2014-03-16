@@ -3,19 +3,21 @@ function SettingsController($scope, $rootScope, frameViewStateBroadcast, gateRea
     // This two are on rootScope because the third frame needs to access this too.
     $rootScope.settingsSubmenuTemplates = [
     {
-        Name: 'Basics',
+        Name: 'General',
         Url: 'partials/settings/basics.html'
     }, {
-        Name: 'Identity',
-        Url: 'partials/settings/identity.html'
+        Name: 'Advanced',
+        Url: 'partials/settings/advanced.html'
+    }, {
+        Name: 'Tutorial',
+        Url: 'partials/settings/tutorial.html'
     }, {
         Name: 'About',
-        Url: 'partials/settings/about.html'
+        Url: 'partials/settings/About.html'
     }, {
         Name: 'Licenses',
         Url: 'partials/settings/licenses.html'
-    },
-
+    }
     ]
     // This two are on rootScope because the third frame needs to access this too.
     $rootScope.settingsSelectedTemplate = $scope.settingsSubmenuTemplates[0]
@@ -53,21 +55,21 @@ function SettingsController($scope, $rootScope, frameViewStateBroadcast, gateRea
 
     // Logs radio button.
 
-    if ($rootScope.userProfile.UserDetails.Logging) {
-        $scope.loggingRadioState = [
-        {'checked':'checked', 'value':1, 'name':'YES'},
-        {'checked':'', 'value':0, 'name':'NO'} ]
-        // Setting the current state retrieved from JSON.
-    }
-    else {
-        $scope.loggingRadioState = [
-        {'checked':'', 'value':1, 'name':'YES'},
-        {'checked':'checked', 'value':0, 'name':'NO'} ]
-    }
-
-    $scope.setLoggingStatus = function(value) {
-        $rootScope.userProfile.UserDetails.Logging = !!value
-    }
+//    if ($rootScope.userProfile.UserDetails.Logging) {
+//        $scope.loggingRadioState = [
+//        {'checked':'checked', 'value':1, 'name':'YES'},
+//        {'checked':'', 'value':0, 'name':'NO'} ]
+//        // Setting the current state retrieved from JSON.
+//    }
+//    else {
+//        $scope.loggingRadioState = [
+//        {'checked':'', 'value':1, 'name':'YES'},
+//        {'checked':'checked', 'value':0, 'name':'NO'} ]
+//    }
+//
+//    $scope.setLoggingStatus = function(value) {
+//        $rootScope.userProfile.UserDetails.Logging = !!value
+//    }
 
 
     $scope.langClick = function(language) {
@@ -103,6 +105,16 @@ function SettingsController($scope, $rootScope, frameViewStateBroadcast, gateRea
 
         }
     }
+
+    // Advanced menu
+
+    $scope.resetAdvanced = function() {
+        $rootScope.userProfile.UserDetails.maxOutboundCount = 10
+        $rootScope.userProfile.UserDetails.maxInboundCount = 3
+        $rootScope.userProfile.UserDetails.cooldown = 5
+
+    }
+
 
 }
 SettingsController.$inject = ['$scope', '$rootScope', 'frameViewStateBroadcast', 'gateReaderServices']

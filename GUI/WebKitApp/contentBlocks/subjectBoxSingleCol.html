@@ -1,0 +1,36 @@
+<div class="subject-item single-column" ng-click="changeState('postsFeed', 'subjectsFeedLite', subject.PostFingerprint)">
+    <div class="header-bar"></div>
+    <div class="content-area">
+        <div class="header">
+            {{ subject.Subject }}
+        </div>
+        <div class="meta">
+            <div class="counters">
+                <i class="fa fa-arrow-up upvote-counter-icon">
+                </i>
+                {{ subject.UpvoteCount }}&nbsp;&nbsp;
+                <i class="fa fa-comment comment-icon">
+                </i>
+                {{ subject.ReplyCount - 1 | positiveNumber }}
+            </div>
+            <span class="subject-owner">
+                <!--<img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">-->
+                {{ subject.OwnerUsername }}
+            </span>
+            <div class="time">
+                {{ subject.CreationDate + '000' | date:'MMM d EEEE, H:mm' }}
+            </div>
+        </div>
+        <div class="digest" ng-show="subject.FirstPostBody">
+            <div class="inline-owner">
+            <!--<img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">-->
+                <span class="owner-name">
+                    {{ subject.FirstPostOwner }}
+                </span>
+            </div>
+            {{ subject.FirstPostBody | truncate:400 }}
+
+        </div>
+
+    </div>
+</div>

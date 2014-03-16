@@ -57,9 +57,7 @@ function FirstFrameController($scope, $rootScope, frameViewStateBroadcast,
 
     $rootScope.clickToUsername = function(userName) {
         $rootScope.requestedUsername = userName
-        $rootScope.thirdFrameCSSStyle = {
-            "display":"none"
-        }
+        $rootScope.thirdFrameCSSStyle = {}
         $scope.changeState('unregisteredUserFeed', '', '')
     }
 
@@ -69,16 +67,15 @@ function FirstFrameController($scope, $rootScope, frameViewStateBroadcast,
 
     // These are default states at the beginning of the application.
 
-    $rootScope.firstFrameCSSStyle = {}
+    $rootScope.firstFrameCSSStyle = {
+    }
 
     $rootScope.secondFrameCSSStyle = {
         'width': (angular.element(document.getElementsByTagName('body')).css('width').slice(0, -2)) -
         (angular.element(document.getElementById('first-frame')).css('width').slice(0, -2)) + 'px'
     }
 
-    $rootScope.thirdFrameCSSStyle = {
-        "display":"none"
-    }
+    $rootScope.thirdFrameCSSStyle = {}
 
     // Below are the first call to userProfile object to make it globally
     // available at application start. The watch below will fire at every change.
@@ -106,7 +103,9 @@ function FirstFrameController($scope, $rootScope, frameViewStateBroadcast,
             Username: '',
             UserLanguages: ['English'],
             StartAtBoot: true,
-            Logging: true,
+            maxInboundCount: 3,
+            maxOutboundCount: 10,
+            cooldown: 5
         }
     }
 
@@ -120,10 +119,10 @@ function FirstFrameController($scope, $rootScope, frameViewStateBroadcast,
 
     $rootScope.appIsPaused = false
 
-
     $scope.$watch('userProfile', function() {
+        $scope.userProfile.UserDetails.Username = $scope.userProfile.UserDetails.Username.trim()
         gateReaderServices.saveUserProfile(function() {}, $rootScope.userProfile)
-        console.log('autocommit fired, new profile: ',$rootScope.userProfile)
+        //console.log('autocommit fired, new profile: ',$rootScope.userProfile)
     }, true)
 
 
@@ -136,44 +135,113 @@ function FirstFrameController($scope, $rootScope, frameViewStateBroadcast,
         true : false
     }
 
+    $rootScope.scrollSecondFrameToTop = function() {
+        document.getElementById('scroll-target-second-frame').scrollIntoView()
+    }
+
+    $rootScope.scrollThirdFrameToTop = function() {
+        document.getElementById('scroll-target-third-frame').scrollIntoView()
+    }
+
+//    $rootScope.sortByTime = function(a,b) {
+//
+//    }
+
+    // This algorithm below is for subjects. Posts have their own much simpler idea, they just get sorted by the upvotes.
+//    $rootScope.sortByScore = function(a, b) {
+//        var now = Math.round(new Date().getTime() / 1000 / 60 / 60) // unix timestamp in hour
+//        var creationDateA = Math.round(a.CreationDate / 60 / 60) // because this already comes in secs.
+//        var timedeltaA = now - creationDateA
+//        var scoreA = (a.UpvoteCount - a.DownvoteCount - 1) / Math.pow((timedeltaA + 2), 1.5)
+//        var creationDateB = Math.round(b.CreationDate / 60 / 60) // because this already comes in secs.
+//        var timedeltaB = now - creationDateB
+//        var scoreB = (b.UpvoteCount - b.DownvoteCount - 1) / Math.pow((timedeltaB + 2), 1.5)
+//        return scoreB - scoreA
+            // is this useless? I am doing this sorting on the backend.
+//    }
+
+    gateReaderServices.countReplies(countArrived)
+    function countArrived(count) {
+        $rootScope.totalReplyCount = count
+    }
+
+    gateReaderServices.getOperatingSystem(function(osString){
+        $rootScope.PLATFORM = osString
+    })
+
+
     gateReaderServices.getAppVersion(function(reply) {
         $rootScope.appVersion = reply.slice(0,1) + '.' + reply.slice(1,2) + '.' + reply.slice(2,3)
     })
 
     $scope.homeButtonClick = function() {
-        $scope.changeState('homeFeed', 'topicGroupsFeedLite', '')
+        $rootScope.changeState('homeFeed', 'topicGroupsFeedLite', '')
         $rootScope.secondFrameCSSStyle = {
             'width': (angular.element(document.getElementsByTagName('body')).css('width').slice(0, -2)) -
             (angular.element(document.getElementById('first-frame')).css('width').slice(0, -2)) + 'px'
         }
+        $rootScope.thirdFrameCSSStyle = {}
+    }
+
+    $scope.threadsButtonClick = function() {
+        $rootScope.changeState('subjectsFeed', 'topicsFeedLite', undefined)
+        $rootScope.thereIsASelectedSubject = false
+
+        $rootScope.secondFrameCSSStyle = {}
         $rootScope.thirdFrameCSSStyle = {
-            'display':'none'
+            'display':'block'
         }
     }
 
     $scope.topicsButtonClick = function() {
-        $scope.changeState('subjectsFeed', 'topicsFeedLite', undefined)
+        $rootScope.changeState('findOrCreateTopic', 'topicsFeedLite', undefined)
         $rootScope.thereIsASelectedSubject = false
 
         $rootScope.secondFrameCSSStyle = {}
-        $rootScope.thirdFrameCSSStyle = {}
+        $rootScope.thirdFrameCSSStyle = {
+            //'display':'block'
+        }
     }
 
     $scope.savedItemsButtonClick = function() {
-        $scope.changeState('savedItemsFeed', 'savedItemsFeedLite', '')
+        $rootScope.changeState('savedItemsFeed', 'savedItemsFeedLite', '')
         $rootScope.secondFrameCSSStyle = {
             'width': (angular.element(document.getElementsByTagName('body')).css('width').slice(0, -2)) -
             (angular.element(document.getElementById('first-frame')).css('width').slice(0, -2)) + 'px'
         }
-        $rootScope.thirdFrameCSSStyle = {
-            'display':'none'
-        }
+        $rootScope.thirdFrameCSSStyle = {}
     }
 
     $scope.settingsButtonClick = function() {
-        $scope.changeState('settingsFeed', 'settingsSelectorFeedLite', undefined)
+        $rootScope.changeState('settingsFeed', 'settingsSelectorFeedLite', undefined)
         $rootScope.thirdFrameCSSStyle = {
+            'display':'block',
             'width': '150px'
+        }
+        $rootScope.secondFrameCSSStyle = {
+            'width': (angular.element(document.getElementsByTagName('body')).css('width').slice(0, -2)) -
+            (angular.element(document.getElementById('first-frame')).css('width').slice(0, -2))
+            - (angular.element(document.getElementById('third-frame')).css('width').slice(0, -2)) + 'px'
+        }
+
+    }
+
+    $scope.repliesButtonClick = function() {
+        console.log('repliesbuttonclicked')
+        $rootScope.changeState('repliesFeed', 'topicGroupsFeedLite', undefined)
+        $rootScope.thirdFrameCSSStyle = {
+        }
+        $rootScope.secondFrameCSSStyle = {
+            'width': (angular.element(document.getElementsByTagName('body')).css('width').slice(0, -2)) -
+            (angular.element(document.getElementById('first-frame')).css('width').slice(0, -2))
+            - (angular.element(document.getElementById('third-frame')).css('width').slice(0, -2)) + 'px'
+        }
+
+    }
+
+    $scope.profileButtonClick = function() {
+        $rootScope.changeState('unregisteredUserProfile', 'topicGroupsFeedLite', undefined)
+        $rootScope.thirdFrameCSSStyle = {
         }
         $rootScope.secondFrameCSSStyle = {
             'width': (angular.element(document.getElementsByTagName('body')).css('width').slice(0, -2)) -
@@ -192,7 +260,7 @@ FirstFrameController.$inject = ['$scope', '$rootScope', 'frameViewStateBroadcast
 
 
 function SecondFrameController($scope, $rootScope, frameViewStateBroadcast,
-    gateReaderServices) {
+    gateReaderServices, $anchorScroll) {
 
     // This is the list of partials this scope can load. This is also one of
     // the key reasons the first / second / third frame controllers cannot be
@@ -203,74 +271,74 @@ function SecondFrameController($scope, $rootScope, frameViewStateBroadcast,
     // places.
 
     $scope.templates = [{
-        name: 'postsFeed',
-        url: 'partials/postsFeed.html',
-        region: 'Details'
-    }, {
-        name: 'subjectsFeed',
-        url: 'partials/subjectsFeed.html',
-        region: 'Details'
-    }, {
-        name: 'topicsFeed',
-        url: 'partials/topicsFeed.html',
-        region: 'Details'
-    }, {
-        name: 'savedItemsFeed',
-        url: 'partials/savedItemsFeed.html',
-        region: 'SavedItems'
-    }, {
         name: 'homeFeed',
         url: 'partials/homeFeed.html',
         region: 'Home'
-    }, {
-        name: 'userProfile',
-        url: 'partials/userProfile.html'
-    }, {
-        name: 'createSubject',
-        url: 'partials/createSubject.html',
-        region: 'Details'
-    }, {
-        name: 'findOrCreateTopic',
-        url: 'partials/findOrCreateTopic.html',
-        region: 'Details'
-    }, {
-        name: 'settingsFeed',
-        url: 'partials/settingsBase.html',
-        region: 'Settings'
-    }, {
-        name: 'singlePost',
-        url: 'partials/singlePost.html',
-        region: 'SavedItems'
-    }, {
-        name: 'repliesFeed',
-        url: 'partials/repliesFeed.html',
-        region: 'Home'
-    }, {
-        name: 'singleReply',
-        url: 'partials/singlePost.html',
-        region: 'Home'
-    }, {
-        name: 'unregisteredUserFeed',
-        url: 'partials/unregisteredUserItemsFeed.html',
-        region: 'Home' // This is for now..
     },{
         name:'onboarding',
         url: 'partials/onboarding.html',
         region: 'NoRegion'
+    },{
+        name: 'postsFeed',
+        url: 'partials/postsFeed.html',
+        region: 'Details'
+    },{
+        name: 'subjectsFeed',
+        url: 'partials/subjectsFeed.html',
+        region: 'Details'
+    },{
+        name: 'savedItemsFeed',
+        url: 'partials/savedItemsFeed.html',
+        region: 'SavedItems'
+    },{
+        name: 'userProfile',
+        url: 'partials/userProfile.html'
+    },{
+        name: 'createSubject',
+        url: 'partials/createSubject.html',
+        region: 'Details'
+    },{
+        name: 'findOrCreateTopic',
+        url: 'partials/findOrCreateTopic.html',
+        region: 'Topics'
+    },{
+        name: 'settingsFeed',
+        url: 'partials/settingsBase.html',
+        region: 'Settings'
+    },{
+        name: 'singlePost',
+        url: 'partials/singlePost.html',
+        region: 'NoRegion'
+    },{
+        name: 'repliesFeed',
+        url: 'partials/repliesFeed.html',
+        region: 'Replies'
+    },{
+        name: 'singleReply',
+        url: 'partials/singlePost.html',
+        region: 'NoRegion'
+    },{
+        name: 'unregisteredUserFeed',
+        url: 'partials/unregisteredUserItemsFeed.html',
+        region: 'NoRegion' // This is for now..
+    },{
+        name: 'unregisteredUserProfile',
+        url: 'partials/unregisteredUserProfile.html',
+        region: 'Profile'
     }]
 
     gateReaderServices.getOnboardingComplete(onboardingCompleteArrived)
     function onboardingCompleteArrived(onboardingComplete) {
-        $rootScope.onboardingComplete = onboardingComplete
+        $rootScope.onboardingComplete = onboardingComplete // normal state = no !
         console.log('onboardingComplete status:', onboardingComplete)
-        if (onboardingComplete === true) {
+        if (onboardingComplete === true) { //normal state = true
             // If not newborn
-            $scope.selectedTemplate = $scope.templates[4] //default 4
+            $scope.selectedTemplate = $scope.templates[0] // 0 is home
             $rootScope.currentApplicationRegion = 'Home'
         }
         else
         {
-            $scope.selectedTemplate = $scope.templates[13] //default 4
+            $scope.selectedTemplate = $scope.templates[1] //1 is onboarding
             $rootScope.currentApplicationRegion = 'NoRegion'
         }
     }
@@ -281,6 +349,7 @@ function SecondFrameController($scope, $rootScope, frameViewStateBroadcast,
     // no recollection of writing it. Oh god.
 
     $scope.$on('frameViewStateChanged', function() {
+        $rootScope.scrollSecondFrameToTop()
         var searchResult
         for (var i = 0; i<$scope.templates.length; i++) {
             if ($scope.templates[i].name === frameViewStateBroadcast.secondFrame) {
@@ -292,13 +361,14 @@ function SecondFrameController($scope, $rootScope, frameViewStateBroadcast,
         if (frameViewStateBroadcast.secondFrame !== "") {
             $scope.selectedTemplate = searchResult
             $rootScope.currentApplicationRegion = searchResult.region
+
         }
 
     })
 }
 
 SecondFrameController.$inject = ['$scope', '$rootScope', 'frameViewStateBroadcast',
-'gateReaderServices']
+'gateReaderServices', '$anchorScroll']
 
 function ThirdFrameController($scope, $rootScope, frameViewStateBroadcast) {
     $scope.templates = [{

@@ -13,6 +13,7 @@ function CreateLiteController($scope, $rootScope, frameViewStateBroadcast,
             'width': '850px'
         }
         $rootScope.thirdFrameCSSStyle = {
+            'display':'block',
             'width': '243px'
         }
     }
@@ -24,7 +25,7 @@ function CreateLiteController($scope, $rootScope, frameViewStateBroadcast,
             $rootScope.userProfile.UserDetails.Username = 'no name given'
         }
 
-        var content = $scope.postText
+        var content = $scope.postText.trim()
         gateReaderServices.createPost(answerArrived, '', content, $rootScope.targetPost,
             $rootScope.userProfile.UserDetails.Username, $scope.targetPostObject.Language)
         function answerArrived(createdPostFingerprint) {
@@ -34,6 +35,7 @@ function CreateLiteController($scope, $rootScope, frameViewStateBroadcast,
                 'width': '850px'
             }
             $rootScope.thirdFrameCSSStyle = {
+                'display':'block',
                 'width': '243px'
             }
             refreshService()
@@ -53,6 +55,7 @@ function CreateLiteController($scope, $rootScope, frameViewStateBroadcast,
                 'display':'none'
             }
             $rootScope.thirdFrameCSSStyle = {
+                'display':'block',
                 'width':'100%'
             }
         }
@@ -72,7 +75,8 @@ function CreateLiteController($scope, $rootScope, frameViewStateBroadcast,
     })
 
     $scope.$watch('postText', function() {
-        if ($scope.postText.length > 5 && $scope.postText.length < 60000) {
+        $scope.trimmedPostText = $scope.postText.trim()
+        if ($scope.trimmedPostText.length > 5 && $scope.trimmedPostText.length < 60000) {
             $scope.postButtonDisabled = false
         }
         else {

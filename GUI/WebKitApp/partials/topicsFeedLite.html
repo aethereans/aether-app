@@ -1,27 +1,33 @@
 <div id="topics-feed-lite" ng-controller="TopicsController">
     <div id="third-frame-header">
         <h1 id="third-frame-header-text">
-            Topics
+            Your Boards
         </h1>
-        <i class="icon-chevron-down go-to-subjects-icon"
-        ng-show="thereIsASelectedSubject"
-        ng-click="returnToSubjects()"></i>
-        <i class="icon-cog add-topic-icon"
-        ng-class="{'non-first': thereIsASelectedSubject,
-        'selected': isActive('findOrCreateTopic')}"
-        ng-click="toggleFindOrCreateTopic()"></i>
+
+        <!--<i class="fa fa-th-large add-topic-icon"-->
+        <!--ng-class="{'non-first': thereIsASelectedSubject,-->
+        <!--'selected': isActive('findOrCreateTopic')}"-->
+        <!--ng-click="toggleFindOrCreateTopic()"></i>-->
+        <div class="view-type-box " ng-show="currentPaneIsSubjects">
+            <i class="fa fa-th view-type-icon" ng-hide="thereIsASelectedSubject"
+               ng-click="setSubjectsToMultiColumn()" ng-class="{'selected': !userProfile.subjectsSingleColumnLayout}"></i>
+            <i class="fa fa-align-justify view-type-icon" ng-hide="thereIsASelectedSubject"
+               ng-click="setSubjectsToSingleColumn()" ng-class="{'selected': userProfile.subjectsSingleColumnLayout}"></i>
+        </div>
+        <div class="view-type-box">
+            <i class="fa fa-chevron-down view-type-icon" ng-show="thereIsASelectedSubject"
+               ng-click="returnToSubjects()"></i>
+        </div>
     </div>
+    <div id="third-frame-header-space-holder"></div>
     <div class="topics-item-container" ng-show="userProfile.selectedTopics.length">
         <div ng-repeat="topic in topics"
         ng-include="'contentBlocks/topic.html'">
         </div>
     </div>
-    <div class="topics-no-item-container" ng-hide="userProfile.selectedTopics.length">
-        <div class="info-message" ng-hide="newborn">
-            You can add topics from the gear sign above.
-        </div>
-        <div class="info-message newborn" ng-show="newborn">
-            Welcome!<br> Choose a few topics from the left to start.
+    <div class="topics-no-item-container" ng-hide="topics.length">
+        <div class="info-message">
+            You can subscribe to boards on the Boards pane ( <i class="fa fa-th-large"></i> ) to the left.
         </div>
     </div>
 </div>

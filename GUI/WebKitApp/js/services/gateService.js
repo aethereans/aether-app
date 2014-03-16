@@ -148,6 +148,10 @@ angular.module('aether.services')
         callback(Charon.appVersion())
     }
 
+    this.readGetOperatingSystem = function(callback) {
+        callback(Charon.getOperatingSystem())
+    }
+
     this.readUpdateAvailable = function(callback) {
         callback(Charon.updateAvailable())
     }
@@ -190,6 +194,7 @@ angular.module('aether.services')
 
     this.readCountSubjects = function(callback) {
         callback(Charon.countSubjects())
+
     }
 
     function __multiParsify(func, cb) {
@@ -237,6 +242,10 @@ angular.module('aether.services')
         callback(Charon.markAllRepliesAsRead())
     }
 
+    this.writeMarkAllSavedsAsNotSaved = function(callback) {
+        callback(Charon.markAllSavedsAsNotSaved())
+    }
+
     this.writeQuitApp = function() {
         Charon.quitApp()
     }
@@ -247,6 +256,16 @@ angular.module('aether.services')
 
     this.writeConnectToNodeWithIP = function(ip, port) {
         Charon.connectToNodeWithIP(ip, port)
+    }
+
+    this.writeExportSinglePost = function(callback, post) {
+        post = JSON.stringify(post)
+        callback(Charon.exportSinglePost(post))
+    }
+
+    this.writeExportAllPosts = function(callback, posts) {
+        posts = JSON.stringify(posts)
+        callback(Charon.exportAllPosts(posts))
     }
 
 })

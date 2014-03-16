@@ -33,7 +33,8 @@ function OnboardingController($scope, $rootScope, frameViewStateBroadcast,
                         $rootScope.onboardingComplete = !$rootScope.onboardingComplete
                         frameViewStateBroadcast.receiveState("findOrCreateTopic", "topicsFeedLite", "")
                         $rootScope.secondFrameCSSStyle = {}
-                        $rootScope.thirdFrameCSSStyle = {}
+                        $rootScope.thirdFrameCSSStyle = {
+                        }
                     }
                     else {
                         $scope.currentState = possibleStates[i+1]
@@ -50,9 +51,7 @@ function OnboardingController($scope, $rootScope, frameViewStateBroadcast,
 
         $scope.insertDefaultOptions = function() {
             openAtStartup = document.getElementById("openAtStartup").checked
-            keepLogs = document.getElementById("keepLogs").checked
             $rootScope.userProfile.UserDetails.StartAtBoot = openAtStartup
-            $rootScope.userProfile.UserDetails.Logging = keepLogs
             if ($scope.optionalBootstrapNodeIP && $scope.optionalBootStrapNodePort) {
                 gateReaderServices.connectToNodeWithIP(
                     $scope.optionalBootstrapNodeIP,

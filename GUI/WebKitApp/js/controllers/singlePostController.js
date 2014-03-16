@@ -1,6 +1,7 @@
 function SinglePostController($scope, $rootScope, frameViewStateBroadcast,
     gateReaderServices, $timeout) {
 
+
     $scope.postButtonDisabled = true
     $scope.postText = ''
 
@@ -13,6 +14,13 @@ function SinglePostController($scope, $rootScope, frameViewStateBroadcast,
         }
         if (p.Body.length < 50) {
             $scope.centerLayout = true
+        }
+    }
+
+    $scope.exportButtonClick = function() {
+        gateReaderServices.exportSinglePost(answerArrived, $scope.post)
+        function answerArrived(answer) {
+            console.log(answer)
         }
     }
 
@@ -98,7 +106,7 @@ function SinglePostController($scope, $rootScope, frameViewStateBroadcast,
         }
 
         $scope.replyPaneOpen = false
-        var content = angular.element(document.getElementsByClassName('subject-body-entry'))[0].innerText
+        var content = angular.element(document.getElementsByClassName('subject-body-entry'))[0].innerText.trim()
         // IMPORTANT: LANGUAGE SANITY CHECK, the lang needs to exist in selected user langs.
 
         gateReaderServices.createPost(answerArrived, '', content, $scope.post.PostFingerprint,
@@ -106,11 +114,13 @@ function SinglePostController($scope, $rootScope, frameViewStateBroadcast,
 
         function answerArrived(createdPostFingerprint) {
             console.log('The user has replied to one of his / her replies. The fingerprint of the new reply is: ', createdPostFingerprint)
+            $scope.postText = ''
         }
     }
 
     $scope.$watch('postText', function() {
-        if ($scope.postText.length > 5 && $scope.postText.length < 60000) {
+        $scope.trimmedPostText = $scope.postText.trim()
+        if ($scope.trimmedPostText.length > 5 && $scope.trimmedPostText.length < 60000) {
             $scope.postButtonDisabled = false
         }
         else {
@@ -118,17 +128,17 @@ function SinglePostController($scope, $rootScope, frameViewStateBroadcast,
         }
     })
 
-    var subjectBodyEntry = angular.element(document.getElementsByClassName('subject-body-entry'))
-    var metaBox = angular.element(document.getElementsByClassName('meta-box'))
-    $scope.subjectBodyEntryStyle = {}
-
-    subjectBodyEntry.bind('paste keydown', function() {
-        $timeout(function() {
-            metaBox[0].scrollIntoViewIfNeeded()
-            $scope.bodyLetterCount = subjectBodyEntry.text().length
-            $scope.bodyWordCount = subjectBodyEntry.text().split(/\s+/).length - 1
-        }, 10)
-    })
+//    var subjectBodyEntry = angular.element(document.getElementsByClassName('subject-body-entry')[0])
+//    var metaBox = angular.element(document.getElementsByClassName('meta-box'))
+//    $scope.subjectBodyEntryStyle = {}
+//
+//    subjectBodyEntry.bind('paste keydown', function() {
+//        $timeout(function() {
+//            metaBox[0].scrollIntoViewIfNeeded()
+//            $scope.bodyLetterCount = subjectBodyEntry.text().trim().length
+//            $scope.bodyWordCount = subjectBodyEntry.text().trim().split(/\s+/).length - 1
+//        }, 10)
+//    })
 
 }
 SinglePostController.$inject = ['$scope', '$rootScope', 'frameViewStateBroadcast',

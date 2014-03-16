@@ -9,14 +9,25 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import SingletonThreadPool
 
-from globals import basedir, nodeid, newborn, resetted, nuked, FROZEN
+
+from globals import basedir, nodeid, newborn, resetted, nuked, FROZEN, PLATFORM, profiledir
 
 #aetherEngine = create_engine('sqlite:///' + basedir + 'Database/aether.db?check_same_thread=False', connect_args={'timeout': 20})
 # The modification above allows multithreaded access, however
 # it's not thread safe! do not use without implementing queuing or mutex.
 
-aetherEngine = create_engine('sqlite:///' + basedir + 'Database/aether.db', connect_args={'timeout': 20})
+if PLATFORM is 'WIN':
+    # aetherEngine = create_engine('sqlite:///' + basedir + 'Database/aether.db?check_same_thread=False',
+    #                              poolclass=SingletonThreadPool,
+    #                              use_threadlocal=True)
+    aetherEngine = create_engine('sqlite:///' + profiledir + 'Database/aether.db')
+else:
+    aetherEngine = create_engine('sqlite:///' + profiledir + 'Database/aether.db')
+
+    #aetherEngine = create_engine('mysql://aether:12345@localhost/aether', encoding='UTF-8', pool_size=50, max_overflow=100)
+
 Base = declarative_base(bind=aetherEngine)
 Session = sessionmaker(bind=aetherEngine)
 
@@ -31,15 +42,15 @@ class Post(Base):
     __tablename__ = 'posts'
 
     ID = Column(Integer, primary_key=True)
-    PostFingerprint = Column(String, index=True)
-    Subject = Column(Unicode)
+    PostFingerprint = Column(String(64), index=True)
+    Subject = Column(Unicode(255))
     Body = Column(UnicodeText)
-    OwnerFingerprint = Column(String)
-    OwnerUsername = Column(Unicode)
+    OwnerFingerprint = Column(String(64))
+    OwnerUsername = Column(Unicode(255))
     CreationDate = Column(DateTime)
-    ParentPostFingerprint = Column(String, index=True)
+    ParentPostFingerprint = Column(String(64), index=True)
     ProtocolVersion = Column(Float)
-    Language = Column(String)
+    Language = Column(String(255))
     # Counters
     UpvoteCount = Column(Integer, default=0, index=True)
     DownvoteCount = Column(Integer, default=0)
@@ -51,11 +62,11 @@ class Post(Base):
     Neutral = Column(Boolean, default=False)
     Saved = Column(Boolean, default=False)
     IsReply = Column(Boolean, default=False, index=True)
+    Dirty = Column(Boolean, default=True, index=True)
     # Locally set
     LocallyCreated = Column(Boolean, default=False)
     LastVoteDate = Column(DateTime, index=True) #the creation date.
-    # Identifiers
-    EphemeralConnectionId = Column(Integer, default=None, index=True)
+    RankScore = Column(Float, default=0)
 
     def asDict(self):
        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
@@ -71,10 +82,10 @@ class Post(Base):
             in kwargs else None
         #self.ProtocolVersion = kwargs['ProtocolVersion'] if 'ProtocolVersion' in kwargs else None # I probably don't need this.
         self.Language = kwargs['Language'] if 'Language' in kwargs else None
-        self.UpvoteCount = kwargs['UpvoteCount'] if 'UpvoteCount' in kwargs else None
-        self.DownvoteCount = kwargs['DownvoteCount'] if 'DownvoteCount' in kwargs else None
-        self.NeutralCount = kwargs['NeutralCount'] if 'NeutralCount' in kwargs else None
-        self.ReplyCount = kwargs['ReplyCount'] if 'ReplyCount' in kwargs else None
+        self.UpvoteCount = kwargs['UpvoteCount'] if 'UpvoteCount' in kwargs else 0
+        self.DownvoteCount = kwargs['DownvoteCount'] if 'DownvoteCount' in kwargs else 0
+        self.NeutralCount = kwargs['NeutralCount'] if 'NeutralCount' in kwargs else 0
+        self.ReplyCount = kwargs['ReplyCount'] if 'ReplyCount' in kwargs else 0
         self.Upvoted = kwargs['Upvoted'] if 'Upvoted' in kwargs else None
         self.Downvoted = kwargs['Downvoted'] if 'Downvoted' in kwargs else None
         self.Neutral = kwargs['Neutral'] if 'Neutral' in kwargs else None
@@ -82,7 +93,6 @@ class Post(Base):
         self.LastVoteDate = datetime.utcnow()
         self.LocallyCreated = kwargs['LocallyCreated'] if 'LocallyCreated' in kwargs else None
         self.IsReply = kwargs['IsReply'] if 'IsReply' in kwargs else None
-        self.EphemeralConnectionId = kwargs['EphemeralConnectionId'] if 'EphemeralConnectionId' in kwargs else None
 
         if 'Body' and 'OwnerUsername' and 'OwnerFingerprint' in kwargs is None:
             # If it is a topic
@@ -104,34 +114,18 @@ class Post(Base):
                 self.concatInput.encode('utf-8')
             ).hexdigest() if 'PostFingerprint' not in kwargs else kwargs['PostFingerprint']
 
-class User(Base):
-    __tablename__ = 'users'
-
-    ID = Column(Integer, primary_key=True)
-    Fingerprint = Column(String)
-    Username = Column(Unicode)
-    PublicKey = Column(String)
-    # Stuff below are metadata. They are not to be sent across aether but to be fetched.
-    FirstName = Column(Unicode)
-    LastName = Column(Unicode)
-    Mail = Column(Unicode)
-    Website = Column(Unicode)
-    UserNo = Column(Integer)
-    LastRetrieved = Column(DateTime)
-
 class Node(Base):
     __tablename__ = 'nodes'
 
     ID = Column(Integer, primary_key=True)
-    NodeId = Column(String, index=True)
-    LastConnectedIP = Column(String)
+    NodeId = Column(String(64), index=True)
+    LastConnectedIP = Column(String(15))
     LastConnectedPort = Column(Integer)
     LastConnectedDate = Column(DateTime, index=True)
-    LastRetrievedIP = Column(String)
-    LastRetrievedPort = Column(Integer)
+    LastRetrievedIP = Column(String(15))
+    LastRetrievedPort = Column(String(5))
     LastRetrievedDate = Column(DateTime, index=True)
     LastSyncTimestamp = Column(DateTime) # This timestamp arrives from the remote node node.
-    Votes = relationship('Vote', back_populates='Node')
 
     def asDict(self):
        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
@@ -141,21 +135,19 @@ class Vote(Base):
 
     ID = Column(Integer, primary_key=True)
     Direction = Column(Integer)
-    postheader_id = Column(Integer, ForeignKey('postheaders.ID'))
-    node_id = Column(Integer, ForeignKey('nodes.ID'))
-    # These relationships below do not work with foreign keys.
-    # These are SQLAlchemy constructs and not real database columns.
-    PostHeader = relationship('PostHeader', back_populates='Votes')
-    Node = relationship('Node', back_populates='Votes')
+    TargetPostFingerprint = Column(String(64), index=True)
+    NodeId = Column(String(64), index=True)
+
+    def asDict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class PostHeader(Base):
     __tablename__ = 'postheaders'
     ID = Column(Integer, primary_key=True)
-    PostFingerprint = Column(String, index=True)
-    ParentPostFingerprint = Column(String, index=True)
-    Language = Column(String)
-    Dirty = Column(Boolean, default=False)
-    Votes = relationship('Vote', back_populates='PostHeader')
+    PostFingerprint = Column(String(64), index=True)
+    ParentPostFingerprint = Column(String(64), index=True)
+    Language = Column(String(255))
+    #Dirty = Column(Boolean, default=False)
 
     def asDict(self):
        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
@@ -164,7 +156,7 @@ if newborn:
     session = Session()
     if FROZEN:
         try:
-            mkdir(basedir + 'Database')
+            mkdir(profiledir + 'Database')
         except: pass
     Base.metadata.create_all(aetherEngine)
     session.add(Node(NodeId=nodeid, LastConnectedIP='LOCAL'))

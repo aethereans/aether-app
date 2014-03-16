@@ -39,3 +39,14 @@ function getStyle(element, attr) {
 
     // GOTCHA: this doesn't work with getElementsByTagName, for reasons unknown.
 }
+
+//document.addEventListener("DOMContentLoaded", mousetrapBinds, false);
+//
+//function mousetrapBinds() {
+//    Mousetrap.bind(['cmd+q'], function(e) {
+//        console.log('cmd q key stopped')
+//        e.preventDefault();
+//    });
+//}
+
+// Why are you keeping this? This will be useful later when I add shortcuts.

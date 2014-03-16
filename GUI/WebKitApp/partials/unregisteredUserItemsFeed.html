@@ -1,10 +1,17 @@
 <div id="unregistered-user-items-feed" ng-controller="UnregisteredUserFeed">
     <div class="feed-header-container">
-        <span id="feed-header">Posts by {{ requestedUsername }}</span>
+        <span id="feed-header">Posts by person(s) named {{ requestedUsername }}</span>
     </div>
     <div class="items-feed-container">
-        <div ng-repeat="post in feed"
-        ng-include="decideNgInclude(post.Subject)">
+        <div class="left-column">
+            <div ng-repeat="post in leftFeed"
+            ng-include="decideNgInclude(post.Subject)">
+            </div>
+        </div>
+        <div class="right-column">
+            <div ng-repeat="post in rightFeed"
+            ng-include="decideNgInclude(post.Subject)">
+            </div>
         </div>
     </div>
 </div>

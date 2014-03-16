@@ -33,8 +33,8 @@ function CreateSubjectController($scope, $rootScope, $timeout, frameViewStateBro
             $rootScope.userProfile.UserDetails.Username = 'no name given'
         }
         $scope.writeInProgress = false
-        var subjectHeader = angular.element(document.getElementsByClassName('subject-name-entry'))[0].innerText
-        var subjectBody = angular.element(document.getElementsByClassName('subject-body-entry'))[0].innerText
+        var subjectHeader = angular.element(document.getElementsByClassName('subject-name-entry'))[0].innerText.trim()
+        var subjectBody = angular.element(document.getElementsByClassName('subject-body-entry'))[0].innerText.trim()
         var found = false
         // The routine below handles the language detection implementation.
         if (!$scope.langManuallySelected) {
@@ -100,9 +100,11 @@ function CreateSubjectController($scope, $rootScope, $timeout, frameViewStateBro
     // find a way around this. TODO.
 
     $scope.$watch('subjectHeaderText + subjectBodyText', function() {
-        if ($scope.subjectHeaderText.length > 10 &&
-            $scope.subjectBodyText.length > 5 &&
-            $scope.subjectBodyText.length < 60000) {
+        $scope.trimmedSubjectBodyText = $scope.subjectBodyText.trim()
+        $scope.trimmedSubjectHeaderText = $scope.subjectHeaderText.trim()
+        if ($scope.trimmedSubjectHeaderText.length > 10 &&
+            $scope.trimmedSubjectBodyText.length > 5 &&
+            $scope.trimmedSubjectBodyText.length < 60000) {
             $scope.postButtonDisabled = false
         }
         else {
@@ -113,8 +115,9 @@ function CreateSubjectController($scope, $rootScope, $timeout, frameViewStateBro
     $scope.$watch('subjectBodyText', function() {
         // This will fire on every keypress on body
         // If this is an edit after user clicks to post and gets stopped,
-        $scope.bodyLetterCount = $scope.subjectBodyText.length
-        $scope.bodyWordCount = $scope.subjectBodyText.split(/\s+/).length - 1
+        $scope.trimmedSubjectBodyText = $scope.subjectBodyText.trim()
+        $scope.bodyLetterCount = $scope.trimmedSubjectBodyText.length
+        $scope.bodyWordCount = $scope.trimmedSubjectBodyText.split(/\s+/).length - 1
 
         if (!$scope.writeInProgress) {
             $scope.langManuallySelected = false
@@ -125,8 +128,9 @@ function CreateSubjectController($scope, $rootScope, $timeout, frameViewStateBro
     })
 
     $scope.$watch('subjectHeaderText', function() {
-        enforceHeaderMaxLength($scope.subjectHeaderText, 225)
-        $scope.subjectLetterCount = $scope.subjectHeaderText.length
+        $scope.trimmedSubjectHeaderText = $scope.subjectHeaderText.trim()
+        enforceHeaderMaxLength($scope.trimmedSubjectHeaderText, 225)
+        $scope.subjectLetterCount = $scope.trimmedSubjectHeaderText.length
 
         if (!$scope.writeInProgress) {
             $scope.langManuallySelected = false

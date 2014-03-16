@@ -33,6 +33,7 @@ function PostsController($scope, $rootScope, frameViewStateBroadcast,
         $rootScope.targetPost = fingerprint
         frameViewStateBroadcast.receiveState("", "createLite", $rootScope.requestedId)
         $rootScope.thirdFrameCSSStyle = {
+            'display':'block',
             'width':'393px'
         }
 

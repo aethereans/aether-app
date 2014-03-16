@@ -16,6 +16,7 @@ function SubjectsLiteController($scope, $rootScope, frameViewStateBroadcast, gat
             // Remove the first element, because it is the
             // subject itself.
             data.splice(0,1)
+            //data = data.sort($rootScope.sortByScore)
             $scope.subjects = data
         }
     }

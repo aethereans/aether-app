@@ -1,9 +1,11 @@
 from PyQt5.QtCore import *
 import ujson
+from datetime import datetime
 
 from ORM import Hermes
-from globals import nodeid, newborn, appVersion, updateAvailable, onboardingComplete
-import globals, aetherProtocol
+from globals import nodeid, newborn, appVersion, updateAvailable, onboardingComplete, PLATFORM
+import globals
+
 
 class Charon(QObject):
     """
@@ -23,10 +25,14 @@ class Charon(QObject):
         signals mechanism, but it looks fluid enough.
     """
 
+    def __init__(self, hermes):
+        QObject.__init__(self)
+        self.Hermes = hermes
+
     # Methods used by front to invoke action in the backend
     @pyqtSlot(str, result=str)
     def getAllPosts(self, fingerprint):
-        posts = Hermes.fetchAllDescendantPosts(fingerprint)
+        posts = self.Hermes.fetchAllDescendantPosts(fingerprint)
         returnList = []
         if posts.__len__() == 0:
             return "[]"
@@ -41,7 +47,7 @@ class Charon(QObject):
 
     @pyqtSlot(str, result=str)
     def getSinglePost(self, fingerprint):
-        post = Hermes.fetchSinglePost(fingerprint)
+        post = self.Hermes.fetchSinglePost(fingerprint)
         if post.__len__() == 0:
             return "[]"
         else:
@@ -51,7 +57,7 @@ class Charon(QObject):
 
     @pyqtSlot(str, int, result=str)
     def getSubjects(self, fingerprint, daysToSubtract):
-        posts = Hermes.getSubjects(fingerprint, daysToSubtract)
+        posts = self.Hermes.getSubjects(fingerprint, daysToSubtract)
         returnList = []
         if posts.__len__() == 0:
             return "[]"
@@ -67,7 +73,7 @@ class Charon(QObject):
 
     @pyqtSlot(int, int, result=str)
     def getHomeScreen(self, numberOfTopics, numberOfSubjects):
-        topicDictsAsJson = Hermes.getHomeScreen(numberOfTopics, numberOfSubjects)
+        topicDictsAsJson = self.Hermes.getHomeScreen(numberOfTopics, numberOfSubjects)
         if topicDictsAsJson.__len__() == 0:
             return "[]"
         else:
@@ -77,12 +83,12 @@ class Charon(QObject):
 
     @pyqtSlot(str, result=bool)
     def getUser(self, fingerprint):
-        user = Hermes.fetchUser(fingerprint)
+        user = self.Hermes.fetchUser(fingerprint)
         return user
 
     @pyqtSlot(str,int, result=str)
     def getSpecificDepthPosts(self, fingerprint, depth):
-        posts = Hermes.fetchDescendantPosts(fingerprint, depth)
+        posts = self.Hermes.fetchDescendantPosts(fingerprint, depth)
         returnList = []
         if posts.__len__() == 1:
             return "[]"
@@ -93,7 +99,7 @@ class Charon(QObject):
             return ujson.dumps(returnList, ensure_ascii=False)
     @pyqtSlot(str, result=str)
     def getDirectDescendantPosts(self, fingerprint):
-        posts = Hermes.fetchDirectDescendantPosts(fingerprint)
+        posts = self.Hermes.fetchDirectDescendantPosts(fingerprint)
         returnList = []
         if posts.__len__() == 0:
             return "[]"
@@ -105,7 +111,7 @@ class Charon(QObject):
 
     @pyqtSlot(str, int, result=str)
     def getDirectDescendantPostsWithTimespan(self, fingerprint, daysToSubtract):
-        posts = Hermes.fetchDirectDescendantPostsWithTimespan(fingerprint, daysToSubtract)
+        posts = self.Hermes.fetchDirectDescendantPostsWithTimespan(fingerprint, daysToSubtract)
         returnList = []
         if posts.__len__() == 0:
             return "[]"
@@ -117,25 +123,25 @@ class Charon(QObject):
 
     @pyqtSlot(str, result=int)
     def countDirectDescendantPosts(self, fingerprint):
-        count = Hermes.countDirectDescendantPosts(fingerprint)
+        count = self.Hermes.countDirectDescendantPosts(fingerprint)
         return count
 
     @pyqtSlot(str, result=int)
     def countAllDescendantPosts(self, fingerprint):
-        count = Hermes.countAllDescendantPosts(fingerprint)
+        count = self.Hermes.countAllDescendantPosts(fingerprint)
         return count
 
     @pyqtSlot(result=int)
     def countUppermostTopics(self):
-        return Hermes.countTopics()
+        return self.Hermes.countTopics()
 
     @pyqtSlot(result=int)
     def countSubjects(self):
-        return Hermes.countSubjects()
+        return self.Hermes.countSubjects()
 
     @pyqtSlot(result=str)
     def getUppermostTopics(self):
-        posts = Hermes.fetchUppermostTopics()
+        posts = self.Hermes.fetchUppermostTopics()
         returnList = []
         if posts.__len__() == 0:
             return "[]"
@@ -147,7 +153,7 @@ class Charon(QObject):
 
     @pyqtSlot(str, result=str)
     def getTopmostComment(self, fingerprint):
-        post = Hermes.getTopmostComment(fingerprint)
+        post = self.Hermes.getTopmostComment(fingerprint)
         if post is None:
             return "[]"
         else:
@@ -155,21 +161,21 @@ class Charon(QObject):
 
     @pyqtSlot(result=str)
     def getUserProfile(self):
-        if Hermes.readUserProfile() != '':
-            return Hermes.readUserProfile()
+        if self.Hermes.readUserProfile() != '':
+            return self.Hermes.readUserProfile()
         else:
             return '{}'
 
     @pyqtSlot(int, str, result=str)
     def getSubjectCounts(self, days, fingerprintsListAsJSON):
-        return ujson.dumps(Hermes.multiCountDirectDescendantPostsWithTimespan(days,
+        return ujson.dumps(self.Hermes.multiCountDirectDescendantPostsWithTimespan(days,
                                                                   ujson.loads(
                                                                   fingerprintsListAsJSON)),
                            ensure_ascii=False)
 
     @pyqtSlot(result=str)
     def getSavedPosts(self):
-        posts = Hermes.getSavedPosts()
+        posts = self.Hermes.getSavedPosts()
         returnList = []
         if posts.__len__() == 0:
             return "[]"
@@ -181,11 +187,11 @@ class Charon(QObject):
 
     @pyqtSlot(result=int)
     def countConnectedNodes(self):
-        return Hermes.countConnectedNodes()
+        return self.Hermes.countConnectedNodes()
 
     @pyqtSlot(result=str)
     def getLocallyCreatedPosts(self):
-        posts = Hermes.getLocallyCreatedPosts()
+        posts = self.Hermes.getLocallyCreatedPosts()
         returnList = []
         if posts.__len__() == 0:
             return "[]"
@@ -197,11 +203,11 @@ class Charon(QObject):
 
     @pyqtSlot(result=int)
     def countReplies(self):
-        return Hermes.countReplies()
+        return self.Hermes.countReplies()
 
     @pyqtSlot(result=str)
     def getReplies(self):
-        posts = Hermes.getReplies()
+        posts = self.Hermes.getReplies()
         returnList = []
         if posts.__len__() == 0:
             return "[]"
@@ -213,45 +219,45 @@ class Charon(QObject):
 
     @pyqtSlot(str, result=str)
     def getUnregisteredUserPosts(self, name):
-        posts = Hermes.getUnregisteredUserPosts(name)
+        posts = self.Hermes.getUnregisteredUserPosts(name)
         return multiJsonify(posts)
 
 
     @pyqtSlot(str, result=str)
     def getParentSubjectOfGivenPost(self, fingerprint):
-        return multiJsonify(Hermes.getParentSubjectOfGivenPost(fingerprint))
+        return multiJsonify(self.Hermes.getParentSubjectOfGivenPost(fingerprint))
 
     @pyqtSlot(result=str)
     def getLastConnectionTime(self):
-        return ujson.dumps(Hermes.getLastConnectionTime())
+        return ujson.dumps(self.Hermes.getLastConnectionTime())
 
     # These ones below are write methods.
 
     @pyqtSlot(str)
     def writeUserProfile(self, userProfileInJSON):
         # I need to do some stuff here to ensure data in json matches the one in profile.
-        return Hermes.writeUserProfile(userProfileInJSON)
+        return self.Hermes.writeUserProfile(userProfileInJSON)
 
     @pyqtSlot(str, result=str)
     def createTopic(self, topicName):
-        return Hermes.createTopic(topicName)
+        return self.Hermes.createTopic(topicName)
 
     @pyqtSlot(str, str, str, str, str, result=str)
     def createPost(self, postSubject, postText, parentPostFingerprint, ownerUsername, postLanguage):
-        return Hermes.createPost(postSubject, postText, parentPostFingerprint, ownerUsername, postLanguage)
+        return self.Hermes.createPost(postSubject, postText, parentPostFingerprint, ownerUsername, postLanguage)
 
     @pyqtSlot(str, str, str, str, result=str)
     def createSignedPost(self, postSubject, postText, parentPostFingerprint, ownerFingerprint):
-        return Hermes.createSignedPost(postSubject, postText, parentPostFingerprint,
+        return self.Hermes.createSignedPost(postSubject, postText, parentPostFingerprint,
                                      ownerFingerprint)
 
     @pyqtSlot(str, int, result=bool)
     def votePost(self, fingerprint, voteDirection):
-        return Hermes.votePost(fingerprint, voteDirection)
+        return self.Hermes.votePost(fingerprint, voteDirection)
 
     @pyqtSlot(str, result=bool)
     def savePost(self, fingerprint):
-        return Hermes.savePost(fingerprint)
+        return self.Hermes.savePost(fingerprint)
 
     @pyqtSlot(result=str)
     def nodeId(self):
@@ -273,11 +279,20 @@ class Charon(QObject):
     def updateAvailable(self):
         return updateAvailable
 
+    @pyqtSlot(result=str)
+    def getOperatingSystem(self):
+        return PLATFORM
+
     # It took me so long to figure out how to pass a variable (above) through. I'm an idiot.
 
     @pyqtSlot(result=bool)
     def markAllRepliesAsRead(self):
-        return Hermes.markAllRepliesAsRead()
+        self.trayIcon.makeIconGoDark()
+        return self.Hermes.markAllRepliesAsRead()
+
+    @pyqtSlot(result=bool)
+    def markAllSavedsAsNotSaved(self):
+        return self.Hermes.markAllSavedsAsNotSaved()
 
     @pyqtSlot()
     def quitApp(self):
@@ -291,7 +306,74 @@ class Charon(QObject):
 
     @pyqtSlot(str, str)
     def connectToNodeWithIP(self, ip, port):
-        aetherProtocol.connectWithIP(ip, int(port))
+        self.Hermes.sendConnectWithIPSignal(ip, port)
+
+    @pyqtSlot(str, result=bool)
+    def exportSinglePost(self, post):
+        # Here I need to get the post, convert it to dict, and put it into a text file.
+        postAsDict = ujson.loads(post)
+        if len(postAsDict['Body']) < 25:
+            fileName = postAsDict['Body']
+        else:
+            fileName = postAsDict['Body'][0:25] + '..'
+        from PyQt5.QtWidgets import QFileDialog
+        dialog = QFileDialog()
+        filePath = dialog.getSaveFileName(None, 'Please select a location to save a post.', fileName + '.txt')
+        filePath = filePath[0]
+        postText = \
+u"""%s\n
+by %s, at %s\n
+Gathered from Aether network. Aether is a distributed network of anonymous forums. Join us at www.getaether.net.
+This post is licensed under CC-BY-SA.""" \
+        % (postAsDict['Body'], postAsDict['OwnerUsername'], str(datetime.utcfromtimestamp(float(postAsDict['CreationDate']))))
+        postText = postText.encode('utf8')
+        f = open(filePath, 'wb')
+        f.write(postText)
+        f.close()
+        return True
+
+    @pyqtSlot(str, result=bool)
+    def exportAllPosts(self, posts):
+        posts = ujson.loads(posts)
+        print('posts:', posts)
+
+        fileName = 'Posts compilation at %s' % datetime.now().date()
+        from PyQt5.QtWidgets import QFileDialog
+        dialog = QFileDialog()
+        filePath = dialog.getSaveFileName(None, 'Please select a location to save a post.', fileName + '.txt')
+        filePath = filePath[0]
+        if not filePath:
+            return False
+
+        def produceSinglePostText(postAsDict):
+            postText =  \
+u"""
+%s\n
+by %s, at %s\n\n
+""" \
+            % (postAsDict['Body'], postAsDict['OwnerUsername'], str(datetime.utcfromtimestamp(float(postAsDict['CreationDate']))))
+            return postText
+
+        def attachCredits(text):
+            creditsText =  \
+u"""YOUR SAVED POSTS AT %s
+%s
+Gathered from Aether network. Aether is a distributed network of anonymous forums. Join us at www.getaether.net.
+These posts are licensed under CC-BY-SA.
+""" % (datetime.now().date(), text)
+            return creditsText
+
+        finalPostText = u""
+        for p in posts:
+            finalPostText = finalPostText + produceSinglePostText(p)
+        f = open(filePath, 'wb')
+        f.write(attachCredits(finalPostText).encode('utf8'))# Encode only happens at the end.
+        f.close()
+        return True
+
+
+
+
 
 def multiJsonify(posts):
     """

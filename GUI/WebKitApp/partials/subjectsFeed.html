@@ -6,6 +6,7 @@
                 ng-style="secondFrameColumnCountStyle">
             <div class="subject-intro-box">
                 <span id="subject-header">{{ selectedTopic.Subject }}</span>
+
                 <div class="subject-global-actions-box">
 
                     <span class="date-picker"
@@ -31,10 +32,11 @@
                 </div>
                 <div class="new-subject-button"
                 ng-click="changeState('createSubject','','')">
-                    CREATE SUBJECT
+                    CREATE NEW THREAD
                 </div>
+
             </div>
-            <div class="column-container">
+            <div class="column-container" ng-hide="userProfile.subjectsSingleColumnLayout">
                 <div class="column-1">
                     <div ng-repeat="subject in subjectsCol1"
                     ng-include="'contentBlocks/subjectBox.html'">
@@ -51,6 +53,11 @@
                     </div>
                 </div>
             </div>
+            <div class="column-container" ng-show="userProfile.subjectsSingleColumnLayout">
+                <div ng-repeat="subject in singleCol"
+                ng-include="'contentBlocks/subjectBoxSingleCol.html'">
+                </div>
+            </div>
         </div>
         <div id="footer">
             <img src="img/aethersign.icon.slimmer.colored.svg" alt="" id="aether-footer-brand">
@@ -60,7 +67,7 @@
         <div class="flex-spacer"></div>
         <span id="subject-header">{{ selectedTopic.Subject }}</span>
         <div id="footer">
-            <img src="img/aethersign.icon.slimmer.AAA.svg" alt="" id="aether-footer-brand">
+            <img src="img/aether-logo.svg" alt="" id="aether-footer-brand">
         </div>
         <div ng-switch="timespanIsFiltered">
             <div class="aether-error" ng-switch-when="false">
@@ -73,7 +80,7 @@
                 </div>
                 <div class="new-subject-button"
                 ng-click="changeState('createSubject','','')">
-                    CREATE SUBJECT
+                    CREATE NEW THREAD
                 </div>
             </div>
             <div class="aether-error" ng-switch-when="true">

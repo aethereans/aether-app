@@ -3,8 +3,9 @@
         <h1 id="third-frame-header-text">
             {{ selectedTopic.Subject}}
         </h1>
-        <i class="icon-chevron-up go-to-topics-icon" ng-click="returnToTopics()"></i>
+        <i class="fa fa-chevron-up go-to-topics-icon" ng-click="returnToTopics()"  title="Go up to boards"></i>
     </div>
+    <div id="third-frame-header-space-holder"></div>
     <div ng-repeat="subject in subjects"
     ng-include="'contentBlocks/subjectBoxLite.html'">
     </div>

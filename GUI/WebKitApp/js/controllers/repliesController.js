@@ -48,6 +48,7 @@ function RepliesController($scope, $rootScope, frameViewStateBroadcast, gateRead
                 $rootScope.changeState('homeFeed', '', '')
                 $rootScope.userProfile.UnreadReplies = []
                 $rootScope.userProfile.ReadReplies = []
+                $rootScope.totalReplyCount = 0
             }
         }
     }

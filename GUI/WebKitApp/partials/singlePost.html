@@ -2,7 +2,7 @@
     <div class="post-container">
         <div class="single-post-header" ng-class="{'centered-header-container': centerLayout}">
             <div class="header-meta-intro" ng-class="{'centered-header-text': centerLayout}">
-                In Subject
+                Thread
             </div>
             <h1 id="header-text" ng-class="{'centered-header-text': centerLayout}">
                 {{ subject.Subject }}
@@ -12,12 +12,12 @@
             <div ng-class="{'centered-pre-meta': centerLayout}"></div>
             <div class="pre-meta">
                 <div class="counters" ng-class="{'centered-counters': centerLayout}">
-                    <i class="icon-arrow-up upvote-counter-icon">
+                    <i class="fa fa-arrow-up upvote-counter-icon">
                     </i>
                     {{ post.UpvoteCount - post.DownvoteCount }}&nbsp;&nbsp;
                 </div>
                 <span class="comment-owner">
-                    <img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">
+                    <!--<img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">-->
                     <div class="owner-name">{{ post.OwnerUsername }}</div>
                 </span>
                 <span class="comment-datetime">
@@ -30,23 +30,24 @@
         </div>
         <div class="text" ng-bind="post.Body" ng-class="{'centered': centerLayout}"></div>
         <div class="meta">
-            <i class="icon-arrow-up upvote-icon"
+            <i class="fa fa-arrow-up upvote-icon"
             ng-click="upvotePost(post.PostFingerprint)"
             ng-class="{'highlighted': post.Upvoted}">
             </i>
-            <i class="icon-arrow-down downvote-icon"
+            <i class="fa fa-arrow-down downvote-icon"
             ng-click="downvotePost(post.PostFingerprint)"
             ng-class="{'highlighted': post.Downvoted}">
             </i>
-            <i class="icon-bookmark save-icon"
+            <i class="fa fa-bookmark save-icon"
             ng-click="savePost(post.PostFingerprint)"
             ng-class="{'highlighted': post.Saved}">
             </i>
-            <!-- <i class="icon-share share-icon">
+            <!-- <i class="fa fa-share share-icon">
             </i> -->
-            <i class="icon-reply reply-icon" ng-click="replyButtonClick()">
+            <i class="fa fa-reply reply-icon" ng-click="replyButtonClick()">
             </i>
         </div>
+        <button ng-show="post.Saved" ng-click="exportButtonClick()" class="export-button-single">Save to your Drive</button>
         <div class="subject-body-entry" contenteditable="plaintext-only"
         ng-show="replyPaneOpen" ng-style="subjectBodyEntryStyle" ng-model="postText"></div>
         <div class="meta-box" ng-show="replyPaneOpen">

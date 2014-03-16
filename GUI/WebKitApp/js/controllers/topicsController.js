@@ -1,5 +1,17 @@
 function TopicsController($scope, $rootScope, frameViewStateBroadcast, gateReaderServices) {
 
+
+
+
+    $scope.setSubjectsToSingleColumn = function() {
+        $rootScope.userProfile.subjectsSingleColumnLayout = true
+
+    }
+    $scope.setSubjectsToMultiColumn = function() {
+        $rootScope.userProfile.subjectsSingleColumnLayout = false
+    }
+
+
     $scope.$on('refreshPage', function() {
         gateReaderServices.getUppermostTopics(topicsArrived)
     })
@@ -26,7 +38,7 @@ function TopicsController($scope, $rootScope, frameViewStateBroadcast, gateReade
 
             }
         }
-        console.log('these are topics: ', $scope.topics)
+        //console.log('these are topics: ', $scope.topics)
 
         $scope.$watch('requestedId', function(){
             if ($rootScope.requestedId === undefined && $scope.topics[0] != undefined)
@@ -65,6 +77,8 @@ function TopicsController($scope, $rootScope, frameViewStateBroadcast, gateReade
             return false
         }
     }
+
+
 
 
 }

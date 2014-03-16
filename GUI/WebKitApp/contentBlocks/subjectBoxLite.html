@@ -3,7 +3,7 @@
     <span class="subject-headline">
         {{ subject.Subject }}
         <span class="subject-owner">
-            <img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">
+            <!--<img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">-->
             {{ subject.OwnerUsername }}
         </span>
     </span>
@@ -12,10 +12,10 @@
     </span>
     <span class="subject-meta">
         <div class="counters">
-            <i class="icon-arrow-up upvote-counter-icon">
+            <i class="fa fa-arrow-up upvote-counter-icon">
             </i>
             {{ subject.UpvoteCount - subject.DownvoteCount }}&nbsp;&nbsp;
-            <i class="icon-comment comment-icon">
+            <i class="fa fa-comment comment-icon">
             </i>
             {{ subject.ReplyCount - 1 | positiveNumber}}
         </div>

@@ -3,15 +3,15 @@ riate level conditionally here. -->
 <div class="comment depth-{{ post.Depth }}">
     <div class="overline"></div>
     <div class="counters">
-        <i class="icon-arrow-up upvote-counter-icon">
+        <i class="fa fa-arrow-up upvote-counter-icon">
         </i>
         {{ post.UpvoteCount - post.DownvoteCount }}&nbsp;&nbsp;
-        <i class="icon-comment comment-icon">
-        </i>
-        {{ post.ReplyCount }}
+        <!--<i class="fa fa-comment comment-icon">-->
+        <!--</i>-->
+        <!--{{ post.ReplyCount }}-->
     </div>
     <span class="comment-owner" ng-click="clickToUsername(post.OwnerUsername)">
-        <img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">
+        <!--<img src="img/aethersign.icon.slimmer.svg" alt="" class="header-aether-sign">-->
         <div class="owner-name">{{ post.OwnerUsername }}</div>
     </span>
     <span class="comment-datetime">
@@ -20,29 +20,29 @@ riate level conditionally here. -->
         {{ post.CreationDate + '000' | date:'MMMM d EEEE, H:mm' }}
     </span>
     <div class="hide-switch" ng-click="toggleThreadCollapse()">
-        <i class="icon-caret-down hide-icon">
+        <i class="fa fa-caret-down hide-icon">
         </i>
     </div>
     <div class="text" ng-bind="post.Body">
         <!-- This is very likely a HORRIBLE idea, so fix this -->
     </div>
     <div class="meta">
-        <i class="icon-arrow-up upvote-icon"
+        <i class="fa fa-arrow-up upvote-icon"
         ng-click="upvotePost(post.PostFingerprint)"
-        ng-class="{'highlighted': post.Upvoted}">
+        ng-class="{'highlighted': post.Upvoted}"  title="Upvote">
         </i>
-        <i class="icon-arrow-down downvote-icon"
+        <i class="fa fa-arrow-down downvote-icon"
         ng-click="downvotePost(post.PostFingerprint)"
-        ng-class="{'highlighted': post.Downvoted}">
+        ng-class="{'highlighted': post.Downvoted}"  title="Downvote">
         </i>
-        <i class="icon-bookmark save-icon"
+        <i class="fa fa-bookmark save-icon"
         ng-click="savePost(post.PostFingerprint)"
-        ng-class="{'highlighted': post.Saved}">
+        ng-class="{'highlighted': post.Saved}"  title="Save / Read Later">
         </i>
-        <!-- <i class="icon-share share-icon">
+        <!-- <i class="fa fa-share share-icon">
         </i> -->
-        <!-- <i class="icon-eye-close hide-icon"></i> -->
-        <i class="icon-reply reply-icon" ng-click="openReplyPane(post.PostFingerprint)">
+        <!-- <i class="fa fa-eye-close hide-icon"></i> -->
+        <i class="fa fa-reply reply-icon" ng-click="openReplyPane(post.PostFingerprint)"  title="Reply">
         </i>
     </div>
 </div>

@@ -3,12 +3,21 @@ function UnregisteredUserFeed($scope, $rootScope, frameViewStateBroadcast,
 
     gateReaderServices.getUnregisteredUserPosts(dataArrived, $rootScope.requestedUsername)
     function dataArrived(data) {
-        $scope.feed = data
-        console.log(data)
+        var leftFeed = []
+        var rightFeed = []
+        for (var i =0 ; i<data.length; i++) {
+            if (i%2===0) {
+                leftFeed.push(data[i])
+            }
+            else {
+                rightFeed.push(data[i])
+            }
+        }
+        $scope.leftFeed = leftFeed
+        $scope.rightFeed = rightFeed
     }
 
     $scope.decideNgInclude = function(postSubject) {
-        console.log(postSubject)
         if (postSubject === '') {
             // It is a post
             return 'contentBlocks/userPostItem.html'
@@ -27,7 +36,9 @@ function UnregisteredUserFeed($scope, $rootScope, frameViewStateBroadcast,
     $scope.clickToSubjectItem = function(postFingerprint) {
         $rootScope.changeState('postsFeed', 'subjectsFeedLite', postFingerprint)
         $rootScope.secondFrameCSSStyle = {}
-        $rootScope.thirdFrameCSSStyle = {}
+        $rootScope.thirdFrameCSSStyle = {
+            'display':'block'
+        }
     }
 
 }
