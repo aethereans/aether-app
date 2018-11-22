@@ -1,0 +1,200 @@
+// Metrics Protobufs
+
+syntax = "proto3";
+
+package metrics;
+
+service MetricsService {
+  rpc RequestMetricsToken(Machine) returns (Machine.MetricsToken) {}
+  rpc UploadMetrics(Metrics) returns (MetricsDeliveryResponse) {}
+  rpc SendConnectionState(ConnState) returns (MetricsDeliveryResponse) {}
+  rpc SendDbState(DbState) returns (MetricsDeliveryResponse) {}
+}
+
+// Empty responses
+message MetricsDeliveryResponse {}
+
+// Machines refer to specific backends or frontends that are parts of the network. (Frontends connect to their backends only, but they can still send frontend metrics). The list of these machines are public and available on the network, so this message does not contain any information that is not available publicly. Frontends are not connected to backends and they send their metrics completely separately with a different identifier, so that no backend can be matched to the frontend(s) it serves.
+message Machine {
+  string nodeId = 1;
+  MetricsToken metricsToken = 2; // Only available if this Machine message refers to the local machine
+  repeated Protocol protocols = 3;
+  Client client = 4;
+  string address = 5;
+  int32 port = 6;
+
+  message MetricsToken {
+    string token = 1;
+  }
+}
+
+message Client {
+  string name = 1;
+  int32 versionMajor = 2;
+  int32 versionMinor = 3;
+  int32 versionPatch = 4;
+}
+
+message Protocol {
+  string name = 1;
+  int32 versionMajor = 2;
+  int32 versionMinor = 3;
+  repeated string supportedEntities = 4;
+}
+
+message Entity {
+  enum EntityType {
+      UNKNOWN = 0;
+      BOARD = 1;
+      THREAD = 2;
+      POST = 3;
+      VOTE = 4;
+      KEY = 5;
+      TRUSTSTATE = 6;
+      ADDRESS = 7;
+    }
+  EntityType entityType = 1;
+  string fingerprint = 2;
+  string addressLocation = 3;
+  string addressSublocation = 4;
+  int32 addressPort = 5;
+  int64 lastUpdate = 6;
+}
+
+message Connection {
+  int64 timestamp = 1;
+  bool successful = 2;
+  enum Direction {
+      INBOUND = 0;
+      OUTBOUND = 1;
+    }
+  Direction direction = 3;
+  string address = 4;
+  int32 port = 5;
+}
+
+message NodeEntity {
+  string fingerprint = 1;
+  int64 boardsLastCheckin = 2;
+  int64 threadsLastCheckin = 3;
+  int64 postsLastCheckin = 4;
+  int64 votesLastCheckin = 5;
+  int64 keysLastCheckin = 6;
+  int64 truststatesLastCheckin = 7;
+  int64 addressesLastCheckin = 8;
+
+}
+
+/*
+
+If metrics is enabled by the user, this is sent every hour, and on startup / shutdown.
+
+The metrics that are appended with a _dbg are debug metrics that are normally not sent, nor calculated.
+
+When the debug mode is enabled, these metrics are sent at any time that the local node deems it necessary, such as when new data is being entered to the database. This provides a real-time view into what the node is doing with its machine for debugging purposes.
+
+This should NOT be able to be turned on permanently, only temporarily. If a node detects that it is in DEBUG, all the frontends connected to that node should give a very obvious warning that this is a debug node, and ask the user whether s/he wants to continue before letting the user actually start communicating with that machine node.
+
+*/
+
+message Metrics {
+  Machine machine = 1;
+  Persistence persistence = 2;
+  Network network = 3;
+  Node node = 4;
+  Validation validation = 5;
+  Frontend frontend = 6;
+
+}
+
+// Internals of metrics message above.
+
+// Metrics related to the database state and caching.
+message Persistence {
+  int64 currentDatabaseSize = 1;
+  int64 currentCachesSize = 2;
+  repeated Entity arrivedEntitiesSinceLastMetricsDbg = 3;
+  repeated Entity orphans = 4;
+  repeated NodeEntity nodeInsertionsSinceLastMetricsDbg = 5;
+}
+// Metrics related to the network state.
+message Network {
+  int64 inboundBandwidthConsumptionLast24h = 1;
+  int64 outboundBandwidthConsumptionLast24h = 2;
+  int64 inboundBandwidthConsumptionLast7d = 3;
+  int64 outboundBandwidthConsumptionLast7d = 4;
+  int64 inboundBandwidthConsumptionLast30d = 5;
+  int64 outboundBandwidthConsumptionLast30d = 6;
+  int32 currentOnlineNodesCount = 7;
+  repeated Connection last10InboundConnections = 8;
+  repeated Connection last10OutboundConnections = 9;
+  repeated Connection last10SuccessfulInboundConnections = 10;
+  repeated Connection last10SuccessfulOutboundConnections = 11;
+
+  repeated Machine currentOnlineNodesDbg = 12;
+  repeated Connection last100InboundConnectionsDbg = 13;
+  repeated Connection last100OutboundConnectionsDbg = 14;
+  repeated Connection last100SuccessfulInboundConnectionsDbg = 15;
+  repeated Connection last100SuccessfulOutboundConnectionsDbg = 16;
+}
+// Metrics related to local node health.
+message Node {
+  int64 systemUptime = 1;
+  bool nodeIsShuttingDown = 2;
+  bool nodeIsStartingUp = 3;
+  bool nodeIsTrackingHead = 4;
+  bool nodeIsBehindARouter = 5;
+  int32 loadAvg1 = 6;
+  int32 loadAvg5 = 7;
+  int32 loadAvg15 = 8;
+}
+message Validation {
+  repeated Entity failures = 1;
+}
+// Product metrics. TBD.
+message Frontend {
+}
+
+// ConnState container.
+
+message ConnState {
+  Machine machine = 1;
+  Node node = 2;
+  OrchestrateConn connection = 3;
+}
+
+message Objects {
+  int64 Boards = 1;
+  int64 Threads = 2;
+  int64 Posts = 3;
+  int64 Votes = 4;
+  int64 Keys = 5;
+  int64 Truststates = 6;
+  int64 Addresses = 7;
+
+}
+message OrchestrateConn {
+  bool State = 1; // opened, closed
+  string ToIp = 2;
+  int32 ToPort = 3;
+  string ToNodeName = 4;
+  int64 Timestamp = 5;
+  Objects objects = 6;
+  bool FirstSync = 7;
+  int32 CurrentDbSizeMb = 8;
+}
+
+// DB State
+
+message DbState {
+  string SwarmNodeName = 1;
+  int64 Timestamp = 2;
+  string Time = 10;
+  int32 BoardsCount = 3;
+  int32 ThreadsCount = 4;
+  int32 PostsCount = 5;
+  int32 VotesCount = 6;
+  int32 KeysCount = 7;
+  int32 TruststatesCount = 8;
+  int32 AddressesCount = 9;
+}

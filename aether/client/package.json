@@ -1,0 +1,278 @@
+{
+  "name": "Aether",
+  "version": "2.0.0-dev.6+1811211332.746ec27e.d",
+  "description": "Aether",
+  "readme": "https://getaether.net",
+  "main": "src/app/mainmain.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run update-version-string && ../../../../../../../../../usr/local/lib/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron .",
+    "sasswatch": "node-sass --watch ./src/app/scss/main.scss -o ./src/app/scss/compiled --output-style=compressed --source-map=true --source-map-contents=scss || echo To use this watcher, please install node-sass. For that, do: npm install -g node-sass",
+    "tswatch": "../../tsc -w || echo To use the TypeScript watcher, please install Typescript. For that, do: npm install -g typescript",
+    "wpbuild": "webpack",
+    "wpwatch": "webpack --watch",
+    "dist-mac": "npm run update-version-string && electron-builder --mac -c.extraMetadata.version=$(node ./buildresources/get-version-from-git.js print)",
+    "dist-win": "npm run update-version-string && electron-builder --win -c.extraMetadata.version=$(node ./buildresources/get-version-from-git.js print)",
+    "dist-linux-docker-trigger": "electron-builder --linux -c.extraMetadata.version=$BVERSION",
+    "dist-linux-docker-install-deps": "docker run --rm -ti --env ELECTRON_CACHE=\"/root/.cache/electron\" --env ELECTRON_BUILDER_CACHE=\"/root/.cache/electron-builder\" -v ${PWD}:/project -v ${PWD}/../../../BundledReleases:/BundledReleases -v ${PWD##*/}-node-modules:/project/node_modules -v ~/.cache/electron:/root/.cache/electron -v ~/.cache/electron-builder:/root/.cache/electron-builder electronuserland/builder:10 npm install",
+    "dist-linux": "npm run update-version-string && docker run --rm -ti --env ELECTRON_CACHE=\"/root/.cache/electron\" --env ELECTRON_BUILDER_CACHE=\"/root/.cache/electron-builder\" -v ${PWD}:/project -v ${PWD}/../../../BundledReleases:/BundledReleases -v ${PWD}/../../../ReleaseArchive:/ReleaseArchive -v ${PWD##*/}-node-modules:/project/node_modules -v ${PWD}/../../../.git:/project/.git -v ~/.cache/electron:/root/.cache/electron -v ~/.cache/electron-builder:/root/.cache/electron-builder -e BVERSION=$(node ./buildresources/get-version-from-git.js print) electronuserland/builder:10 npm run dist-linux-docker-trigger",
+    "dist-linux-server": "VERSIONATSTART=$(node ./buildresources/get-version-from-git.js print) && mv ./MAKE_BINARIES/aether-backend-linux-x64 ./MAKE_BINARIES/aether-backend-linux-x64-$VERSIONATSTART 2> /dev/null || true && node ./buildresources/aftercompile.js run && mv ./MAKE_BINARIES/aether-backend-linux-x64-extverify ./MAKE_BINARIES/aether-backend-linux-x64-extverify-$VERSIONATSTART 2> /dev/null || true && node ./buildresources/aftercompile.js run",
+    "dist": "npm run update-version-string && VERSIONATSTART=$(node ./buildresources/get-version-from-git.js print) && electron-builder --mac --win -c.extraMetadata.version=$VERSIONATSTART && docker run --rm -ti --env ELECTRON_CACHE=\"/root/.cache/electron\" --env ELECTRON_BUILDER_CACHE=\"/root/.cache/electron-builder\" -v ${PWD}:/project -v ${PWD}/../../../BundledReleases:/BundledReleases -v ${PWD}/../../../ReleaseArchive:/ReleaseArchive -v ${PWD##*/}-node-modules:/project/node_modules -v ${PWD}/../../../.git:/project/.git -v ~/.cache/electron:/root/.cache/electron -v ~/.cache/electron-builder:/root/.cache/electron-builder -e BVERSION=$VERSIONATSTART electronuserland/builder:10 npm run dist-linux-docker-trigger && mv ./MAKE_BINARIES/aether-backend-linux-x64 ./MAKE_BINARIES/aether-backend-linux-x64-$VERSIONATSTART 2> /dev/null || true && node ./buildresources/aftercompile.js run && mv ./MAKE_BINARIES/aether-backend-linux-x64-extverify ./MAKE_BINARIES/aether-backend-linux-x64-extverify-$VERSIONATSTART 2> /dev/null || true && node ./buildresources/aftercompile.js run",
+    "pack": "electron-builder --dir",
+    "rebuild": "electron-rebuild",
+    "update-version-string": "node ./buildresources/get-version-from-git.js",
+    "quickpublish": "../../support/quickpublish/quickpublish.sh"
+  },
+  "author": {
+    "name": "Air Labs",
+    "email": "burak@getaether.net"
+  },
+  "homepage": "https://getaether.net",
+  "license": "SEE LICENSE IN the repository.",
+  "devDependencies": {
+    "electron": "^2.0.8",
+    "electron-builder": "^20.28.3",
+    "electron-rebuild": "^1.7.3",
+    "file-loader": "^1.1.11",
+    "node-sass": "^4.9.0",
+    "read-pkg-up": "^4.0.0",
+    "resolve": "^1.8.1",
+    "resolve-url-loader": "^2.3.0",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "ts-loader": "^4.4.1",
+    "typescript": "^2.9.2",
+    "vue-loader": "^15.2.4",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^4.12.1",
+    "webpack-cli": "^3.0.8",
+    "webpack-node-externals": "^1.7.2",
+    "write-pkg": "^3.2.0"
+  },
+  "dependencies": {
+    "ajv": "^6.5.1",
+    "auto-launch": "^5.0.5",
+    "autosize": "^4.0.2",
+    "bulma": "^0.7.1",
+    "css-loader": "^0.28.11",
+    "dompurify": "^1.0.6",
+    "electron-better-ipc": "^0.1.1",
+    "electron-context-menu": "github:nehbit/electron-context-menu",
+    "electron-is-dev": "^0.3.0",
+    "electron-store": "^2.0.0",
+    "electron-unhandled": "^1.1.0",
+    "electron-updater": "^3.1.2",
+    "electron-util": "^0.9.1",
+    "google-protobuf": "^3.6.0",
+    "grpc": "^1.12.4",
+    "marked": "^0.4.0",
+    "minimatch": "^3.0.4",
+    "mixpanel": "^0.9.2",
+    "module-alias": "^2.1.0",
+    "mousetrap": "^1.6.2",
+    "tippy.js": "^2.5.3",
+    "tree-kill": "^1.2.0",
+    "v-click-outside": "^1.0.5",
+    "vue": "^2.5.16",
+    "vue-awesome": "^3.0.3",
+    "vue-devtools": "^4.1.4",
+    "vue-router": "^3.0.1",
+    "vue-simple-spinner": "^1.2.8",
+    "vuex": "^3.0.1",
+    "vuex-router-sync": "^5.0.0"
+  },
+  "_moduleAliases": {
+    "vue": "node_modules/vue/dist/vue.js",
+    "vue-router": "node_modules/vue-router/dist/vue-router.js"
+  },
+  "//": [
+    "Other possible architectures for linux:",
+    "armv7l",
+    "^ (32 bit arm)",
+    "arm64",
+    "ia32",
+    "Don't forget to add the things to extraResources below to make sure they get the right binaries.",
+    "'dist': 'npm run dist-mac && npm run dist-win && npm run dist-linux-docker-install-deps && npm run dist-linux',"
+  ],
+  "postinstall": "electron-builder install-app-deps",
+  "build": {
+    "appId": "com.airlabs.Aether",
+    "productName": "Aether",
+    "artifactName": "${productName}-${version}.${ext}",
+    "copyright": "Copyright © 2013-2018 Burak Nehbit",
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://static.getaether.net/AutoUpdate/Latest",
+        "publishAutoUpdate": true,
+        "channel": "latest"
+      }
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "app/aether-backend-mac-x64",
+      "app/aether-frontend-mac-x64",
+      "app/aether-backend-win-x64",
+      "app/aether-frontend-win-x64",
+      "app/aether-backend-linux-x64",
+      "app/aether-frontend-linux-x64",
+      "app/aether-backend-win-ia32",
+      "app/aether-frontend-win-ia32",
+      "app/aether-backend-linux-ia32",
+      "app/aether-frontend-linux-ia32",
+      "app/aether-backend-linux-arm64",
+      "app/aether-frontend-linux-arm64",
+      "app/aether-backend-linux-arm32",
+      "app/aether-frontend-linux-arm32"
+    ],
+    "protocols": [
+      {
+        "name": "Aether",
+        "schemes": [
+          "aether"
+        ]
+      }
+    ],
+    "directories": {
+      "buildResources": "buildresources",
+      "output": "../../../BundledReleases"
+    },
+    "files": [
+      "**/*",
+      "!**/node_modules",
+      "/*/{CHANGELOG.md,README.md,README,readme.md,readme,test,__tests__,tests,powered-test,example,examples,*.d.ts}",
+      "!**/node_modules/.bin",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+      "!**/._*",
+      "!.editorconfig",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,__pycache__,thumbs.db,.gitignore,.gitattributes,.flowconfig,.yarn-metadata.json,.idea,.vs,appveyor.yml,.travis.yml,circle.yml,npm-debug.log,.nyc_output,yarn.lock,.yarn-integrity}",
+      "!MAKE_BINARIES${/*}",
+      "!tsconfig.json",
+      "!webpack.config.js",
+      "!src{/*}",
+      "src/app/mainmain.js"
+    ],
+    "afterAllArtifactBuild": "./buildresources/aftercompile.js",
+    "snap": {
+      "confinement": "strict",
+      "plugs": [
+        "desktop",
+        "unity7",
+        "browser-support",
+        "network",
+        "pulseaudio",
+        "opengl"
+      ],
+      "grade": "devel",
+      "summary": "Aether is a peer-to-peer network of independent, self-moderated communities."
+    },
+    "nsis": {
+      "perMachine": true,
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "dmg": {
+      "icon": "src/app/ext_dep/images/MacDiskImage.icns",
+      "background": "src/app/ext_dep/images/DMGBackgroundMultiRes.tiff",
+      "iconSize": "120",
+      "contents": [
+        {
+          "x": 758,
+          "y": 309,
+          "type": "file"
+        },
+        {
+          "x": 976,
+          "y": 309,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "default",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "public.app-category.news",
+      "icon": "src/app/ext_dep/images/aether.icns",
+      "type": "distribution",
+      "extraResources": [
+        {
+          "from": "MAKE_BINARIES/aether-backend-mac-x64",
+          "to": "app/aether-backend-mac-x64"
+        },
+        {
+          "from": "MAKE_BINARIES/aether-frontend-mac-x64",
+          "to": "app/aether-frontend-mac-x64"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "publisherName": "Air Labs",
+      "icon": "src/app/ext_dep/images/aether.ico",
+      "extraResources": [
+        {
+          "from": "MAKE_BINARIES/aether-backend-win-x64.exe",
+          "to": "app/aether-backend-win-x64.exe"
+        },
+        {
+          "from": "MAKE_BINARIES/aether-frontend-win-x64.exe",
+          "to": "app/aether-frontend-win-x64.exe"
+        },
+        {
+          "from": "MAKE_BINARIES/aether-backend-win-ia32.exe",
+          "to": "app/aether-backend-win-ia32.exe"
+        },
+        {
+          "from": "MAKE_BINARIES/aether-frontend-win-ia32.exe",
+          "to": "app/aether-frontend-win-ia32.exe"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "snap",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Network",
+      "description": "Aether is a peer-to-peer network of independent, self-moderated communities.",
+      "synopsis": "Aether is a peer-to-peer network of independent, self-moderated communities.",
+      "extraResources": [
+        {
+          "from": "MAKE_BINARIES/aether-backend-linux-x64",
+          "to": "app/aether-backend-linux-x64"
+        },
+        {
+          "from": "MAKE_BINARIES/aether-frontend-linux-x64",
+          "to": "app/aether-frontend-linux-x64"
+        },
+        {
+          "from": "MAKE_BINARIES/aether-backend-linux-ia32",
+          "to": "app/aether-backend-linux-ia32"
+        },
+        {
+          "from": "MAKE_BINARIES/aether-frontend-linux-ia32",
+          "to": "app/aether-frontend-linux-ia32"
+        }
+      ]
+    }
+  },
+  "_id": "Aether@2.0.0-dev.6"
+}

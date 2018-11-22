@@ -1,0 +1,154 @@
+@import "./../../../node_modules/tippy.js/dist/themes/light";
+@import "./globals.scss";
+
+.tippy-tooltip {
+  cursor: default;
+  .tippy-content {
+    font-size: 16px;
+  }
+}
+
+.tippy-tooltip.light-theme {
+  color: $a-grey-100;
+  box-shadow: 0 0 20px 4px rgba(154, 161, 177, 0.15),
+  0 4px 80px -8px rgba(36, 40, 47, 0.25),
+  0 4px 4px -2px rgba(91, 94, 105, 0.15);
+  background-color: $a-grey-800;
+
+  .tippy-backdrop {
+    background-color: $a-grey-800;
+  }
+
+  .tippy-roundarrow {
+    fill: $a-grey-800;
+  }
+
+  &[data-animatefill] {
+    background-color: transparent;
+  }
+}
+
+.tippy-tooltip.dark-theme {
+  background-color: $mid-base*0.6;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
+  .tippy-backdrop {
+    background-color: $mid-base*0.6;
+  }
+  .tippy-roundarrow svg {
+    fill: $mid-base*0.6;
+  }
+}
+
+.tippy-tooltip.infomark-theme {
+  background-color: $mid-base*0.6;
+  text-align: left;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
+  .tippy-backdrop {
+    background-color: $mid-base*0.6;
+  }
+  .tippy-roundarrow svg {
+    fill: $mid-base*0.6;
+  }
+  .tippy-content {
+    padding: 12px;
+  }
+  .infomark-header {
+    // padding-bottom: 5px;
+    margin-bottom: 16px;
+  }
+
+  .infomark-body {
+    font-family: "SSP Regular";
+    b {
+      font-family: "SSP Bold";
+      em {
+        font-family: "SSP Bold Italic";
+      }
+    }
+    em {
+      font-family: "SSP Regular Italic";
+    }
+    p {
+      margin-bottom: 4px;
+      &:first-of-type {
+        margin-top: 0;
+      }
+      b {
+        font-family: "SSP Bold";
+        em {
+          font-family: "SSP Bold Italic";
+        }
+      }
+    }
+  }
+}
+
+.tippy-tooltip.marker-theme {
+  background-color: $mid-base*0.6;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
+  .tippy-backdrop {
+    background-color: $mid-base*0.6;
+  }
+  .tippy-content {
+    padding: 8px;
+  }
+  .infomark-body {
+    font-family: "SSP Regular";
+  }
+}
+
+.tippy-tooltip.usernametooltip-theme {
+  background-image: linear-gradient(to right top, #e64440, #ec5e3d, #f0743d, #f28a40, #f49e47);
+  text-align: left;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
+  padding: 0;
+
+  .tippy-backdrop {
+    background-image: linear-gradient(to right top, #e64440, #ec5e3d, #f0743d, #f28a40, #f49e47);
+  }
+  .tippy-roundarrow svg {
+    // fill: $mid-base*0.6;
+    fill: #f28a40;
+  }
+  .tippy-content {
+    padding: 4px 0;
+  }
+  .usernametooltip-header {
+    // padding-bottom: 5px;
+    margin-bottom: 16px;
+    text-shadow: 0 0px 1px rgba(0, 0, 0, 0.4);
+  }
+
+  .usernametooltip-body {
+    font-family: "SSP Regular";
+    text-shadow: 0 0px 1px rgba(0, 0, 0, 0.4);
+    b {
+      font-family: "SSP Bold";
+      em {
+        font-family: "SSP Bold Italic";
+      }
+    }
+    em {
+      font-family: "SSP Regular Italic";
+    }
+    p {
+      margin-bottom: 4px;
+      &:first-of-type {
+        margin-top: 0;
+      }
+      b {
+        font-family: "SSP Bold";
+        em {
+          font-family: "SSP Bold Italic";
+        }
+      }
+    }
+  }
+  .username-internal-container {
+    background-color: $mid-base*0.6;
+    padding: 20px 25px; // border-radius: 5px;
+    a {
+      display:inline-block;
+    }
+  }
+}

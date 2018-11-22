@@ -1,0 +1,43 @@
+/*
+Bulma styling so that we have only what we need, and in the right colours.
+ */
+
+@import "./../../../node_modules/bulma/sass/utilities/initial-variables";
+@import "./../../../node_modules/bulma/sass/utilities/functions";
+@import "./globals.scss";
+// // 2. Set your own initial variables
+// // Update blue
+// $blue: $a-green;
+// // Add pink and its invert
+// $pink: #ffb3b3;
+// $pink-invert: #fff;
+// // Add a serif family
+// // 3. Set the derived variables
+// // Use the new pink as the primary color
+// $primary: $pink;
+// $primary-invert: $pink-invert;
+// // Use the existing orange as the danger color
+// $danger: $blue;
+$primary:$a-orange;
+$link: $a-cerulean;
+$info: $a-turquoise;
+$success: $a-purple;
+$warning: $a-yellow;
+$danger: $a-red;
+
+$white: $a-grey-800;
+
+// Dropdown styles
+$dropdown-item-color: $a-grey-600;
+$dropdown-content-background-color: $dropdown-base;
+
+$dropdown-item-hover-color: $a-grey-800;
+$dropdown-item-hover-background-color: #000000;
+
+// 6. Import the rest of Bulma
+@import "./../../../node_modules/bulma";
+
+// 7. Set overrides
+a:hover {
+  color: unset;
+}

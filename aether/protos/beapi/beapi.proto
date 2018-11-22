@@ -1,0 +1,205 @@
+// BackendAPI Protobufs
+
+syntax = "proto3";
+option go_package = "aether-core/aether/protos/beapi";
+
+package beapi;
+
+import "mimapi/structprotos.proto";
+
+
+service BackendAPI {
+  // You need to request access first, before anything.
+  rpc RequestBackendAccess(AccessRequest) returns (AccessResponse) {}
+
+  /*
+  Lower level APIs to get uncompiled Mim objects in the case that there is no specific higher level API is available to you. Look at higher level APIs requesting more specific things first.
+
+  For example, an uncompiled Mim object is a Truststate, which can mean any of those entities: a TS of publictrust, naming, f451, or elector class types. If you get the truststate itself, you'll have to figure this out on the frontend, which isn't very efficient (but the API is there if you have no other way.)
+
+  Ideally though, if you end up using these often, it might be time to build a specific higher level API for it.
+  */
+  rpc GetBoards(BoardsRequest) returns (BoardsResponse) {}
+  rpc GetThreads(ThreadsRequest) returns (ThreadsResponse) {}
+  rpc GetPosts(PostsRequest) returns (PostsResponse) {}
+  rpc GetVotes(VotesRequest) returns (VotesResponse) {}
+  rpc GetKeys(KeysRequest) returns (KeysResponse) {}
+  rpc GetTruststates(TruststatesRequest) returns (TruststatesResponse) {}
+  rpc GetBoardThreadsCount(BoardThreadsCountRequest) returns (BoardThreadsCountResponse) {}
+  rpc GetThreadPostsCount(ThreadPostsCountRequest) returns (ThreadPostsCountResponse) {}
+  rpc SendMintedContent(MintedContentPayload) returns (MintedContentResponse) {}
+  rpc SendConnectToRemoteRequest(ConnectToRemoteRequest) returns (ConnectToRemoteResponse) {}
+}
+
+// Sub-messages
+
+message RequesterId {
+  /*
+    Access token is given by the backend. If no access token, the backend has never given the FE right to pass, and it's auto-declined. RequestBackendAccess is how you get an access token. These tokens expire, so the requester should be prepared to re-request an access token if that happens.
+
+    After the access token is provisioned, the frontend should send a nonce that is signed with the public key of the frontend with every request, and nonce should change between every request.
+
+    Timestamp should be within the clock skew range that the backend is willing to accept.
+  */
+  string AccessToken = 1;
+  string Nonce = 2;
+  string PublicKey = 3;
+  int64 Timestamp = 4;
+}
+
+message Status {
+  int32 StatusCode = 1;
+  string ErrorMessage = 2;
+}
+
+// Filters main carrier
+
+message Filters {
+  // Executed in this order. If both present, time range will take precedence.
+  TimeRange LastRefTimeRange = 1;
+  Fingerprints Fingerprints = 2;
+  TypeFilters TypeFilters = 3;
+  GraphFilters GraphFilters = 4;
+}
+
+// Filter types
+
+message TimeRange {
+  // Can be time range for any of the rangeable time fields. Last referenced, last update, creation, etc.
+  int64 Start = 1;
+  int64 End = 3;
+}
+
+message Fingerprints {
+  repeated string Fingerprints = 1;
+}
+
+message TypeFilters {
+  int32 TypeClass = 1;
+  int32 Type = 2;
+}
+
+message GraphFilters {
+  string Board = 1;
+  string Thread = 2;
+  string Parent = 3;
+  string Owner = 4;
+  string Target = 5;
+  string Domain = 6;
+  bool NoDescendants = 7;
+  int32 Limit = 8;
+  int32 Offset = 9;
+}
+
+// Main messages
+
+message AccessRequest {
+  RequesterId RequesterId = 1;
+}
+
+message AccessResponse {
+  Status Status = 1;
+  string AccessToken = 2;
+}
+
+message BoardsRequest {
+  RequesterId RequesterId = 1;
+  Filters Filters = 2;
+}
+message BoardsResponse {
+  Status Status = 1;
+  repeated structprotos.Board Boards = 2;
+}
+
+message ThreadsRequest {
+  RequesterId RequesterId = 1;
+  Filters Filters = 2;
+}
+message ThreadsResponse {
+  Status Status = 1;
+  repeated structprotos.Thread Threads = 2;
+}
+
+message PostsRequest {
+  RequesterId RequesterId = 1;
+  Filters Filters = 2;
+}
+message PostsResponse {
+  Status Status = 1;
+  repeated structprotos.Post Posts = 2;
+}
+
+message VotesRequest {
+  RequesterId RequesterId = 1;
+  Filters Filters = 2;
+}
+message VotesResponse {
+  Status Status = 1;
+  repeated structprotos.Vote Votes = 2;
+}
+
+message KeysRequest {
+  RequesterId RequesterId = 1;
+  Filters Filters = 2;
+}
+message KeysResponse {
+  Status Status = 1;
+  repeated structprotos.Key Keys = 2;
+}
+
+message TruststatesRequest {
+  RequesterId RequesterId = 1;
+  Filters Filters = 2;
+}
+message TruststatesResponse {
+  Status Status = 1;
+  repeated structprotos.Truststate Truststates = 2;
+}
+
+message BoardThreadsCountRequest {
+  RequesterId RequesterId = 1;
+  string Fingerprint = 2;
+}
+
+message BoardThreadsCountResponse {
+  Status Status = 1;
+  int32 count = 2;
+}
+
+message ThreadPostsCountRequest {
+  RequesterId RequesterId = 1;
+  string Fingerprint = 2;
+}
+
+message ThreadPostsCountResponse {
+  Status Status = 1;
+  int32 Count = 2;
+}
+
+/*----------  Minted content delivery, FE > BE  ----------*/
+
+message MintedContentPayload {
+  RequesterId RequesterId = 1;
+  repeated structprotos.Board Boards = 2;
+  repeated structprotos.Thread Threads = 3;
+  repeated structprotos.Post Posts = 4;
+  repeated structprotos.Vote Votes = 5;
+  repeated structprotos.Key Keys = 6;
+  repeated structprotos.Truststate Truststates = 7;
+  repeated structprotos.Address Addresses = 8;
+}
+
+message MintedContentResponse {
+  Status Status = 1;
+}
+
+/*----------  Connect to remote req/resp  ----------*/
+
+message ConnectToRemoteRequest {
+  RequesterId RequesterId = 1;
+  structprotos.Address Address = 2;
+}
+
+message ConnectToRemoteResponse {
+  Status Status = 1;
+}

@@ -1,0 +1,106 @@
+// This is the style file that handles the styling of markdownified text fragments in thread bodies and posts. This also handles the styling of creation fields.
+@import "./typefaces.scss";
+.markdowned {
+  word-break: break-word;
+  strong em {
+    font-family: "SSP Bold Italic"
+  }
+
+  em {
+    font-family: "SSP Regular Italic"
+  }
+
+  p a {
+    font-family: "SSP Bold";
+    display:inline-block;
+  }
+
+  ul li a {
+    font-family: "SSP Bold"
+  }
+
+  strong,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "SSP Bold";
+    code {
+      font-family: "SCP Bold"
+    }
+  }
+
+  &.code {
+    strong,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "SCP Bold"
+    }
+  }
+
+  blockquote {
+    border-left: 3px solid rgba(255, 255, 255, 0.15);
+    margin-left: 15px;
+    padding-left: 15px;
+  }
+
+  pre code {
+    // This is block code blocks (not inline)
+    padding: 15px 20px;
+    background-color: rgba(0, 0, 0, 0.45);
+    display: inline-block;
+    border-radius: 3px;
+    width: 100%;
+  }
+
+  code {
+    font-family: "SCP Semibold"; // font-size: 100%;
+    letter-spacing:0.5px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 2px;
+    font-size: 90%;
+    // background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.45);
+    white-space: pre-wrap;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    tr {
+      border-bottom: 3px solid rgba(255, 255, 255, 0.25);
+    }
+    th,
+    td {
+      padding: 10px;
+      min-width: 75px;
+      overflow-wrap: break-word;
+      &:first-of-type {
+        padding-left: 0;
+        min-width: 200px;
+      }
+      &:last-of-type {
+        padding-right: 0;
+        white-space: nowrap;
+      }
+    }
+    // th {
+    //   // text-align: left;
+    //   &:last-of-type {
+    //     text-align: right;
+    //   }
+    // }
+    // td {
+    //   &:last-of-type {
+    //     text-align: right;
+    //   }
+    // }
+  }
+}

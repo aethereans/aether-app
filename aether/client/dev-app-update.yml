@@ -1,0 +1,4 @@
+provider: generic
+url: 'https://static.getaether.net/AutoUpdate/Latest'
+publishAutoUpdate: true
+channel: latest
