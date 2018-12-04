@@ -13,29 +13,67 @@ Aether exists thanks to the generous fellows below. Funding Aether comes with so
 ## People 
 
 @sparklabs
+
 @HostFat
+
 @ssg
+
 @agalati
+
 @njha
+
 @rch
+
 @T
+
 @a
+
 @alex
+
 @drb
+
 @henq
+
 Alexander Thompson
+
 @Andrew
+
 Asher Gottlieb
+
 Benjamin Woodruff
+
 Chip Wasson
+
 Dawid Ciężarkiewicz
+
 Evan Henshawplath
+
 Grischa Boßlar
+
 John Travise
+
 @mindricity
+
 @Pavel
+
 @Peter
+
 Sebastian Jug
-John Travise
+
 Chuck Reed
+
 Alessandro Fort 
+
+Sean Billig
+
+N O D E
+
+Luke Carbis
+
+Lewis Liu
+
+Cerxi
+
+Jackson Solway
+
+Shawn Harmsen

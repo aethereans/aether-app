@@ -103,8 +103,20 @@ John Travise
 
 Sebastian Jug
 
-John Travise
-
 Chuck Reed
 
 Alessandro Fort 
+
+Sean Billig
+
+N O D E
+
+Luke Carbis
+
+Lewis Liu
+
+Cerxi
+
+Jackson Solway
+
+Shawn Harmsen
