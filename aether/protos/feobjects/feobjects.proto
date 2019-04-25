@@ -24,6 +24,7 @@ message CompiledBoardEntity {
   bool Notify = 15;
   int64 LastSeen = 16;
   bool SFWListed = 17;
+  double ViewMeta_SearchScore = 18;
 }
 
 message CompiledThreadEntity {
@@ -42,7 +43,13 @@ message CompiledThreadEntity {
   int32 PostsCount = 13;
   double Score = 14; // double == float64
   string ViewMeta_BoardName = 15;
+  bool ViewMeta_SFWListed = 16;
+  double ViewMeta_SearchScore = 17;
 }
+
+/*
+  ViewMeta: Means the data is coming from an entity that is not the direct counterpart of the protobuf entity mentioned here. For example, ViewMeta_BoardName is coming from the board, not the thread the protobuf is generated from. Those fields are generally used in the UI to make certain things faster by taking a hit on normalisation. Fetching the board every time we would have to show the board's name for a thread would be exceedingly costly, this removes that cost, in exchange to transferring duplicated data in this specific payload.
+*/
 
 message CompiledPostEntity {
  string Fingerprint = 1;
@@ -57,6 +64,10 @@ message CompiledPostEntity {
  int64 LastUpdate = 10;
  string Meta = 11;
  repeated CompiledPostEntity Children = 12;
+ bool ViewMeta_SFWListed = 13;
+ double ViewMeta_SearchScore = 14;
+ string ViewMeta_BoardName = 15;
+ string ViewMeta_ThreadName = 16;
 }
 
 message CompiledUserEntity {
@@ -69,6 +80,7 @@ message CompiledUserEntity {
   int64 Expiry = 7;
   string Info = 8;
   string Meta = 9;
+  double ViewMeta_SearchScore = 10;
 }
 
 message CUserUsername {

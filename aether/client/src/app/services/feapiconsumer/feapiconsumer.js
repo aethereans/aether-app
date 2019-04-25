@@ -54,7 +54,9 @@ var Initialised;
 var initInProgress = false;
 var clientApiServerPortIsSet = false;
 function timeout(ms) {
-    return new Promise(function (resolve) { return setTimeout(resolve, ms); });
+    return new Promise(function (resolve) {
+        return setTimeout(resolve, ms);
+    });
 }
 // ^ Promisified wait, so that it won't actually block like while .. {} does. Useful with async/await.
 function checkPortSet() {
@@ -121,7 +123,7 @@ var ExportedMethods = {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            console.log("get all boards is making a call");
+                            console.log('get all boards is making a call');
                             console.log('initstate: ', Initialised);
                             if (!!Initialised) return [3 /*break*/, 2];
                             return [4 /*yield*/, ExportedMethods.Initialise()];
@@ -129,7 +131,7 @@ var ExportedMethods = {
                             _a.sent();
                             _a.label = 2;
                         case 2:
-                            req = new pmessages.AllBoardsRequest;
+                            req = new pmessages.AllBoardsRequest();
                             feAPIConsumer.getAllBoards(req, function (err, response) {
                                 if (err) {
                                     console.log(err);
@@ -183,7 +185,7 @@ var ExportedMethods = {
                             _a.label = 2;
                         case 2:
                             console.log('GetBoardsAndThread triggered.');
-                            req = new pmessages.BoardAndThreadsRequest;
+                            req = new pmessages.BoardAndThreadsRequest();
                             req.setBoardfingerprint(boardfp);
                             if (sortByNew) {
                                 req.setSortthreadsbynew(true);
@@ -217,7 +219,7 @@ var ExportedMethods = {
                             _a.label = 2;
                         case 2:
                             console.log('GetThreadAndPosts triggered.');
-                            req = new pmessages.ThreadAndPostsRequest;
+                            req = new pmessages.ThreadAndPostsRequest();
                             req.setBoardfingerprint(boardfp);
                             req.setThreadfingerprint(threadfp);
                             feAPIConsumer.getThreadAndPosts(req, function (err, resp) {
@@ -248,7 +250,7 @@ var ExportedMethods = {
                             _a.label = 2;
                         case 2:
                             console.log('SetBoardSignal triggered.');
-                            req = new pmessages.BoardSignalRequest;
+                            req = new pmessages.BoardSignalRequest();
                             req.setFingerprint(fp);
                             req.setSubscribed(subbed);
                             req.setNotify(notify);
@@ -282,7 +284,7 @@ var ExportedMethods = {
                             _a.label = 2;
                         case 2:
                             console.log('GetUserAndGraph triggered.');
-                            req = new pmessages.UserAndGraphRequest;
+                            req = new pmessages.UserAndGraphRequest();
                             req.setFingerprint(fp);
                             req.setUserentityrequested(userEntityRequested);
                             req.setUserboardsrequested(boardsRequested);
@@ -317,7 +319,7 @@ var ExportedMethods = {
                             _a.label = 2;
                         case 2:
                             console.log('GetUncompiledEntityByKey triggered.');
-                            req = new pmessages.UncompiledEntityByKeyRequest;
+                            req = new pmessages.UncompiledEntityByKeyRequest();
                             if (entityType === 'Board') {
                                 req.setEntitytype(pmessages.UncompiledEntityType.BOARD);
                             }
@@ -368,7 +370,7 @@ var ExportedMethods = {
                             _a.label = 2;
                         case 2:
                             console.log('SendInflightsPruneRequest triggered.');
-                            req = new pmessages.InflightsPruneRequest;
+                            req = new pmessages.InflightsPruneRequest();
                             feAPIConsumer.sendInflightsPruneRequest(req, function (err, resp) {
                                 if (err) {
                                     console.log(err);
@@ -397,7 +399,7 @@ var ExportedMethods = {
                             _a.label = 2;
                         case 2:
                             console.log('RequestAmbientStatus triggered.');
-                            req = new pmessages.AmbientStatusRequest;
+                            req = new pmessages.AmbientStatusRequest();
                             feAPIConsumer.requestAmbientStatus(req, function (err, resp) {
                                 if (err) {
                                     console.log(err);
@@ -426,7 +428,7 @@ var ExportedMethods = {
                             _a.label = 2;
                         case 2:
                             console.log('SetNotificationsSignal triggered.');
-                            req = new pmessages.NotificationsSignalPayload;
+                            req = new pmessages.NotificationsSignalPayload();
                             req.setSeen(seen);
                             req.setReaditemfingerprint(fp);
                             feAPIConsumer.setNotificationsSignal(req, function (err, resp) {
@@ -457,7 +459,7 @@ var ExportedMethods = {
                             _a.label = 2;
                         case 2:
                             console.log('SetOnboardComplete triggered.');
-                            req = new pmessages.OnboardCompleteRequest;
+                            req = new pmessages.OnboardCompleteRequest();
                             req.setOnboardcomplete(true);
                             feAPIConsumer.setOnboardComplete(req, function (err, resp) {
                                 if (err) {
@@ -489,7 +491,7 @@ var ExportedMethods = {
                             _a.label = 2;
                         case 2:
                             console.log('SendAddress triggered.');
-                            req = new pmessages.SendAddressPayload;
+                            req = new pmessages.SendAddressPayload();
                             req.setAddress(addr);
                             try {
                                 feAPIConsumer.sendAddress(req, function (err, resp) {
@@ -525,7 +527,7 @@ var ExportedMethods = {
                             _a.label = 2;
                         case 2:
                             console.log('RequestBoardReports triggered.');
-                            req = new pmessages.BoardReportsRequest;
+                            req = new pmessages.BoardReportsRequest();
                             req.setBoardfingerprint(boardfp);
                             try {
                                 feAPIConsumer.requestBoardReports(req, function (err, resp) {
@@ -547,7 +549,7 @@ var ExportedMethods = {
             });
         });
     },
-    SendMintedUsername: function (payload, callback) {
+    SendMintedUsernames: function (payload, callback) {
         WaitUntilFrontendReady(function () {
             return __awaiter(this, void 0, void 0, function () {
                 var req;
@@ -560,11 +562,11 @@ var ExportedMethods = {
                             _a.sent();
                             _a.label = 2;
                         case 2:
-                            console.log('SendMintedUsername triggered.');
-                            req = new pmessages.SendMintedUsernamePayload;
-                            req.setMintedusernamerawjson(payload);
+                            console.log('SendMintedUsernames triggered.');
+                            req = new pmessages.SendMintedUsernamesPayload();
+                            req.setMintedusernamesrawjson(payload);
                             try {
-                                feAPIConsumer.sendMintedUsername(req, function (err, resp) {
+                                feAPIConsumer.sendMintedUsernames(req, function (err, resp) {
                                     if (err) {
                                         console.log(err);
                                     }
@@ -597,7 +599,7 @@ var ExportedMethods = {
                             _a.label = 2;
                         case 2:
                             console.log('SendClientVersion triggered.');
-                            req = new pmessages.ClientVersionPayload;
+                            req = new pmessages.ClientVersionPayload();
                             req.setCurrentclientversion(payload);
                             try {
                                 feAPIConsumer.sendClientVersion(req, function (err, resp) {
@@ -621,9 +623,15 @@ var ExportedMethods = {
     },
     /*----------  FE config changes  ----------*/
     SendModModeEnabledStatus: function (modModeEnabled, callback) {
-        var e = new pmessages.FEConfigChangesPayload;
+        var e = new pmessages.FEConfigChangesPayload();
         e.setModmodeenabled(modModeEnabled);
         e.setModmodeenabledisset(true);
+        this.SendFEConfigChanges(e, callback);
+    },
+    SendExternalContentAutoloadDisabledStatus: function (externalContentAutoloadDisabled, callback) {
+        var e = new pmessages.FEConfigChangesPayload();
+        e.setExternalcontentautoloaddisabled(externalContentAutoloadDisabled);
+        e.setExternalcontentautoloaddisabledisset(true);
         this.SendFEConfigChanges(e, callback);
     },
     /*----------  FE Config changes delivery base  ----------*/
@@ -641,7 +649,7 @@ var ExportedMethods = {
                             _a.label = 2;
                         case 2:
                             console.log('SendFEConfigChanges triggered.');
-                            req = new pmessages.FEConfigChangesPayload;
+                            req = new pmessages.FEConfigChangesPayload();
                             req = feconfig;
                             try {
                                 feAPIConsumer.sendFEConfigChanges(req, function (err, resp) {
@@ -665,7 +673,7 @@ var ExportedMethods = {
     },
     /*----------  Notifications signals  ----------*/
     markSeen: function () {
-        this.SetNotificationsSignal(true, "", function () { });
+        this.SetNotificationsSignal(true, '', function () { });
     },
     markRead: function (fp) {
         this.SetNotificationsSignal(true, fp, function () { });
@@ -746,13 +754,15 @@ var ExportedMethods = {
                         case 2:
                             console.log('Send Signal Event base triggered.');
                             now = Math.floor(Date.now() / 1000);
-                            req = new pmessages.SignalEventPayload;
-                            e = new pmessages.Event;
+                            req = new pmessages.SignalEventPayload();
+                            e = new pmessages.Event();
                             localUser = require('../../store/index').default.state.localUser;
                             // ^ Only import when needed and only the specific part. Because vuexstore is also importing this feapi - we don't want it being imported at the beginning to prevent vuexstore from loading feapi.
                             e.setOwnerfingerprint(localUser.fingerprint);
                             e.setPriorfingerprint(priorfp);
-                            e.setEventtype(priorfp.length === 0 ? pmessages.EventType.CREATE : pmessages.EventType.UPDATE);
+                            e.setEventtype(priorfp.length === 0
+                                ? pmessages.EventType.CREATE
+                                : pmessages.EventType.UPDATE);
                             e.setTimestamp(now);
                             req.setEvent(e);
                             req.setSignaltargettype(pmessages.SignalTargetType[targettype]);
@@ -823,15 +833,17 @@ var ExportedMethods = {
                         case 2:
                             console.log('Send Content Event base triggered.');
                             now = Math.floor(Date.now() / 1000);
-                            req = new pmessages.ContentEventPayload;
-                            e = new pmessages.Event;
+                            req = new pmessages.ContentEventPayload();
+                            e = new pmessages.Event();
                             localUser = require('../../store/index').default.state.localUser;
                             globalMethods = require('../globals/methods');
                             if (!globalMethods.IsUndefined(localUser)) {
                                 e.setOwnerfingerprint(localUser.fingerprint);
                             }
                             e.setPriorfingerprint(priorfp);
-                            e.setEventtype(priorfp.length === 0 ? pmessages.EventType.CREATE : pmessages.EventType.UPDATE);
+                            e.setEventtype(priorfp.length === 0
+                                ? pmessages.EventType.CREATE
+                                : pmessages.EventType.UPDATE);
                             e.setTimestamp(now);
                             req.setEvent(e);
                             req.setBoarddata(boarddata);
@@ -846,6 +858,54 @@ var ExportedMethods = {
                                     callback(resp);
                                 }
                             });
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        });
+    },
+    /*----------  Search types  ----------*/
+    SendCommunitySearchRequest: function (query, callback) {
+        this.sendSearchRequest('Board', query, callback);
+    },
+    SendContentSearchRequest: function (query, callback) {
+        this.sendSearchRequest('Content', query, callback);
+    },
+    SendUserSearchRequest: function (query, callback) {
+        this.sendSearchRequest('User', query, callback);
+    },
+    /*----------  Base search request action  ----------*/
+    sendSearchRequest: function (searchType, query, callback) {
+        WaitUntilFrontendReady(function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var req;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (!!Initialised) return [3 /*break*/, 2];
+                            return [4 /*yield*/, ExportedMethods.Initialise()];
+                        case 1:
+                            _a.sent();
+                            _a.label = 2;
+                        case 2:
+                            console.log('sendSearchRequest triggered.');
+                            req = new pmessages.SearchRequestPayload();
+                            req.setSearchtype(searchType);
+                            req.setSearchquery(query);
+                            try {
+                                feAPIConsumer.sendSearchRequest(req, function (err, resp) {
+                                    if (err) {
+                                        console.log(err);
+                                    }
+                                    else {
+                                        callback(resp.toObject());
+                                    }
+                                });
+                            }
+                            catch (err) {
+                                // This catches non-grpc errors like assert.
+                                callback(err);
+                            }
                             return [2 /*return*/];
                     }
                 });

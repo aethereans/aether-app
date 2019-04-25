@@ -1,6 +1,6 @@
 {
   "name": "Aether",
-  "version": "2.0.0-dev.6+1811211332.746ec27e.d",
+  "version": "2.0.0-dev.12+1904242038.68b25894",
   "description": "Aether",
   "readme": "https://getaether.net",
   "main": "src/app/mainmain.js",
@@ -12,80 +12,91 @@
     "wpbuild": "webpack",
     "wpwatch": "webpack --watch",
     "dist-mac": "npm run update-version-string && electron-builder --mac -c.extraMetadata.version=$(node ./buildresources/get-version-from-git.js print)",
-    "dist-win": "npm run update-version-string && electron-builder --win -c.extraMetadata.version=$(node ./buildresources/get-version-from-git.js print)",
-    "dist-linux-docker-trigger": "electron-builder --linux -c.extraMetadata.version=$BVERSION",
+    "dist-win": "export WIN_CSC_LINK=[[YOUR WINDOWS SIGNING KEY HERE IF ANY]]; read -s -p \"Enter Windows code signing password: \" certPassword; export WIN_CSC_KEY_PASSWORD=\"$certPassword\"; npm run update-version-string && electron-builder --win -c.extraMetadata.version=$(node ./buildresources/get-version-from-git.js print)",
+    "dist-linux-docker-trigger": "apt-get install libxkbfile-dev -y && electron-builder --linux -c.extraMetadata.version=$BVERSION",
     "dist-linux-docker-install-deps": "docker run --rm -ti --env ELECTRON_CACHE=\"/root/.cache/electron\" --env ELECTRON_BUILDER_CACHE=\"/root/.cache/electron-builder\" -v ${PWD}:/project -v ${PWD}/../../../BundledReleases:/BundledReleases -v ${PWD##*/}-node-modules:/project/node_modules -v ~/.cache/electron:/root/.cache/electron -v ~/.cache/electron-builder:/root/.cache/electron-builder electronuserland/builder:10 npm install",
     "dist-linux": "npm run update-version-string && docker run --rm -ti --env ELECTRON_CACHE=\"/root/.cache/electron\" --env ELECTRON_BUILDER_CACHE=\"/root/.cache/electron-builder\" -v ${PWD}:/project -v ${PWD}/../../../BundledReleases:/BundledReleases -v ${PWD}/../../../ReleaseArchive:/ReleaseArchive -v ${PWD##*/}-node-modules:/project/node_modules -v ${PWD}/../../../.git:/project/.git -v ~/.cache/electron:/root/.cache/electron -v ~/.cache/electron-builder:/root/.cache/electron-builder -e BVERSION=$(node ./buildresources/get-version-from-git.js print) electronuserland/builder:10 npm run dist-linux-docker-trigger",
     "dist-linux-server": "VERSIONATSTART=$(node ./buildresources/get-version-from-git.js print) && mv ./MAKE_BINARIES/aether-backend-linux-x64 ./MAKE_BINARIES/aether-backend-linux-x64-$VERSIONATSTART 2> /dev/null || true && node ./buildresources/aftercompile.js run && mv ./MAKE_BINARIES/aether-backend-linux-x64-extverify ./MAKE_BINARIES/aether-backend-linux-x64-extverify-$VERSIONATSTART 2> /dev/null || true && node ./buildresources/aftercompile.js run",
-    "dist": "npm run update-version-string && VERSIONATSTART=$(node ./buildresources/get-version-from-git.js print) && electron-builder --mac --win -c.extraMetadata.version=$VERSIONATSTART && docker run --rm -ti --env ELECTRON_CACHE=\"/root/.cache/electron\" --env ELECTRON_BUILDER_CACHE=\"/root/.cache/electron-builder\" -v ${PWD}:/project -v ${PWD}/../../../BundledReleases:/BundledReleases -v ${PWD}/../../../ReleaseArchive:/ReleaseArchive -v ${PWD##*/}-node-modules:/project/node_modules -v ${PWD}/../../../.git:/project/.git -v ~/.cache/electron:/root/.cache/electron -v ~/.cache/electron-builder:/root/.cache/electron-builder -e BVERSION=$VERSIONATSTART electronuserland/builder:10 npm run dist-linux-docker-trigger && mv ./MAKE_BINARIES/aether-backend-linux-x64 ./MAKE_BINARIES/aether-backend-linux-x64-$VERSIONATSTART 2> /dev/null || true && node ./buildresources/aftercompile.js run && mv ./MAKE_BINARIES/aether-backend-linux-x64-extverify ./MAKE_BINARIES/aether-backend-linux-x64-extverify-$VERSIONATSTART 2> /dev/null || true && node ./buildresources/aftercompile.js run",
+    "dist": "npm run update-version-string && VERSIONATSTART=$(node ./buildresources/get-version-from-git.js print) && export WIN_CSC_LINK=[[YOUR WINDOWS SIGNING KEY HERE IF ANY]]; read -s -p \"Enter Windows code signing password: \" certPassword; export WIN_CSC_KEY_PASSWORD=\"$certPassword\"; electron-builder --mac --win -c.extraMetadata.version=$VERSIONATSTART && docker run --rm -ti --env ELECTRON_CACHE=\"/root/.cache/electron\" --env ELECTRON_BUILDER_CACHE=\"/root/.cache/electron-builder\" -v ${PWD}:/project -v ${PWD}/../../../BundledReleases:/BundledReleases -v ${PWD}/../../../ReleaseArchive:/ReleaseArchive -v ${PWD##*/}-node-modules:/project/node_modules -v ${PWD}/../../../.git:/project/.git -v ~/.cache/electron:/root/.cache/electron -v ~/.cache/electron-builder:/root/.cache/electron-builder -e BVERSION=$VERSIONATSTART electronuserland/builder:10 npm run dist-linux-docker-trigger && mv ./MAKE_BINARIES/aether-backend-linux-x64 ./MAKE_BINARIES/aether-backend-linux-x64-$VERSIONATSTART 2> /dev/null || true && node ./buildresources/aftercompile.js run && mv ./MAKE_BINARIES/aether-backend-linux-x64-extverify ./MAKE_BINARIES/aether-backend-linux-x64-extverify-$VERSIONATSTART 2> /dev/null || true && node ./buildresources/aftercompile.js run",
     "pack": "electron-builder --dir",
     "rebuild": "electron-rebuild",
     "update-version-string": "node ./buildresources/get-version-from-git.js",
     "quickpublish": "../../support/quickpublish/quickpublish.sh"
   },
   "author": {
-    "name": "Air Labs",
-    "email": "burak@getaether.net"
+    "name": "Aether Technologies, Inc.",
+    "email": "hello@getaether.net"
   },
   "homepage": "https://getaether.net",
   "license": "SEE LICENSE IN the repository.",
   "devDependencies": {
-    "electron": "^2.0.8",
-    "electron-builder": "^20.28.3",
-    "electron-rebuild": "^1.7.3",
-    "file-loader": "^1.1.11",
-    "node-sass": "^4.9.0",
-    "read-pkg-up": "^4.0.0",
-    "resolve": "^1.8.1",
-    "resolve-url-loader": "^2.3.0",
-    "sass-loader": "^7.0.3",
-    "style-loader": "^0.21.0",
-    "ts-loader": "^4.4.1",
-    "typescript": "^2.9.2",
-    "vue-loader": "^15.2.4",
-    "vue-template-compiler": "^2.5.16",
-    "webpack": "^4.12.1",
-    "webpack-cli": "^3.0.8",
-    "webpack-node-externals": "^1.7.2",
-    "write-pkg": "^3.2.0"
+    "chokidar": "2.1.5",
+    "electron": "2.0.15",
+    "electron-builder": "20.34.0",
+    "electron-rebuild": "1.8.2",
+    "file-loader": "3.0.1",
+    "node-sass": "4.11.0",
+    "read-pkg-up": "4.0.0",
+    "resolve": "1.10.0",
+    "resolve-url-loader": "3.0.0",
+    "sass-loader": "7.1.0",
+    "style-loader": "0.23.1",
+    "ts-loader": "5.3.3",
+    "typescript": "3.2.4",
+    "vue-loader": "15.6.2",
+    "vue-template-compiler": "2.5.22",
+    "watchpack": "1.5.0",
+    "webpack": "4.29.0",
+    "webpack-cli": "3.2.1",
+    "webpack-node-externals": "1.7.2",
+    "write-pkg": "3.2.0"
+  },
+  "optionalDependencies": {
+    "fsevents": "1.2.4"
   },
   "dependencies": {
-    "ajv": "^6.5.1",
-    "auto-launch": "^5.0.5",
-    "autosize": "^4.0.2",
-    "bulma": "^0.7.1",
-    "css-loader": "^0.28.11",
-    "dompurify": "^1.0.6",
-    "electron-better-ipc": "^0.1.1",
+    "ajv": "6.5.1",
+    "auto-launch": "5.0.5",
+    "autosize": "4.0.2",
+    "bulma": "0.7.2",
+    "css-loader": "2.1.0",
+    "dompurify": "1.0.9",
+    "electron-better-ipc": "0.1.1",
     "electron-context-menu": "github:nehbit/electron-context-menu",
-    "electron-is-dev": "^0.3.0",
-    "electron-store": "^2.0.0",
-    "electron-unhandled": "^1.1.0",
-    "electron-updater": "^3.1.2",
-    "electron-util": "^0.9.1",
-    "google-protobuf": "^3.6.0",
-    "grpc": "^1.12.4",
-    "marked": "^0.4.0",
-    "minimatch": "^3.0.4",
-    "mixpanel": "^0.9.2",
-    "module-alias": "^2.1.0",
-    "mousetrap": "^1.6.2",
-    "tippy.js": "^2.5.3",
-    "tree-kill": "^1.2.0",
-    "v-click-outside": "^1.0.5",
-    "vue": "^2.5.16",
-    "vue-awesome": "^3.0.3",
-    "vue-devtools": "^4.1.4",
-    "vue-router": "^3.0.1",
-    "vue-simple-spinner": "^1.2.8",
-    "vuex": "^3.0.1",
-    "vuex-router-sync": "^5.0.0"
+    "electron-hunspell": "0.1.1",
+    "electron-is-dev": "0.3.0",
+    "electron-store": "2.0.0",
+    "electron-unhandled": "1.1.0",
+    "electron-updater": "3.2.3",
+    "electron-util": "0.9.1",
+    "fsevents": "1.2.4",
+    "google-protobuf": "3.6.0",
+    "grpc": "1.12.4",
+    "highlight.js": "9.15.6",
+    "markdown-it": "8.4.2",
+    "marked": "0.6.0",
+    "minimatch": "3.0.4",
+    "mixpanel": "0.10.1",
+    "module-alias": "2.1.0",
+    "mousetrap": "1.6.2",
+    "tippy.js": "2.6.0",
+    "tree-kill": "1.2.0",
+    "v-click-outside": "2.0.2",
+    "vue": "2.5.22",
+    "vue-awesome": "3.3.1",
+    "vue-devtools": "4.1.4",
+    "vue-router": "3.0.2",
+    "vue-simple-spinner": "1.2.8",
+    "vuex": "3.1.0",
+    "vuex-router-sync": "5.0.0",
+    "xstate": "4.3.1"
   },
   "_moduleAliases": {
-    "vue": "node_modules/vue/dist/vue.js",
+    "vue": "node_modules/vue/dist/vue.min.js",
     "vue-router": "node_modules/vue-router/dist/vue-router.js"
   },
   "//": [
+    "chokidar, fsevents and watchpack are added because of dependency compatibility - we need to fix their versions. They are not actually used in the app. The reason is that fsevents 1.2.7 does not build with the version of electrion we have, but 1.2.4 does. Unfortunately, npm is aggressive enough that it will always pick the newest version of a package when the package is not exactly fixed, which means fsevents 1.2.7 gets installed, which breaks installs. To be able to get fsevents to be 1.2.4, we had to fix the dependencies to the lowest versions of deps that are still valid for the parent dependencies manually.",
     "Other possible architectures for linux:",
     "armv7l",
     "^ (32 bit arm)",
@@ -99,7 +110,7 @@
     "appId": "com.airlabs.Aether",
     "productName": "Aether",
     "artifactName": "${productName}-${version}.${ext}",
-    "copyright": "Copyright © 2013-2018 Burak Nehbit",
+    "copyright": "Copyright © 2019 Aether Technologies, Inc.",
     "publish": [
       {
         "provider": "generic",
@@ -148,6 +159,7 @@
       "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,__pycache__,thumbs.db,.gitignore,.gitattributes,.flowconfig,.yarn-metadata.json,.idea,.vs,appveyor.yml,.travis.yml,circle.yml,npm-debug.log,.nyc_output,yarn.lock,.yarn-integrity}",
       "!MAKE_BINARIES${/*}",
       "!tsconfig.json",
+      "!prettier.config.js",
       "!webpack.config.js",
       "!src{/*}",
       "src/app/mainmain.js"
@@ -208,20 +220,27 @@
         {
           "from": "MAKE_BINARIES/aether-frontend-mac-x64",
           "to": "app/aether-frontend-mac-x64"
+        },
+        {
+          "from": "src/app/ext_dep/dicts",
+          "to": "app/dicts"
         }
       ]
     },
     "win": {
+      "signingHashAlgorithms": [
+        "sha256"
+      ],
       "target": [
         {
           "target": "nsis",
           "arch": [
-            "x64",
-            "ia32"
+            "ia32",
+            "x64"
           ]
         }
       ],
-      "publisherName": "Air Labs",
+      "publisherName": "Aether Technologies, Inc.",
       "icon": "src/app/ext_dep/images/aether.ico",
       "extraResources": [
         {
@@ -239,6 +258,10 @@
         {
           "from": "MAKE_BINARIES/aether-frontend-win-ia32.exe",
           "to": "app/aether-frontend-win-ia32.exe"
+        },
+        {
+          "from": "src/app/ext_dep/dicts",
+          "to": "app/dicts"
         }
       ]
     },
@@ -270,9 +293,13 @@
         {
           "from": "MAKE_BINARIES/aether-frontend-linux-ia32",
           "to": "app/aether-frontend-linux-ia32"
+        },
+        {
+          "from": "src/app/ext_dep/dicts",
+          "to": "app/dicts"
         }
       ]
     }
   },
-  "_id": "Aether@2.0.0-dev.6"
+  "_id": "Aether@2.0.0-dev.12"
 }

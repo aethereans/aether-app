@@ -5,6 +5,7 @@ package clapiconsumer
 
 import (
 	"aether-core/aether/frontend/festructs"
+	"aether-core/aether/frontend/kvstore"
 	"aether-core/aether/io/api"
 	pb "aether-core/aether/protos/clapi"
 	"aether-core/aether/protos/feobjects"
@@ -219,7 +220,7 @@ func SendHomeView() {
 	hvc := festructs.HomeViewCarrier{}
 	err := globals.KvInstance.One("Id", 1, &hvc)
 	if err != nil {
-		logging.Logf(1, "Home view fetch in SendHomeView encountered an error. Error: ", err)
+		logging.Logf(1, "Home view fetch in SendHomeView encountered an error. Error: %v", err)
 		return
 	}
 	thr := []*feobjects.CompiledThreadEntity{}
@@ -297,5 +298,110 @@ func SendModModeEnabledStatus() {
 	_, err2 := c.SendModModeEnabledStatus(ctx, &resp)
 	if err2 != nil {
 		logging.Logf(1, "SendModModeEnabledStatus encountered an error. Err: %v", err2)
+	}
+}
+
+/*----------  External content autoload enabled status  ----------*/
+func SendExternalContentAutoloadDisabledStatus() {
+	logging.Logf(1, "SendExternalContentAutoloadDisabledStatus is called")
+	c, conn := StartClientAPIConnection()
+	defer conn.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), globals.FrontendConfig.GetGRPCServiceTimeout())
+	defer cancel()
+	resp := pb.ExternalContentAutoloadDisabledStatusPayload{ExternalContentAutoloadDisabled: globals.FrontendConfig.GetExternalContentAutoloadDisabled()}
+	_, err2 := c.SendExternalContentAutoloadDisabledStatus(ctx, &resp)
+	if err2 != nil {
+		logging.Logf(1, "SendExternalContentAutoloadDisabledStatus encountered an error. Err: %v", err2)
+	}
+}
+
+/*----------  Send search results  ----------*/
+
+func SendSearchResult(searchType, searchQuery string) {
+	logging.Logf(1, "SendSearchResult is called")
+	c, conn := StartClientAPIConnection()
+	defer conn.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), globals.FrontendConfig.GetGRPCServiceTimeout())
+	defer cancel()
+	resp := pb.SearchResultPayload{
+		SearchType: searchType,
+	}
+	/*==============================================
+	=            Search for the content            =
+	==============================================*/
+	switch searchType {
+	case "Board":
+		r, scoreMap, err := kvstore.SearchBoards(searchQuery)
+		if err != nil {
+			logging.Logf(1, "This search errored out. Type: %v, Query: %v, Error: %v", searchType, searchQuery, err)
+		}
+		resp.Boards = r.Protobuf()
+		for k, _ := range resp.Boards {
+			subbed, notify, lastseen := globals.FrontendConfig.ContentRelations.IsSubbedBoard(resp.Boards[k].Fingerprint)
+			whitelisted := globals.FrontendConfig.ContentRelations.SFWList.IsSFWListedBoard(resp.Boards[k].Fingerprint)
+			resp.Boards[k].Subscribed = subbed
+			resp.Boards[k].Notify = notify
+			resp.Boards[k].LastSeen = lastseen
+			resp.Boards[k].SFWListed = whitelisted
+			resp.Boards[k].ViewMeta_SearchScore = scoreMap[resp.Boards[k].Fingerprint]
+		}
+	case "Content": // Content = Thread + Post
+		posts, threads, scoreMap, err := kvstore.SearchContent(searchQuery)
+		if err != nil {
+			logging.Logf(1, "This search errored out. Type: %v, Query: %v, Error: %v", searchType, searchQuery, err)
+		}
+		resp.Threads = threads.Protobuf()
+		resp.Posts = posts.Protobuf()
+		// Add whitelist data and board name, search score to the threads
+		for k, _ := range resp.Threads {
+			resp.Threads[k].ViewMeta_SFWListed = globals.FrontendConfig.ContentRelations.SFWList.IsSFWListedBoard(resp.Threads[k].Board)
+			ab := festructs.AmbientBoard{}
+			err := globals.KvInstance.One("Fingerprint", resp.Threads[k].Board, &ab)
+			if err != nil {
+				logging.Logf(1, "Trying to get the parent board of this thread in the search results errored out. Error: %v", err)
+				continue
+			}
+			resp.Threads[k].ViewMeta_BoardName = ab.Name
+			resp.Threads[k].ViewMeta_SearchScore = scoreMap[resp.Threads[k].Fingerprint]
+		}
+
+		// Add whitelist data and scores to the posts
+		for k, _ := range resp.Posts {
+			resp.Posts[k].ViewMeta_SFWListed = globals.FrontendConfig.ContentRelations.SFWList.IsSFWListedBoard(resp.Posts[k].Board)
+			// Get board name
+			ab := festructs.AmbientBoard{}
+			err := globals.KvInstance.One("Fingerprint", resp.Posts[k].Board, &ab)
+			if err != nil {
+				logging.Logf(1, "Trying to get the parent board of this post in the search results errored out. Error: %v", err)
+				continue
+			}
+			resp.Posts[k].ViewMeta_BoardName = ab.Name
+			// Get thread name
+			tc := festructs.ThreadCarrier{}
+			err2 := globals.KvInstance.One("Fingerprint", resp.Posts[k].Thread, &tc)
+			if err2 != nil {
+				logging.Logf(1, "Trying to get the parent thread of this post in the search results errored out. Error: %v", err2)
+				continue
+			}
+			resp.Posts[k].ViewMeta_ThreadName = tc.Threads[0].Name
+			resp.Posts[k].ViewMeta_SearchScore = scoreMap[resp.Posts[k].Fingerprint]
+		}
+	case "User":
+		r, scoreMap, err := kvstore.SearchUsers(searchQuery)
+		if err != nil {
+			logging.Logf(1, "This search errored out. Type: %v, Query: %v, Error: %v", searchType, searchQuery, err)
+		}
+		resp.Users = r.Protobuf()
+		// Add whitelist data and scores to the posts
+		for k, _ := range resp.Users {
+			resp.Users[k].ViewMeta_SearchScore = scoreMap[resp.Users[k].Fingerprint]
+		}
+	default:
+		logging.Logf(1, "The search type given by the client is not understood. Given: %v", searchType)
+	}
+	/*=====  End of Search for the content  ======*/
+	_, err2 := c.SendSearchResult(ctx, &resp)
+	if err2 != nil {
+		logging.Logf(1, "SendSearchResult encountered an error. Err: %v", err2)
 	}
 }

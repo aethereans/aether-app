@@ -1,81 +1,73 @@
-@import "./markdowned.scss";
 //
 
-/* Colour Scheme. */
+// Colour Scheme.
 
 // Mind that the greys are actually not fully neutral grey, they have their own colour skew.
 // Darkest (~black)
-$a-grey-100: #1B2B34;
-$a-grey-200: #343D46;
-$a-grey-300: #4F5B66;
-$a-grey-400: #65737E;
-$a-grey-500: #A7ADBA;
-$a-grey-600: #C0C5CE;
-$a-grey-700: #CDD3DE;
-$a-grey-800: #D8DEE9; // Lightest (~white)
-
-/*  */
+$a-grey-100: #1b2b34;
+$a-grey-200: #343d46;
+$a-grey-300: #4f5b66;
+$a-grey-400: #65737e;
+$a-grey-500: #a7adba;
+$a-grey-600: #c0c5ce;
+$a-grey-700: #cdd3de;
+$a-grey-800: #d8dee9; // Lightest (~white)
 
 // Rainbow
 // $a-red: #EC5f67;
-$a-red: #EC5f67;
-$a-orange: #F99157;
-$a-yellow: #FAC863;
-$a-green: #99C794;
-$a-turquoise: #5FB3B3; // ~teal
-$a-cerulean: #6699CC; // ~blue
-$a-purple: #C594C5;
-$a-earth: #AB7967; // ~brown
+$a-red: #ec5f67;
+$a-orange: #f99157;
+$a-yellow: #fac863;
+$a-green: #99c794;
+$a-turquoise: #5fb3b3; // ~teal
+$a-cerulean: #6699cc; // ~blue
+$a-purple: #c594c5;
+$a-earth: #ab7967; // ~brown
+
 // Translucent versions
 $a-cerulean-15: rgba(102, 153, 204, 0.15);
-$a-cerulean-20: rgba(102, 153, 204, 0.20);
-$a-cerulean-30: rgba(102, 153, 204, 0.30);
-$a-cerulean-40: rgba(102, 153, 204, 0.40);
-$a-cerulean-50: rgba(102, 153, 204, 0.50);
-$a-cerulean-60: rgba(102, 153, 204, 0.60);
-$a-cerulean-70: rgba(102, 153, 204, 0.70);
-$a-cerulean-80: rgba(102, 153, 204, 0.80);
-$a-cerulean-90: rgba(102, 153, 204, 0.90);
-$a-cerulean-100:$a-cerulean;
+$a-cerulean-20: rgba(102, 153, 204, 0.2);
+$a-cerulean-30: rgba(102, 153, 204, 0.3);
+$a-cerulean-40: rgba(102, 153, 204, 0.4);
+$a-cerulean-50: rgba(102, 153, 204, 0.5);
+$a-cerulean-60: rgba(102, 153, 204, 0.6);
+$a-cerulean-70: rgba(102, 153, 204, 0.7);
+$a-cerulean-80: rgba(102, 153, 204, 0.8);
+$a-cerulean-90: rgba(102, 153, 204, 0.9);
+$a-cerulean-100: $a-cerulean;
 $a-transparent: rgba(255, 255, 255, 0);
 
-$a-red-20: rgba(236, 95, 103, 0.20);
-$a-red-30: rgba(236, 95, 103, 0.30);
-$a-red-40: rgba(236, 95, 103, 0.40);
-$a-red-50: rgba(236, 95, 103, 0.50);
-$a-red-60: rgba(236, 95, 103, 0.60);
-$a-red-70: rgba(236, 95, 103, 0.70);
-$a-red-80: rgba(236, 95, 103, 0.80);
-$a-red-90: rgba(236, 95, 103, 0.90);
-$a-red-100:$a-red;
+$a-red-20: rgba(236, 95, 103, 0.2);
+$a-red-30: rgba(236, 95, 103, 0.3);
+$a-red-40: rgba(236, 95, 103, 0.4);
+$a-red-50: rgba(236, 95, 103, 0.5);
+$a-red-60: rgba(236, 95, 103, 0.6);
+$a-red-70: rgba(236, 95, 103, 0.7);
+$a-red-80: rgba(236, 95, 103, 0.8);
+$a-red-90: rgba(236, 95, 103, 0.9);
+$a-red-100: $a-red;
 
 $a-purple-80: rgba(197, 148, 201, 0.8);
 $a-earth-80: rgba(171, 121, 103, 0.8);
 //
 
-/* Separators */
+// Separators
 
 $line-separator-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
-$line-separator-shadow-castleft: -2px 0 2px -2px rgba(0, 0, 0, 0.40);
+$line-separator-shadow-castleft: -2px 0 2px -2px rgba(0, 0, 0, 0.4);
 $line-separator-shadow-castleft-light: -2px 0 2px -2px rgba(0, 0, 0, 0.05);
 $line-separator-shadow-white: 0 6px 4px -6px rgba(255, 255, 255, 0.35);
 $line-separator-shadow-v2: 0 6px 4px -6px rgba(0, 0, 0, 0.55); // this comment line is to prevent JS beautify from walking whatever comes down under at every save. What does this mean? Remove this line and save on Sublime, you'll see what I mean.
 
-/* Background colors */
+// Background colors
 
-$dark-base: $a-grey-100; // $mid-base:$a-grey-200;
-$mid-base:#36393E*0.75;
-// $mid-base:$a-grey-100*1.2;
+$dark-base: $a-grey-100;
+$mid-base: #292b2f; // $mid-base: #36393e * 0.75;
 $light-base: $a-grey-300;
-$dropdown-base: $mid-base *0.55;
-$dropdown-divider-color: $dropdown-base * 2;
+$dropdown-base: #17181a; // $dropdown-base: $mid-base * 0.55;
+$dropdown-divider-color: #2d2f34; // $dropdown-divider-color: $dropdown-base * 2;
 $top-bar-height: 38px;
-// $sidebar-width: 14.5%;
 $sidebar-width: 240px;
-// $max-sidebar-width: $sidebar-width;
-// $min-sidebar-width: $sidebar-width;
-// $max-sidebar-width: 240px;
-// $min-sidebar-width: 240px;
 $link-hover-ghost-extension-length: 5px;
 
 %link-hover-ghost-extenders-disable {
@@ -89,34 +81,34 @@ $link-hover-ghost-extension-length: 5px;
 }
 
 @mixin generateScrollbar($scrollbarColour) {
-   ::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     width: 10px;
   }
 
-   ::-webkit-scrollbar-track {
+  ::-webkit-scrollbar-track {
     // background: transparent;
     // background-color: transparent;
     background-color: $scrollbarColour;
   }
 
-   ::-webkit-scrollbar * {
+  ::-webkit-scrollbar * {
     background: transparent;
   }
 
-   ::-webkit-scrollbar-thumb {
+  ::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.33);
     border-radius: 10px;
     border: 3px solid rgba(0, 0, 0, 0);
     background-clip: padding-box;
   }
 
-   ::-webkit-scrollbar-button {
+  ::-webkit-scrollbar-button {
     width: 0;
     height: 0;
     display: none;
   }
 
-   ::-webkit-scrollbar-corner {
+  ::-webkit-scrollbar-corner {
     background-color: transparent;
   }
 }
@@ -131,4 +123,85 @@ code {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+}
+
+/*
+  Code highlighting styles
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #abb2bf;
+  background: #282c34;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #5c6370;
+  font-style: italic;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #c678dd;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e06c75;
+}
+
+.hljs-literal {
+  color: #56b6c2;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta-string {
+  color: #98c379;
+}
+
+.hljs-built_in,
+.hljs-class .hljs-title {
+  color: #e6c07b;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #d19a66;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #61aeee;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-link {
+  text-decoration: underline;
 }

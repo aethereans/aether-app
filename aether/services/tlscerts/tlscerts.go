@@ -117,11 +117,11 @@ func Generate() {
 		toolbox.DeleteFromDisk(certLoc)
 		toolbox.DeleteFromDisk(keyLoc)
 		cert, key := generateTLSKeyPair()
-		err := ioutil.WriteFile(certLoc, []byte(cert), 0644)
+		err := ioutil.WriteFile(certLoc, []byte(cert), 0755)
 		if err != nil {
 			logging.Logf(1, "TLS key writing to file failed. Error: %v", err)
 		}
-		err2 := ioutil.WriteFile(keyLoc, []byte(key), 0644)
+		err2 := ioutil.WriteFile(keyLoc, []byte(key), 0755)
 		if err2 != nil {
 			logging.Logf(1, "TLS key writing to file failed. Error: %v", err2)
 		}

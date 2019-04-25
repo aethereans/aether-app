@@ -7,22 +7,20 @@
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'sfwlist',
-    data() {
-      return {
-        headline: headline,
-        intro: intro,
-        content: content,
-      }
+export default {
+  name: 'sfwlist',
+  data() {
+    return {
+      headline: headline,
+      intro: intro,
+      content: content,
     }
-  }
-  // These are var's and not let's because lets are defined only from the point they're in the code, and vars are defined for the whole scope regardless of where they are.
-  var headline = "# Safe-for-work communities list"
-  var intro =
-    `**Preferences related to the safe-for-work markings for communities.**`
-  var content =
-    `
+  },
+}
+// These are var's and not let's because lets are defined only from the point they're in the code, and vars are defined for the whole scope regardless of where they are.
+var headline = '# Safe-for-work communities list'
+var intro = `**Preferences related to the safe-for-work markings for communities.**`
+var content = `
 * SFW communities are communities that are chosen to be work-safe, and they contain some of the higher-quality discussion and content the network has available.
 
 * A board being not SFW is not a negative signal. It might mean that the board was just formed, or that it is interesting and high quality but not SFW, or that it does not have the volume or active moderation.
@@ -92,14 +90,14 @@ If you are building your own client for c0, you are welcome to use this safe-for
 </script>
 
 <style lang="scss" scoped>
-  @import "../../../scss/globals";
-  .settings-sublocation {
-    color: $a-grey-600;
-    .markdowned {
-      &:first-of-type {
-        margin-bottom: 0;
-      }
-      margin-bottom: 40px;
+@import '../../../scss/globals';
+.settings-sublocation {
+  color: $a-grey-600;
+  .markdowned {
+    &:first-of-type {
+      margin-bottom: 0;
     }
+    margin-bottom: 40px;
   }
+}
 </style>

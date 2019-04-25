@@ -6,6 +6,7 @@ package configstore
 import (
 	"aether-core/aether/services/toolbox"
 	"fmt"
+	"log"
 	// "github.com/davecgh/go-spew/spew"
 	"aether-core/aether/services/extverify"
 	// "log"
@@ -17,11 +18,12 @@ import (
 const (
 	activeInboundLeaseDurationSeconds  = 60  // 1m
 	activeOutboundLeaseDurationSeconds = 900 // 15m
+	activePingLeaseDurationSeconds     = 10  // 10s
 
 	historyInboundLeaseDurationSeconds  = 86400 // 1d
 	historyOutboundLeaseDurationSeconds = 86400 // 1d
 
-	minimumActivesFlushIntervalSeconds = 60   // 1m
+	minimumActivesFlushIntervalSeconds = 30   // 30s
 	minimumHistoryFlushIntervalSeconds = 3600 // 1h
 	// ^ This relates to dropping from history, not adding to history. Adding to history happens on active flush.
 )
@@ -29,7 +31,8 @@ const (
 type Bouncer struct {
 	lock             sync.Mutex
 	Inbounds         []ConnectionRecord
-	Outbounds        []ConnectionRecord // as of now, not used
+	Outbounds        []ConnectionRecord
+	Pings            []ConnectionRecord
 	InboundHistory   []ConnectionRecord
 	OutboundHistory  []ConnectionRecord
 	ActivesLastFlush Timestamp
@@ -44,6 +47,8 @@ type ConnectionRecord struct {
 	LastAccess          Timestamp
 	Inbound_ReverseConn bool
 	// ^ If inbound and if reverse conn, true
+	Inbound_ReverseConn_Successful bool
+	// ^ If inbound and if reverse conn and if successful, true
 	Outbound_ReverseConn bool
 	// ^ If outbound and if done in response to reverse conn, true
 	Outbound_Successful bool
@@ -69,6 +74,15 @@ func (n *ConnectionRecord) hasActiveInboundLease() bool {
 }
 func (n *ConnectionRecord) hasActiveOutboundLease() bool {
 	cutoff := Timestamp(time.Now().Add(-(time.Duration(activeOutboundLeaseDurationSeconds) * time.Second)).Unix())
+	if n.LastAccess > cutoff {
+		return true
+	} else {
+		return false
+	}
+}
+
+func (n *ConnectionRecord) hasActivePingLease() bool {
+	cutoff := Timestamp(time.Now().Add(-(time.Duration(activePingLeaseDurationSeconds) * time.Second)).Unix())
 	if n.LastAccess > cutoff {
 		return true
 	} else {
@@ -109,6 +123,13 @@ func (n *Bouncer) indexOf(direction string, loc, subloc string, port uint16, inb
 			}
 		}
 		return -1
+	case "ping":
+		for key, _ := range n.Pings {
+			if n.Pings[key].equal(ConnectionRecord{Location: loc, Sublocation: subloc, Port: port}) {
+				return key
+			}
+		}
+		return -1
 	default:
 		return -1
 	}
@@ -124,6 +145,8 @@ func (n *Bouncer) insert(direction string, loc, subloc string, port uint16, isRe
 	case "outbound":
 		entry.Outbound_ReverseConn = isReverseConn
 		n.Outbounds = append(n.Outbounds, entry)
+	case "ping":
+		n.Pings = append(n.Pings, entry)
 	default:
 		panic(fmt.Sprintf("You gave an invalid direction to insert in Bouncer. Direction: %v", direction))
 	}
@@ -146,6 +169,11 @@ func (n *Bouncer) removeItem(direction string, i int) {
 		n.OutboundHistory = append(n.OutboundHistory, n.Outbounds[i])
 		outboundExpiredHook(n.Outbounds[i])
 		n.Outbounds = finalList
+	case "ping":
+		finalList = append(n.Pings[0:i], n.Pings[i+1:len(n.Pings)]...)
+		n.Pings[i].ConnDurationSeconds = calcDuration(n.Pings[i])
+		pingExpiredHook(n.Pings[i])
+		n.Pings = finalList
 	case "inboundHistory":
 		finalList = append(n.InboundHistory[0:i], n.InboundHistory[i+1:len(n.InboundHistory)]...)
 		n.InboundHistory[i].ConnDurationSeconds = calcDuration(n.InboundHistory[i])
@@ -177,6 +205,11 @@ func (n *Bouncer) flushActives() {
 	for i := len(n.Outbounds) - 1; i >= 0; i-- {
 		if !n.Outbounds[i].hasActiveOutboundLease() {
 			n.removeItem("outbound", i)
+		}
+	}
+	for i := len(n.Pings) - 1; i >= 0; i-- {
+		if !n.Pings[i].hasActivePingLease() {
+			n.removeItem("ping", i)
 		}
 	}
 }
@@ -228,15 +261,18 @@ func (n *Bouncer) RequestInboundLease(loc, subloc, proxy string, port uint16, is
 			isReverseConn {
 			n.insert("inbound", loc, subloc, port, isReverseConn)
 			// fmt.Println("Lease was granted.")
+			allocated, max := n.GetInboundSaturation()
+			logf(0, "GIVEN INBOUND LEASE: (%v/%v) %v:%v. Type: %v", allocated, max, loc, port, getConnType(isReverseConn))
 			return true
 		} else {
 			// fmt.Println("A lease was denied.")
+			allocated, max := n.GetInboundSaturation()
+			logf(0, "DENIED INBOUND LEASE: (%v/%v) %v:%v. Type: %v", allocated, max, loc, port, getConnType(isReverseConn))
 			return false
 		}
 	}
 }
 
-// Probably works but untested. We'll use it if we end up having to gate outbound connections.
 func (n *Bouncer) RequestOutboundLease(loc, subloc string, port uint16, isReverseConn bool) bool {
 	n.lock.Lock()
 	defer n.lock.Unlock()
@@ -262,10 +298,58 @@ func (n *Bouncer) RequestOutboundLease(loc, subloc string, port uint16, isRevers
 		n.Outbounds[leaseIndex].LastAccess = Timestamp(time.Now().Unix())
 		return true
 	} else {
-		if len(n.Outbounds) < bc.GetMaxOutboundConns() || isReverseConn {
+		if len(n.Outbounds) < bc.GetMaxOutboundConns() { // || isReverseConn
+			/*
+				Removed: automatically giving reverse connections an outbound lease.
+			*/
 			n.insert("outbound", loc, subloc, port, isReverseConn)
+			allocated, max := n.GetOutboundSaturation()
+			logf(0, "GIVEN OUTBOUND LEASE: (%v/%v) %v:%v. Type: %v", allocated, max, loc, port, getConnType(isReverseConn))
 			return true
 		} else {
+			allocated, max := n.GetOutboundSaturation()
+			logf(0, "DENIED OUTBOUND LEASE: (%v/%v) %v:%v. Type: %v", allocated, max, loc, port, getConnType(isReverseConn))
+			return false
+		}
+	}
+}
+
+// RequestPingLease allows a ping from a remote to be allowed in. Since this does not make sense in the case of reverse (i.e. if a remote has made an inbound request, it is a sync request, not a ping request.)
+func (n *Bouncer) RequestPingLease(loc, subloc, proxy string, port uint16) bool {
+	n.lock.Lock()
+	defer n.lock.Unlock()
+	// If we're lameduck, decline.
+	if Btc.LameduckInitiated || Btc.ShutdownInitiated {
+		return false
+	}
+	if bc.GetExternalVerifyEnabled() {
+		// log.Printf("External verify enabled. Remote IP: %v", loc)
+		if !extverify.Verifier.IsAllowedRemoteIP(proxy) {
+			// log.Printf("Remote wasn't allowed in because it wasn't a CF ip. Remote IP: %v", loc)
+			return false
+		}
+	}
+	n.flush()
+	/*
+		See "reverse" bypasses on both the true cases below. If it's a reverse connection, we always accept. If you want to limit reverse connections, do it from where we trigger them, all reverses are locally triggered.
+	*/
+	leaseIndex := n.indexOf("ping", loc, subloc, port, false, false)
+	if leaseIndex != -1 && n.Pings[leaseIndex].hasActivePingLease() {
+		// fmt.Println("Lease was renewed.")
+		// fmt.Printf("lease index: %v, pings: %#v", leaseIndex, n.Pings)
+		n.Pings[leaseIndex].LastAccess = Timestamp(time.Now().Unix())
+		return true
+	} else {
+		if len(n.Pings) < bc.GetMaxPingConns() {
+			n.insert("ping", loc, subloc, port, false)
+			// fmt.Println("Lease was granted.")
+			allocated, max := n.GetPingSaturation()
+			logf(0, "GIVEN PING LEASE: (%v/%v) %v:%v", allocated, max, loc, port)
+			return true
+		} else {
+			// fmt.Println("A lease was denied.")
+			allocated, max := n.GetPingSaturation()
+			logf(0, "DENIED PING LEASE: (%v/%v) %v:%v", allocated, max, loc, port)
 			return false
 		}
 	}
@@ -281,10 +365,34 @@ func (n *Bouncer) ReleaseOutboundLease(loc, subloc string, port uint16, wasSucce
 	if leaseIndex != -1 {
 		n.Outbounds[leaseIndex].LastAccess = Timestamp(time.Now().Unix())
 		n.Outbounds[leaseIndex].Outbound_Successful = wasSuccessful
-		// ^ This is the only place a success data is set to potentially true. Otherwise, it's all false. Inbounds don't have any success data, and unless closed with this specifically, outbounds are assumed failed by default when they expire.
 		n.removeItem("outbound", leaseIndex)
+		allocated, max := n.GetOutboundSaturation()
+		logf(0, "RELEASED OUTBOUND LEASE: (%v/%v) %v:%v. Type: %v", allocated, max, loc, port, getConnType(isReverseConn))
 	}
 }
+
+// ReleaseInboundLease is idempotent if there is no such lease.
+func (n *Bouncer) ReleaseInboundLease(loc, subloc string, port uint16, wasSuccessful, isReverseConn bool) {
+	n.lock.Lock()
+	defer n.lock.Unlock()
+	n.flush()
+	leaseIndex := n.indexOf("inbound", loc, subloc, port, isReverseConn, false)
+	// fmt.Printf("Lease index was %v\n", leaseIndex)
+	if leaseIndex != -1 {
+		n.Inbounds[leaseIndex].LastAccess = Timestamp(time.Now().Unix())
+		if isReverseConn && wasSuccessful {
+			n.Inbounds[leaseIndex].Inbound_ReverseConn_Successful = wasSuccessful
+		}
+		// ^ Inbounds are considered successful when they expire, the only exception being reverse conns, which we assume to be successful only if we are explicitly told so.
+		n.removeItem("inbound", leaseIndex)
+		allocated, max := n.GetInboundSaturation()
+		logf(0, "RELEASED INBOUND LEASE: (%v/%v) %v:%v. Type: %v", allocated, max, loc, port, getConnType(isReverseConn))
+	}
+}
+
+/*
+	ReleaseInboundLease and ReleasePingLease don't exist because those are not in our control. When the remote is done, it just stops asking, and we just expire them.
+*/
 
 // Below are the high level methods that comprise of the public API.
 
@@ -354,12 +462,67 @@ func (b *Bouncer) GetLastOutboundSyncTimestamp(onlySuccessful bool) int64 {
 	return int64(ts)
 }
 
-func (b *Bouncer) GetInboundsInLastXMinutes(min uint) []ConnectionRecord {
+func (b *Bouncer) GetLastPingTimestamp(onlySuccessful bool) int64 {
+	b.lock.Lock()
+	defer b.lock.Unlock()
+	b.flush()
+	ts := Timestamp(0)
+	for key, _ := range b.Pings {
+		if b.Pings[key].LastAccess > ts {
+			ts = b.Pings[key].LastAccess
+		}
+	}
+	return int64(ts)
+}
+
+func (b *Bouncer) GetInboundsInLastXMinutes(min uint, onlySuccessful bool) []ConnectionRecord {
 	b.lock.Lock()
 	defer b.lock.Unlock()
 	b.flush()
 	cutoff := Timestamp(toolbox.CnvToCutoffMinutes(int(min)))
 	results := []ConnectionRecord{}
+	/*
+		Logic below:
+		- A normal (non-reverse) inbound is interpreted successful by default
+		- A reverse inbound is successful only if explicitly marked as such
+		- If only looking for successful, all normals, and explicitly-marked-as-successful reverses, gated by minute time limit
+		- If looking for all, just all of them as gated by time limit
+	*/
+	if onlySuccessful {
+		for key, _ := range b.Inbounds {
+			if b.Inbounds[key].LastAccess <= cutoff {
+				// If not within the X minutes we want, pass without further processing
+				continue
+			}
+			if !b.Inbounds[key].Inbound_ReverseConn {
+				// If normal (not a reverse) conn, we count it as successful by default.
+				results = append(results, b.Inbounds[key])
+				continue
+			}
+			// This was a reverse, it is successful *only* if it is explicitly marked as such.
+			if b.Inbounds[key].Inbound_ReverseConn_Successful {
+				results = append(results, b.Inbounds[key])
+			}
+		}
+		// Same as above, repeated below over inbound history
+		for key, _ := range b.InboundHistory {
+			if b.InboundHistory[key].LastAccess <= cutoff {
+				// If not within the X minutes we want, pass without further processing
+				continue
+			}
+			if !b.InboundHistory[key].Inbound_ReverseConn {
+				// If normal (not a reverse) conn, we count it as successful by default.
+				results = append(results, b.InboundHistory[key])
+				continue
+			}
+			// This was a reverse, it is successful *only* if it is explicitly marked as such.
+			if b.InboundHistory[key].Inbound_ReverseConn_Successful {
+				results = append(results, b.InboundHistory[key])
+			}
+		}
+		return results
+	}
+	// Not only successful, but all
 	for key, _ := range b.Inbounds {
 		if b.Inbounds[key].LastAccess > cutoff {
 			results = append(results, b.Inbounds[key])
@@ -407,6 +570,23 @@ func (b *Bouncer) GetOutboundsInLastXMinutes(min uint, onlySuccessful bool) []Co
 	return results
 }
 
+func (b *Bouncer) GetInboundSaturation() (used, total int) {
+	return len(b.Inbounds), bc.GetMaxInboundConns()
+}
+func (b *Bouncer) GetOutboundSaturation() (used, total int) {
+	return len(b.Outbounds), bc.GetMaxOutboundConns()
+}
+func (b *Bouncer) GetPingSaturation() (used, total int) {
+	return len(b.Pings), bc.GetMaxPingConns()
+}
+
+func getConnType(isReverseConn bool) string {
+	if isReverseConn {
+		return "Reverse"
+	}
+	return "Normal"
+}
+
 func calcDuration(c ConnectionRecord) float64 {
 	fa := int64(c.FirstAccess)
 	la := int64(c.LastAccess)
@@ -423,3 +603,19 @@ func inboundExpiredHook(c ConnectionRecord) {
 // outboundExpiredHook runs after an outbound connection lease expires, just before it is fully removed from the outbounds list.
 func outboundExpiredHook(c ConnectionRecord) {
 }
+
+// pingExpiredHook runs after a ping connection lease expires, just before it is fully removed from the pings list.
+func pingExpiredHook(c ConnectionRecord) {
+}
+
+/*========================================
+=            internal helpers            =
+========================================*/
+
+func logf(level int, input string, v ...interface{}) {
+	if bc.GetLoggingLevel() >= level {
+		log.Printf("%s\n", fmt.Sprintf(input, v...))
+	}
+}
+
+/*=====  End of internal helpers  ======*/

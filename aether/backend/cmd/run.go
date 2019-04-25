@@ -61,6 +61,7 @@ This will do three main things:
 		persistence.CreateDatabase()
 		persistence.CheckDatabaseReady()
 		startSchedules()
+		handleTemporaryConfigUpdates()
 		gotValidPort := make(chan bool)
 		go beapiserver.StartBackendServer(gotValidPort)
 		<-gotValidPort // Only proceed after this is true.
@@ -81,6 +82,16 @@ This will do three main things:
 	},
 }
 
+func handleTemporaryConfigUpdates() {
+	// TODO FUTURE Remove this in dev.12 - this is to set this for one time from the prior default, if the user has not changed the default.
+	if globals.BackendConfig.GetMaxInboundConns() == 5 {
+		globals.BackendConfig.SetMaxInboundConns(10)
+	}
+	if globals.BackendConfig.GetDispatchExclusionExpiryForLiveAddress() == 3 {
+		globals.BackendConfig.SetDispatchExclusionExpiryForLiveAddress(5)
+	}
+}
+
 // collectAmbientStatusData gathers information from different pieces of the system to gather existing data, to send it at boot.
 /*
 	I know you're gonna think this is a neat function, can we put this on a schedule and make it update the client? No, you can't do that, because the function below actually resets the values to defaults. So if you actually end up running this, it will override existing values for stuff like status. So you can accidentally say the database is available while it is inserting, etc.
@@ -90,9 +101,9 @@ func collectAmbientStatusData() {
 
 	/*Last outbound connection duration and last outbound conn timestamp is set in sync library */
 	feapiconsumer.BackendAmbientStatus.LastInboundConnTimestamp = globals.BackendTransientConfig.Bouncer.GetLastInboundSyncTimestamp(false)
-	feapiconsumer.BackendAmbientStatus.InboundsCount15 = int32(len(globals.BackendTransientConfig.Bouncer.GetInboundsInLastXMinutes(15)))
+	feapiconsumer.BackendAmbientStatus.InboundsCount15 = int32(len(globals.BackendTransientConfig.Bouncer.GetInboundsInLastXMinutes(15, true)))
 
-	feapiconsumer.BackendAmbientStatus.OutboundsCount15 = int32(len(globals.BackendTransientConfig.Bouncer.GetOutboundsInLastXMinutes(15, false)))
+	feapiconsumer.BackendAmbientStatus.OutboundsCount15 = int32(len(globals.BackendTransientConfig.Bouncer.GetOutboundsInLastXMinutes(15, true)))
 	/*----------  Network misc  ----------*/
 	/* UPNP status is set in the UPNP library */
 	// feapiconsumer.BackendAmbientStatus.UPNPStatus = "Idle"
@@ -140,12 +151,15 @@ func startSchedules() {
 	}
 
 	// Address scanner goes through all prior unconnected addresses and attempts to connect to them to establish a relationship. It starts 30 minutes after a node is started, so that the node will actually have a chance to collect some addresses to check.
-	globals.BackendTransientConfig.StopAddressScannerCycle = scheduling.ScheduleRepeat(func() { dispatch.AddressScanner() }, 2*time.Hour, time.Duration(15)*time.Minute, nil)
+	// globals.BackendTransientConfig.StopAddressScannerCycle = scheduling.ScheduleRepeat(func() { dispatch.AddressScanner() }, 2*time.Hour, time.Duration(15)*time.Minute, nil)
+
+	globals.BackendTransientConfig.StopNetworkScanCycle = scheduling.ScheduleRepeat(func() { dispatch.DoNetworkScan() }, 10*time.Minute, time.Duration(0)*time.Minute, nil)
+
 	// Attempt cache generation every hour, but it will be pre-empted if the last cache generation is less than 23 hours old, and if the node is not tracking the head. So that this will run effectively every day, only.
 
 	globals.BackendTransientConfig.StopCacheGenerationCycle = scheduling.ScheduleRepeat(func() { responsegenerator.GenerateCaches() }, 5*time.Minute, time.Duration(5)*time.Minute, nil)
 
-	globals.BackendTransientConfig.StopCacheGenerationCycle = scheduling.ScheduleRepeat(func() { configstore.BadlistInstance.Refresh() }, 6*time.Hour, time.Duration(0)*time.Minute, nil)
+	globals.BackendTransientConfig.StopBadlistRefreshCycle = scheduling.ScheduleRepeat(func() { configstore.BadlistInstance.Refresh() }, 6*time.Hour, time.Duration(0)*time.Minute, nil)
 
 }
 
@@ -166,12 +180,16 @@ func shutdown() {
 	logging.Logf(1, "StopExplorerCycle is done.")
 	globals.BackendTransientConfig.StopInboundConnectionCycle <- true
 	logging.Logf(1, "StopInboundConnectionCycle is done.")
-	globals.BackendTransientConfig.StopAddressScannerCycle <- true
-	logging.Logf(1, "StopAddressScannerCycle is done.")
+	// globals.BackendTransientConfig.StopAddressScannerCycle <- true
+	// logging.Logf(1, "StopAddressScannerCycle is done.")
+	globals.BackendTransientConfig.StopNetworkScanCycle <- true
+	logging.Logf(1, "StopNetworkScanCycle is done.")
 	globals.BackendTransientConfig.StopUPNPCycle <- true
 	logging.Logf(1, "StopUPNPCycle is done.")
 	globals.BackendTransientConfig.StopCacheGenerationCycle <- true
 	logging.Logf(1, "StopCacheGenerationCycle is done.")
+	globals.BackendTransientConfig.StopBadlistRefreshCycle <- true
+	logging.Logf(1, "StopBadlistRefreshCycle is done.")
 	// logging.Logf(1, "Inbounds: %s\n", spew.Sdump(globals.BackendTransientConfig.Bouncer.Inbounds))
 	// logging.Logf(1, "Outbounds: %s\n", spew.Sdump(globals.BackendTransientConfig.Bouncer.Outbounds))
 	// logging.Logf(1, "InboundHistory: %s\n", spew.Sdump(globals.BackendTransientConfig.Bouncer.InboundHistory))

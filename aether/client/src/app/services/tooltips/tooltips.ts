@@ -2,7 +2,7 @@
 
 // This service provides a tooltip binder - for any view that has tooltips, this needs to run.
 
-export { }
+export {}
 var Tippy: any = require('../../../../node_modules/tippy.js')
 
 module.exports = {

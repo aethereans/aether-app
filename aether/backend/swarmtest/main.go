@@ -63,7 +63,7 @@ func setDefaults() {
 	// xs (20k obj per node), s (0.5m obj/n), m
 	settings.dbsize = "xs"
 	// settings.staticnodeloc = "Runtime-Generated-Files/temp_generated_data"
-	settings.staticnodeloc = "temp_generated_data"
+	settings.staticnodeloc = "/Users/Helios/Documents/temp_generated_data"
 	spl, err := filepath.Abs("Runtime-Generated-Files/swarm-plan.json")
 	if err != nil {
 		log.Fatal(fmt.Sprintf("Converting the swarm plan to an absolute file path has failed. Error: %s", err))
@@ -292,7 +292,7 @@ func generateSwarmSchedules(nodes []node, testType string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	err2 := ioutil.WriteFile(fmt.Sprint(settings.swarmplanloc), crAsByte, 0644)
+	err2 := ioutil.WriteFile(fmt.Sprint(settings.swarmplanloc), crAsByte, 0755)
 	if err2 != nil {
 		log.Fatal(err2)
 	}
@@ -337,7 +337,7 @@ func collectAndSaveResults(startTs int64) {
 	}
 	formattedTime := fmt.Sprint(time.Now().Format(time.RFC1123))
 	toolbox.CreatePath("Runtime-Generated-Files/Test Results")
-	err3 := ioutil.WriteFile(fmt.Sprintf("Runtime-Generated-Files/Test Results/Swarm Results %s.json", formattedTime), bufAsByte, 0644)
+	err3 := ioutil.WriteFile(fmt.Sprintf("Runtime-Generated-Files/Test Results/Swarm Results %s.json", formattedTime), bufAsByte, 0755)
 	if err3 != nil {
 		log.Fatal(err3)
 	}

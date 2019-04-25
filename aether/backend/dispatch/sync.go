@@ -25,8 +25,8 @@ import (
 )
 
 // Bouncer gate.
-// isAllowed attempts to get an outbound lease, and returns a function that can be used to terminate that lease if the lease is granted. The function return is a little bit fancier than I'd normally like, but in this case, it's useful because it captures the values I've calculated within this function.
-func isAllowed(a api.Address, reverseConn *net.Conn) (bool, func(wasSuccessful *bool), func()) {
+// OutboundAllowed attempts to get an outbound lease, and returns a function that can be used to terminate that lease if the lease is granted. The function return is a little bit fancier than I'd normally like, but in this case, it's useful because it captures the values I've calculated within this function.
+func OutboundAllowed(a api.Address, reverseConn *net.Conn) (bool, func(wasSuccessful *bool), func()) {
 	var loc, subloc string
 	var port uint16
 	var isReverseConn bool
@@ -69,30 +69,49 @@ func Sync(a api.Address, lineup []string, reverseConn *net.Conn) error {
 	//////////
 
 	// MUTEX
+	/*
+		Heads up, this is a basic way to enforce there will only ever be one single sync happening at any one time, but it is not a given that this will hold true. The user can change the allowed outbounds count to something other than 1 and that would make it.
+	*/
 	globals.BackendTransientConfig.SyncActive.Lock()
 	defer globals.BackendTransientConfig.SyncActive.Unlock()
+	/*
+		We rely on this mutex to hold our queue - we'll eventually need to remove this though, at least for backend-only node installations, since this limits the throughput to only one sync at a time. FUTURE TODO
+	*/
 
-	// REVERSE CONN STATUS
+	var syncSuccessful bool
+	var syncExited bool
 
+	/*======================================================
+	=            Reverse connection maintenance            =
+	======================================================*/
 	// If reverse connection is present, terminate it at the end of the sync.
 	if reverseConn != nil {
 		// This is not a very nice thing to do, since this abruptly cuts off the connection. TLS in this connection can error out and say 'use of closed network connection'. Oh well. We just closed the connection, we have no plans to use it anyway. FUTURE: Find a nicer way to do this.
 		// Set the deadline to now..
-		defer (*reverseConn).SetDeadline(time.Now())
-		// Terminate the reverse connection when done.
-		defer (*reverseConn).Close()
+		defer func() {
+			if syncSuccessful {
+				api.SendReverseOpenStatusSuccessful(reverseConn)
+			} else {
+				api.SendReverseOpenStatusFailed(reverseConn)
+			}
+			// ^ These will also appropriately terminate the reverse connection as well.
+
+			// time.Sleep(10 * time.Second)
+			// (*reverseConn).SetDeadline(time.Now())
+			// Terminate the reverse connection when done.
+			// (*reverseConn).Close()
+		}()
 	}
+	/*=====  End of Reverse connection maintenance  ======*/
 
-	// LEASES
-
+	/*=================================================
+	=            Requesting outbound lease            =
+	=================================================*/
 	// Request lease
-	var syncSuccessful bool
-	var syncExited bool
-
-	allowed, releaseLease, renewLease := isAllowed(a, reverseConn)
+	allowed, releaseLease, renewLease := OutboundAllowed(a, reverseConn)
 	if !allowed {
-		logging.Logf(1, "Sync() failed to secure an outbound lease. Addr: %#v, isReverseConn: %v", a, reverseConn != nil)
-		return errors.New(fmt.Sprintf("Sync() failed to secure an outbound lease. Addr: %#v, isReverseConn: %v", a, reverseConn != nil))
+		logging.Logf(1, "Sync: Failed to secure an outbound lease. Addr: %#v, isReverseConn: %v", a, reverseConn != nil)
+		return errors.New(fmt.Sprintf("Sync: Failed to secure an outbound lease. Addr: %#v, isReverseConn: %v", a, reverseConn != nil))
 	}
 
 	// Set the defer to release the lease when the sync is done, either via failure or success. (We set syncSuccessful to true when it's successfully completed.)
@@ -107,7 +126,22 @@ func Sync(a api.Address, lineup []string, reverseConn *net.Conn) error {
 		cancelRepeatOutboundLeaseRenewal <- true
 		logging.Logf(2, "Outbound lease renewal cancelled at the end of the sync.")
 	}()
-	defer func() { syncExited = true }() // This should always be true at the end. This tells safesleep that it needs to stop sleeping and let schedule be cancelled. This needs to happen after the defer for cancelling repeat outbound renewal, because defers are LIFO.
+	defer func() {
+		syncExited = true
+		if reverseConn != nil {
+			/*
+				If this is a sync that was done over a reverse conn, we send its final status to the remote end as a courtesy.
+			*/
+
+		}
+	}()
+	// This should always be true at the end. This tells safesleep that it needs to stop sleeping and let schedule be cancelled. This needs to happen after the defer for cancelling repeat outbound renewal, because defers are LIFO.
+
+	/*
+		General heads up about defers, they execute in the order of Last In First Out. So the last defer you ever define is going to be the first one to run when the function exits.
+	*/
+	/*=====  End of Requesting outbound lease  ======*/
+
 	///////////////
 	// PREP DONE //
 	///////////////
@@ -126,7 +160,7 @@ func Sync(a api.Address, lineup []string, reverseConn *net.Conn) error {
 	if reverseConn != nil {
 		(*reverseConn).SetDeadline(time.Now().Add(30 * time.Second))
 	}
-	addr, NODE_STATIC, apiResp, directlyConnectible, err := Check(a, reverseConn)
+	addr, NODE_STATIC, apiResp, directlyConnectible, err := Check(a, reverseConn, "sync")
 	if err != nil {
 		logging.Logf(1, "Sync errored out. Error: %v", err)
 		return err
@@ -142,7 +176,7 @@ func Sync(a api.Address, lineup []string, reverseConn *net.Conn) error {
 	addrs := []api.Address{addr}
 	if directlyConnectible {
 		/*
-			DirectlyConnectible means the address is directly accessible. So this is either a sync that we initiated, or is reverse sync request we've accepted and will be doing over a reverse connection open, but still is directly accessible (i.e. the remote is not behind a restrictive NAT that did not accept our port mapping requests.)
+			DirectlyConnectible means the address is directly accessible. So this is either a sync that we initiated, or is reverse sync request we've accepted and will be doing over a reverse connection open, but still is directly accessible (i.e. the remote is not behind a restrictive NAT that does not let us through directly.)
 
 			If the node is not directly connectible, there is no point saving the address for this node, because it's guaranteed to be not connectible. They should fix their NAT and make it accept our UPNP port mapping requests.
 		*/
@@ -435,6 +469,9 @@ Internal functions
 */
 
 func constructCallOrder(remote api.Address, lineup []string) []string {
+	// debug TODO
+	return []string{"addresses", "votes", "truststates", "posts", "threads", "boards", "keys"}
+
 	// All mim nodes support addresses to enable proper protocol function.
 	supported := []string{"addresses"}
 	// supported := []string{"addresses", "addresses"}

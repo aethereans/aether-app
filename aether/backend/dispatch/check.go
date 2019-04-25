@@ -9,8 +9,8 @@ import (
 	// "aether-core/aether/io/persistence"
 	"aether-core/aether/services/ca"
 	"aether-core/aether/services/globals"
-	"aether-core/aether/services/toolbox"
 	// "aether-core/aether/services/logging"
+	"aether-core/aether/services/toolbox"
 	// tb "aether-core/aether/services/toolbox"
 	// "aether-core/aether/services/verify"
 	"errors"
@@ -24,7 +24,7 @@ import (
 )
 
 // Check is the short routine that reaches out to a node to see if it is online, and if so, pull the node data. This returns an updated api.Address object. Sync logic uses check as a starting point.
-func Check(a api.Address, reverseConn *net.Conn) (api.Address, bool, api.ApiResponse, bool, error) {
+func Check(a api.Address, reverseConn *net.Conn, purpose string) (api.Address, bool, api.ApiResponse, bool, error) {
 	// if a.Location == "127.0.0.1" {
 	// 	fmt.Printf("Check is being called for: %s:%d\n", a.Location, a.Port)
 	// }
@@ -39,11 +39,12 @@ func Check(a api.Address, reverseConn *net.Conn) (api.Address, bool, api.ApiResp
 	/*
 	   - Status GET to check if the node is online.
 	*/
-	_, err := api.Fetch(string(a.Location), string(a.Sublocation), a.Port, "status", "GET", []byte{}, reverseConn)
+	// _, err := api.Fetch(string(a.Location), string(a.Sublocation), a.Port, "status", "GET", []byte{}, reverseConn)
+	err := makeStatusGETCall(a, reverseConn, purpose)
 	// if a.Location == "127.0.0.1" {
 	// 	fmt.Printf("Check error: %#v\n", err)
 	// }
-	if err != nil && (strings.Contains(err.Error(), "Client.Timeout exceeded") || strings.Contains(err.Error(), "i/o timeout")) {
+	if err != nil && (strings.Contains(err.Error(), "Client.Timeout exceeded") || strings.Contains(err.Error(), "i/o timeout") || strings.Contains(err.Error(), "A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond")) {
 		// CASE: NO RESPONSE
 		// The node is offline. It can actually be offline or just too slow, but for our purposes it's the same. The timeout can be set from globals.
 		return api.Address{}, NODE_STATIC, api.ApiResponse{}, directlyConnectible, err
@@ -59,7 +60,8 @@ func Check(a api.Address, reverseConn *net.Conn) (api.Address, bool, api.ApiResp
 	   - The node is online. Ask for node data.
 	   (This is a legitimate user of GetPageRaw because the other entities that use Check sometimes need NodeId and other fields within it.)
 	*/
-	apiResp, err2 := api.GetPageRaw(string(a.Location), string(a.Sublocation), a.Port, "node", "GET", []byte{}, reverseConn)
+	// apiResp, err2 := api.GetPageRaw(string(a.Location), string(a.Sublocation), a.Port, "node", "GET", []byte{}, reverseConn)
+	apiResp, err2 := makeNodeGETCall(a, reverseConn, purpose)
 	// if a.Location == "127.0.0.1" {
 	// 	fmt.Printf("Check error: %#v\n", err2)
 	// }
@@ -103,7 +105,9 @@ func Check(a api.Address, reverseConn *net.Conn) (api.Address, bool, api.ApiResp
 			return api.Address{}, NODE_STATIC, apiResp, directlyConnectible, jsonErr
 		}
 		var err3 error
-		postApiResp, err3 = api.GetPageRaw(string(a.Location), string(a.Sublocation), a.Port, "node", "POST", reqAsJson, reverseConn) // Raw call instead of regular one because we need access to the inbound remote timestamp.
+		// postApiResp, err3 = api.GetPageRaw(string(a.Location), string(a.Sublocation), a.Port, "node", "POST", reqAsJson, reverseConn) // Raw call instead of regular one because we need access to the inbound remote timestamp.
+		postApiResp, err3 = makeNodePOSTCall(a, reverseConn, reqAsJson, purpose)
+
 		// if a.Location == "127.0.0.1" {
 		// 	fmt.Printf("Check error: %#v\n", err3)
 		// }
@@ -148,6 +152,69 @@ func Check(a api.Address, reverseConn *net.Conn) (api.Address, bool, api.ApiResp
 Internal functions
 //////////
 */
+
+/*=======================================
+=            Check API calls            =
+=======================================*/
+/*
+	These API calls allow us to switch between the ping/[x] api and the usual /[x] api for checking. The newer api is subject to the ping bouncer, which is a lot more permissive in the number of requests accepted per unit of time. But if that API is not present, we still use the old API.
+
+	We also have a new addition called "purpose", because we want to have the check() function use the classical "sync" paths when the check happens within the sync. This is so that we won't encounter a situation where the check inside the sync actually succeeds due to a ping lease being available, but the rest of the sync will fail, since there are no sync (inbound) leases available in the remote. This effectively makes sync fail earlier if there's no lease available.
+*/
+func makeStatusGETCall(a api.Address, reverseConn *net.Conn, purpose string) error {
+	var err error
+	switch purpose {
+	case "ping":
+		_, err = api.Fetch(string(a.Location), string(a.Sublocation), a.Port, "ping/status", "GET", []byte{}, reverseConn)
+		if err != nil && strings.Contains(err.Error(), "Received status code: 204") {
+			// logging.Logf(1, "ping/status GET endpoint of this node 204'ed. We'll now try the old /status GET endpoint.")
+			_, err = api.Fetch(string(a.Location), string(a.Sublocation), a.Port, "status", "GET", []byte{}, reverseConn)
+		}
+	case "sync":
+		_, err = api.Fetch(string(a.Location), string(a.Sublocation), a.Port, "status", "GET", []byte{}, reverseConn)
+	default:
+		return errors.New(fmt.Sprintf("makeStatusGETCall: Purpose given is not recognised. Purpose: %v", purpose))
+	}
+	return err
+}
+
+func makeNodeGETCall(a api.Address, reverseConn *net.Conn, purpose string) (api.ApiResponse, error) {
+	var apiResp api.ApiResponse
+	var err error
+	switch purpose {
+	case "ping":
+		apiResp, err = api.GetPageRaw(string(a.Location), string(a.Sublocation), a.Port, "ping/node", "GET", []byte{}, reverseConn)
+		if err != nil && strings.Contains(err.Error(), "Received status code: 204") {
+			// logging.Logf(1, "ping/node GET endpoint of this node 204'ed. We'll now try the old /node GET endpoint.")
+			apiResp, err = api.GetPageRaw(string(a.Location), string(a.Sublocation), a.Port, "node", "GET", []byte{}, reverseConn)
+		}
+	case "sync":
+		apiResp, err = api.GetPageRaw(string(a.Location), string(a.Sublocation), a.Port, "node", "GET", []byte{}, reverseConn)
+	default:
+		return apiResp, errors.New(fmt.Sprintf("makeNodeGETCall: Purpose given is not recognised. Purpose: %v", purpose))
+	}
+	return apiResp, err
+}
+
+func makeNodePOSTCall(a api.Address, reverseConn *net.Conn, reqAsJson []byte, purpose string) (api.ApiResponse, error) {
+	var postApiResp api.ApiResponse
+	var err error
+	switch purpose {
+	case "ping":
+		postApiResp, err = api.GetPageRaw(string(a.Location), string(a.Sublocation), a.Port, "ping/node", "POST", reqAsJson, reverseConn)
+		if err != nil && strings.Contains(err.Error(), "Received status code: 204") {
+			// logging.Logf(1, "ping/node POST endpoint of this node 204'ed. We'll now try the old /node POST endpoint.")
+			postApiResp, err = api.GetPageRaw(string(a.Location), string(a.Sublocation), a.Port, "node", "POST", reqAsJson, reverseConn)
+		}
+	case "sync":
+		postApiResp, err = api.GetPageRaw(string(a.Location), string(a.Sublocation), a.Port, "node", "POST", reqAsJson, reverseConn)
+	default:
+		return postApiResp, errors.New(fmt.Sprintf("makeNodeGETCall: Purpose given is not recognised. Purpose: %v", purpose))
+	}
+	return postApiResp, err
+}
+
+/*=====  End of Check API calls  ======*/
 
 func permissible(apiResp api.ApiResponse, a api.Address) (bool, error) {
 	if apiResp.NodeId == api.Fingerprint(globals.BackendConfig.GetNodeId()) {

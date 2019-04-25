@@ -707,7 +707,7 @@ func CheckDatabaseReady() {
 	}
 	err5 := tx2.Commit()
 	if err5 != nil {
-		logging.LogCrash(err4)
+		logging.LogCrash(err5)
 	}
 	logging.Logf(1, "Database is ready. Just verified by removing and inserting data successfully.")
 }

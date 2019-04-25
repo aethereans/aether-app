@@ -21,8 +21,8 @@ var mixins = {
             },
             localUserArrived: function () {
                 return this.$store.state.localUserArrived;
-            }
-        }
+            },
+        },
     },
 };
 module.exports = mixins;

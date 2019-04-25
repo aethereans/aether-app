@@ -269,6 +269,7 @@ func Fetch(host string, subhost string, port uint16, location string, method str
 		fullLink = fmt.Sprint(
 			prot, hostAsString, ":", strconv.Itoa(int(port)), "/", protv, "/", location)
 	}
+	// logging.Logf(3, "Fetch is being called for: %v", fullLink)
 	// if strings.Contains(fullLink, "127.0.0.1") {
 	// 	logging.Log(2, fmt.Sprintf("Fetch is being called for the URL: %s. ReverseConn: %v", fullLink, reverseConn != nil))
 	// }
@@ -289,7 +290,7 @@ func Fetch(host string, subhost string, port uint16, location string, method str
 		if resp != nil {
 			defer resp.Body.Close()
 		}
-		if strings.Contains(err.Error(), "connection refused") {
+		if strings.Contains(err.Error(), "connection refused") || strings.Contains(err.Error(), "target machine actively refused it") {
 			return []byte{}, errors.New(
 				fmt.Sprint(
 					"The host refused the connection. Host:", host,
@@ -303,10 +304,10 @@ func Fetch(host string, subhost string, port uint16, location string, method str
 					", Subhost: ", subhost,
 					", Port: ", port,
 					", Location: ", location))
-		} else if strings.Contains(err.Error(), "i/o timeout") {
+		} else if strings.Contains(err.Error(), "i/o timeout") || strings.Contains(err.Error(), "A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond") {
 			return []byte{}, errors.New(
 				fmt.Sprint(
-					"I/O timeout. Host:", host,
+					"i/o timeout. Host:", host,
 					", Subhost: ", subhost,
 					", Port: ", port,
 					", Location: ", location))
@@ -383,7 +384,7 @@ func Fetch(host string, subhost string, port uint16, location string, method str
 					", Port: ", port,
 					", Location: ", location,
 					", ReverseConn: ", fmt.Sprintf("%#v", reverseConn)))
-		} else if strings.Contains(err.Error(), "network is unreachable") {
+		} else if strings.Contains(err.Error(), "network is unreachable") || strings.Contains(err.Error(), "A socket operation was attempted to an unreachable network") {
 			return []byte{}, errors.New(
 				fmt.Sprint(
 					"network is unreachable (Is this an IPv6 address?). Host:", host,
@@ -428,6 +429,20 @@ func Fetch(host string, subhost string, port uint16, location string, method str
 				", Location: ", location,
 				", Request method: ", method,
 			))
+	} else if resp.StatusCode == 429 {
+		/*
+			HTTP 429: Too many requests
+			This happens when the remote node is alive and present, but has received more requests than it is willing to serve. W
+		*/
+		errString := fmt.Sprint(
+			"This remote has received too many requests. Wait and try again later. Received status code: 429. Host:", host,
+			", Subhost: ", subhost,
+			", Port: ", port,
+			", Location: ", location,
+			", Request method: ", method,
+		)
+		logging.Logf(2, errString)
+		return []byte{}, errors.New(errString)
 	} else {
 		logging.Logf(2, "FULL LINK IN FETCH FOR THIS FAILED REQUEST: \n%s\nStatus Code: %v, Method: %v\n", fullLink, resp.StatusCode, method)
 		return []byte{}, errors.New(
@@ -1381,3 +1396,47 @@ CacheIterator: // Naming the for loop CacheIterator.
 	}
 	return r, nil
 }
+
+/*=======================================================
+=            Reverse open end status senders            =
+=======================================================*/
+/*
+	These functions communicate the end status at our end (when we're obliging with a reverse open request) so that the remote can know whether our sync succeeded or not. This is a data that we provide to the remote as a courtesy.
+
+	We do not care about responses to these, whether they failed, succeeded, or something entirely else.
+
+	This is where the reverse connection is terminated, also, since these are the last ever calls on a reverse connection. We tried to have it elsewhere, but it causes some issues where it can actually close before we actually send this message through.
+*/
+
+func SendReverseOpenStatusRefused(reverseConn *net.Conn) {
+	methodUrlEndpoint := "refused"
+	sendReverseOpenStatusMessage(methodUrlEndpoint, reverseConn)
+}
+
+func SendReverseOpenStatusFailed(reverseConn *net.Conn) {
+	methodUrlEndpoint := "failed"
+	sendReverseOpenStatusMessage(methodUrlEndpoint, reverseConn)
+}
+
+func SendReverseOpenStatusSuccessful(reverseConn *net.Conn) {
+	methodUrlEndpoint := "successful"
+	sendReverseOpenStatusMessage(methodUrlEndpoint, reverseConn)
+}
+
+func sendReverseOpenStatusMessage(methodUrlEndpoint string, reverseConn *net.Conn) {
+	logging.Logf(1, "SendReverseOpenStatus: Sending message... Message: '%v', ", methodUrlEndpoint)
+	loc := "revconn/" + methodUrlEndpoint
+	_, err := Fetch("", "", 0, loc, "GET", []byte(""), reverseConn)
+	if err != nil && !strings.Contains(err.Error(), "Non-200 status code returned from Fetch") {
+		/*
+			^ Non-200 is fine – not only we don't care about what remote does with them, it might also be just old versions where these endpoints don't exist.
+		*/
+		logging.Logf(1, "SendReverseOpenStatus: Message delivery failed. Message: '%v', Error: %v", methodUrlEndpoint, err)
+		return
+	}
+	logging.Logf(1, "SendReverseOpenStatus: Message delivery succeeded. Message: %v", methodUrlEndpoint)
+	(*reverseConn).SetDeadline(time.Now())
+	(*reverseConn).Close()
+}
+
+/*=====  End of Reverse open end status senders  ======*/

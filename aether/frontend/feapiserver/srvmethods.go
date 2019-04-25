@@ -187,6 +187,7 @@ func (s *server) SetClientAPIServerPort(ctx context.Context, req *pb.SetClientAP
 	clapiconsumer.SendNotifications()
 	clapiconsumer.SendOnboardCompleteStatus()
 	clapiconsumer.SendModModeEnabledStatus()
+	clapiconsumer.SendExternalContentAutoloadDisabledStatus()
 	resp := pb.SetClientAPIServerPortResponse{}
 	return &resp, nil
 }
@@ -396,6 +397,7 @@ func (s *server) SendFEConfigChanges(ctx context.Context, req *pb.FEConfigChange
 	logging.Logf(1, "We've received a FE config change request. Event: %v", *req)
 	ApplyFEConfigChanges(req)
 	clapiconsumer.SendModModeEnabledStatus()
+	clapiconsumer.SendExternalContentAutoloadDisabledStatus()
 	resp := pb.FEConfigChangesResponse{}
 	return &resp, nil
 }
@@ -403,6 +405,9 @@ func (s *server) SendFEConfigChanges(ctx context.Context, req *pb.FEConfigChange
 func ApplyFEConfigChanges(req *pb.FEConfigChangesPayload) {
 	if req.GetModModeEnabledIsSet() {
 		globals.FrontendConfig.SetModModeEnabled(req.GetModModeEnabled())
+	}
+	if req.GetExternalContentAutoloadDisabledIsSet() {
+		globals.FrontendConfig.SetExternalContentAutoloadDisabled(req.GetExternalContentAutoloadDisabled())
 	}
 }
 
@@ -454,19 +459,38 @@ func getReportedPosts(sl []festructs.CompiledPost) []festructs.CompiledPost {
 	return reported
 }
 
-func (s *server) SendMintedUsername(ctx context.Context, req *pb.SendMintedUsernamePayload) (*pb.SendMintedUsernameResponse, error) {
-	logging.Logf(1, "We've received a send minted username request. Event: %v", *req)
-	resp := pb.SendMintedUsernameResponse{}
-	jsonTs := req.GetMintedUsernameRawJSON()
-	ts := api.Truststate{}
-	err := json.Unmarshal([]byte(jsonTs), &ts)
-	tsProto := ts.Protobuf()
-	tsProtosSlice := []*mimapi.Truststate{&tsProto}
-	inflights.SendToBackend(interface{}(tsProtosSlice))
+// func (s *server) SendMintedUsername_Old(ctx context.Context, req *pb.SendMintedUsernamePayload) (*pb.SendMintedUsernameResponse, error) {
+// 	logging.Logf(1, "We've received a send minted username request. Event: %v", *req)
+// 	resp := pb.SendMintedUsernameResponse{}
+// 	jsonTs := req.GetMintedUsernameRawJSON()
+// 	ts := api.Truststate{}
+// 	err := json.Unmarshal([]byte(jsonTs), &ts)
+// 	tsProto := ts.Protobuf()
+// 	tsProtosSlice := []*mimapi.Truststate{&tsProto}
+// 	inflights.SendToBackend(interface{}(tsProtosSlice))
+// 	if err != nil {
+// 		logging.Logf(1, "Unmarshalling from JSON Unique name Truststate failed. Error: %v", err)
+// 		return &resp, err
+// 	}
+// 	return &resp, nil
+// }
+
+func (s *server) SendMintedUsernames(ctx context.Context, req *pb.SendMintedUsernamesPayload) (*pb.SendMintedUsernamesResponse, error) {
+	logging.Logf(1, "We've received a send minted usernames request. Event: %v", *req)
+	resp := pb.SendMintedUsernamesResponse{}
+	jsonTs := req.GetMintedUsernamesRawJSON()
+	tses := []api.Truststate{}
+	err := json.Unmarshal([]byte(jsonTs), &tses)
 	if err != nil {
 		logging.Logf(1, "Unmarshalling from JSON Unique name Truststate failed. Error: %v", err)
 		return &resp, err
 	}
+	tsProtosSlice := []*mimapi.Truststate{}
+	for _, ts := range tses {
+		tsProto := ts.Protobuf()
+		tsProtosSlice = append(tsProtosSlice, &tsProto)
+	}
+	inflights.SendToBackend(interface{}(tsProtosSlice))
 	return &resp, nil
 }
 
@@ -477,5 +501,13 @@ func (s *server) SendClientVersion(ctx context.Context, req *pb.ClientVersionPay
 	resp.LastKnownClientVersion = globals.FrontendConfig.GetLastKnownClientVersion()
 	// Put the new version into the config file
 	globals.FrontendConfig.SetLastKnownClientVersion(req.GetCurrentClientVersion())
+	return &resp, nil
+}
+
+func (s *server) SendSearchRequest(ctx context.Context, req *pb.SearchRequestPayload) (*pb.SearchRequestResponse, error) {
+	logging.Logf(1, "The client is sending us a search request. Event: %v", *req)
+	clapiconsumer.SendSearchResult(req.SearchType, req.SearchQuery)
+	// ^ The actual act of computing the search result happens inside this above.
+	resp := pb.SearchRequestResponse{}
 	return &resp, nil
 }

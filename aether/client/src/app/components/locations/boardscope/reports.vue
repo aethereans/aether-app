@@ -10,63 +10,81 @@
         <!-- Reports arrived -->
         <template v-if="$store.state.currentBoardsReports.length === 0">
           <!-- No content available -->
-          <a-no-content no-content-text="There are no reports. <br><br>Reports are only compiled when mod mode is enabled. If you just enabled it, you'll only see the reports from this point onwards." quoteDisabled="true"></a-no-content>
+          <a-no-content
+            no-content-text="There are no reports. <br><br>Reports are only compiled when mod mode is enabled. If you just enabled it, you'll only see the reports from this point onwards."
+            quoteDisabled="true"
+          ></a-no-content>
         </template>
         <template v-else>
           <!-- Some reports available -->
           <template v-for="report in $store.state.currentBoardsReports">
             <!-- It's a thread -->
-            <template v-if="report.threadpayload.fingerprint.length > 0 && !actionTaken(report.threadpayload.compiledcontentsignals)">
-              <a-thread-header-entity :thread="report.threadpayload" :isinreportsview="true"></a-thread-header-entity>
+            <template
+              v-if="
+                report.threadpayload.fingerprint.length > 0 &&
+                  !actionTaken(report.threadpayload.compiledcontentsignals)
+              "
+            >
+              <a-thread-header-entity
+                :thread="report.threadpayload"
+                :isinreportsview="true"
+              ></a-thread-header-entity>
               <div class="divider"></div>
             </template>
             <!-- Or a post -->
-            <template v-if="report.postpayload.fingerprint.length > 0 && !actionTaken(report.postpayload.compiledcontentsignals)">
-              <a-post :isinreportsview="true" :post="report.postpayload"></a-post>
+            <template
+              v-if="
+                report.postpayload.fingerprint.length > 0 &&
+                  !actionTaken(report.postpayload.compiledcontentsignals)
+              "
+            >
+              <a-post
+                :isinreportsview="true"
+                :post="report.postpayload"
+              ></a-post>
               <div class="divider"></div>
             </template>
           </template>
           <a-fin-puck></a-fin-puck>
         </template>
       </template>
-
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'reports',
-    data() {
-      return {}
-    },
-    methods: {
-      actionTaken(this: any, ccs: any) {
-        if (ccs.selfmodapproved || ccs.selfmodblocked) {
-          return true
-        }
-        return false
+export default {
+  name: 'reports',
+  data() {
+    return {}
+  },
+  methods: {
+    actionTaken(this: any, ccs: any) {
+      if (ccs.selfmodapproved || ccs.selfmodblocked) {
+        return true
       }
-    }
-  }
+      return false
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-  .board-sublocation .board-reports {
-    .divider {
-      width: 100%;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      &:nth-last-of-type(2) {
-        // ^ To accommodate the fin puck
-        border-bottom: none;
-      }
-    }
-    .spinner-container {
-      display: flex;
-      .spinner {
-        margin: auto;
-        padding-top: 50px;
-      }
+.board-sublocation .board-reports {
+  .divider {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    &:nth-last-of-type(2) {
+      // ^ To accommodate the fin puck
+      border-bottom: none;
     }
   }
+  .spinner-container {
+    display: flex;
+    .spinner {
+      margin: auto;
+      padding-top: 50px;
+    }
+  }
+}
 </style>

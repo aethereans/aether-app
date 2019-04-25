@@ -2,17 +2,16 @@
 
 // This file contains methods that are useful in multiple places, and depend on nothing but themselves.
 
-export { }
+export {}
 
 var vs = require('../../store/index')
 // ^ For some reason, having default above does not work, returns undefined. We're just adding the default below and it should work.
-
 
 let exportedMethods = {
   GetUserName(this: any, owner: any): string {
     let vuexStore = vs.default
     if (exportedMethods.IsUndefined(owner)) {
-      return ""
+      return ''
     }
     if (typeof owner === 'string') {
       // We were given a fingerprint. check if the current user entity's fingerprint. If that's a match, run the function again with that user's entity and return the result. Otherwise, without making a call to frontend or backend, we can't resolve this to a user entity. This can happen when showing uncompiled entities.
@@ -29,9 +28,12 @@ let exportedMethods = {
     }
     if (exportedMethods.IsUndefined(owner.fingerprint)) {
       // Necessary because the 'observer' object is not undefined, but also not what we want.
-      return ""
+      return ''
     }
-    if (owner.compiledusersignals.cnamesourcefingerprint.length > 0 && owner.compiledusersignals.canonicalname.length > 0) {
+    if (
+      owner.compiledusersignals.cnamesourcefingerprint.length > 0 &&
+      owner.compiledusersignals.canonicalname.length > 0
+    ) {
       return '@' + owner.compiledusersignals.canonicalname
     }
     if (owner.noncanonicalname.length > 0) {
@@ -66,10 +68,10 @@ let exportedMethods = {
     day = ts.getDate()
     let tsds = ts.toDateString().match(/ [a-zA-Z]*/)
     if (tsds !== null) {
-      month = tsds[0].replace(" ", "")
+      month = tsds[0].replace(' ', '')
     }
-    year = ts.getFullYear() === now.getFullYear() ? "" : " " + ts.getFullYear()
-    return day + " " + month + year
+    year = ts.getFullYear() === now.getFullYear() ? '' : ' ' + ts.getFullYear()
+    return day + ' ' + month + year
   },
   NowUnix(): number {
     return Math.floor(new Date().getTime() / 1000)
@@ -88,7 +90,6 @@ let exportedMethods = {
       return true
     }
     return false
-  }
+  },
 }
 module.exports = exportedMethods
-

@@ -7,11 +7,14 @@
     <div class="add-address-container">
       <h3>Node details</h3>
       <ul>
-        <li>Your node needs to be online and accessible <i>now</i>. Your node will immediately attempt to establish a connection.
+        <li>
+          Your node needs to be online and accessible <i>now</i>. Your node will
+          immediately attempt to establish a connection.
         </li>
 
         <li>
-          If the connection fails for any reason, the node will not be added to the existing nodes database.
+          If the connection fails for any reason, the node will not be added to
+          the existing nodes database.
         </li>
       </ul>
       <template v-if="!addressSendInProgress">
@@ -19,7 +22,10 @@
         <template v-if="!addressSendResultArrived">
           <!-- Not started -->
           <div class="address-composer-container">
-            <a-composer class="address-composer" :spec="addressComposerSpec"></a-composer>
+            <a-composer
+              class="address-composer"
+              :spec="addressComposerSpec"
+            ></a-composer>
           </div>
         </template>
         <template v-else>
@@ -28,7 +34,10 @@
             <!-- Successful -->
             <div class="result-box">
               <p class="bold">Node sync successful</p>
-              <p>Your node is successfully synced with, and added to the backend as an online node.</p>
+              <p>
+                Your node is successfully synced with, and added to the backend
+                as an online node.
+              </p>
             </div>
           </template>
           <template v-else>
@@ -36,10 +45,13 @@
             <div class="result-box">
               <p class="bold">Node sync failed.</p>
               <p>
-                Please check your values, make sure the remote is online and accessible, and return to this screen to try again.
+                Please check your values, make sure the remote is online and
+                accessible, and return to this screen to try again.
               </p>
               <p class="bold">Error received</p>
-              <p><i>{{addressSendResultErrorMessage}}</i></p>
+              <p>
+                <i>{{ addressSendResultErrorMessage }}</i>
+              </p>
             </div>
           </template>
         </template>
@@ -49,10 +61,13 @@
         <div class="result-box">
           <p class="bold">Attempting to sync with the remote node...</p>
           <p>
-            Depending on a) how busy either node is, b) graph delta between nodes, this process can take from a couple seconds to 10 minutes.
+            Depending on a) how busy either node is, b) graph delta between
+            nodes, this process can take from a couple seconds to 10 minutes.
           </p>
           <p>
-            If you'd like to see the result of this process (as well as the error message, if any), do not leave this page until this process is complete.
+            If you'd like to see the result of this process (as well as the
+            error message, if any), do not leave this page until this process is
+            complete.
           </p>
           <div class="spinner-container">
             <div class="spinner-carrier">
@@ -60,127 +75,126 @@
             </div>
           </div>
         </div>
-
       </template>
-
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  var fe = require('../../../services/feapiconsumer/feapiconsumer')
-  var mimobjs = require('../../../../../../protos/mimapi/structprotos_pb.js')
-  let globalMethods = require('../../../services/globals/methods')
-  export default {
-    name: 'advancedsettings',
-    data(this: any) {
-      return {
-        headline: headline,
-        intro: intro,
-        content: content,
-        addNodeContent: addNodeContent,
-        addressSendResultArrived: false,
-        addressSendInProgress: false,
-        addressSendSuccessful: false,
-        addressSendResultErrorMessage: "",
-        addressComposerSpec: {
-          fields: [{
-              id: "addressLocation",
-              emptyWarningDisabled: false,
-              visibleName: "Location",
-              description: "Location (URL or IPv4) of your node. <br>If URL, omit <b>http://</b> or <b>https://</b>. Aether is TLS-only, <b>https</b> will be assumed.",
-              placeholder: "172.31.88.174",
-              maxCharCount: 1024,
-              heightRows: 1,
-              previewDisabled: true,
-              content: "",
-              optional: false,
-            },
-            {
-              id: "addressSub",
-              visibleName: "URL Sublocation",
-              description: "Optional. If you're using an IP address (almost always), leave blank.  <br>Example: If your node is at <b>https://www.example.com/myhome/mynode</b>, <b>www.example.com</b> is the location, and <b>myhome/mynode</b> is the sublocation.",
-              placeholder: "myhome/mynode",
-              maxCharCount: 1024,
-              heightRows: 1,
-              previewDisabled: true,
-              content: "",
-              optional: true,
-            },
-            {
-              id: "addressPort",
-              emptyWarningDisabled: false,
-              visibleName: "Port",
-              description: "",
-              placeholder: "49999",
-              maxCharCount: 5,
-              heightRows: 1,
-              previewDisabled: true,
-              content: "",
-              optional: false,
-            },
-          ],
-          commitAction: this.sendAddressEntity,
-          commitActionName: "SUBMIT",
-          cancelAction: function() {},
-          cancelActionName: "",
-          autofocus: false,
-        },
-      }
-    },
-    methods: {
-      sendAddressEntity(this: any, fields: any) {
-        this.addressSendInProgress = true
-        let addressLocation = ""
-        let addressSublocation = ""
-        let addressPort = ""
-        for (let val of fields) {
-          if (val.id === 'addressLocation') {
-            addressLocation = val.content
-            continue
-          }
-          if (val.id === 'addressSublocation') {
-            addressSublocation = val.content
-            continue
-          }
-          if (val.id === 'addressPort') {
-            addressPort = val.content
-            continue
-          }
+var fe = require('../../../services/feapiconsumer/feapiconsumer')
+var mimobjs = require('../../../../../../protos/mimapi/structprotos_pb.js')
+let globalMethods = require('../../../services/globals/methods')
+export default {
+  name: 'advancedsettings',
+  data(this: any) {
+    return {
+      headline: headline,
+      intro: intro,
+      content: content,
+      addNodeContent: addNodeContent,
+      addressSendResultArrived: false,
+      addressSendInProgress: false,
+      addressSendSuccessful: false,
+      addressSendResultErrorMessage: '',
+      addressComposerSpec: {
+        fields: [
+          {
+            id: 'addressLocation',
+            emptyWarningDisabled: false,
+            visibleName: 'Location',
+            description:
+              'Location (URL or IPv4) of your node. <br>If URL, omit <b>http://</b> or <b>https://</b>. Aether is TLS-only, <b>https</b> will be assumed.',
+            placeholder: '172.31.88.174',
+            maxCharCount: 1024,
+            heightRows: 1,
+            previewDisabled: true,
+            content: '',
+            optional: false,
+          },
+          {
+            id: 'addressSub',
+            visibleName: 'URL Sublocation',
+            description:
+              "Optional. If you're using an IP address (almost always), leave blank.  <br>Example: If your node is at <b>https://www.example.com/myhome/mynode</b>, <b>www.example.com</b> is the location, and <b>myhome/mynode</b> is the sublocation.",
+            placeholder: 'myhome/mynode',
+            maxCharCount: 1024,
+            heightRows: 1,
+            previewDisabled: true,
+            content: '',
+            optional: true,
+          },
+          {
+            id: 'addressPort',
+            emptyWarningDisabled: false,
+            visibleName: 'Port',
+            description: '',
+            placeholder: '49999',
+            maxCharCount: 5,
+            heightRows: 1,
+            previewDisabled: true,
+            content: '',
+            optional: false,
+          },
+        ],
+        commitAction: this.sendAddressEntity,
+        commitActionName: 'SUBMIT',
+        cancelAction: function() {},
+        cancelActionName: '',
+        autofocus: false,
+      },
+    }
+  },
+  methods: {
+    sendAddressEntity(this: any, fields: any) {
+      this.addressSendInProgress = true
+      let addressLocation = ''
+      let addressSublocation = ''
+      let addressPort = ''
+      for (let val of fields) {
+        if (val.id === 'addressLocation') {
+          addressLocation = val.content
+          continue
         }
-        let addr = new mimobjs.Address
-        addr.setLocation(addressLocation)
-        addr.setSublocation(addressSublocation)
-        addr.setPort(addressPort)
-        let vm = this
-        fe.SendAddress(addr, function(resp: any) {
-          if (!globalMethods.IsUndefined(resp.reportErrorToServer)) {
-            // This is an error
-            vm.addressSendInProgress = false
-            vm.addressSendResultArrived = true
-            return
-          }
+        if (val.id === 'addressSublocation') {
+          addressSublocation = val.content
+          continue
+        }
+        if (val.id === 'addressPort') {
+          addressPort = val.content
+          continue
+        }
+      }
+      let addr = new mimobjs.Address()
+      addr.setLocation(addressLocation)
+      addr.setSublocation(addressSublocation)
+      addr.setPort(addressPort)
+      let vm = this
+      fe.SendAddress(addr, function(resp: any) {
+        if (!globalMethods.IsUndefined(resp.reportErrorToServer)) {
+          // This is an error
           vm.addressSendInProgress = false
           vm.addressSendResultArrived = true
-          if (resp.statuscode === 200) {
-            vm.addressSendSuccessful = true
-          } else {
-            vm.addressSendResultErrorMessage = resp.errormessage
-          }
-        })
-      }
-    }
-  }
-  // These are var's and not let's because lets are defined only from the point they're in the code, and vars are defined for the whole scope regardless of where they are.
-  var headline = '# Advanced'
-  var intro =
-    `**This describes the settings in more detail and provides instructions on how to change them.**
+          return
+        }
+        vm.addressSendInProgress = false
+        vm.addressSendResultArrived = true
+        if (resp.statuscode === 200) {
+          vm.addressSendSuccessful = true
+        } else {
+          vm.addressSendResultErrorMessage = resp.errormessage
+        }
+      })
+    },
+  },
+}
+// These are var's and not let's because lets are defined only from the point they're in the code, and vars are defined for the whole scope regardless of where they are.
+var headline = '# Advanced'
+var intro = `**This describes the settings in more detail and provides instructions on how to change them.**
 
 * **These descriptions are intended for power-users.**
 All settings come with sane defaults. If none of this makes sense to you, you can safely ignore them.
   `
-  var content =
-    `
+var content = `
 
 
 ### Changing preferences manually
@@ -192,7 +206,7 @@ All settings come with sane defaults. If none of this makes sense to you, you ca
 
 
 * **Descriptions of more consequential settings are below.**
-For the rest, the descriptions can be found [here](https://github.com/nehbit/aether/blob/master/Aether%202/services/configstore/permanent.go).
+For the rest, the descriptions can be found [here](https://github.com/nehbit/aether/blob/master/aether/services/configstore/permanent.go).
 
 * **Network settings, if misconfigured, can get your machine and user key permanently banned by other nodes.** The settings that modify local behaviour are generally safe to fiddle with. Ones that relate to network behaviour are not.
 
@@ -209,7 +223,7 @@ For the rest, the descriptions can be found [here](https://github.com/nehbit/aet
 | Maximum simultaneous inbound connections | The number of remotes that can be syncing with the local node at the same time. <br><br> Mind that the inbound and outbounds are different types of syncs, because syncs are one-way pulls. A node syncing with you doesn't mean that you get the changes on that node, it just means the remote node gets the changes in yours. This improves security, since no one can 'push' data into your machine. A result of this is that it is imperative that other nodes are able to connect to you, because if they do not, the content you create will never be able to leave your node, and reach the network. <br><br> Therefore setting this value to 0 might at first seem like a good hack to reduce bandwidth use at the expense of others, but it will also render you effectively invisible to everyone. The larger this value is, the faster your content will reach other users of the network, up to the point that your uplink bandwidth, CPU or disk is saturated to such a degree that the remotes are abandoning syncs with you because it takes so long. <br><br> If the app is taxing your computer too much, this is a good value to try reducing one by one. The default value is chosen as a balance between network connectivity and system resource use, and assuming you have a CPU made in the last decade, it should not be taxing your CPU very much, if at all. | 5
 | Maximum simultaneous outbound connections | The number of remotes that the local node be syncing with at the same time. | 1
   `
-  var addNodeContent = `
+var addNodeContent = `
 ## Manual node insert
 
 * You can add a new node to your backend here.
@@ -261,64 +275,64 @@ This is usually not true. All Aether nodes keep a time-limited copy of all of th
 </script>
 
 <style lang="scss" scoped>
-  @import "../../../scss/globals";
-  .settings-sublocation {
-    color: $a-grey-600;
-    .markdowned {
-      &:first-of-type {
-        margin-bottom: 0;
-      }
-      margin-bottom: 40px;
+@import '../../../scss/globals';
+.settings-sublocation {
+  color: $a-grey-600;
+  .markdowned {
+    &:first-of-type {
+      margin-bottom: 0;
     }
+    margin-bottom: 40px;
   }
+}
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "SSP Bold";
-  }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'SSP Bold';
+}
 
-  hr {
-    background-color: rgba(255, 255, 255, 0.25);
-    height: 3px;
-    border: none;
-  }
+hr {
+  background-color: rgba(255, 255, 255, 0.25);
+  height: 3px;
+  border: none;
+}
 
-  .result-box {
-    font-family: "SCP Regular";
-    margin: 20px;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
-    font-size: 16px;
-    .bold {
-      font-family: "SCP Bold";
-    }
+.result-box {
+  font-family: 'SCP Regular';
+  margin: 20px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  font-size: 16px;
+  .bold {
+    font-family: 'SCP Bold';
   }
+}
 
-  .spinner-container {
-    display: flex;
-    .spinner-carrier {
-      margin: auto;
-    }
+.spinner-container {
+  display: flex;
+  .spinner-carrier {
+    margin: auto;
   }
+}
 
-  .add-address-container {
-    // font-family: "SSP Bold"
-  }
+.add-address-container {
+  // font-family: "SSP Bold"
+}
 </style>
 
 <style lang="scss">
-  .address-composer {
-    .description b {
-      font-family: "SCP Bold";
-      font-size: 93%;
-    }
-    .actions {
-      font-family: "SSP Bold";
-    }
+.address-composer {
+  .description b {
+    font-family: 'SCP Bold';
+    font-size: 93%;
   }
+  .actions {
+    font-family: 'SSP Bold';
+  }
+}
 </style>

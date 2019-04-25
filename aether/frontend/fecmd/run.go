@@ -9,6 +9,7 @@ import (
 	"aether-core/aether/frontend/festructs"
 	// "aether-core/aether/frontend/inflights"
 	"aether-core/aether/frontend/kvstore"
+	"aether-core/aether/frontend/search"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/ports"
@@ -44,6 +45,8 @@ var cmdRun = &cobra.Command{
 		EstablishConfigs(cmd)
 		// Start frontend kvstore
 		kvstore.OpenKVStore()
+		search.OpenIndex()
+		defer search.CloseIndex()
 		defer kvstore.CloseKVStore()
 		kvstore.CheckKVStoreReady()
 		// Start notifications subsystem
@@ -108,6 +111,7 @@ func handleShutdown() {
 	logging.Logf(1, "Frontend shutdown routine initiated.")
 	globals.FrontendTransientConfig.ShutdownInitiated = true
 	kvstore.CloseKVStore()
+	search.CloseIndex()
 	logging.Logf(1, "Sending a SIGTERM to the backend...")
 	err := besupervisor.BackendDaemon.Process.Signal(syscall.SIGINT)
 	if err != nil {
@@ -135,9 +139,11 @@ func startSchedules() {
 		globals.FrontendConfig.ContentRelations.SFWList.Refresh()
 		elapsed := time.Since(start)
 		logging.Logcf(1, "We've refreshed the SFW list. It took: %s", elapsed)
+	}, 1*time.Hour, time.Duration(0), nil)
 
+	// Prune notifications every hour.
+	globals.FrontendTransientConfig.StopNotificationsPruneCycle = scheduling.ScheduleRepeat(func() {
 		// Also - prune the notifications carrier while you're at it
 		festructs.NotificationsSingleton.Prune()
-
 	}, 1*time.Hour, time.Duration(0), nil)
 }

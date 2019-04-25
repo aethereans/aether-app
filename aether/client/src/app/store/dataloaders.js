@@ -8,7 +8,10 @@ var dataLoaders = {
     },
     loadThreadScopeData: function (context, _a) {
         var boardfp = _a.boardfp, threadfp = _a.threadfp;
-        context.dispatch('setCurrentThreadFp', { boardfp: boardfp, threadfp: threadfp });
+        context.dispatch('setCurrentThreadFp', {
+            boardfp: boardfp,
+            threadfp: threadfp,
+        });
     },
     loadGlobalScopeData: function (context) {
         context.commit('SET_ALL_BOARDS_LOAD_COMPLETE', false);
@@ -43,7 +46,7 @@ var dataLoaders = {
     },
     setCurrentBoardReportsArrived: function (context, arrived) {
         context.commit('SET_CURRENT_BOARD_REPORTS_ARRIVED', arrived);
-    }
+    },
 };
 exports.default = dataLoaders;
 //# sourceMappingURL=dataloaders.js.map

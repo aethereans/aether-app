@@ -156,8 +156,10 @@ type BackendTransientConfig struct {
 	StopInboundConnectionCycle chan bool
 	StopExplorerCycle          chan bool
 	StopAddressScannerCycle    chan bool
+	StopNetworkScanCycle       chan bool
 	StopUPNPCycle              chan bool
 	StopCacheGenerationCycle   chan bool
+	StopBadlistRefreshCycle    chan bool
 	AddressesScannerActive     sync.Mutex
 	SyncActive                 sync.Mutex
 	CurrentMetricsPage         pb.Metrics
@@ -228,25 +230,31 @@ This is the synchronised end timestamp for all things related to refreshing the 
 That means, though, when that cache is queried, the last piece of data that is available on the cache will be the now() at the time of the beginning of the cache query (t1). That means if you query the cache at t2 and save it as now() of your query of the cache, you'll have the data from t1, but you'll timestamp it as t2, which means the next time you query, you'll start from t1, not t2, missing the data between t1 and t2.
 
 To prevent that, at the beginning of a refresh cycle, the first thing that happens is pull-all-data-from-be event, and that event supplies a cache end timestamp. Anything that happens inside the refresh cycle assumes that timestamp is now() for all intents and purposes.
+
+# SilenceNotificationsOnce
+
+This is triggered when the search index being not present triggers a regeneration of the frontend kv store. Since this regeneration is going to create a lot of unread notifications, the notifications generator listens to this signal, and if this is set, the new notifications are generated as read, once. Whenever all notifications are marked as read, this is flipped back to allow for new unreads.
 */
 type FrontendTransientConfig struct {
-	ConfigMutex                sync.Mutex
-	PermConfigReadOnly         bool
-	MetricsDebugMode           bool
-	PrintToStdout              bool
-	ShutdownInitiated          bool
-	AppIdentifier              string
-	OrgIdentifier              string
-	FrontendAPIPortVerified    bool
-	MinimumTrustedPoWStrength  int
-	RefresherCacheNowTimestamp int64
-	CurrentAmbientStatus       clapi.AmbientStatusPayload
-	StopRefresherCycle         chan bool
-	StopSFWListUpdateCycle     chan bool
-	BackendReady               bool
-	DefaultKeyType             string
-	EntityVersions             entityVersions
-	RefresherMutex             sync.Mutex
+	ConfigMutex                 sync.Mutex
+	PermConfigReadOnly          bool
+	MetricsDebugMode            bool
+	PrintToStdout               bool
+	ShutdownInitiated           bool
+	AppIdentifier               string
+	OrgIdentifier               string
+	FrontendAPIPortVerified     bool
+	MinimumTrustedPoWStrength   int
+	RefresherCacheNowTimestamp  int64
+	CurrentAmbientStatus        clapi.AmbientStatusPayload
+	StopRefresherCycle          chan bool
+	StopSFWListUpdateCycle      chan bool
+	StopNotificationsPruneCycle chan bool
+	BackendReady                bool
+	DefaultKeyType              string
+	EntityVersions              entityVersions
+	RefresherMutex              sync.Mutex
+	SilenceNotificationsOnce    bool
 }
 
 // Set transient frontend config defaults

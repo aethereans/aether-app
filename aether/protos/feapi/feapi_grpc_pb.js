@@ -361,6 +361,28 @@ function deserialize_feapi_PopularViewResponse(buffer_arg) {
   return feapi_feapi_pb.PopularViewResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_feapi_SearchRequestPayload(arg) {
+  if (!(arg instanceof feapi_feapi_pb.SearchRequestPayload)) {
+    throw new Error('Expected argument of type feapi.SearchRequestPayload');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_feapi_SearchRequestPayload(buffer_arg) {
+  return feapi_feapi_pb.SearchRequestPayload.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_feapi_SearchRequestResponse(arg) {
+  if (!(arg instanceof feapi_feapi_pb.SearchRequestResponse)) {
+    throw new Error('Expected argument of type feapi.SearchRequestResponse');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_feapi_SearchRequestResponse(buffer_arg) {
+  return feapi_feapi_pb.SearchRequestResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_feapi_SendAddressPayload(arg) {
   if (!(arg instanceof feapi_feapi_pb.SendAddressPayload)) {
     throw new Error('Expected argument of type feapi.SendAddressPayload');
@@ -383,26 +405,26 @@ function deserialize_feapi_SendAddressResponse(buffer_arg) {
   return feapi_feapi_pb.SendAddressResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_feapi_SendMintedUsernamePayload(arg) {
-  if (!(arg instanceof feapi_feapi_pb.SendMintedUsernamePayload)) {
-    throw new Error('Expected argument of type feapi.SendMintedUsernamePayload');
+function serialize_feapi_SendMintedUsernamesPayload(arg) {
+  if (!(arg instanceof feapi_feapi_pb.SendMintedUsernamesPayload)) {
+    throw new Error('Expected argument of type feapi.SendMintedUsernamesPayload');
   }
   return new Buffer(arg.serializeBinary());
 }
 
-function deserialize_feapi_SendMintedUsernamePayload(buffer_arg) {
-  return feapi_feapi_pb.SendMintedUsernamePayload.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_feapi_SendMintedUsernamesPayload(buffer_arg) {
+  return feapi_feapi_pb.SendMintedUsernamesPayload.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_feapi_SendMintedUsernameResponse(arg) {
-  if (!(arg instanceof feapi_feapi_pb.SendMintedUsernameResponse)) {
-    throw new Error('Expected argument of type feapi.SendMintedUsernameResponse');
+function serialize_feapi_SendMintedUsernamesResponse(arg) {
+  if (!(arg instanceof feapi_feapi_pb.SendMintedUsernamesResponse)) {
+    throw new Error('Expected argument of type feapi.SendMintedUsernamesResponse');
   }
   return new Buffer(arg.serializeBinary());
 }
 
-function deserialize_feapi_SendMintedUsernameResponse(buffer_arg) {
-  return feapi_feapi_pb.SendMintedUsernameResponse.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_feapi_SendMintedUsernamesResponse(buffer_arg) {
+  return feapi_feapi_pb.SendMintedUsernamesResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_feapi_SetClientAPIServerPortRequest(arg) {
@@ -730,16 +752,16 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseSerialize: serialize_feapi_BoardReportsResponse,
     responseDeserialize: deserialize_feapi_BoardReportsResponse,
   },
-  sendMintedUsername: {
-    path: '/feapi.FrontendAPI/SendMintedUsername',
+  sendMintedUsernames: {
+    path: '/feapi.FrontendAPI/SendMintedUsernames',
     requestStream: false,
     responseStream: false,
-    requestType: feapi_feapi_pb.SendMintedUsernamePayload,
-    responseType: feapi_feapi_pb.SendMintedUsernameResponse,
-    requestSerialize: serialize_feapi_SendMintedUsernamePayload,
-    requestDeserialize: deserialize_feapi_SendMintedUsernamePayload,
-    responseSerialize: serialize_feapi_SendMintedUsernameResponse,
-    responseDeserialize: deserialize_feapi_SendMintedUsernameResponse,
+    requestType: feapi_feapi_pb.SendMintedUsernamesPayload,
+    responseType: feapi_feapi_pb.SendMintedUsernamesResponse,
+    requestSerialize: serialize_feapi_SendMintedUsernamesPayload,
+    requestDeserialize: deserialize_feapi_SendMintedUsernamesPayload,
+    responseSerialize: serialize_feapi_SendMintedUsernamesResponse,
+    responseDeserialize: deserialize_feapi_SendMintedUsernamesResponse,
   },
   sendClientVersion: {
     path: '/feapi.FrontendAPI/SendClientVersion',
@@ -751,6 +773,17 @@ var FrontendAPIService = exports.FrontendAPIService = {
     requestDeserialize: deserialize_feapi_ClientVersionPayload,
     responseSerialize: serialize_feapi_ClientVersionResponse,
     responseDeserialize: deserialize_feapi_ClientVersionResponse,
+  },
+  sendSearchRequest: {
+    path: '/feapi.FrontendAPI/SendSearchRequest',
+    requestStream: false,
+    responseStream: false,
+    requestType: feapi_feapi_pb.SearchRequestPayload,
+    responseType: feapi_feapi_pb.SearchRequestResponse,
+    requestSerialize: serialize_feapi_SearchRequestPayload,
+    requestDeserialize: deserialize_feapi_SearchRequestPayload,
+    responseSerialize: serialize_feapi_SearchRequestResponse,
+    responseDeserialize: deserialize_feapi_SearchRequestResponse,
   },
   // ----------  Methods used by backend  ----------
   backendReady: {

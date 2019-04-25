@@ -28,7 +28,7 @@ import (
 // Tests will be run with the current protocol version.
 
 // USAGE
-// go test -nodeloc=generated\ nodes/node-newest_4/static_mim_node
+// go test -nodeloc=/Users/Helios/Desktop/generated\ nodes/node-newest_4/static_mim_node
 
 // Infrastructure, setup and teardown
 
@@ -92,7 +92,7 @@ func editExistingJson(source string, regex string, newStringFragment string) {
 	data, _ := ioutil.ReadFile(source)
 	dataStr := string(data)
 	dataStr = r.ReplaceAllString(dataStr, newStringFragment)
-	ioutil.WriteFile(source, []byte(dataStr), 0644)
+	ioutil.WriteFile(source, []byte(dataStr), 0755)
 }
 
 func getValidEntity(entityType string) (string, api.Timestamp, api.Timestamp) {
@@ -189,7 +189,7 @@ func setup(testNodeAddress string, testNodePort uint16) {
 
 	if len(nodeLocation) == 0 {
 		// If no node location is given, assume default. This will break when you move that folder off desktop...
-		nodeLocation = "generated nodes/node-newest_16/static_mim_node"
+		nodeLocation = "/Users/Helios/Desktop/Hazel Desktop/2015-Q4 /generated nodes/node-newest_16/static_mim_node"
 	}
 
 	// // Vote endpoint borkage test setup start.
@@ -205,7 +205,7 @@ func setup(testNodeAddress string, testNodePort uint16) {
 		votesIndexResp.Results[i].ResponseUrl = "invalid url invalid url invalid url"
 	}
 	result, _ := json.Marshal(votesIndexResp)
-	ioutil.WriteFile(votesIndex, result, 0644)
+	ioutil.WriteFile(votesIndex, result, 0755)
 	// fmt.Printf("votespage: %#v\n", result)
 
 	// // Thread remove item and leave its index

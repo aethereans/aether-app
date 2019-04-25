@@ -1,4 +1,4 @@
-export { }
+export {}
 
 var globalMethods = require('../services/globals/methods')
 
@@ -22,9 +22,8 @@ let mixins = {
       },
       localUserArrived(this: any) {
         return this.$store.state.localUserArrived
-      }
-    }
+      },
+    },
   },
-
 }
 module.exports = mixins

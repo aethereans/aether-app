@@ -29,7 +29,7 @@ require('electron-context-menu')({
     //   // Only show it when right-clicking images
     //   visible: true
     // }]
-    showCopyLink: false
+    showCopyLink: false,
 });
 /*===================================
 =            Auto update            =
@@ -122,7 +122,9 @@ elc.app.on('activate', function () {
 elc.app.on('before-quit', function (e) {
     contextMenuTemplate[0].label = 'Shutting down...';
     saveWinBounds();
-    setTimeout(function () { elc.app.exit(); }, 3000); // Hard limit - if it doesn't shut down in 3 seconds, we force kill it.
+    setTimeout(function () {
+        elc.app.exit();
+    }, 3000); // Hard limit - if it doesn't shut down in 3 seconds, we force kill it.
     var contextMenu = elc.Menu.buildFromTemplate(contextMenuTemplate);
     tray.setContextMenu(contextMenu);
     // console.log('before-quit: electron is quitting. ')
@@ -132,7 +134,7 @@ elc.app.on('before-quit', function (e) {
     }
     e.preventDefault();
     globals.FrontendDaemon.on('exit', function () {
-        console.log("Frontend has exited.");
+        console.log('Frontend has exited.');
         elc.app.exit();
     });
     treekill(globals.FrontendDaemon.pid);
@@ -143,15 +145,15 @@ elc.app.on('before-quit', function (e) {
 // })
 // Make the app a single-instance app.
 // This is actually enforced by Mac OS, but unfortunately Windows isn't that easy - you have to manually implement it.
-var shouldQuit = elc.app.makeSingleInstance(function (argv) {
+var shouldQuitDueToAnotherInstanceBeingOpen = elc.app.makeSingleInstance(function (argv) {
     if (process.platform === 'win32') {
         /*
-          This is the windows-specific implementation of the open-url in the will-finish-launching event.
-    
-          This code is available in two different places. This one handles deep-linking after the app is open.
-        */
+        This is the windows-specific implementation of the open-url in the will-finish-launching event.
+  
+        This code is available in two different places. This one handles deep-linking after the app is open.
+      */
         // Keep only command line / deep linked arguments
-        if (typeof argv.slice(1)[0] !== "undefined") {
+        if (typeof argv.slice(1)[0] !== 'undefined') {
             linkToLoadAtBoot = argv.slice(1)[0].substring(8);
         }
         if (linkToLoadAtBoot.length > 0) {
@@ -166,8 +168,8 @@ var shouldQuit = elc.app.makeSingleInstance(function (argv) {
         win.focus();
     }
 });
-if (shouldQuit) {
-    elc.app.quit();
+if (shouldQuitDueToAnotherInstanceBeingOpen) {
+    elc.app.exit();
 }
 function EstablishExternalResourceAutoLoadFiltering() {
     // This is the list of allowed URLs that can be auto-loaded in electron. (This does not prevent links that open in your browser, just ones that fetch data within the app. You can link anywhere, but only links from the whitelist below will have a chance to auto-load.)
@@ -178,8 +180,7 @@ function EstablishExternalResourceAutoLoadFiltering() {
   
       If you'd like to make things a little tighter in exchange to not being able to preview, replace this list with an empty one, and all auto-loads will be blocked.
     */
-    // This list should be editable. (TODO)
-    var whitelist = [
+    var autoloadEnabledWhitelist = [
         'https://*.getaether.net/**',
         'https://*.imgur.com/**',
         'https://imgur.com/**',
@@ -192,8 +193,28 @@ function EstablishExternalResourceAutoLoadFiltering() {
         'https://*.coinbase.com/**',
         'file://**',
         'chrome-devtools://**',
-        'chrome-extension://**' // for vue devtools
+        'chrome-extension://**',
     ];
+    var autoloadDisabledWhitelist = [
+        'https://*.getaether.net/**',
+        'https://*.mixpanel.com/**',
+        'https://*.mxpnl.com/**',
+        'file://**',
+        'chrome-devtools://**',
+        'chrome-extension://**',
+    ];
+    // This list should be editable. (TODO)
+    var whitelist = autoloadEnabledWhitelist;
+    ipc.answerRenderer('DisableExternalResourceAutoLoad', function () {
+        // Only the URLs required for correct app functionality.
+        whitelist = autoloadDisabledWhitelist;
+        return true;
+    });
+    ipc.answerRenderer('EnableExternalResourceAutoLoad', function () {
+        // Only the URLs required for correct app functionality.
+        whitelist = autoloadEnabledWhitelist;
+        return true;
+    });
     // Allow any auto-load request that's in the whitelist. Deny autoload requests to all other domains.
     elc.session.defaultSession.webRequest.onBeforeRequest(function (details, cb) {
         // console.log(details.url) // Uncomment this to see all attempted outbound network requests from the client app.
@@ -236,7 +257,7 @@ function EstablishElectronWindow() {
         title: 'Aether',
         fullscreenWindowTitle: true,
         backgroundColor: '#292b2f',
-        disableBlinkFeatures: "Auxclick",
+        disableBlinkFeatures: 'Auxclick',
         autoHideMenuBar: true,
         webPreferences: {
         // blinkFeatures: 'OverlayScrollbars'
@@ -285,7 +306,7 @@ function EstablishElectronWindow() {
               This code is available in two different places. This one handles deep-linking from cold boot.
             */
             // Keep only command line / deep linked arguments
-            if (typeof process.argv.slice(1)[0] !== "undefined") {
+            if (typeof process.argv.slice(1)[0] !== 'undefined') {
                 linkToLoadAtBoot = process.argv.slice(1)[0].substring(8);
             }
         }
@@ -326,7 +347,7 @@ function EstablishElectronWindow() {
         openAppWindow();
     });
 }
-var linkToLoadAtBoot = "";
+var linkToLoadAtBoot = '';
 elc.app.on('will-finish-launching', function () {
     // Register Aether's aether:// as a standard (http-like) protocol
     elc.protocol.registerStandardSchemes(['aether']);
@@ -335,15 +356,6 @@ elc.app.on('will-finish-launching', function () {
         linkToLoadAtBoot = url.substring(8);
     });
 });
-// let openApp = function() {
-//   if (win === null) {
-//     main()
-//   }
-//   if (win.isMinimized()) {
-//     win.restore()
-//   }
-//   win.focus()
-// }
 var openPreferences = function () {
     openAppWindow();
     var rendererReadyChecker = function () {
@@ -368,7 +380,7 @@ var contextMenuTemplate = [
     { label: 'Preferences...', click: openPreferences },
     { label: 'Community support', click: openSupport },
     { type: 'separator' },
-    { label: 'Quit Aether', click: quitApp }
+    { label: 'Quit Aether', click: quitApp },
 ];
 function EstablishTray() {
     if (tray !== null) {
@@ -376,16 +388,16 @@ function EstablishTray() {
     }
     /*----------  Tray functions  ----------*/
     /*----------  Tray functions END  ----------*/
-    var trayIconLocation = "";
+    var trayIconLocation = '';
     if (process.platform === 'darwin') {
-        trayIconLocation = "ext_dep/images/TrayTemplate.png";
+        trayIconLocation = 'ext_dep/images/TrayTemplate.png';
     }
     if (process.platform === 'win32') {
-        trayIconLocation = "ext_dep/images/WindowsTrayIconAlt3.png";
+        trayIconLocation = 'ext_dep/images/WindowsTrayIconAlt3.png';
         // trayIconLocation = "ext_dep/images/WindowsTrayIcon.ico"
     }
     if (process.platform === 'linux') {
-        trayIconLocation = "ext_dep/images/LinuxTrayIcon.png";
+        trayIconLocation = 'ext_dep/images/LinuxTrayIcon.png';
     }
     tray = new elc.Tray(path.join(__dirname, trayIconLocation));
     tray.setToolTip('Aether');
@@ -401,9 +413,13 @@ function EstablishTray() {
 ipc.answerRenderer('QuitApp', function () {
     elc.app.quit();
 });
+ipc.answerRenderer('FocusAndShow', function () {
+    openAppWindow();
+    return true;
+});
 var previewBuildStatus = {
     isPreview: false,
-    Expiry: 0
+    Expiry: 0,
 };
 // 1540857600 = Oct 30 2018
 function EnforcePreviewBuildExpiry() {
@@ -415,10 +431,10 @@ function EnforcePreviewBuildExpiry() {
     var now = Math.floor(d / 1000);
     if (now > previewBuildStatus.Expiry) {
         elc.dialog.showMessageBox({
-            type: "error",
-            title: "Developer build expired",
-            message: "Hey there! This preview build of Aether has expired. You can get the most recent version of Aether from the meta forum at meta.getaether.net.",
-            buttons: ["Quit", "Get new version"]
+            type: 'error',
+            title: 'Developer build expired',
+            message: 'Hey there! This preview build of Aether has expired. You can get the most recent version of Aether from the meta forum at meta.getaether.net.',
+            buttons: ['Quit', 'Get new version'],
         }, function (respButtonIndex) {
             if (respButtonIndex === 1) {
                 // The user asked to go to the downloads page.
@@ -440,15 +456,15 @@ function ConstructAppMenu() {
                     label: 'About Aether',
                     click: function () {
                         return ipc.callRenderer(win, 'RouteTo', '/about');
-                    }
+                    },
                 },
                 {
-                    type: "separator"
+                    type: 'separator',
                 },
                 {
                     role: 'quit',
-                }
-            ]
+                },
+            ],
         });
     }
     menu.push({
@@ -461,7 +477,7 @@ function ConstructAppMenu() {
                 role: 'redo',
             },
             {
-                type: 'separator'
+                type: 'separator',
             },
             {
                 role: 'cut',
@@ -475,13 +491,13 @@ function ConstructAppMenu() {
             {
                 role: 'selectAll',
             },
-        ]
+        ],
     });
     menu.push({
         label: 'View',
         submenu: [
             {
-                role: 'resetZoom'
+                role: 'resetZoom',
             },
             {
                 role: 'zoomIn',
@@ -490,25 +506,25 @@ function ConstructAppMenu() {
                 role: 'zoomOut',
             },
             {
-                role: 'toggleDevTools'
+                role: 'toggleDevTools',
             },
-        ]
+        ],
     });
     if (isDev) {
         menu.push({
             label: 'View',
             submenu: [
                 {
-                    role: 'reload'
+                    role: 'reload',
                 },
                 {
-                    role: 'toggleDevTools'
+                    role: 'toggleDevTools',
                 },
                 {
-                    type: 'separator'
+                    type: 'separator',
                 },
                 {
-                    role: 'resetZoom'
+                    role: 'resetZoom',
                 },
                 {
                     role: 'zoomIn',
@@ -516,7 +532,7 @@ function ConstructAppMenu() {
                 {
                     role: 'zoomOut',
                 },
-            ]
+            ],
         });
     }
     menu.push({

@@ -2,14 +2,14 @@
 
 // This service converts a hash into a visually recognisable artifact.
 
-export { }
+export {}
 
 let blockies = require('./blockies-modified') // the modified version uses a custom colour mapper that uses our colours in globals.scss.
 let hqx = require('./hqx-modified').hqx // I made this use Math instead of Window.Math to make it work.
 
 function generate(hash: string, isUser: boolean): string {
   if (typeof hash === 'undefined') {
-    return ""
+    return ''
   }
   let blockiesConf: any = {
     seed: hash,

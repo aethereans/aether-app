@@ -22,6 +22,7 @@ package configstore
 import (
 	"aether-core/aether/services/toolbox"
 	"fmt"
+	"path/filepath"
 	"sync"
 	"time"
 )
@@ -58,7 +59,8 @@ type POSTResponseRepo struct {
 
 //deleteFromDisk deletes the POST response from the directory. This only triggers when the item is also removed from the Responses repo.
 func deleteFromDisk(url string) {
-	postDir := fmt.Sprintf("%s/", bc.GetProtURLVersion(), "/responses/%s", bc.GetCachesDirectory(), url)
+	// postDir := fmt.Sprintf("%s/", bc.GetProtURLVersion(), "/responses/%s", bc.GetCachesDirectory(), url)
+	postDir := filepath.Join(bc.GetCachesDirectory(), bc.GetProtURLVersion(), "responses", url)
 	toolbox.DeleteFromDisk(postDir)
 }
 

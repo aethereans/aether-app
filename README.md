@@ -49,74 +49,74 @@ Aether exists thanks to the generous fellows below. Funding Aether comes with so
 	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
 </a>
 
+## Gold Sponsors
+
+[[your name here]](https://www.patreon.com/bePatron?u=11407204)
+
 ## Sponsors
 
-[[your company here]](https://www.patreon.com/bePatron?u=11407204)
+Peter Wang
 
-## People 
+## Generous backers
 
-@sparklabs
+Alex
 
-@HostFat
+Alex Tibbles
 
-@ssg
-
-@agalati
-
-@njha
-
-@rch
-
-@T
-
-@a
-
-@alex
-
-@drb
-
-@henq
-
-Alexander Thompson
-
-@Andrew
+Andrew
 
 Asher Gottlieb
 
-Benjamin Woodruff
-
-Chip Wasson
-
-Dawid Ciężarkiewicz
-
-Evan Henshawplath
-
-Grischa Boßlar
-
-John Travise
-
-@mindricity
-
-@Pavel
-
-@Peter
-
-Sebastian Jug
-
-Chuck Reed
-
-Alessandro Fort 
-
-Sean Billig
-
-N O D E
-
-Luke Carbis
-
-Lewis Liu
+Bart Grantham
 
 Cerxi
 
+Chip Wasson
+
+Daniel Fischer
+
+Duane Bailey
+
 Jackson Solway
 
-Shawn Harmsen
+James Bekkema
+
+John Alexander
+
+John Moore
+
+John Travise
+
+Lewis Liu
+
+mindricity
+
+Pavel Minaev
+
+Ryan Hill
+
+Sebastian Jug
+
+srdis
+
+Steamy McMemerton
+
+Steve
+
+Tom Kapanka
+
+## Backers
+
+Andreas Basurto
+
+Forest Friendly
+
+Grischa Boßlar
+
+Whitman Schorn
+
+## Crypto supporters
+
+@agalati
+
+@HostFat

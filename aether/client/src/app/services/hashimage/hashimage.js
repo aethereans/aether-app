@@ -5,7 +5,7 @@ var blockies = require('./blockies-modified'); // the modified version uses a cu
 var hqx = require('./hqx-modified').hqx; // I made this use Math instead of Window.Math to make it work.
 function generate(hash, isUser) {
     if (typeof hash === 'undefined') {
-        return "";
+        return '';
     }
     var blockiesConf = {
         seed: hash,

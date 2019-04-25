@@ -6,31 +6,40 @@ export { }
 
 var globalMethods = require('../services/globals/methods')
 
-
 interface Breadcrumb {
-  EntityType: string;
-  VisibleName: string;
-  Link: string;
-  Fingerprint: string;
+  EntityType: string
+  VisibleName: string
+  Link: string
+  Fingerprint: string
 }
 
-function createCrumb(entityType: string, visibleName: string, link: string, fingerprint: string) {
+function createCrumb(
+  entityType: string,
+  visibleName: string,
+  link: string,
+  fingerprint: string
+) {
   let c: Breadcrumb = {
     EntityType: entityType,
     VisibleName: visibleName,
     Link: link,
-    Fingerprint: fingerprint
+    Fingerprint: fingerprint,
   }
   return c
 }
 
 // createEndCrumb always creates a 'cap' crumb for the current entity based on the current path
-function createEndCrumb(context: any, entityType: string, visibleName: string, fingerprint: string) {
+function createEndCrumb(
+  context: any,
+  entityType: string,
+  visibleName: string,
+  fingerprint: string
+) {
   let c: Breadcrumb = {
     EntityType: entityType,
     VisibleName: visibleName,
     Link: context.state.route.fullPath.substr(1), // remove the slash at the beginning so it won't end up //
-    Fingerprint: fingerprint
+    Fingerprint: fingerprint,
   }
   return c
 }
@@ -38,15 +47,19 @@ function createEndCrumb(context: any, entityType: string, visibleName: string, f
 function makeCurrentBoardCrumb(context: any) {
   if (context.state.currentBoard.fingerprint.length === 0) {
     // Object not found
-    return createCrumb('board',
+    return createCrumb(
+      'board',
       'Not found',
       'board/' + context.state.currentBoard.fingerprint,
-      context.state.currentBoard.fingerprint)
+      context.state.currentBoard.fingerprint
+    )
   }
-  return createCrumb('board',
+  return createCrumb(
+    'board',
     context.state.currentBoard.name,
     'board/' + context.state.currentBoard.fingerprint,
-    context.state.currentBoard.fingerprint)
+    context.state.currentBoard.fingerprint
+  )
 }
 
 function makeCurrentThreadCrumb(context: any) {
@@ -55,20 +68,31 @@ function makeCurrentThreadCrumb(context: any) {
     return createCrumb(
       'thread',
       'Not found',
-      'board/' + context.state.currentBoard.fingerprint + '/thread/' + context.state.currentThread.fingerprint,
-      context.state.currentThread.fingerprint)
+      'board/' +
+      context.state.currentBoard.fingerprint +
+      '/thread/' +
+      context.state.currentThread.fingerprint,
+      context.state.currentThread.fingerprint
+    )
   }
   return createCrumb(
     'thread',
     context.state.currentThread.name,
-    'board/' + context.state.currentBoard.fingerprint + '/thread/' + context.state.currentThread.fingerprint,
-    context.state.currentThread.fingerprint)
+    'board/' +
+    context.state.currentBoard.fingerprint +
+    '/thread/' +
+    context.state.currentThread.fingerprint,
+    context.state.currentThread.fingerprint
+  )
 }
 
 function makeCurrentUserCrumb(context: any) {
-  return createCrumb('user', globalMethods.GetUserName(context.state.currentUserEntity),
+  return createCrumb(
+    'user',
+    globalMethods.GetUserName(context.state.currentUserEntity),
     'user/' + context.state.currentUserEntity.fingerprint,
-    context.state.currentUserEntity.fingerprint)
+    context.state.currentUserEntity.fingerprint
+  )
 }
 
 function makeGlobalCrumb() {
@@ -76,7 +100,16 @@ function makeGlobalCrumb() {
     EntityType: '',
     VisibleName: 'Communities',
     Link: 'globalscope',
-    Fingerprint: ''
+    Fingerprint: '',
+  }
+}
+
+function makeSearchCrumb() {
+  return {
+    EntityType: '',
+    VisibleName: 'Search',
+    Link: 'searchscope',
+    Fingerprint: '',
   }
 }
 
@@ -90,13 +123,17 @@ let crumbActions = {
       updatedCrumbs.push(makeCurrentBoardCrumb(context))
     } else if (context.state.route.name === 'Board>ThreadsNewList') {
       updatedCrumbs.push(makeCurrentBoardCrumb(context))
-      updatedCrumbs.push(createEndCrumb(context, 'threadsNewList', 'New threads', ''))
+      updatedCrumbs.push(
+        createEndCrumb(context, 'threadsNewList', 'New threads', '')
+      )
     } else if (context.state.route.name === 'Board>NewThread') {
       updatedCrumbs.push(makeCurrentBoardCrumb(context))
       updatedCrumbs.push(createEndCrumb(context, 'newThread', 'New thread', ''))
     } else if (context.state.route.name === 'Board>ModActivity') {
       updatedCrumbs.push(makeCurrentBoardCrumb(context))
-      updatedCrumbs.push(createEndCrumb(context, 'modActivity', 'Mod Activity', ''))
+      updatedCrumbs.push(
+        createEndCrumb(context, 'modActivity', 'Mod Activity', '')
+      )
     } else if (context.state.route.name === 'Board>Elections') {
       updatedCrumbs.push(makeCurrentBoardCrumb(context))
       updatedCrumbs.push(createEndCrumb(context, 'elections', 'Elections', ''))
@@ -113,92 +150,128 @@ let crumbActions = {
       updatedCrumbs.push(makeGlobalCrumb())
     } else if (context.state.route.name === 'Global>Subbed') {
       updatedCrumbs.push(makeGlobalCrumb())
-      updatedCrumbs.push(createEndCrumb(context, 'subscribed', 'Subscribed', ''))
-    } else if (context.state.route.name === 'Global>NewBoard') {
-      updatedCrumbs.push(makeGlobalCrumb())
-      updatedCrumbs.push(createEndCrumb(context, 'newBoard', 'New community', ''))
+      updatedCrumbs.push(
+        createEndCrumb(context, 'subscribed', 'Subscribed', '')
+      )
+    } else if (context.state.route.name === 'Search') {
+      updatedCrumbs.push(makeSearchCrumb())
+    } else if (context.state.route.name === 'Search>Community') {
+      updatedCrumbs.push(makeSearchCrumb())
+      updatedCrumbs.push(createEndCrumb(context, 'community', 'Community', ''))
+    } else if (context.state.route.name === 'Search>Content') {
+      updatedCrumbs.push(makeSearchCrumb())
+      updatedCrumbs.push(createEndCrumb(context, 'content', 'Content', ''))
+    } else if (context.state.route.name === 'Search>People') {
+      updatedCrumbs.push(makeSearchCrumb())
+      updatedCrumbs.push(createEndCrumb(context, 'people', 'People', ''))
     } else if (context.state.route.name === 'Intro') {
       updatedCrumbs.push({
         EntityType: '',
         VisibleName: `A Beginner's Guide to the Galaxy`,
         Link: 'intro',
-        Fingerprint: ''
+        Fingerprint: '',
       })
     } else if (context.state.route.name === 'Settings') {
       updatedCrumbs.push({
         EntityType: '',
         VisibleName: `Settings`,
         Link: 'settings',
-        Fingerprint: ''
+        Fingerprint: '',
+      })
+    } else if (context.state.route.name === 'Settings>Defaults') {
+      updatedCrumbs.push({
+        EntityType: '',
+        VisibleName: `Settings`,
+        Link: 'settings',
+        Fingerprint: '',
+      })
+      updatedCrumbs.push({
+        EntityType: '',
+        VisibleName: `Defaults`,
+        Link: 'settings/defaults',
+        Fingerprint: '',
+      })
+    } else if (context.state.route.name === 'Settings>Shortcuts') {
+      updatedCrumbs.push({
+        EntityType: '',
+        VisibleName: `Settings`,
+        Link: 'settings',
+        Fingerprint: '',
+      })
+      updatedCrumbs.push({
+        EntityType: '',
+        VisibleName: `Shortcuts`,
+        Link: 'settings/shortcuts',
+        Fingerprint: '',
       })
     } else if (context.state.route.name === 'Settings>Advanced') {
       updatedCrumbs.push({
         EntityType: '',
         VisibleName: `Settings`,
         Link: 'settings',
-        Fingerprint: ''
+        Fingerprint: '',
       })
       updatedCrumbs.push({
         EntityType: '',
         VisibleName: `Advanced`,
         Link: 'settings/advanced',
-        Fingerprint: ''
+        Fingerprint: '',
       })
     } else if (context.state.route.name === 'About') {
       updatedCrumbs.push({
         EntityType: '',
         VisibleName: `About`,
         Link: 'about',
-        Fingerprint: ''
+        Fingerprint: '',
       })
     } else if (context.state.route.name === 'Membership') {
       updatedCrumbs.push({
         EntityType: '',
         VisibleName: `Membership`,
         Link: 'membership',
-        Fingerprint: ''
+        Fingerprint: '',
       })
     } else if (context.state.route.name === 'Changelog') {
       updatedCrumbs.push({
         EntityType: '',
         VisibleName: `Changelog`,
         Link: 'changelog',
-        Fingerprint: ''
+        Fingerprint: '',
       })
     } else if (context.state.route.name === 'AdminsQuickstart') {
       updatedCrumbs.push({
         EntityType: '',
         VisibleName: `Admin's Quickstart`,
         Link: 'adminsquickstart',
-        Fingerprint: ''
+        Fingerprint: '',
       })
     } else if (context.state.route.name === 'SFWList') {
       updatedCrumbs.push({
         EntityType: '',
         VisibleName: `Safe-for-work list`,
         Link: 'sfwlist',
-        Fingerprint: ''
+        Fingerprint: '',
       })
     } else if (context.state.route.name === 'Modship') {
       updatedCrumbs.push({
         EntityType: '',
         VisibleName: `Mod mode`,
         Link: 'modship',
-        Fingerprint: ''
+        Fingerprint: '',
       })
     } else if (context.state.route.name === 'Namemint') {
       updatedCrumbs.push({
         EntityType: '',
         VisibleName: `Name minter`,
         Link: 'namemint',
-        Fingerprint: ''
+        Fingerprint: '',
       })
     } else if (context.state.route.name === 'NewUser') {
       updatedCrumbs.push({
         EntityType: '',
         VisibleName: `Create New User`,
         Link: 'newuser',
-        Fingerprint: ''
+        Fingerprint: '',
       })
     } else if (context.state.route.name === 'User') {
       updatedCrumbs.push(makeCurrentUserCrumb(context))
@@ -213,7 +286,9 @@ let crumbActions = {
       updatedCrumbs.push(createEndCrumb(context, 'posts', 'Posts', ''))
     } else if (context.state.route.name === 'User>Notifications') {
       updatedCrumbs.push(makeCurrentUserCrumb(context))
-      updatedCrumbs.push(createEndCrumb(context, 'notifications', 'Notifications', ''))
+      updatedCrumbs.push(
+        createEndCrumb(context, 'notifications', 'Notifications', '')
+      )
     } else if (context.state.route.name === 'Status') {
       updatedCrumbs.push(createEndCrumb(context, 'status', 'Status', ''))
     } else if (context.state.route.name === 'Popular') {
@@ -235,5 +310,5 @@ let crumbMutations = {
 
 module.exports = {
   crumbActions,
-  crumbMutations
+  crumbMutations,
 }

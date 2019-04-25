@@ -31,6 +31,8 @@ function StartClientAPIServer() {
         sendNotifications: SendNotifications,
         sendOnboardCompleteStatus: SendOnboardCompleteStatus,
         sendModModeEnabledStatus: SendModModeEnabledStatus,
+        sendExternalContentAutoloadDisabledStatus: SendExternalContentAutoloadDisabledStatus,
+        sendSearchResult: SendSearchResult,
     });
     var boundPort = server.bind('127.0.0.1:0', grpc.ServerCredentials.createInsecure());
     server.start();
@@ -39,51 +41,51 @@ function StartClientAPIServer() {
 exports.StartClientAPIServer = StartClientAPIServer;
 function FrontendReady(req, callback) {
     var r = req.request.toObject();
-    console.log("frontend ready at: ", r.address, ":", r.port);
+    console.log('frontend ready at: ', r.address, ':', r.port);
     // globals.FrontendReady = true
     ipc.callMain('SetFrontendReady', true);
     // globals.FrontendAPIPort = req.request.port
     ipc.callMain('SetFrontendAPIPort', r.port);
     feapiconsumer.Initialise();
-    var resp = new messages.FEReadyResponse;
+    var resp = new messages.FEReadyResponse();
     callback(null, resp);
 }
 function DeliverAmbients(req, callback) {
     var r = req.request.toObject();
     vuexStore.dispatch('setAmbientBoards', r.boardsList);
-    var resp = new messages.AmbientsResponse;
+    var resp = new messages.AmbientsResponse();
     callback(null, resp);
 }
 function SendAmbientStatus(req, callback) {
     var r = req.request.toObject();
     // console.log(r)
     vuexStore.dispatch('setAmbientStatus', r);
-    var resp = new messages.AmbientStatusResponse;
+    var resp = new messages.AmbientStatusResponse();
     callback(null, resp);
 }
 function SendAmbientLocalUserEntity(req, callback) {
     var r = req.request.toObject();
     // console.log(r)
     vuexStore.dispatch('setAmbientLocalUserEntity', r);
-    var resp = new messages.AmbientLocalUserEntityResponse;
+    var resp = new messages.AmbientLocalUserEntityResponse();
     callback(null, resp);
 }
 function SendHomeView(req, callback) {
     var r = req.request.toObject();
     vuexStore.dispatch('setHomeView', r.threadsList);
-    var resp = new messages.HomeViewResponse;
+    var resp = new messages.HomeViewResponse();
     callback(null, resp);
 }
 function SendPopularView(req, callback) {
     var r = req.request.toObject();
     vuexStore.dispatch('setPopularView', r.threadsList);
-    var resp = new messages.PopularViewResponse;
+    var resp = new messages.PopularViewResponse();
     callback(null, resp);
 }
 function SendNotifications(req, callback) {
     var r = req.request.toObject();
     vuexStore.dispatch('setNotifications', r);
-    var resp = new messages.NotificationsResponse;
+    var resp = new messages.NotificationsResponse();
     callback(null, resp);
 }
 function SendOnboardCompleteStatus(req, callback) {
@@ -130,7 +132,7 @@ function SendOnboardCompleteStatus(req, callback) {
                 metrics_2.SendRaw('App update successful');
                 vuexStore.dispatch('setFirstRunAfterUpdateState', true);
                 var router = require('../../renderermain').router;
-                router.push("/changelog");
+                router.push('/changelog');
             }
             else {
                 vuexStore.dispatch('setFirstRunAfterUpdateState', false);
@@ -142,13 +144,27 @@ function SendOnboardCompleteStatus(req, callback) {
     });
     /*=====  End of CLIENT VERSION / UPGRADE LOGIC  ======*/
     vuexStore.dispatch('setOnboardCompleteStatus', r.onboardcomplete);
-    var resp = new messages.OnboardCompleteStatusResponse;
+    var resp = new messages.OnboardCompleteStatusResponse();
     callback(null, resp);
 }
 function SendModModeEnabledStatus(req, callback) {
     var r = req.request.toObject();
     vuexStore.dispatch('setModModeEnabledStatus', r.modmodeenabled);
-    var resp = new messages.ModModeEnabledStatusResponse;
+    var resp = new messages.ModModeEnabledStatusResponse();
+    callback(null, resp);
+}
+function SendExternalContentAutoloadDisabledStatus(req, callback) {
+    console.log('external content autoload disabled status arrived.');
+    var r = req.request.toObject();
+    vuexStore.dispatch('setExternalContentAutoloadDisabledStatus', r.externalcontentautoloaddisabled);
+    var resp = new messages.ExternalContentAutoloadDisabledStatusResponse();
+    callback(null, resp);
+}
+function SendSearchResult(req, callback) {
+    console.log('Search result arrived.');
+    var r = req.request.toObject();
+    vuexStore.dispatch('setSearchResult', r);
+    var resp = new messages.SearchResultResponse();
     callback(null, resp);
 }
 //# sourceMappingURL=clapiserver.js.map

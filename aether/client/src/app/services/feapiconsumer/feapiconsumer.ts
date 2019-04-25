@@ -9,7 +9,6 @@ const grpc = require('grpc')
 // const resolve = require('path').resolve
 var ipc = require('../../../../node_modules/electron-better-ipc')
 
-
 // Consts
 // const proto = grpc.load({
 //   file: 'feapi/feapi.proto',
@@ -28,7 +27,9 @@ let initInProgress: boolean = false
 let clientApiServerPortIsSet: boolean = false
 
 function timeout(ms: any) {
-  return new Promise(function(resolve) { return setTimeout(resolve, ms) })
+  return new Promise(function(resolve) {
+    return setTimeout(resolve, ms)
+  })
 }
 // ^ Promisified wait, so that it won't actually block like while .. {} does. Useful with async/await.
 
@@ -51,24 +52,25 @@ let ExportedMethods = {
     initInProgress = true
     console.log('init is called')
     let feapiport = await ipc.callMain('GetFrontendAPIPort')
-    feAPIConsumer = new proto.FrontendAPIClient('127.0.0.1:' + feapiport, grpc.credentials.createInsecure())
+    feAPIConsumer = new proto.FrontendAPIClient(
+      '127.0.0.1:' + feapiport,
+      grpc.credentials.createInsecure()
+    )
     console.log(feAPIConsumer)
     let clapiserverport = await ipc.callMain('GetClientAPIServerPort')
     await ExportedMethods.SetClientAPIServerPort(clapiserverport)
     ipc.callMain('SetFrontendClientConnInitialised', true)
     Initialised = true
     initInProgress = false
-
-
   },
   GetAllBoards(callback: any) {
     WaitUntilFrontendReady(async function() {
-      console.log("get all boards is making a call")
+      console.log('get all boards is making a call')
       console.log('initstate: ', Initialised)
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
-      let req = new pmessages.AllBoardsRequest
+      let req = new pmessages.AllBoardsRequest()
       feAPIConsumer.getAllBoards(req, function(err: any, response: any) {
         if (err) {
           console.log(err)
@@ -80,14 +82,20 @@ let ExportedMethods = {
   },
   SetClientAPIServerPort(clientAPIServerPort: number) {
     WaitUntilFrontendReady(async function() {
-      console.log('clapiserverport mapping is triggered. initstate: ', Initialised)
+      console.log(
+        'clapiserverport mapping is triggered. initstate: ',
+        Initialised
+      )
       // if (!Initialised) {
       //   await ExportedMethods.Initialise()
       // }
       let req = new pmessages.SetClientAPIServerPortRequest()
       req.setPort(clientAPIServerPort)
       // console.log(req)
-      feAPIConsumer.setClientAPIServerPort(req, function(err: any, response: any) {
+      feAPIConsumer.setClientAPIServerPort(req, function(
+        err: any,
+        response: any
+      ) {
         if (err) {
           console.log(err)
         } else {
@@ -105,7 +113,7 @@ let ExportedMethods = {
         await ExportedMethods.Initialise()
       }
       console.log('GetBoardsAndThread triggered.')
-      let req = new pmessages.BoardAndThreadsRequest
+      let req = new pmessages.BoardAndThreadsRequest()
       req.setBoardfingerprint(boardfp)
       if (sortByNew) {
         req.setSortthreadsbynew(true)
@@ -126,7 +134,7 @@ let ExportedMethods = {
         await ExportedMethods.Initialise()
       }
       console.log('GetThreadAndPosts triggered.')
-      let req = new pmessages.ThreadAndPostsRequest
+      let req = new pmessages.ThreadAndPostsRequest()
       req.setBoardfingerprint(boardfp)
       req.setThreadfingerprint(threadfp)
       feAPIConsumer.getThreadAndPosts(req, function(err: any, resp: any) {
@@ -138,13 +146,20 @@ let ExportedMethods = {
       })
     })
   },
-  SetBoardSignal(fp: string, subbed: boolean, notify: boolean, lastseen: number, lastSeenOnly: boolean, callback: any) {
+  SetBoardSignal(
+    fp: string,
+    subbed: boolean,
+    notify: boolean,
+    lastseen: number,
+    lastSeenOnly: boolean,
+    callback: any
+  ) {
     WaitUntilFrontendReady(async function() {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
       console.log('SetBoardSignal triggered.')
-      let req = new pmessages.BoardSignalRequest
+      let req = new pmessages.BoardSignalRequest()
       req.setFingerprint(fp)
       req.setSubscribed(subbed)
       req.setNotify(notify)
@@ -159,13 +174,20 @@ let ExportedMethods = {
       })
     })
   },
-  GetUserAndGraph(fp: string, userEntityRequested: boolean, boardsRequested: boolean, threadsRequested: boolean, postsRequested: boolean, callback: any) {
+  GetUserAndGraph(
+    fp: string,
+    userEntityRequested: boolean,
+    boardsRequested: boolean,
+    threadsRequested: boolean,
+    postsRequested: boolean,
+    callback: any
+  ) {
     WaitUntilFrontendReady(async function() {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
       console.log('GetUserAndGraph triggered.')
-      let req = new pmessages.UserAndGraphRequest
+      let req = new pmessages.UserAndGraphRequest()
       req.setFingerprint(fp)
       req.setUserentityrequested(userEntityRequested)
       req.setUserboardsrequested(boardsRequested)
@@ -181,13 +203,19 @@ let ExportedMethods = {
       })
     })
   },
-  GetUncompiledEntityByKey(entityType: string, ownerfp: string, limit: number, offset: number, callback: any) {
+  GetUncompiledEntityByKey(
+    entityType: string,
+    ownerfp: string,
+    limit: number,
+    offset: number,
+    callback: any
+  ) {
     WaitUntilFrontendReady(async function() {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
       console.log('GetUncompiledEntityByKey triggered.')
-      let req = new pmessages.UncompiledEntityByKeyRequest
+      let req = new pmessages.UncompiledEntityByKeyRequest()
       if (entityType === 'Board') {
         req.setEntitytype(pmessages.UncompiledEntityType.BOARD)
       }
@@ -210,7 +238,10 @@ let ExportedMethods = {
       req.setOffset(offset)
       req.setOwnerfingerprint(ownerfp)
       console.log(req)
-      feAPIConsumer.getUncompiledEntityByKey(req, function(err: any, resp: any) {
+      feAPIConsumer.getUncompiledEntityByKey(req, function(
+        err: any,
+        resp: any
+      ) {
         if (err) {
           console.log(err)
         } else {
@@ -225,8 +256,11 @@ let ExportedMethods = {
         await ExportedMethods.Initialise()
       }
       console.log('SendInflightsPruneRequest triggered.')
-      let req = new pmessages.InflightsPruneRequest
-      feAPIConsumer.sendInflightsPruneRequest(req, function(err: any, resp: any) {
+      let req = new pmessages.InflightsPruneRequest()
+      feAPIConsumer.sendInflightsPruneRequest(req, function(
+        err: any,
+        resp: any
+      ) {
         if (err) {
           console.log(err)
         } else {
@@ -241,7 +275,7 @@ let ExportedMethods = {
         await ExportedMethods.Initialise()
       }
       console.log('RequestAmbientStatus triggered.')
-      let req = new pmessages.AmbientStatusRequest
+      let req = new pmessages.AmbientStatusRequest()
       feAPIConsumer.requestAmbientStatus(req, function(err: any, resp: any) {
         if (err) {
           console.log(err)
@@ -257,7 +291,7 @@ let ExportedMethods = {
         await ExportedMethods.Initialise()
       }
       console.log('SetNotificationsSignal triggered.')
-      let req = new pmessages.NotificationsSignalPayload
+      let req = new pmessages.NotificationsSignalPayload()
       req.setSeen(seen)
       req.setReaditemfingerprint(fp)
       feAPIConsumer.setNotificationsSignal(req, function(err: any, resp: any) {
@@ -276,7 +310,7 @@ let ExportedMethods = {
         await ExportedMethods.Initialise()
       }
       console.log('SetOnboardComplete triggered.')
-      let req = new pmessages.OnboardCompleteRequest
+      let req = new pmessages.OnboardCompleteRequest()
       req.setOnboardcomplete(true)
       feAPIConsumer.setOnboardComplete(req, function(err: any, resp: any) {
         if (err) {
@@ -296,7 +330,7 @@ let ExportedMethods = {
         await ExportedMethods.Initialise()
       }
       console.log('SendAddress triggered.')
-      let req = new pmessages.SendAddressPayload
+      let req = new pmessages.SendAddressPayload()
       req.setAddress(addr)
       try {
         feAPIConsumer.sendAddress(req, function(err: any, resp: any) {
@@ -319,7 +353,7 @@ let ExportedMethods = {
         await ExportedMethods.Initialise()
       }
       console.log('RequestBoardReports triggered.')
-      let req = new pmessages.BoardReportsRequest
+      let req = new pmessages.BoardReportsRequest()
       req.setBoardfingerprint(boardfp)
       try {
         feAPIConsumer.requestBoardReports(req, function(err: any, resp: any) {
@@ -336,16 +370,16 @@ let ExportedMethods = {
     })
   },
 
-  SendMintedUsername(payload: string, callback: any) {
+  SendMintedUsernames(payload: string, callback: any) {
     WaitUntilFrontendReady(async function() {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
-      console.log('SendMintedUsername triggered.')
-      let req = new pmessages.SendMintedUsernamePayload
-      req.setMintedusernamerawjson(payload)
+      console.log('SendMintedUsernames triggered.')
+      let req = new pmessages.SendMintedUsernamesPayload()
+      req.setMintedusernamesrawjson(payload)
       try {
-        feAPIConsumer.sendMintedUsername(req, function(err: any, resp: any) {
+        feAPIConsumer.sendMintedUsernames(req, function(err: any, resp: any) {
           if (err) {
             console.log(err)
           } else {
@@ -365,7 +399,7 @@ let ExportedMethods = {
         await ExportedMethods.Initialise()
       }
       console.log('SendClientVersion triggered.')
-      let req = new pmessages.ClientVersionPayload
+      let req = new pmessages.ClientVersionPayload()
       req.setCurrentclientversion(payload)
       try {
         feAPIConsumer.sendClientVersion(req, function(err: any, resp: any) {
@@ -385,9 +419,19 @@ let ExportedMethods = {
   /*----------  FE config changes  ----------*/
 
   SendModModeEnabledStatus(modModeEnabled: boolean, callback: any) {
-    let e = new pmessages.FEConfigChangesPayload
+    let e = new pmessages.FEConfigChangesPayload()
     e.setModmodeenabled(modModeEnabled)
     e.setModmodeenabledisset(true)
+    this.SendFEConfigChanges(e, callback)
+  },
+
+  SendExternalContentAutoloadDisabledStatus(
+    externalContentAutoloadDisabled: boolean,
+    callback: any
+  ) {
+    let e = new pmessages.FEConfigChangesPayload()
+    e.setExternalcontentautoloaddisabled(externalContentAutoloadDisabled)
+    e.setExternalcontentautoloaddisabledisset(true)
     this.SendFEConfigChanges(e, callback)
   },
 
@@ -399,7 +443,7 @@ let ExportedMethods = {
         await ExportedMethods.Initialise()
       }
       console.log('SendFEConfigChanges triggered.')
-      let req = new pmessages.FEConfigChangesPayload
+      let req = new pmessages.FEConfigChangesPayload()
       req = feconfig
       try {
         feAPIConsumer.sendFEConfigChanges(req, function(err: any, resp: any) {
@@ -416,11 +460,10 @@ let ExportedMethods = {
     })
   },
 
-
   /*----------  Notifications signals  ----------*/
 
   markSeen() {
-    this.SetNotificationsSignal(true, "", function() { })
+    this.SetNotificationsSignal(true, '', function() { })
   },
   markRead(fp: string) {
     this.SetNotificationsSignal(true, fp, function() { })
@@ -437,112 +480,241 @@ let ExportedMethods = {
 
     This does not apply to non-aggregated signals like reporting to mod, those are kept instact and individual, and they can be retracted.
   */
-  Upvote(this: any, targetfp: string, priorfp: string, boardfp: string, threadfp: string, callback: any) {
+  Upvote(
+    this: any,
+    targetfp: string,
+    priorfp: string,
+    boardfp: string,
+    threadfp: string,
+    callback: any
+  ) {
     this.sendSignalEvent(
-      targetfp, priorfp,
-      'ADDS_TO_DISCUSSION', 'UPVOTE',
-      'CONTENT', '', boardfp, threadfp, callback)
+      targetfp,
+      priorfp,
+      'ADDS_TO_DISCUSSION',
+      'UPVOTE',
+      'CONTENT',
+      '',
+      boardfp,
+      threadfp,
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendSignalEvent('Upvote', priorfp.length ? 'Edit' : 'Create')
-
   },
 
-  Downvote(this: any, targetfp: string, priorfp: string, boardfp: string, threadfp: string, callback: any) {
+  Downvote(
+    this: any,
+    targetfp: string,
+    priorfp: string,
+    boardfp: string,
+    threadfp: string,
+    callback: any
+  ) {
     this.sendSignalEvent(
-      targetfp, priorfp,
-      'ADDS_TO_DISCUSSION', 'DOWNVOTE',
-      'CONTENT', '', boardfp, threadfp, callback)
+      targetfp,
+      priorfp,
+      'ADDS_TO_DISCUSSION',
+      'DOWNVOTE',
+      'CONTENT',
+      '',
+      boardfp,
+      threadfp,
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendSignalEvent('Downvote', priorfp.length ? 'Edit' : 'Create')
   },
 
-  ReportToMod(this: any, targetfp: string, priorfp: string, reason: string, boardfp: string, threadfp: string, callback: any) {
+  ReportToMod(
+    this: any,
+    targetfp: string,
+    priorfp: string,
+    reason: string,
+    boardfp: string,
+    threadfp: string,
+    callback: any
+  ) {
     this.sendSignalEvent(
-      targetfp, priorfp,
-      'FOLLOWS_GUIDELINES', 'REPORT_TO_MOD',
-      'CONTENT', reason, boardfp, threadfp, callback)
+      targetfp,
+      priorfp,
+      'FOLLOWS_GUIDELINES',
+      'REPORT_TO_MOD',
+      'CONTENT',
+      reason,
+      boardfp,
+      threadfp,
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendSignalEvent('ReportToMod', priorfp.length ? 'Edit' : 'Create')
   },
   // ModDelete instead of ModBlock, to keep it more human-meaningful.
-  ModDelete(this: any, targetfp: string, priorfp: string, reason: string, boardfp: string, threadfp: string, callback: any) {
+  ModDelete(
+    this: any,
+    targetfp: string,
+    priorfp: string,
+    reason: string,
+    boardfp: string,
+    threadfp: string,
+    callback: any
+  ) {
     this.sendSignalEvent(
-      targetfp, priorfp,
-      'MOD_ACTIONS', 'MODBLOCK',
-      'CONTENT', reason, boardfp, threadfp, callback)
+      targetfp,
+      priorfp,
+      'MOD_ACTIONS',
+      'MODBLOCK',
+      'CONTENT',
+      reason,
+      boardfp,
+      threadfp,
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendSignalEvent('ModDelete', priorfp.length ? 'Edit' : 'Create')
   },
 
-  ModApprove(this: any, targetfp: string, priorfp: string, reason: string, boardfp: string, threadfp: string, callback: any) {
+  ModApprove(
+    this: any,
+    targetfp: string,
+    priorfp: string,
+    reason: string,
+    boardfp: string,
+    threadfp: string,
+    callback: any
+  ) {
     this.sendSignalEvent(
-      targetfp, priorfp,
-      'MOD_ACTIONS', 'MODAPPROVE',
-      'CONTENT', reason, boardfp, threadfp, callback)
+      targetfp,
+      priorfp,
+      'MOD_ACTIONS',
+      'MODAPPROVE',
+      'CONTENT',
+      reason,
+      boardfp,
+      threadfp,
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendSignalEvent('ModApprove', priorfp.length ? 'Edit' : 'Create')
   },
 
-  ModIgnore(this: any, targetfp: string, priorfp: string, reason: string, boardfp: string, threadfp: string, callback: any) {
+  ModIgnore(
+    this: any,
+    targetfp: string,
+    priorfp: string,
+    reason: string,
+    boardfp: string,
+    threadfp: string,
+    callback: any
+  ) {
     this.sendSignalEvent(
-      targetfp, priorfp,
-      'MOD_ACTIONS', 'MODIGNORE',
-      'CONTENT', reason, boardfp, threadfp, callback)
+      targetfp,
+      priorfp,
+      'MOD_ACTIONS',
+      'MODIGNORE',
+      'CONTENT',
+      reason,
+      boardfp,
+      threadfp,
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendSignalEvent('ModIgnore', priorfp.length ? 'Edit' : 'Create')
   },
 
   Follow(this: any, targetfp: string, priorfp: string, callback: any) {
     this.sendSignalEvent(
-      targetfp, priorfp,
-      'PUBLIC_TRUST', 'FOLLOW',
-      'USER', '', '', '', callback)
+      targetfp,
+      priorfp,
+      'PUBLIC_TRUST',
+      'FOLLOW',
+      'USER',
+      '',
+      '',
+      '',
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendSignalEvent('Follow', priorfp.length ? 'Edit' : 'Create')
   },
 
   Block(this: any, targetfp: string, priorfp: string, callback: any) {
     this.sendSignalEvent(
-      targetfp, priorfp,
-      'PUBLIC_TRUST', 'BLOCK',
-      'USER', '', '', '', callback)
+      targetfp,
+      priorfp,
+      'PUBLIC_TRUST',
+      'BLOCK',
+      'USER',
+      '',
+      '',
+      '',
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendSignalEvent('Block', priorfp.length ? 'Edit' : 'Create')
   },
 
   Elect(this: any, targetfp: string, priorfp: string, callback: any) {
     this.sendSignalEvent(
-      targetfp, priorfp,
-      'PUBLIC_ELECT', 'ELECT',
-      'USER', '', '', '', callback)
+      targetfp,
+      priorfp,
+      'PUBLIC_ELECT',
+      'ELECT',
+      'USER',
+      '',
+      '',
+      '',
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendSignalEvent('Elect', priorfp.length ? 'Edit' : 'Create')
   },
   Disqualify(this: any, targetfp: string, priorfp: string, callback: any) {
     this.sendSignalEvent(
-      targetfp, priorfp,
-      'PUBLIC_ELECT', 'DISQUALIFY',
-      'USER', '', '', '', callback)
+      targetfp,
+      priorfp,
+      'PUBLIC_ELECT',
+      'DISQUALIFY',
+      'USER',
+      '',
+      '',
+      '',
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendSignalEvent('Disqualify', priorfp.length ? 'Edit' : 'Create')
   },
 
   /*----------  Base signal event action.  ----------*/
 
-  sendSignalEvent(targetfp: string, priorfp: string, typeclass: string, typ: string, targettype: string, signaltext: string, boardfp: string, threadfp: string, callback: any) {
+  sendSignalEvent(
+    targetfp: string,
+    priorfp: string,
+    typeclass: string,
+    typ: string,
+    targettype: string,
+    signaltext: string,
+    boardfp: string,
+    threadfp: string,
+    callback: any
+  ) {
     WaitUntilFrontendReady(async function() {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
       console.log('Send Signal Event base triggered.')
       let now = Math.floor(Date.now() / 1000)
-      let req = new pmessages.SignalEventPayload
-      let e = new pmessages.Event
+      let req = new pmessages.SignalEventPayload()
+      let e = new pmessages.Event()
       var localUser = require('../../store/index').default.state.localUser
       // ^ Only import when needed and only the specific part. Because vuexstore is also importing this feapi - we don't want it being imported at the beginning to prevent vuexstore from loading feapi.
       e.setOwnerfingerprint(localUser.fingerprint)
       e.setPriorfingerprint(priorfp)
-      e.setEventtype(priorfp.length === 0 ? pmessages.EventType.CREATE : pmessages.EventType.UPDATE)
+      e.setEventtype(
+        priorfp.length === 0
+          ? pmessages.EventType.CREATE
+          : pmessages.EventType.UPDATE
+      )
       e.setTimestamp(now)
       req.setEvent(e)
       req.setSignaltargettype(pmessages.SignalTargetType[targettype])
@@ -576,42 +748,80 @@ let ExportedMethods = {
   */
 
   SendBoardContent(this: any, priorfp: string, boarddata: any, callback: any) {
-    this.sendContentEvent(priorfp, boarddata, undefined, undefined, undefined, callback)
+    this.sendContentEvent(
+      priorfp,
+      boarddata,
+      undefined,
+      undefined,
+      undefined,
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendContentEvent('Board', priorfp.length ? 'Edit' : 'Create')
   },
 
-  SendThreadContent(this: any, priorfp: string, threaddata: any, callback: any) {
-    this.sendContentEvent(priorfp, undefined, threaddata, undefined, undefined, callback)
+  SendThreadContent(
+    this: any,
+    priorfp: string,
+    threaddata: any,
+    callback: any
+  ) {
+    this.sendContentEvent(
+      priorfp,
+      undefined,
+      threaddata,
+      undefined,
+      undefined,
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendContentEvent('Thread', priorfp.length ? 'Edit' : 'Create')
   },
 
   SendPostContent(this: any, priorfp: string, postdata: any, callback: any) {
-    this.sendContentEvent(priorfp, undefined, undefined, postdata, undefined, callback)
+    this.sendContentEvent(
+      priorfp,
+      undefined,
+      undefined,
+      postdata,
+      undefined,
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendContentEvent('Post', priorfp.length ? 'Edit' : 'Create')
-
   },
 
   SendUserContent(this: any, priorfp: string, userdata: any, callback: any) {
-    this.sendContentEvent(priorfp, undefined, undefined, undefined, userdata, callback)
+    this.sendContentEvent(
+      priorfp,
+      undefined,
+      undefined,
+      undefined,
+      userdata,
+      callback
+    )
     const metrics = require('../metrics/metrics')()
     metrics.SendContentEvent('User', priorfp.length ? 'Edit' : 'Create')
-
   },
 
   /*----------  Base content event action.  ----------*/
 
-  sendContentEvent(priorfp: string, boarddata: any, threaddata: any, postdata: any, userdata: any, callback: any) {
+  sendContentEvent(
+    priorfp: string,
+    boarddata: any,
+    threaddata: any,
+    postdata: any,
+    userdata: any,
+    callback: any
+  ) {
     WaitUntilFrontendReady(async function() {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
       console.log('Send Content Event base triggered.')
       let now = Math.floor(Date.now() / 1000)
-      let req = new pmessages.ContentEventPayload
-      let e = new pmessages.Event
+      let req = new pmessages.ContentEventPayload()
+      let e = new pmessages.Event()
       var localUser = require('../../store/index').default.state.localUser
       // ^ Only import when needed and only the specific part. Because vuexstore is also importing this feapi - we don't want it being imported at the beginning to prevent vuexstore from loading feapi.
       let globalMethods = require('../globals/methods')
@@ -619,7 +829,11 @@ let ExportedMethods = {
         e.setOwnerfingerprint(localUser.fingerprint)
       }
       e.setPriorfingerprint(priorfp)
-      e.setEventtype(priorfp.length === 0 ? pmessages.EventType.CREATE : pmessages.EventType.UPDATE)
+      e.setEventtype(
+        priorfp.length === 0
+          ? pmessages.EventType.CREATE
+          : pmessages.EventType.UPDATE
+      )
       e.setTimestamp(now)
       req.setEvent(e)
       req.setBoarddata(boarddata)
@@ -633,6 +847,46 @@ let ExportedMethods = {
           callback(resp)
         }
       })
+    })
+  },
+
+  /*----------  Search types  ----------*/
+
+  SendCommunitySearchRequest(query: string, callback: any) {
+    this.sendSearchRequest('Board', query, callback)
+  },
+
+  SendContentSearchRequest(query: string, callback: any) {
+    this.sendSearchRequest('Content', query, callback)
+  },
+
+  SendUserSearchRequest(query: string, callback: any) {
+    this.sendSearchRequest('User', query, callback)
+  },
+
+  /*----------  Base search request action  ----------*/
+
+  sendSearchRequest(searchType: string, query: string, callback: any) {
+    WaitUntilFrontendReady(async function() {
+      if (!Initialised) {
+        await ExportedMethods.Initialise()
+      }
+      console.log('sendSearchRequest triggered.')
+      let req = new pmessages.SearchRequestPayload()
+      req.setSearchtype(searchType)
+      req.setSearchquery(query)
+      try {
+        feAPIConsumer.sendSearchRequest(req, function(err: any, resp: any) {
+          if (err) {
+            console.log(err)
+          } else {
+            callback(resp.toObject())
+          }
+        })
+      } catch (err) {
+        // This catches non-grpc errors like assert.
+        callback(err)
+      }
     })
   },
 }

@@ -8,19 +8,24 @@ var os = require('os');
 var path = require('path');
 var StartFrontendDaemon = function (clientAPIServerPort) {
     if (globals.FrontendDaemonStarted) {
-        console.log("frontend daemon already running. skipping the start.");
+        console.log('frontend daemon already running. skipping the start.');
         return false;
     }
     globals.FrontendDaemonStarted = true;
     // This is where we start the frontend binary.
-    console.log("Frontend daemon starting");
+    console.log('Frontend daemon starting');
     var child = {};
     if (!isDev) {
         // In production
         var fepath = path.join(__dirname, '../../../../../app', 'aether-frontend-' + getOsAndArch());
         console.log('fepath');
         console.log(fepath);
-        child = spawn(fepath, ['run', '--isdev=false', "--clientip=" + clientAPIServerIP, "--clientport=" + clientAPIServerPort], {
+        child = spawn(fepath, [
+            'run',
+            '--isdev=false',
+            "--clientip=" + clientAPIServerIP,
+            "--clientport=" + clientAPIServerPort,
+        ], {
             // env: {}, // no access to environment, enabled this in prod to make sure that the app can run w/out depending on anything
             detached: false,
         });
@@ -32,10 +37,20 @@ var StartFrontendDaemon = function (clientAPIServerPort) {
           {{ COMPILE INSTRUCTIONS }}
           To run in extvenabled in development, you need to comment out the line below
         */
-        compilerTags = "extvenabled";
+        compilerTags = 'extvenabled';
         // ^^^^^ This line
         // todo
-        child = spawn('go', ['run', '-tags', compilerTags, '../frontend/main.go', 'run', '--isdev=true', "--clientip=" + clientAPIServerIP, "--clientport=" + clientAPIServerPort], {
+        child = spawn('go', [
+            'run',
+            '-tags',
+            compilerTags,
+            '../frontend/main.go',
+            'run',
+            '--isdev=true',
+            "--clientip=" + clientAPIServerIP,
+            "--clientport=" + clientAPIServerPort,
+        ], {
+            // , '--logginglevel=1'
             // env: {}, // no access to environment, enabled this in prod to make sure that the app can run w/out depending on anything
             detached: false,
         });
@@ -52,8 +67,7 @@ var StartFrontendDaemon = function (clientAPIServerPort) {
             return;
         }
         globals.FrontendDaemonStarted = false;
-        console.log('Frontend process exited with ' +
-            ("code " + code + " and signal " + signal));
+        console.log('Frontend process exited with ' + ("code " + code + " and signal " + signal));
         console.log('We will reattempt to start the frontend daemon in 10 seconds.');
         setTimeout(function () {
             console.log('Attempting to restart the frontend now.');
@@ -90,6 +104,6 @@ function getOsAndArch() {
     return opSys + '-' + arch;
 }
 module.exports = {
-    StartFrontendDaemon: StartFrontendDaemon
+    StartFrontendDaemon: StartFrontendDaemon,
 };
 //# sourceMappingURL=fesupervisor.js.map

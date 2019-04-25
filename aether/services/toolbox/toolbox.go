@@ -115,6 +115,12 @@ func DeleteFromDisk(path string) {
 	}
 }
 
+// ResetPath deletes and recreates a path as empty.
+func ResetPath(path string) {
+	DeleteFromDisk(path)
+	CreatePath(path)
+}
+
 func IndexOf(searchString string, stringSlice []string) int {
 	for key, _ := range stringSlice {
 		if stringSlice[key] == searchString {

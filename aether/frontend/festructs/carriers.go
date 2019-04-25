@@ -6,10 +6,12 @@ package festructs
 
 import (
 	"aether-core/aether/frontend/beapiconsumer"
+	// "aether-core/aether/frontend/search"
 	pbstructs "aether-core/aether/protos/mimapi"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/rollingbloom"
+	// "aether-core/aether/services/toolbox"
 	// "fmt"
 	// "github.com/davecgh/go-spew/spew"
 	// "sort"
@@ -381,15 +383,24 @@ func (c *BCBatch) Find(fp string) int {
 
 // Distribute the oncoming board entities to existing boards.
 func (c *BCBatch) Insert(newBoardEntities []*pbstructs.Board) {
+	/*
+		The disabled toBeIndexed search index methods here allow for batch indexing of boards. This is disabled for now, and the indexing for boards is handled at the compiledboard level, one level down the stack.
+
+		The issue with that is, when you have a 1:1 mapping between a carrier and a compiled item, that means your batch size for indexing will always be 1. This is not too big of an issue, it just makes indexing take a little longer — but in the case this starts to become a problem, we can always make it batch by re-enabling this.
+	*/
+	// toBeIndexed := CBoardBatch{}
 	for k, _ := range newBoardEntities {
 		if i := c.Find(newBoardEntities[k].GetProvable().GetFingerprint()); i != -1 {
 			(*c)[i].Boards.InsertFromProtobuf([]*pbstructs.Board{newBoardEntities[k]})
+			// toBeIndexed = append(toBeIndexed, (*c)[i].Boards[0])
 		} else {
 			bc := NewBoardCarrier(newBoardEntities[k].GetProvable().GetFingerprint(), globals.FrontendTransientConfig.RefresherCacheNowTimestamp)
 			bc.Boards.InsertFromProtobuf([]*pbstructs.Board{newBoardEntities[k]})
 			(*c) = append((*c), bc)
+			// toBeIndexed = append(toBeIndexed, bc.Boards[0])
 		}
 	}
+	// toBeIndexed.IndexForSearch()
 }
 
 type ThreadCarrier struct {
@@ -466,6 +477,10 @@ func (c *ThreadCarrier) refreshPosts(boardSpecificUserHeaders CUserBatch, bc *Bo
 			postsDelta = append(postsDelta, c.Posts[i])
 		}
 	}
+
+	// b := CPostBatch(postsDelta)
+	// b.IndexForSearch()
+
 	NotificationsSingleton.InsertPosts(postsDelta)
 }
 
@@ -557,29 +572,37 @@ if bc.Threads[k1].Board == fp {
 
 */
 
-type TCBatch []ThreadCarrier
+/* START - TCBatch does not seem to be actually used, re-enable if so. */
 
-func (c *TCBatch) Find(fp string) int {
-	for k, _ := range *c {
-		if (*c)[k].Fingerprint == fp {
-			return k
-		}
-	}
-	return -1
-}
+// type TCBatch []ThreadCarrier
 
-// Distribute the oncoming thread entities to existing threads.
-func (c *TCBatch) Insert(newThreadEntities []*pbstructs.Thread) {
-	for k, _ := range newThreadEntities {
-		if i := c.Find(newThreadEntities[k].GetProvable().GetFingerprint()); i != -1 {
-			(*c)[i].Threads.InsertFromProtobuf([]*pbstructs.Thread{newThreadEntities[k]})
-		} else {
-			threadCarrier := NewThreadCarrier(newThreadEntities[k].GetProvable().GetFingerprint(), newThreadEntities[k].GetBoard(), globals.FrontendTransientConfig.RefresherCacheNowTimestamp)
-			threadCarrier.Threads.InsertFromProtobuf([]*pbstructs.Thread{newThreadEntities[k]})
-			(*c) = append((*c), threadCarrier)
-		}
-	}
-}
+// func (c *TCBatch) Find(fp string) int {
+// 	for k, _ := range *c {
+// 		if (*c)[k].Fingerprint == fp {
+// 			return k
+// 		}
+// 	}
+// 	return -1
+// }
+
+// // Distribute the oncoming thread entities to existing threads.
+// func (c *TCBatch) Insert(newThreadEntities []*pbstructs.Thread) {
+// 	toBeIndexed := CThreadBatch{}
+// 	for k, _ := range newThreadEntities {
+// 		if i := c.Find(newThreadEntities[k].GetProvable().GetFingerprint()); i != -1 {
+// 			(*c)[i].Threads.InsertFromProtobuf([]*pbstructs.Thread{newThreadEntities[k]})
+// 			toBeIndexed = append(toBeIndexed, (*c)[i].Threads[0])
+// 		} else {
+// 			threadCarrier := NewThreadCarrier(newThreadEntities[k].GetProvable().GetFingerprint(), newThreadEntities[k].GetBoard(), globals.FrontendTransientConfig.RefresherCacheNowTimestamp)
+// 			threadCarrier.Threads.InsertFromProtobuf([]*pbstructs.Thread{newThreadEntities[k]})
+// 			(*c) = append((*c), threadCarrier)
+// 			toBeIndexed = append(toBeIndexed, threadCarrier.Threads[0])
+// 		}
+// 	}
+// 	toBeIndexed.IndexForSearch()
+// }
+
+/* END - TCBatch does not seem to be actually used */
 
 // This function is here mostly because it's used here. Basically, you can give this function any batches, and it will add the result of the update from the backend to the batches you've provided. This is useful for most types of carriers.
 func genSigTables(voteParentType, parentFp, targetFp string, lastRef int64, nowts int64, extantCATDs *CATDBatch, extantCFGs *CFGBatch, extantCMAs *CMABatch, noDescendants bool) {

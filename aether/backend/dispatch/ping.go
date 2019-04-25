@@ -95,7 +95,7 @@ func Ping(addr api.Address, processedAddresses chan<- api.Address) {
 		processedAddresses <- addr
 		return
 	}
-	updatedAddr, _, _, _, err := Check(addr, nil)
+	updatedAddr, _, _, _, err := Check(addr, nil, "ping")
 	if err != nil {
 		updatedAddr = blankAddr
 		logging.Log(3, err)

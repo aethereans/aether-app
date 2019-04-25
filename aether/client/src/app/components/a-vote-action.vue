@@ -7,30 +7,30 @@
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'a-vote-action',
-    data() {
-      return {}
-    }
-  }
+export default {
+  name: 'a-vote-action',
+  data() {
+    return {}
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-  @import "../scss/globals";
+@import '../scss/globals';
 
-  .vote-action {
-    display: flex;
-    margin: auto;
-  }
+.vote-action {
+  display: flex;
+  margin: auto;
+}
 
-  .already-voted-highlighter {
-    margin: auto;
-    background-color: $a-cerulean;
-    border-radius: 25px;
-    display: flex;
-    padding: 2px;
-    svg {
-      flex: 1;
-    }
+.already-voted-highlighter {
+  margin: auto;
+  background-color: $a-cerulean;
+  border-radius: 25px;
+  display: flex;
+  padding: 2px;
+  svg {
+    flex: 1;
   }
+}
 </style>

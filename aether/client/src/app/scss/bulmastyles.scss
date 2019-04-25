@@ -1,10 +1,8 @@
-/*
-Bulma styling so that we have only what we need, and in the right colours.
- */
+// Bulma styling so that we have only what we need, and in the right colours.
 
-@import "./../../../node_modules/bulma/sass/utilities/initial-variables";
-@import "./../../../node_modules/bulma/sass/utilities/functions";
-@import "./globals.scss";
+@import './../../../node_modules/bulma/sass/utilities/initial-variables';
+@import './../../../node_modules/bulma/sass/utilities/functions';
+@import './globals.scss';
 // // 2. Set your own initial variables
 // // Update blue
 // $blue: $a-green;
@@ -18,7 +16,7 @@ Bulma styling so that we have only what we need, and in the right colours.
 // $primary-invert: $pink-invert;
 // // Use the existing orange as the danger color
 // $danger: $blue;
-$primary:$a-orange;
+$primary: $a-orange;
 $link: $a-cerulean;
 $info: $a-turquoise;
 $success: $a-purple;
@@ -35,7 +33,10 @@ $dropdown-item-hover-color: $a-grey-800;
 $dropdown-item-hover-background-color: #000000;
 
 // 6. Import the rest of Bulma
-@import "./../../../node_modules/bulma";
+// @import './../../../node_modules/bulma';
+@import './../../../node_modules/bulma/sass/utilities/_all.sass';
+@import './../../../node_modules/bulma/sass/elements/button.sass';
+@import './../../../node_modules/bulma/sass/components/dropdown.sass';
 
 // 7. Set overrides
 a:hover {

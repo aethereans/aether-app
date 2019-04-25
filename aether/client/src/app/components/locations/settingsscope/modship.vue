@@ -2,25 +2,44 @@
   <div class="settings-sublocation">
     <a-markdown :content="headline"></a-markdown>
     <a-markdown :content="intro"></a-markdown>
-    <a-markdown class="settings-bottom-markdown" :content="content1"></a-markdown>
+    <a-markdown
+      class="settings-bottom-markdown"
+      :content="content1"
+    ></a-markdown>
     <div class="settings-action-container">
       <div class="current-state">
         <div class="current-state-header">
           Mod mode status
         </div>
-        <div class="current-state-text" v-show="modModeEnabled" @click="enableModMode">
+        <div
+          class="current-state-text"
+          v-show="modModeEnabled"
+          @click="enableModMode"
+        >
           Enabled
         </div>
-        <div class="current-state-text" v-show="!modModeEnabled" @click="disableModMode">
+        <div
+          class="current-state-text"
+          v-show="!modModeEnabled"
+          @click="disableModMode"
+        >
           Disabled
         </div>
       </div>
       <div class="flex-spacer"></div>
       <div class="button-carrier">
-        <a class="button is-success is-outlined" @click="enableModMode" v-show="!modModeEnabled">
+        <a
+          class="button is-success is-outlined"
+          @click="enableModMode"
+          v-show="!modModeEnabled"
+        >
           ENABLE MOD MODE
         </a>
-        <a class="button is-success is-outlined" @click="disableModMode" v-show="modModeEnabled">
+        <a
+          class="button is-success is-outlined"
+          @click="disableModMode"
+          v-show="modModeEnabled"
+        >
           DISABLE MOD MODE
         </a>
       </div>
@@ -30,46 +49,47 @@
 </template>
 
 <script lang="ts">
-  var fe = require('../../../services/feapiconsumer/feapiconsumer')
-  export default {
-    name: 'modship',
-    data() {
-      return {
-        headline: headline,
-        intro: intro,
-        content1: content1,
-        content2: content2,
-      }
-    },
-    computed: {
-      modModeEnabled(this: any) {
-        if (this.$store.state.modModeEnabledArrived && this.$store.state.modModeEnabled) {
-          return true
-        }
-        return false
-      }
-    },
-    methods: {
-      enableModMode(this: any) {
-        console.log('enable mod mode is called')
-        fe.SendModModeEnabledStatus(true, function(resp: any) {
-          console.log(resp)
-        })
-      },
-      disableModMode(this: any) {
-        console.log('disable mod mode is called')
-        fe.SendModModeEnabledStatus(false, function(resp: any) {
-          console.log(resp)
-        })
-      }
+var fe = require('../../../services/feapiconsumer/feapiconsumer')
+export default {
+  name: 'modship',
+  data() {
+    return {
+      headline: headline,
+      intro: intro,
+      content1: content1,
+      content2: content2,
     }
-  }
-  // These are var's and not let's because lets are defined only from the point they're in the code, and vars are defined for the whole scope regardless of where they are.
-  var headline = "# Mod mode"
-  var intro =
-    `**This place allows you to set the mod mode, and tells about how moderation works in Aether.**`
-  var content1 =
-    `
+  },
+  computed: {
+    modModeEnabled(this: any) {
+      if (
+        this.$store.state.modModeEnabledArrived &&
+        this.$store.state.modModeEnabled
+      ) {
+        return true
+      }
+      return false
+    },
+  },
+  methods: {
+    enableModMode(this: any) {
+      console.log('enable mod mode is called')
+      fe.SendModModeEnabledStatus(true, function(resp: any) {
+        console.log(resp)
+      })
+    },
+    disableModMode(this: any) {
+      console.log('disable mod mode is called')
+      fe.SendModModeEnabledStatus(false, function(resp: any) {
+        console.log(resp)
+      })
+    },
+  },
+}
+// These are var's and not let's because lets are defined only from the point they're in the code, and vars are defined for the whole scope regardless of where they are.
+var headline = '# Mod mode'
+var intro = `**This place allows you to set the mod mode, and tells about how moderation works in Aether.**`
+var content1 = `
 * **Mod mode allows you to act as a mod.** You should enable this mode if you've created any communities, so you can moderate them.
 
 * You should also enable this mode if you want to be an elected mod.
@@ -78,7 +98,7 @@
 
 * Your mod actions will only be effective if you have mod privileges in that community.
 `
-  var content2 = `
+var content2 = `
 
 ### What enabling mod mode does
 
@@ -184,42 +204,41 @@
 </script>
 
 <style lang="scss" scoped>
-  @import"../../../scss/bulmastyles";
-  @import "../../../scss/globals";
-  .settings-sublocation {
-    color: $a-grey-600;
-    .markdowned {
-      &:first-of-type {
-        margin-bottom: 0;
-      }
-      margin-bottom: 40px;
-      &.settings-bottom-markdown {
-        margin-bottom: 0;
-      }
+@import '../../../scss/globals';
+.settings-sublocation {
+  color: $a-grey-600;
+  .markdowned {
+    &:first-of-type {
+      margin-bottom: 0;
     }
-    .settings-action-container {
-      background-color: rgba(0, 0, 0, 0.25);
-      padding: 15px 20px; // margin: auto;
-      font-family: "SSP Bold";
-      margin-bottom: 20px;
-      border-radius: 3px;
-      display: flex;
-
-      .current-state {
-        font-family: "SCP Regular";
-        margin-bottom: 10px;
-        .current-state-header {
-          font-family: "SCP Bold"
-        }
-      }
-
-      .button-carrier {
-        padding-top: 6px;
-      }
+    margin-bottom: 40px;
+    &.settings-bottom-markdown {
+      margin-bottom: 0;
     }
   }
+  .settings-action-container {
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 15px 20px; // margin: auto;
+    font-family: 'SSP Bold';
+    margin-bottom: 20px;
+    border-radius: 3px;
+    display: flex;
 
-  .flex-spacer {
-    flex: 1;
+    .current-state {
+      font-family: 'SCP Regular';
+      margin-bottom: 10px;
+      .current-state-header {
+        font-family: 'SCP Bold';
+      }
+    }
+
+    .button-carrier {
+      padding-top: 6px;
+    }
   }
+}
+
+.flex-spacer {
+  flex: 1;
+}
 </style>

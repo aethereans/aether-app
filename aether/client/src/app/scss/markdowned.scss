@@ -1,22 +1,22 @@
 // This is the style file that handles the styling of markdownified text fragments in thread bodies and posts. This also handles the styling of creation fields.
-@import "./typefaces.scss";
+// @import './typefaces.scss';
 .markdowned {
   word-break: break-word;
   strong em {
-    font-family: "SSP Bold Italic"
+    font-family: 'SSP Bold Italic';
   }
 
   em {
-    font-family: "SSP Regular Italic"
+    font-family: 'SSP Regular Italic';
   }
 
   p a {
-    font-family: "SSP Bold";
-    display:inline-block;
+    font-family: 'SSP Bold';
+    display: inline-block;
   }
 
   ul li a {
-    font-family: "SSP Bold"
+    font-family: 'SSP Bold';
   }
 
   strong,
@@ -26,9 +26,9 @@
   h4,
   h5,
   h6 {
-    font-family: "SSP Bold";
+    font-family: 'SSP Bold';
     code {
-      font-family: "SCP Bold"
+      font-family: 'SCP Bold';
     }
   }
 
@@ -40,7 +40,7 @@
     h4,
     h5,
     h6 {
-      font-family: "SCP Bold"
+      font-family: 'SCP Bold';
     }
   }
 
@@ -60,8 +60,8 @@
   }
 
   code {
-    font-family: "SCP Semibold"; // font-size: 100%;
-    letter-spacing:0.5px;
+    font-family: 'SCP Semibold'; // font-size: 100%;
+    letter-spacing: 0.5px;
     padding-left: 3px;
     padding-right: 3px;
     border-radius: 2px;

@@ -3,16 +3,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var globalMethods = require('../services/globals/methods');
 var dotStateOrderSection = {
-    'status_section_unknown': 0,
-    'status_section_ok': 1,
-    'status_section_warn': 2,
-    'status_section_fail': 3,
+    status_section_unknown: 0,
+    status_section_ok: 1,
+    status_section_warn: 2,
+    status_section_fail: 3,
 };
 var dotStateOrderSubsection = {
-    'status_subsection_unknown': 0,
-    'status_subsection_ok': 1,
-    'status_subsection_warn': 2,
-    'status_subsection_fail': 3,
+    status_subsection_unknown: 0,
+    status_subsection_ok: 1,
+    status_subsection_warn: 2,
+    status_subsection_fail: 3,
 };
 /*----------  Utility methods  ----------*/
 function getTimeFromNowInMinutes(ts) {
@@ -30,7 +30,7 @@ function computeRefresherDotState(ambientStatus) {
     var state = 'status_subsection_ok';
     var fas = ambientStatus.frontendambientstatus;
     if (getTimeFromNowInMinutes(fas.lastrefreshtimestamp) > 5) {
-        console.log("Emitting a status warning because: Last Refresher run timestamp > 5 min");
+        console.log('Emitting a status warning because: Last Refresher run timestamp > 5 min');
         state = 'status_subsection_warn';
         return state;
     }
@@ -52,7 +52,7 @@ function computeInflightsDotState(ambientStatus) {
     iflCount = iflCount + ambientStatus.inflights.keysList.length;
     iflCount = iflCount + ambientStatus.inflights.truststatesList.length;
     if (iflCount > 10) {
-        console.log("Emitting a status warning because: Inflights queue length > 10");
+        console.log('Emitting a status warning because: Inflights queue length > 10');
         state = 'status_subsection_warn';
         return state;
     }
@@ -70,12 +70,12 @@ function computeNetworkDotState(ambientStatus) {
     var state = 'status_subsection_ok';
     var bas = ambientStatus.backendambientstatus;
     if (bas.inboundscount15 < 2) {
-        console.log("Emitting a status warning because: Less than 2 inbounds in the last 15 minutes");
+        console.log('Emitting a status warning because: Less than 2 inbounds in the last 15 minutes');
         state = 'status_subsection_warn';
         return state;
     }
     if (getTimeFromNowInMinutes(bas.lastinboundconntimestamp) > 10) {
-        console.log("Emitting a status warning because: Last inbound conn timestamp > 10 min");
+        console.log('Emitting a status warning because: Last inbound conn timestamp > 10 min');
         state = 'status_subsection_warn';
         return state;
     }
@@ -91,7 +91,7 @@ function computeDbDotState(ambientStatus) {
     var state = 'status_subsection_ok';
     var bas = ambientStatus.backendambientstatus;
     if (bas.lastinsertdurationseconds > 360) {
-        console.log("Emitting a status warning because: Last db insert took > 5 min");
+        console.log('Emitting a status warning because: Last db insert took > 5 min');
         state = 'status_subsection_warn';
         return state;
     }
@@ -106,9 +106,10 @@ function computeDbDotState(ambientStatus) {
 function computeCachingDotState(ambientStatus) {
     var state = 'status_subsection_ok';
     var bas = ambientStatus.backendambientstatus;
-    if (getTimeFromNowInMinutes(bas.lastcachegenerationtimestamp) > 720 && getTimeFromNowInMinutes(bas.lastcachegenerationtimestamp) != 0) {
+    if (getTimeFromNowInMinutes(bas.lastcachegenerationtimestamp) > 720 &&
+        getTimeFromNowInMinutes(bas.lastcachegenerationtimestamp) != 0) {
         // ^ != 0 because cache generation starts a half hour after the app starts running. We don't want to show yellows in that time zone, it is working as intended.
-        console.log("Emitting a status warning because: last cache generation timestamp is > 12h");
+        console.log('Emitting a status warning because: last cache generation timestamp is > 12h');
         state = 'status_subsection_warn';
         return state;
     }
@@ -157,14 +158,14 @@ function computeFrontendDotState(ds) {
 function computeDotStates(ambientStatus) {
     var dotStates = {
         /*----------  Main dot statuses  ----------*/
-        backendDotState: "status_section_unknown",
-        frontendDotState: "status_section_unknown",
+        backendDotState: 'status_section_unknown',
+        frontendDotState: 'status_section_unknown',
         /*----------  Sub dot states  ----------*/
-        refresherDotState: "status_subsection_unknown",
-        inflightsDotState: "status_subsection_unknown",
-        networkDotState: "status_subsection_unknown",
-        dbDotState: "status_subsection_unknown",
-        cachingDotState: "status_subsection_unknown",
+        refresherDotState: 'status_subsection_unknown',
+        inflightsDotState: 'status_subsection_unknown',
+        networkDotState: 'status_subsection_unknown',
+        dbDotState: 'status_subsection_unknown',
+        cachingDotState: 'status_subsection_unknown',
     };
     dotStates.refresherDotState = computeRefresherDotState(ambientStatus);
     dotStates.inflightsDotState = computeInflightsDotState(ambientStatus);

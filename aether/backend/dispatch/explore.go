@@ -66,8 +66,12 @@ func Explore() {
 			Sync(statics[key], []string{}, nil)
 		}
 	} else {
+		////////////////////////////////////////////
+		// per every tick
+		// all live nodes
+		////////////////////////////////////////////
 		// find a new node that we haven't synced before, and sync with it.
-		Scout(nil)
+		Scout()
 	}
 	ticker++
 	// globals.BackendTransientConfig.ExplorerTick++

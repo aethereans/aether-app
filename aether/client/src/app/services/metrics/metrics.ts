@@ -3,7 +3,7 @@
 
 // This library can be imported by both the main and the renderer.
 
-export { }
+export {}
 
 declare var mixpanel: any
 
@@ -15,9 +15,14 @@ const Store = require('electron-store')
 const store = new Store()
 const isDev = require('electron-is-dev')
 
-module.exports = function(instantiatedByMainMain: boolean, mainMainMetricsDisabled: boolean) {
+module.exports = function(
+  instantiatedByMainMain: boolean,
+  mainMainMetricsDisabled: boolean
+) {
   // If we have an already instantiated module, return that.
-  if (moduleCache) { return moduleCache }
+  if (moduleCache) {
+    return moduleCache
+  }
   // if (instantiatedByMainMain) {
   //   console.log('Metrics initialised by MainMain')
   //   console.log('MetricsDisabled: ', metricsDisabled())
@@ -29,7 +34,7 @@ module.exports = function(instantiatedByMainMain: boolean, mainMainMetricsDisabl
   if (instantiatedByMainMain) {
     var mp = require('mixpanel')
     nodeMixpanel = mp.init('b48754d816a75407938965c24debbe46', {
-      protocol: 'https'
+      protocol: 'https',
     })
   }
   let mixpanelInstance: any = {}
@@ -43,11 +48,15 @@ module.exports = function(instantiatedByMainMain: boolean, mainMainMetricsDisabl
   /*
     If this is instantiated by the MainMain, not the Renderer, this will be flipped true. This allows this library to be compatible with both.
   */
-  let appVersionAndBuild = ""
+  let appVersionAndBuild = ''
   if (instantiatedByMainMain) {
-    appVersionAndBuild = require('electron').app.getVersion().split('+')
+    appVersionAndBuild = require('electron')
+      .app.getVersion()
+      .split('+')
   } else {
-    appVersionAndBuild = require('electron').remote.app.getVersion().split('+')
+    appVersionAndBuild = require('electron')
+      .remote.app.getVersion()
+      .split('+')
   }
   let appVersion = appVersionAndBuild[0]
   let appBuild = appVersionAndBuild[1]
@@ -66,8 +75,8 @@ module.exports = function(instantiatedByMainMain: boolean, mainMainMetricsDisabl
       let did = store.get('did')
       if (!did) {
         // No known did beforehand
-        store.set('did', "MIXPANEL_ELECTRON_CLIENT_DID_NOT_LOAD")
-        if (typeof mixpanelInstance.get_distinct_id !== "undefined") {
+        store.set('did', 'MIXPANEL_ELECTRON_CLIENT_DID_NOT_LOAD')
+        if (typeof mixpanelInstance.get_distinct_id !== 'undefined') {
           store.set('did', mixpanelInstance.get_distinct_id())
         }
       } else {
@@ -84,14 +93,22 @@ module.exports = function(instantiatedByMainMain: boolean, mainMainMetricsDisabl
     }
   }
 
-  module.SendContentEvent = function(contentType: string, eventType: string, customFields: any) {
+  module.SendContentEvent = function(
+    contentType: string,
+    eventType: string,
+    customFields: any
+  ) {
     let fields = getFields(customFields)
     fields['A-Type'] = contentType
     fields['A-EventType'] = eventType
     module.SendRaw('ContentEvent', fields)
   }
 
-  module.SendSignalEvent = function(signalType: string, eventType: string, customFields: any) {
+  module.SendSignalEvent = function(
+    signalType: string,
+    eventType: string,
+    customFields: any
+  ) {
     let fields = getFields(customFields)
     fields['A-Type'] = signalType
     fields['A-EventType'] = eventType
@@ -104,13 +121,13 @@ module.exports = function(instantiatedByMainMain: boolean, mainMainMetricsDisabl
     payload['A-Ambient-AppVersion'] = appVersion
     payload['A-Ambient-AppBuild'] = appBuild
     if (instantiatedByMainMain) {
-      payload['A-Ambient-Page'] = "Client MainMain"
-      payload['A-Ambient-PageName'] = "Client MainMain"
+      payload['A-Ambient-Page'] = 'Client MainMain'
+      payload['A-Ambient-PageName'] = 'Client MainMain'
       return
     }
     const vuexStore = require('../../store/index').default
     // payload['A-Ambient-Page'] = vuexStore.state.route.path
-    payload['A-Ambient-Page'] = "Client Renderer"
+    payload['A-Ambient-Page'] = 'Client Renderer'
     payload['A-Ambient-PageName'] = vuexStore.state.route.name
   }
 
@@ -134,5 +151,3 @@ module.exports = function(instantiatedByMainMain: boolean, mainMainMetricsDisabl
   moduleCache = module
   return module
 }
-
-

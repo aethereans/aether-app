@@ -72,6 +72,28 @@ function deserialize_clapi_AmbientsResponse(buffer_arg) {
   return clapi_clapi_pb.AmbientsResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_clapi_ExternalContentAutoloadDisabledStatusPayload(arg) {
+  if (!(arg instanceof clapi_clapi_pb.ExternalContentAutoloadDisabledStatusPayload)) {
+    throw new Error('Expected argument of type clapi.ExternalContentAutoloadDisabledStatusPayload');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_clapi_ExternalContentAutoloadDisabledStatusPayload(buffer_arg) {
+  return clapi_clapi_pb.ExternalContentAutoloadDisabledStatusPayload.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_clapi_ExternalContentAutoloadDisabledStatusResponse(arg) {
+  if (!(arg instanceof clapi_clapi_pb.ExternalContentAutoloadDisabledStatusResponse)) {
+    throw new Error('Expected argument of type clapi.ExternalContentAutoloadDisabledStatusResponse');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_clapi_ExternalContentAutoloadDisabledStatusResponse(buffer_arg) {
+  return clapi_clapi_pb.ExternalContentAutoloadDisabledStatusResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_clapi_FEReadyRequest(arg) {
   if (!(arg instanceof clapi_clapi_pb.FEReadyRequest)) {
     throw new Error('Expected argument of type clapi.FEReadyRequest');
@@ -204,6 +226,28 @@ function deserialize_clapi_PopularViewResponse(buffer_arg) {
   return clapi_clapi_pb.PopularViewResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_clapi_SearchResultPayload(arg) {
+  if (!(arg instanceof clapi_clapi_pb.SearchResultPayload)) {
+    throw new Error('Expected argument of type clapi.SearchResultPayload');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_clapi_SearchResultPayload(buffer_arg) {
+  return clapi_clapi_pb.SearchResultPayload.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_clapi_SearchResultResponse(arg) {
+  if (!(arg instanceof clapi_clapi_pb.SearchResultResponse)) {
+    throw new Error('Expected argument of type clapi.SearchResultResponse');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_clapi_SearchResultResponse(buffer_arg) {
+  return clapi_clapi_pb.SearchResultResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 // These "Set", "Get" verbs are written from the viewpoint of the consumer of this api.
 var ClientAPIService = exports.ClientAPIService = {
@@ -308,6 +352,28 @@ var ClientAPIService = exports.ClientAPIService = {
     requestDeserialize: deserialize_clapi_ModModeEnabledStatusPayload,
     responseSerialize: serialize_clapi_ModModeEnabledStatusResponse,
     responseDeserialize: deserialize_clapi_ModModeEnabledStatusResponse,
+  },
+  sendExternalContentAutoloadDisabledStatus: {
+    path: '/clapi.ClientAPI/SendExternalContentAutoloadDisabledStatus',
+    requestStream: false,
+    responseStream: false,
+    requestType: clapi_clapi_pb.ExternalContentAutoloadDisabledStatusPayload,
+    responseType: clapi_clapi_pb.ExternalContentAutoloadDisabledStatusResponse,
+    requestSerialize: serialize_clapi_ExternalContentAutoloadDisabledStatusPayload,
+    requestDeserialize: deserialize_clapi_ExternalContentAutoloadDisabledStatusPayload,
+    responseSerialize: serialize_clapi_ExternalContentAutoloadDisabledStatusResponse,
+    responseDeserialize: deserialize_clapi_ExternalContentAutoloadDisabledStatusResponse,
+  },
+  sendSearchResult: {
+    path: '/clapi.ClientAPI/SendSearchResult',
+    requestStream: false,
+    responseStream: false,
+    requestType: clapi_clapi_pb.SearchResultPayload,
+    responseType: clapi_clapi_pb.SearchResultResponse,
+    requestSerialize: serialize_clapi_SearchResultPayload,
+    requestDeserialize: deserialize_clapi_SearchResultPayload,
+    responseSerialize: serialize_clapi_SearchResultResponse,
+    responseDeserialize: deserialize_clapi_SearchResultResponse,
   },
 };
 

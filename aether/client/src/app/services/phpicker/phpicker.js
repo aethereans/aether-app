@@ -10,7 +10,7 @@ var phs = [
         Placeholder: '[citation needed]',
     },
     {
-        Placeholder: "‘Use the force, Harry’ — Gandalf",
+        Placeholder: '‘Use the force, Harry’ — Gandalf',
     },
     {
         Placeholder: 'This is my textbox, there are many like it but this one is mine',
@@ -20,7 +20,7 @@ var phs = [
     },
     {
         Placeholder: "It's turtles all the way down",
-    }
+    },
 ];
 function GetPlaceholder() {
     var rnd = Math.floor(Math.random() * phs.length);

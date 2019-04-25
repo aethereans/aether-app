@@ -1,18 +1,17 @@
 // Services > Global Constants
 
-
 // var ipc = require('../../../../node_modules/electron-better-ipc')
 // const fesupervisor = require('../fesupervisor/fesupervisor')
 
 interface Globals {
-  FrontendReady: boolean;
-  FrontendAPIPort: number;
-  FrontendClientConnInitialised: boolean;
-  ClientAPIServerPort: number;
-  FrontendDaemonStarted: boolean;
-  RendererReady: boolean;
-  FrontendDaemon: any;
-  AppIsShuttingDown: boolean;
+  FrontendReady: boolean
+  FrontendAPIPort: number
+  FrontendClientConnInitialised: boolean
+  ClientAPIServerPort: number
+  FrontendDaemonStarted: boolean
+  RendererReady: boolean
+  FrontendDaemon: any
+  AppIsShuttingDown: boolean
 }
 
 let glob: Globals = {
@@ -27,5 +26,3 @@ let glob: Globals = {
 }
 
 module.exports = glob
-
-

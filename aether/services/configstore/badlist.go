@@ -211,7 +211,7 @@ func (list *Badlist) saveToDisk() error {
 	toolbox.CreatePath(filepath.Join(folders[0].Path, binI))
 	writeAheadPath := filepath.Join(folders[0].Path, binI, "badlist_writeahead.json")
 	targetPath := filepath.Join(folders[0].Path, binI, "badlist.json")
-	err2 := ioutil.WriteFile(writeAheadPath, listAsByte, 0644)
+	err2 := ioutil.WriteFile(writeAheadPath, listAsByte, 0755)
 	if err2 != nil {
 		return err2
 	}

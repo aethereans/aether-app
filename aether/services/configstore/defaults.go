@@ -37,7 +37,7 @@ const (
 	defaultTLSHandshakeTimeout                     = 10 * time.Second
 	defaultPingerPageSize                          = 100
 	defaultOnlineAddressFinderPageSize             = 99
-	defaultDispatchExclusionExpiryForLiveAddress   = 3 * time.Minute
+	defaultDispatchExclusionExpiryForLiveAddress   = 5 * time.Minute
 	defaultDispatchExclusionExpiryForStaticAddress = 72 * time.Hour
 	defaultPowStrength                             = 21
 	defaultExternalIp                              = "127.0.0.1" // Localhost, if this is still 127.0.0.1 at any point in the future we failed at finding this out.
@@ -48,10 +48,11 @@ const (
 	defaultDbPort                                  = 3306
 	defaultDbUsername                              = "aether-app-db-access-user"
 	defaultDbPassword                              = "exventoveritas"
-	defaultNeighbourCount                          = 5
+	defaultNeighbourCount                          = 10
 	defaultMaxAddressTableSize                     = 1000
-	defaultMaxInboundConns                         = 5
+	defaultMaxInboundConns                         = 10
 	defaultMaxOutboundConns                        = 1
+	defaultMaxPingConns                            = 100
 	defaultMaxDbSizeMb                             = 10000
 	defaultVotesMemoryDays                         = 14
 	defaultBootstrapAfterOfflineMinutes            = 360

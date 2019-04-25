@@ -7,6 +7,7 @@ import (
 	"aether-core/aether/frontend/beapiconsumer"
 	"aether-core/aether/frontend/clapiconsumer"
 	"aether-core/aether/frontend/festructs"
+	// "aether-core/aether/frontend/kvstore"
 	"aether-core/aether/io/api"
 	pbstructs "aether-core/aether/protos/mimapi"
 	"aether-core/aether/services/globals"
@@ -31,6 +32,8 @@ var (
 func Refresh() {
 	globals.FrontendTransientConfig.RefresherMutex.Lock()
 	defer globals.FrontendTransientConfig.RefresherMutex.Unlock()
+	// p, _ := kvstore.SearchPosts("italian")
+	// logging.Logf(1, "posts: %#v", p)
 
 	/*----------  Set status visible in the client  ----------*/
 	clapiconsumer.FrontendAmbientStatus.RefresherStatus = "Compiling..."
@@ -94,6 +97,36 @@ func DeleteStaleData(nowts int64) {
 	cutoff := toolbox.CnvToCutoffDays(globals.FrontendConfig.GetKvStoreRetentionDays())
 	// Delete stale boards
 	query := globals.KvInstance.Select(q.Lte("LastRefreshed", cutoff))
+
+	/*==================================================
+	=            Deletion from search index            =
+	==================================================*/
+	bcs := []festructs.BoardCarrier{}
+	query.Find(&bcs)
+	for i, _ := range bcs {
+		for j, _ := range bcs[i].Boards {
+			bcs[i].Boards[j].DeleteFromSearchIndex()
+		}
+	}
+	tcs := []festructs.ThreadCarrier{}
+	query.Find(&tcs)
+	for i, _ := range tcs {
+		for j, _ := range tcs[i].Threads {
+			bcs[i].Threads[j].DeleteFromSearchIndex()
+		}
+		for j, _ := range tcs[i].Posts {
+			bcs[i].Posts[j].DeleteFromSearchIndex()
+		}
+	}
+	uhcs := []festructs.UserHeaderCarrier{}
+	query.Find(&uhcs)
+	for i, _ := range uhcs {
+		for j, _ := range uhcs[i].Users {
+			uhcs[i].Users[j].DeleteFromSearchIndex()
+		}
+	}
+	/*=====  End of Deletion from search index  ======*/
+
 	err := query.Delete(new(festructs.BoardCarrier))
 	if err != nil && !strings.Contains(err.Error(), "not found") {
 		logging.Logf(1, "Deletion of stale boards errored out. Err: %v", err)
@@ -115,14 +148,25 @@ func RefreshGlobalUserHeaders(newUserEntities []*pbstructs.Key, nowts int64) {
 	if err != nil {
 		logging.Logf(1, "Fetching all global user headers before the refresh has failed. Error: %v", err)
 	}
+	/*
+		The disabled toBeIndexed search index methods here allow for batch indexing of user headers. This is disabled for now, and the indexing for boards is handled at the compiledboard level, one level down the stack.
+
+		The issue with that is, when you have a 1:1 mapping between a carrier and a compiled item, that means your batch size for indexing will always be 1. This is not too big of an issue, it just makes indexing take a little longer — but in the case this starts to become a problem, we can always make it batch by re-enabling this.
+	*/
+	// toBeIndexed := festructs.CUserBatch{}
 	uhcBatch := festructs.UHCBatch(uhcs)
 	for k, _ := range newUserEntities {
 		if i := uhcBatch.Find(newUserEntities[k].GetProvable().GetFingerprint()); i != -1 {
+			// It already exists
 			uhcBatch[i].Users.InsertFromProtobuf([]*pbstructs.Key{newUserEntities[k]}, nowts)
+			// toBeIndexed = append(toBeIndexed, uhcBatch[i].Users[0])
+
 		} else {
+			// It doesn't exist
 			uhc := festructs.NewUserHeaderCarrier(newUserEntities[k].GetProvable().GetFingerprint(), "", nowts)
 			uhc.Users.InsertFromProtobuf([]*pbstructs.Key{newUserEntities[k]}, nowts)
 			uhcBatch = append(uhcBatch, uhc)
+			// toBeIndexed = append(toBeIndexed, uhc.Users[0])
 		}
 	}
 	for k, _ := range uhcBatch {
@@ -133,6 +177,8 @@ func RefreshGlobalUserHeaders(newUserEntities []*pbstructs.Key, nowts int64) {
 			This is where you calculate and insert the global mods assigned by the CA.
 		*/
 	}
+	// Insert to search index.
+	// toBeIndexed.IndexForSearch()
 	// We need to add items coming in from this delta.
 
 	// logging.Logf(1, "This is the refreshed global user headers. %s", spew.Sdump(uhcBatch))
@@ -223,4 +269,5 @@ func postRefresh() {
 	clapiconsumer.SendPopularView()
 	clapiconsumer.SendNotifications()
 	festructs.NotificationsSingleton.Save()
+	go festructs.CommitSearchIndexes()
 }

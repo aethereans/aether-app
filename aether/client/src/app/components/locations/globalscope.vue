@@ -9,33 +9,38 @@
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'globalscope',
-    data() {
-      return {}
+export default {
+  name: 'globalscope',
+  data() {
+    return {}
+  },
+  computed: {
+    tabslist(this: any) {
+      return [
+        {
+          name: 'ALL',
+          link: '/globalscope',
+        },
+        {
+          name: 'SUBBED',
+          link: '/globalscope/subbed',
+        },
+        {
+          name: 'SEARCH',
+          link: '/searchscope',
+        },
+      ]
     },
-    computed: {
-      tabslist(this: any) {
-        return [{
-          'name': 'ALL',
-          'link': '/globalscope'
-        }, {
-          'name': 'SUBBED',
-          'link': '/globalscope/subbed'
-        }]
+  },
+  methods: {
+    tabsVisible(this: any): boolean {
+      if (this.$store.state.route.name === 'Global>NewBoard') {
+        return false
       }
+      return true
     },
-    methods: {
-      tabsVisible(this: any): boolean {
-        if (this.$store.state.route.name === 'Global>NewBoard') {
-          return false
-        }
-        return true
-      }
-    }
-  }
+  },
+}
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

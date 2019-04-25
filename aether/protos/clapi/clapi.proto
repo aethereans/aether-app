@@ -20,6 +20,8 @@ service ClientAPI {
   rpc SendNotifications(NotificationsPayload) returns (NotificationsResponse) {}
   rpc SendOnboardCompleteStatus(OnboardCompleteStatusPayload) returns (OnboardCompleteStatusResponse) {}
   rpc SendModModeEnabledStatus(ModModeEnabledStatusPayload) returns (ModModeEnabledStatusResponse) {}
+  rpc SendExternalContentAutoloadDisabledStatus(ExternalContentAutoloadDisabledStatusPayload) returns (ExternalContentAutoloadDisabledStatusResponse) {}
+  rpc SendSearchResult(SearchResultPayload) returns (SearchResultResponse) {}
 }
 
 message FEReadyRequest {
@@ -156,3 +158,23 @@ message ModModeEnabledStatusPayload {
 }
 
 message ModModeEnabledStatusResponse {}
+
+/*----------  External content autoload state  ----------*/
+
+message ExternalContentAutoloadDisabledStatusPayload {
+  bool ExternalContentAutoloadDisabled = 1;
+}
+
+message ExternalContentAutoloadDisabledStatusResponse {}
+
+/*----------  Search result delivery API  ----------*/
+
+message SearchResultPayload {
+  string SearchType = 1;
+  repeated feobjects.CompiledBoardEntity Boards = 2;
+  repeated feobjects.CompiledThreadEntity Threads = 3;
+  repeated feobjects.CompiledPostEntity Posts = 4;
+  repeated feobjects.CompiledUserEntity Users = 5;
+}
+
+message SearchResultResponse {}

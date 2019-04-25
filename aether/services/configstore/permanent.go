@@ -279,10 +279,13 @@ How many nodes do we allow to be simultaneously connected to this node. This num
 # MaxOutboundConns
 How many outbounds do we allow. Otherwise same as MaxInboundConns.
 
+# MaxPingConns
+How many ping (inbound 'hello's) do we allow. Otherwise same as MaxInboundConns.
+
 # MaxDbSizeMb
 This is the size that the user has allotted the application to use in the computer. Mind that this is only the database, and it is only the threshold where the event horizon starts to delete. Even when this threshold is not reached, if entities's last references reach the threshold of local memory, they will still be deleted.
 
-# VotesMemoryDays
+# VotesMemoryDays DEPRECATED TODO FUTURE REMOVE
 How long will the votes be retained in memory. This is a special case of LocalMemoryDays. We retain the votes much fewer days than the rest of the items because they're much more numerous and much less information dense. That does not mean all voting information will disappear though - when the frontend compiles votes, the compiled vote counts will be retained normally.
 
 # Scaled Mode
@@ -457,6 +460,7 @@ type BackendConfig struct {
 	MaxAddressTableSize                     uint
 	MaxInboundConns                         uint
 	MaxOutboundConns                        uint
+	MaxPingConns                            uint
 	MaxDbSizeMb                             uint
 	VotesMemoryDays                         uint // 14
 	EventHorizonTimestamp                   int64
@@ -1084,6 +1088,18 @@ func (config *BackendConfig) GetMaxOutboundConns() int {
 		return int(config.MaxOutboundConns)
 	} else {
 		log.Fatal(invalidDataError(fmt.Sprintf("%#v", config.MaxOutboundConns) + " Trace: " + toolbox.Trace()))
+	}
+	log.Fatal("This should never happen." + toolbox.Trace())
+	return 0
+}
+
+func (config *BackendConfig) GetMaxPingConns() int {
+	config.InitCheck()
+	if config.MaxPingConns < toolbox.MaxInt32 &&
+		config.MaxPingConns > 0 {
+		return int(config.MaxPingConns)
+	} else {
+		log.Fatal(invalidDataError(fmt.Sprintf("%#v", config.MaxPingConns) + " Trace: " + toolbox.Trace()))
 	}
 	log.Fatal("This should never happen." + toolbox.Trace())
 	return 0
@@ -2097,6 +2113,22 @@ func (config *BackendConfig) SetMaxOutboundConns(val int) error {
 	return nil
 }
 
+func (config *BackendConfig) SetMaxPingConns(val int) error {
+	config.InitCheck()
+	if val >= 0 {
+		config.MaxPingConns = uint(val)
+		commitErr := config.Commit()
+		if commitErr != nil {
+			return commitErr
+		}
+		return nil
+	} else {
+		return invalidDataError(fmt.Sprintf("%#v", val) + " Trace: " + toolbox.Trace())
+	}
+	log.Fatal("This should never happen." + toolbox.Trace())
+	return nil
+}
+
 func (config *BackendConfig) SetMaxDbSizeMb(val int) error {
 	config.InitCheck()
 	if val >= 0 {
@@ -2614,6 +2646,9 @@ func (config *BackendConfig) BlankCheck() {
 	if config.MaxOutboundConns == 0 {
 		config.SetMaxOutboundConns(defaultMaxOutboundConns)
 	}
+	if config.MaxPingConns == 0 {
+		config.SetMaxPingConns(defaultMaxPingConns)
+	}
 	if config.MaxDbSizeMb == 0 {
 		config.SetMaxDbSizeMb(defaultMaxDbSizeMb)
 	}
@@ -2729,6 +2764,7 @@ func (config *BackendConfig) SanityCheck() {
 		config.GetMaxAddressTableSize()
 		config.GetMaxInboundConns()
 		config.GetMaxOutboundConns()
+		config.GetMaxPingConns()
 		config.GetMaxDbSizeMb()
 		config.GetVotesMemoryDays()
 		config.GetEventHorizonTimestamp()
@@ -2768,7 +2804,7 @@ func (config *BackendConfig) Commit() error {
 	toolbox.CreatePath(filepath.Join(folders[0].Path, "backend"))
 	writeAheadPath := filepath.Join(folders[0].Path, "backend", "backend_config_writeahead.json")
 	targetPath := filepath.Join(folders[0].Path, "backend", "backend_config.json")
-	err := ioutil.WriteFile(writeAheadPath, confAsByte, 0644)
+	err := ioutil.WriteFile(writeAheadPath, confAsByte, 0755)
 	if err != nil {
 		return err
 	}
@@ -2898,6 +2934,7 @@ type FrontendConfig struct {
 	LocalDevBackendEnabled                  bool
 	LocalDevBackendDirectory                string
 	LastKnownClientVersion                  string
+	ExternalContentAutoloadDisabled         bool
 }
 
 // Init check gate
@@ -3311,6 +3348,11 @@ func (config *FrontendConfig) GetLastKnownClientVersion() string {
 	}
 	log.Fatal("This should never happen." + toolbox.Trace())
 	return ""
+}
+
+func (config *FrontendConfig) GetExternalContentAutoloadDisabled() bool {
+	config.InitCheck()
+	return config.ExternalContentAutoloadDisabled
 }
 
 /*****************************************************************************/
@@ -3869,6 +3911,16 @@ func (config *FrontendConfig) SetLastKnownClientVersion(val string) error {
 	return nil
 }
 
+func (config *FrontendConfig) SetExternalContentAutoloadDisabled(val bool) error {
+	config.InitCheck()
+	config.ExternalContentAutoloadDisabled = val
+	commitErr := config.Commit()
+	if commitErr != nil {
+		return commitErr
+	}
+	return nil
+}
+
 /*****************************************************************************/
 
 // Frontend config methods
@@ -3985,6 +4037,8 @@ func (config *FrontendConfig) BlankCheck() {
 		config.SetLocalDevBackendDirectory(defaultLocalDevBackendDirectory)
 	}
 	// ::LastKnownClientVersion: can be false, no need to blank check.
+	// ::ExternalContentAutoloadDisabled: can be false, no need to blank check.
+
 }
 func (config *FrontendConfig) SanityCheck() {
 	if !config.GetInitialised() {
@@ -4034,7 +4088,7 @@ func (config *FrontendConfig) Commit() error {
 	toolbox.CreatePath(filepath.Join(folders[0].Path, "frontend"))
 	writeAheadPath := filepath.Join(folders[0].Path, "frontend", "frontend_config_writeahead.json")
 	targetPath := filepath.Join(folders[0].Path, "frontend", "frontend_config.json")
-	err := ioutil.WriteFile(writeAheadPath, confAsByte, 0644)
+	err := ioutil.WriteFile(writeAheadPath, confAsByte, 0755)
 	if err != nil {
 		return err
 	}

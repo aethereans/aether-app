@@ -35,7 +35,7 @@ require('electron-context-menu')({
   //   // Only show it when right-clicking images
   //   visible: true
   // }]
-  showCopyLink: false
+  showCopyLink: false,
 })
 
 /*===================================
@@ -121,7 +121,6 @@ function saveWinBounds() {
 
 /*=====  End of Retaining window size and location  ======*/
 
-
 /*----------  Open / close  ----------*/
 // These are shared methods. If there are any changes to these events, they should be implemented here.
 
@@ -151,7 +150,9 @@ elc.app.on('activate', () => {
 elc.app.on('before-quit', function(e: any) {
   contextMenuTemplate[0].label = 'Shutting down...'
   saveWinBounds()
-  setTimeout(function() { elc.app.exit() }, 3000) // Hard limit - if it doesn't shut down in 3 seconds, we force kill it.
+  setTimeout(function() {
+    elc.app.exit()
+  }, 3000) // Hard limit - if it doesn't shut down in 3 seconds, we force kill it.
   const contextMenu = elc.Menu.buildFromTemplate(contextMenuTemplate)
   tray.setContextMenu(contextMenu)
   // console.log('before-quit: electron is quitting. ')
@@ -161,12 +162,11 @@ elc.app.on('before-quit', function(e: any) {
   }
   e.preventDefault()
   globals.FrontendDaemon.on('exit', function() {
-    console.log("Frontend has exited.")
+    console.log('Frontend has exited.')
     elc.app.exit()
   })
   treekill(globals.FrontendDaemon.pid)
   metrics.SendRaw('App shut down')
-
 })
 // elc.app.on('will-quit', function() {
 //   console.log('will-quit: electron is quitting. ')
@@ -174,32 +174,34 @@ elc.app.on('before-quit', function(e: any) {
 
 // Make the app a single-instance app.
 // This is actually enforced by Mac OS, but unfortunately Windows isn't that easy - you have to manually implement it.
-var shouldQuit = elc.app.makeSingleInstance(function(argv: any) {
-  if (process.platform === 'win32') {
-    /*
+var shouldQuitDueToAnotherInstanceBeingOpen = elc.app.makeSingleInstance(
+  function(argv: any) {
+    if (process.platform === 'win32') {
+      /*
       This is the windows-specific implementation of the open-url in the will-finish-launching event.
 
       This code is available in two different places. This one handles deep-linking after the app is open.
     */
-    // Keep only command line / deep linked arguments
-    if (typeof argv.slice(1)[0] !== "undefined") {
-      linkToLoadAtBoot = argv.slice(1)[0].substring(8)
+      // Keep only command line / deep linked arguments
+      if (typeof argv.slice(1)[0] !== 'undefined') {
+        linkToLoadAtBoot = argv.slice(1)[0].substring(8)
+      }
+      if (linkToLoadAtBoot.length > 0) {
+        ipc.callRenderer(win, 'RouteTo', linkToLoadAtBoot)
+      }
+      openAppWindow()
     }
-    if (linkToLoadAtBoot.length > 0) {
-      ipc.callRenderer(win, 'RouteTo', linkToLoadAtBoot)
+    if (win) {
+      if (win.isMinimized()) {
+        win.restore()
+      }
+      win.focus()
     }
-    openAppWindow()
   }
-  if (win) {
-    if (win.isMinimized()) {
-      win.restore()
-    }
-    win.focus()
-  }
-})
+)
 
-if (shouldQuit) {
-  elc.app.quit()
+if (shouldQuitDueToAnotherInstanceBeingOpen) {
+  elc.app.exit()
 }
 
 function EstablishExternalResourceAutoLoadFiltering() {
@@ -213,8 +215,7 @@ function EstablishExternalResourceAutoLoadFiltering() {
     If you'd like to make things a little tighter in exchange to not being able to preview, replace this list with an empty one, and all auto-loads will be blocked.
   */
 
-  // This list should be editable. (TODO)
-  const whitelist = [
+  let autoloadEnabledWhitelist = [
     'https://*.getaether.net/**',
     'https://*.imgur.com/**',
     'https://imgur.com/**',
@@ -227,10 +228,38 @@ function EstablishExternalResourceAutoLoadFiltering() {
     'https://*.coinbase.com/**',
     'file://**', // So that we can load the local client app itself
     'chrome-devtools://**',
-    'chrome-extension://**' // for vue devtools
+    'chrome-extension://**', // for vue devtools
   ]
+
+  let autoloadDisabledWhitelist = [
+    'https://*.getaether.net/**',
+    'https://*.mixpanel.com/**',
+    'https://*.mxpnl.com/**',
+    'file://**',
+    'chrome-devtools://**',
+    'chrome-extension://**',
+  ]
+
+  // This list should be editable. (TODO)
+  let whitelist = autoloadEnabledWhitelist
+
+  ipc.answerRenderer('DisableExternalResourceAutoLoad', function() {
+    // Only the URLs required for correct app functionality.
+    whitelist = autoloadDisabledWhitelist
+    return true
+  })
+
+  ipc.answerRenderer('EnableExternalResourceAutoLoad', function() {
+    // Only the URLs required for correct app functionality.
+    whitelist = autoloadEnabledWhitelist
+    return true
+  })
+
   // Allow any auto-load request that's in the whitelist. Deny autoload requests to all other domains.
-  elc.session.defaultSession.webRequest.onBeforeRequest(function(details: any, cb: any) {
+  elc.session.defaultSession.webRequest.onBeforeRequest(function(
+    details: any,
+    cb: any
+  ) {
     // console.log(details.url) // Uncomment this to see all attempted outbound network requests from the client app.
     for (let i = 0; i < whitelist.length; i++) {
       if (minimatch(details.url, whitelist[i], { matchBase: true })) {
@@ -272,7 +301,7 @@ function EstablishElectronWindow() {
     title: 'Aether',
     fullscreenWindowTitle: true,
     backgroundColor: '#292b2f',
-    disableBlinkFeatures: "Auxclick", // disable middle click new window
+    disableBlinkFeatures: 'Auxclick', // disable middle click new window
     autoHideMenuBar: true,
     webPreferences: {
       // blinkFeatures: 'OverlayScrollbars'
@@ -306,7 +335,6 @@ function EstablishElectronWindow() {
 
   // win.webContents.openDevTools({ mode: 'bottom' })
 
-
   win.on('close', function(e: any) {
     e.preventDefault()
     // ^ Prevents the app from continuing on with destroying the window element. We need that element.
@@ -326,7 +354,7 @@ function EstablishElectronWindow() {
         This code is available in two different places. This one handles deep-linking from cold boot.
       */
       // Keep only command line / deep linked arguments
-      if (typeof process.argv.slice(1)[0] !== "undefined") {
+      if (typeof process.argv.slice(1)[0] !== 'undefined') {
         linkToLoadAtBoot = process.argv.slice(1)[0].substring(8)
       }
     }
@@ -371,7 +399,7 @@ function EstablishElectronWindow() {
   })
 }
 
-let linkToLoadAtBoot = ""
+let linkToLoadAtBoot = ''
 
 elc.app.on('will-finish-launching', function() {
   // Register Aether's aether:// as a standard (http-like) protocol
@@ -382,16 +410,6 @@ elc.app.on('will-finish-launching', function() {
     linkToLoadAtBoot = url.substring(8)
   })
 })
-
-// let openApp = function() {
-//   if (win === null) {
-//     main()
-//   }
-//   if (win.isMinimized()) {
-//     win.restore()
-//   }
-//   win.focus()
-// }
 
 let openPreferences = function() {
   openAppWindow()
@@ -419,24 +437,26 @@ let contextMenuTemplate = [
   { label: 'Preferences...', click: openPreferences },
   { label: 'Community support', click: openSupport },
   { type: 'separator' },
-  { label: 'Quit Aether', click: quitApp }
+  { label: 'Quit Aether', click: quitApp },
 ]
 
 function EstablishTray() {
-  if (tray !== null) { return }
+  if (tray !== null) {
+    return
+  }
   /*----------  Tray functions  ----------*/
 
   /*----------  Tray functions END  ----------*/
-  let trayIconLocation = ""
+  let trayIconLocation = ''
   if (process.platform === 'darwin') {
-    trayIconLocation = "ext_dep/images/TrayTemplate.png"
+    trayIconLocation = 'ext_dep/images/TrayTemplate.png'
   }
   if (process.platform === 'win32') {
-    trayIconLocation = "ext_dep/images/WindowsTrayIconAlt3.png"
+    trayIconLocation = 'ext_dep/images/WindowsTrayIconAlt3.png'
     // trayIconLocation = "ext_dep/images/WindowsTrayIcon.ico"
   }
   if (process.platform === 'linux') {
-    trayIconLocation = "ext_dep/images/LinuxTrayIcon.png"
+    trayIconLocation = 'ext_dep/images/LinuxTrayIcon.png'
   }
   tray = new elc.Tray(path.join(__dirname, trayIconLocation))
   tray.setToolTip('Aether')
@@ -454,9 +474,14 @@ ipc.answerRenderer('QuitApp', function() {
   elc.app.quit()
 })
 
+ipc.answerRenderer('FocusAndShow', function() {
+  openAppWindow()
+  return true
+})
+
 let previewBuildStatus = {
   isPreview: false,
-  Expiry: 0
+  Expiry: 0,
 }
 
 // 1540857600 = Oct 30 2018
@@ -468,17 +493,21 @@ function EnforcePreviewBuildExpiry() {
   let d: any = new Date()
   let now: number = Math.floor(d / 1000)
   if (now > previewBuildStatus.Expiry) {
-    elc.dialog.showMessageBox({
-      type: "error",
-      title: "Developer build expired",
-      message: "Hey there! This preview build of Aether has expired. You can get the most recent version of Aether from the meta forum at meta.getaether.net.",
-      buttons: ["Quit", "Get new version"]
-    }, function(respButtonIndex: any) {
-      if (respButtonIndex === 1) {
-        // The user asked to go to the downloads page.
-        elc.shell.openExternal('https://meta.getaether.net')
+    elc.dialog.showMessageBox(
+      {
+        type: 'error',
+        title: 'Developer build expired',
+        message:
+          'Hey there! This preview build of Aether has expired. You can get the most recent version of Aether from the meta forum at meta.getaether.net.',
+        buttons: ['Quit', 'Get new version'],
+      },
+      function(respButtonIndex: any) {
+        if (respButtonIndex === 1) {
+          // The user asked to go to the downloads page.
+          elc.shell.openExternal('https://meta.getaether.net')
+        }
       }
-    })
+    )
     // Quit app regardless of what the user chooses.
     elc.app.quit()
   }
@@ -495,15 +524,15 @@ function ConstructAppMenu() {
           label: 'About Aether',
           click: function() {
             return ipc.callRenderer(win, 'RouteTo', '/about')
-          }
+          },
         },
         {
-          type: "separator"
+          type: 'separator',
         },
         {
           role: 'quit',
-        }
-      ]
+        },
+      ],
     })
   }
 
@@ -517,7 +546,7 @@ function ConstructAppMenu() {
         role: 'redo',
       },
       {
-        type: 'separator'
+        type: 'separator',
       },
       {
         role: 'cut',
@@ -531,13 +560,13 @@ function ConstructAppMenu() {
       {
         role: 'selectAll',
       },
-    ]
+    ],
   })
   menu.push({
     label: 'View',
     submenu: [
       {
-        role: 'resetZoom'
+        role: 'resetZoom',
       },
       {
         role: 'zoomIn',
@@ -546,25 +575,25 @@ function ConstructAppMenu() {
         role: 'zoomOut',
       },
       {
-        role: 'toggleDevTools'
+        role: 'toggleDevTools',
       },
-    ]
+    ],
   })
   if (isDev) {
     menu.push({
       label: 'View',
       submenu: [
         {
-          role: 'reload'
+          role: 'reload',
         },
         {
-          role: 'toggleDevTools'
+          role: 'toggleDevTools',
         },
         {
-          type: 'separator'
+          type: 'separator',
         },
         {
-          role: 'resetZoom'
+          role: 'resetZoom',
         },
         {
           role: 'zoomIn',
@@ -572,7 +601,7 @@ function ConstructAppMenu() {
         {
           role: 'zoomOut',
         },
-      ]
+      ],
     })
   }
   menu.push({
@@ -594,4 +623,3 @@ function main() {
   EnforcePreviewBuildExpiry()
   metrics.SendRaw('App started')
 }
-

@@ -18,6 +18,7 @@ type dispatcherExclusions struct {
 }
 
 var dpe dispatcherExclusions
+var reverseDpe dispatcherExclusions
 
 func (d *dispatcherExclusions) Add(a api.Address) {
 	d.lock.Lock()

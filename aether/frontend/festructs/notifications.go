@@ -147,6 +147,20 @@ func (nc *NotificationsCarrier) MarkRead(fp string) {
 	nc.Containers[fp] = container
 }
 
+func (nc *NotificationsCarrier) markAllAsRead() {
+	for i, _ := range nc.Containers {
+		for j, _ := range nc.Containers[i].NotificationsBuckets {
+			nc.Containers[i].NotificationsBuckets[j].Read = true
+		}
+	}
+}
+
+func (nc *NotificationsCarrier) MarkAllAsRead() {
+	nc.lock.Lock()
+	defer nc.lock.Unlock()
+	nc.markAllAsRead()
+}
+
 /*----------  Maintenance  ----------*/
 
 func (nc *NotificationsCarrier) Prune() {
@@ -306,7 +320,40 @@ type CNotificationsList []CompiledNotification
 
 // Listify is the logic that runs every time there is a need to send the client the notifications that we have now.
 func (nc *NotificationsCarrier) Listify() (CNotificationsList, int64) {
+	nc.lock.Lock()
+	defer nc.lock.Unlock()
 	start := time.Now()
+
+	/*====================================================================
+	=            Notifications silence gate on search reindex            =
+	====================================================================*/
+	if globals.FrontendTransientConfig.SilenceNotificationsOnce == true {
+		logging.Logf(2, "SilenceNotificationsOnce is present, we're silencing this listify and the next one won't be silent.")
+		if len(nc.Containers) > 0 {
+			/*
+				This is gated at containers > 0 because we do not want to gate our notifications in the case this is a zero-out entity generation.
+
+				The interesting thing there is that you might legitimately have zero notifications, and if you receive a notification while this is present, i.e. in the same run, that notification would get silenced.
+
+				This would only happen if ALL of these are true:
+
+				a) You deleted your search index, but not your frontend config.
+
+				b) You have legitimately *never* received any notification in the app before (because if you did, that will be muted, and the mute gate will be removed).
+
+				c) You receive your first ever notification right after this happens and this gate is triggered on a new, actually unseen notification, silencing it without you seeing it.
+
+				d) The app is not restarted before the first notification comes. (Restart also extinguishes this gate on its own.)
+
+				I think it's pretty far fetched, honestly, simply because deleting the index is not going to be a common occurrence by itself.
+			*/
+			globals.FrontendTransientConfig.SilenceNotificationsOnce = false
+			nc.markAllAsRead()
+			nc.save()
+		}
+	}
+	/*=====  End of Notifications silence gate on search reindex  ======*/
+
 	cnl := CNotificationsList{}
 	// For each container
 	for k, _ := range nc.Containers {

@@ -1,10 +1,14 @@
 <template>
-<div class="a-boardname" v-if="isPresent">
-  <div class="boardname-container">
-    <!-- <a-hashimage :hash="fingerprint" height="16px"></a-hashimage> -->
-    <router-link :to="'/board/'+fingerprint">b/{{name}}</router-link>
+  <div class="a-boardname" v-if="isPresent">
+    <div class="boardname-container">
+      <!-- <a-hashimage :hash="fingerprint" height="16px"></a-hashimage> -->
+      <router-link
+        @click.native="$event.stopImmediatePropagation()"
+        :to="'/board/' + fingerprint"
+        >b/{{ name }}</router-link
+      >
+    </div>
   </div>
-</div>
 </template>
 
 <script lang="ts">
@@ -13,33 +17,31 @@ export default {
   props: {
     name: {
       type: String,
-      default: ""
+      default: '',
     },
     fingerprint: {
       type: String,
-      default: ""
-    }
+      default: '',
+    },
   },
-  data () {
-    return {
-
-    }
+  data() {
+    return {}
   },
   computed: {
-    isPresent(this:any) {
+    isPresent(this: any) {
       return this.name && this.fingerprint
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../scss/globals";
+@import '../scss/globals';
 .a-boardname {
-  display:inline-block;
+  display: inline-block;
   .boardname-container {
-    display:flex;
-    font-family: "SSP Bold Italic";
+    display: flex;
+    font-family: 'SSP Bold Italic';
     a {
       color: $a-grey-600;
     }

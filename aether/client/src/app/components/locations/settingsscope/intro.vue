@@ -2,29 +2,31 @@
   <div class="settings-sublocation">
     <a-markdown :content="headline"></a-markdown>
     <!-- <a-markdown :content="intro"></a-markdown> -->
-    <img class="header-image" src="../../../ext_dep/images/nasa-89125-unsplash.jpg" alt="">
+    <img
+      class="header-image"
+      src="../../../ext_dep/images/nasa-89125-unsplash.jpg"
+      alt=""
+    />
     <a-markdown :content="content"></a-markdown>
   </div>
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'intro',
-    data() {
-      return {
-        headline: headline,
-        intro: intro,
-        content: content,
-      }
+export default {
+  name: 'intro',
+  data() {
+    return {
+      headline: headline,
+      intro: intro,
+      content: content,
     }
-  }
-  // These are var's and not let's because lets are defined only from the point they're in the code, and vars are defined for the whole scope regardless of where they are.
-  var headline = `# A Beginner's Guide to the Galaxy`
-  var intro =
-    `**(You don't have to read it in entirety, but it might be interesting)**
+  },
+}
+// These are var's and not let's because lets are defined only from the point they're in the code, and vars are defined for the whole scope regardless of where they are.
+var headline = `# A Beginner's Guide to the Galaxy`
+var intro = `**(You don't have to read it in entirety, but it might be interesting)**
   `
-  var content =
-    `
+var content = `
 ## Welcome in!
 
 * Aether is an ephemeral, auditable and privacy-focused network of peer-to-peer, self-moderated communities.
@@ -64,34 +66,34 @@
 
 ### ... Wait, who's paying for this?
 
-* I am. (This is [\`\`\`@b\`\`\`](https://twitter.com/nehbit) here.) I've been working full time on this since March 2018. If you want to support Aether, you can do so on [Patreon](https://patreon.com/nehbit). It also gives you some [sweet perks](#/membership).
+* The premium memberships. It comes with unique names you can register. It also gives you some [sweet perks](#/membership).
   `
-  // var content: string = require('./mdpwnattempt')
+// var content: string = require('./mdpwnattempt')
 </script>
 
 <style lang="scss" scoped>
-  @import "../../../scss/globals";
+@import '../../../scss/globals';
 
-  .settings-sublocation {
-    color: $a-grey-600;
-    .markdowned {
-      &:first-of-type {
-        margin-bottom: 0;
-      }
-      margin-bottom: 40px;
+.settings-sublocation {
+  color: $a-grey-600;
+  .markdowned {
+    &:first-of-type {
+      margin-bottom: 0;
     }
+    margin-bottom: 40px;
   }
+}
 
-  .header-image {
-    width: 100%;
-    border-radius: 2px;
-    overflow: hidden;
-    margin-bottom: 25px;
-  }
+.header-image {
+  width: 100%;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 25px;
+}
 </style>
 
 <style lang="scss">
-  h1#a-beginner-s-guide-to-the-galaxy {
-    margin-bottom: 10px;
-  }
+h1#a-beginner-s-guide-to-the-galaxy {
+  margin-bottom: 10px;
+}
 </style>

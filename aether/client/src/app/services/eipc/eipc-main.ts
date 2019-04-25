@@ -1,4 +1,4 @@
-export { }
+export {}
 
 let globals = require('../globals/globals')
 let fesupervisor = require('../fesupervisor/fesupervisor')
@@ -31,7 +31,9 @@ ipc.answerRenderer('GetFrontendClientConnInitialised', function(): boolean {
   return globals.FrontendClientConnInitialised
 })
 
-ipc.answerRenderer('SetFrontendClientConnInitialised', function(initialised: boolean) {
+ipc.answerRenderer('SetFrontendClientConnInitialised', function(
+  initialised: boolean
+) {
   globals.FrontendClientConnInitialised = initialised
 })
 

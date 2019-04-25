@@ -22,7 +22,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
-	"strings"
+	// "strings"
 	"time"
 )
 
@@ -62,7 +62,7 @@ func GatherCacheData(etype string, start api.Timestamp, end api.Timestamp) (Cach
 
 		   How do I know? Because that's exactly what happened and this text is the bug fix.
 		*/
-		// 	logging.Log(2, fmt.Sprintf("The result for this cache is empty. Entity type: %s, Start: %d, End: %d", etype, start, end))
+		// 	logging.Log(1, fmt.Sprintf("The result for this cache is empty. Entity type: %s, Start: %d, End: %d", etype, start, end))
 		// }
 		/*
 			Disabling above - we don't really care whether caches are empty. We just generate them all the same, for now.
@@ -111,7 +111,7 @@ func GatherCacheData(etype string, start api.Timestamp, end api.Timestamp) (Cach
 
 			   How do I know? Because that's exactly what happened and this text is the bug fix.
 			*/
-			logging.Log(2, fmt.Sprintf("The result for this cache is empty. Entity type: %s", etype))
+			logging.Log(1, fmt.Sprintf("The result for this cache is empty. Entity type: %s", etype))
 		}
 		cacheRespStruct.start = start
 		cacheRespStruct.end = end
@@ -156,7 +156,7 @@ func createResultCacheBlockForIndex(cacheData *CacheResponse) api.ResultCache {
 	2) Delete caches that we do no longer carry in the index payload. (i.e. consolidated caches' non-consolidated old versions.) We do this trailing caches by one hour, to allow anyone that is still downloading from the cache to finish downloading.
 */
 func deleteTooOldCaches(etype string, cacheIndex *api.ApiResponse) {
-	logging.Logf(2, "DeleteTooOldCaches starts to run for Entity type: %v", etype)
+	logging.Logf(1, "DeleteTooOldCaches starts to run for Entity type: %v", etype)
 	entityCacheDir, err := generateEndpointDir(etype)
 	if err != nil {
 		logging.Logf(1, "deleteTooOldCaches errored out when trying to generate the entity cache directory for this entity type. Err: %v", err)
@@ -172,7 +172,7 @@ func deleteTooOldCaches(etype string, cacheIndex *api.ApiResponse) {
 	}
 	if threshold > oldestCacheEnd {
 		// We have more caches than needed. We need to delete some starting from the oldest.
-		logging.Log(2, fmt.Sprintf("We have caches for a longer duration of time than we need. (The oldest cache.EndsAt is %d, the threshold is %d) Caches will be purged starting from the oldest. Purge is starting.", oldestCacheEnd, threshold))
+		logging.Log(1, fmt.Sprintf("We have caches for a longer duration of time than we need. (The oldest cache.EndsAt is %d, the threshold is %d) Caches will be purged starting from the oldest. Purge is starting.", oldestCacheEnd, threshold))
 		oldCaches := []api.ResultCache{}
 		stillValidCaches := []api.ResultCache{}
 		for _, cache := range cacheIndex.Results {
@@ -216,18 +216,18 @@ func deleteTooOldCaches(etype string, cacheIndex *api.ApiResponse) {
 			continue
 		}
 		if deletionMarkerExists {
-			logging.Logf(2, "We found a deletion marker on cache %v, so we're deleting it.", cacheName)
+			logging.Logf(1, "We found a deletion marker on cache %v, so we're deleting it.", cacheName)
 			os.RemoveAll(cachePath)
 			continue
 		}
 		// Second, check if it's still in circulation. If so, don't delete.
-		logging.Logf(2, "For etype: %v, this is the cache name we're checking the valids map for: %v", etype, cacheName)
+		logging.Logf(1, "For etype: %v, this is the cache name we're checking the valids map for: %v", etype, cacheName)
 		if validsMap[cacheName] {
-			logging.Logf(2, "Cache %v exists in the valids map.", cacheName)
+			logging.Logf(1, "Cache %v exists in the valids map.", cacheName)
 			// If in the map = still in use. Don't delete.
 			continue
 		}
-		logging.Logf(2, "%v %v does not exist in the valids map and is queued for deletion. ", etype, cacheName)
+		logging.Logf(1, "%v %v does not exist in the valids map and is queued for deletion. ", etype, cacheName)
 		// If it made it to here, It is not in use. Insert the deletion marker, so we can delete it in the next cycle.
 		markCacheForDeletion(cachePath)
 	}
@@ -248,11 +248,11 @@ func fileExists(path string) (bool, error) {
 
 func markCacheForDeletion(cachePath string) {
 	marker := filepath.Join(cachePath, "delete_in_next_cycle.txt")
-	err := ioutil.WriteFile(marker, []byte{}, 0644)
+	err := ioutil.WriteFile(marker, []byte{}, 0755)
 	if err != nil {
 		logging.Logf(1, "markCacheForDeletion encountered an error. Err: %v", err)
 	}
-	logging.Logf(2, "Delete in next cycle marker inserted to cachepath: %v", cachePath)
+	logging.Logf(1, "Delete in next cycle marker inserted to cachepath: %v", cachePath)
 }
 
 func generateEndpointDir(etype string) (string, error) {
@@ -264,9 +264,9 @@ func generateEndpointDir(etype string) (string, error) {
 		etype == "votes" ||
 		etype == "keys" ||
 		etype == "truststates" {
-		ecd = fmt.Sprint(globals.BackendConfig.GetCachesDirectory(), "/", protv, "/c0/", etype)
+		ecd = filepath.Join(globals.BackendConfig.GetCachesDirectory(), protv, "c0", etype)
 	} else if etype == "addresses" {
-		ecd = fmt.Sprint(globals.BackendConfig.GetCachesDirectory(), "/", protv, "/", etype)
+		ecd = filepath.Join(globals.BackendConfig.GetCachesDirectory(), protv, etype)
 	} else {
 		return ecd, errors.New(fmt.Sprintf("Unknown response type: %s", etype))
 	}
@@ -324,8 +324,13 @@ func CreateNewCache(etype string, start api.Timestamp, end api.Timestamp, allPri
 	var endpointIndex api.ApiResponse
 	// Look for the index.json in it. If it doesn't exist, create.
 	// Heads up: we're reading and parsing our own caches.
-	endpointIndexAsJson, err3 := ioutil.ReadFile(fmt.Sprint(epd, "/index.json"))
-	if err3 != nil && strings.Contains(err3.Error(), "no such file or directory") {
+	endpointIndexAsJson, err3 := ioutil.ReadFile(filepath.Join(epd, "index.json"))
+	if IsFileNotFoundError(err3) {
+		toolbox.ResetPath(epd)
+		/*
+			^ We reset (delete + recreate) the path. This is useful because the cache index being not present does not mean the folder is empty. If there is a bug that prevents index.json from being generated, the cache index can grow indefinitely because the assumption that index.json not present == endpoint index empty will make it so that you generate a whole new set of network head caches every time the iteration runs. Not great! Having this reset here makes it so that if the index.json is present and we enter unbounded probability space, we delete the folder and reset the whole thing, so that it returns to a known state.
+		*/
+
 		// The index.json of this cache likely doesn't exist. Create one.
 		endpointIndex.Prefill()
 		endpointIndex.Entity = etype
@@ -333,6 +338,7 @@ func CreateNewCache(etype string, start api.Timestamp, end api.Timestamp, allPri
 	} else if err3 != nil {
 		// The index is corrupted. The user knowingly modified it or filesystem did, or some other process did.
 		//FUTURE: We should regenerate this cache, maybe. But if the user (or a process running as user) modified this cache, we have no guarantee that it will not do that again in the future, so regenerating it might just be a waste of resources.
+		logging.Logf(1, "Cache creation process encountered an error. Error: %s", err3)
 		return false, errors.New(fmt.Sprintf("Cache creation process encountered an error. Error: %s", err3))
 	} else {
 		// err3 is nil
@@ -386,7 +392,7 @@ func readEndpointIndex(etype string) (api.ApiResponse, error) {
 	} else if etype == "addresses" {
 		cacheDir = globals.BackendConfig.GetCachesDirectory() + "/" + protv + "/" + etype
 	}
-	cacheIndex := cacheDir + "/index.json"
+	cacheIndex := filepath.Join(cacheDir, "index.json")
 	dat, err := ioutil.ReadFile(cacheIndex)
 	if err != nil {
 		return api.ApiResponse{}, err
@@ -394,7 +400,7 @@ func readEndpointIndex(etype string) (api.ApiResponse, error) {
 	var apiresp api.ApiResponse
 	err2 := json.Unmarshal([]byte(dat), &apiresp)
 	if err2 != nil {
-		logging.Log(2, fmt.Sprintf(fmt.Sprintf(
+		logging.Log(1, fmt.Sprintf(fmt.Sprintf(
 			"The JSON That was the cache index for the entity type is malformed. Entity type: %s, JSON: %s", etype, string([]byte(dat)))))
 		// Delete the whole index folder and return 0 to generate new caches.
 		os.RemoveAll(cacheDir)
@@ -429,8 +435,8 @@ func determineLastCacheEnd(etype string) api.Timestamp {
 	if err != nil {
 		// logging.LogCrash(err)
 		// FUTURE: Add tampered caches gating
-		if strings.Contains(err.Error(), "no such file or directory") {
-			logging.Log(2, fmt.Sprintf("The cache for this entity type does not exist yet. We'll be generating this from scratch. Entity type: %#v", etype))
+		if IsFileNotFoundError(err) {
+			logging.Log(1, fmt.Sprintf("The cache for this entity type does not exist yet. We'll be generating this from scratch. Entity type: %#v", etype))
 			// var blankTs api.Timestamp
 			// return blankTs
 		} else {
@@ -541,7 +547,7 @@ func GenerateCachedEndpointV1(etype string) int64 {
 			}
 			empty, err := CreateNewCache(etype, val.StartsFrom, val.EndsAt, allPriorCachesGeneratedSoFarAreEmpty)
 			if err != nil {
-				logging.Log(2, err)
+				logging.Log(1, err)
 			}
 			if !empty {
 				allPriorCachesGeneratedSoFarAreEmpty = false
@@ -579,7 +585,7 @@ func generateRequestedCachesTableV2(etype string, mostRecentExtantCacheEndTs api
 }
 
 func GenerateCachedEndpointV2(etype string) int64 {
-	logging.Logf(2, "GenerateCachedEndpointV2 starting to run. Endpoint: %v", etype)
+	logging.Logf(1, "GenerateCachedEndpointV2 starting to run. Endpoint: %v", etype)
 	currentCacheEnd := int64(0)
 	// ^ What are are going to set the last cachegen timestamp
 	// Read the end of the last cache, or if there are none, start from the beginning.
@@ -594,7 +600,7 @@ func GenerateCachedEndpointV2(etype string) int64 {
 	}
 	// We need to generate some caches.
 	cachesTable := generateRequestedCachesTableV2(etype, lastCacheEndTs)
-	logging.Logf(2, "New caches table: %v", cachesTable)
+	logging.Logf(1, "New caches table: %v", cachesTable)
 	currentCacheEnd = int64(cachesTable[len(cachesTable)-1].EndsAt)
 	// ^ We have caches to generate. The end of our last cache is going to be our last cache generation timestamp.
 	finalCachesTable := []api.ResultCache{}
@@ -612,7 +618,7 @@ func GenerateCachedEndpointV2(etype string) int64 {
 		_, resultCache, err := CreateNewCacheV2(etype, val.StartsFrom, val.EndsAt)
 		finalCachesTable = append(finalCachesTable, resultCache)
 		if err != nil {
-			logging.Log(2, err)
+			logging.Log(1, err)
 		}
 	}
 	// Read or create the endpoint index.
@@ -627,7 +633,7 @@ func GenerateCachedEndpointV2(etype string) int64 {
 	// Heads up: we're reading and parsing our own caches.
 	endpointIndexPath := filepath.Join(epd, "index.json")
 	endpointIndexAsJson, err3 := ioutil.ReadFile(endpointIndexPath)
-	if err3 != nil && strings.Contains(err3.Error(), "no such file or directory") {
+	if IsFileNotFoundError(err3) {
 		// The index.json of this cache doesn't exist. Create one.
 		endpointIndex.Prefill()
 		endpointIndex.Entity = etype
@@ -679,7 +685,7 @@ func GenerateCachedEndpoint(etype string) int64 {
 
 // GenerateCaches generates all caches for all entities and saves them to disk.
 func GenerateCaches() {
-	logging.Logf(2, "Cache generation has started.")
+	logging.Logf(1, "Cache generation has started.")
 	oldestCacheEnd := time.Now().Unix()
 	// ^ We will set our oldest cache end as cache generation timestamp.
 	feapiconsumer.BackendAmbientStatus.CachingStatus = "Generating caches..."
@@ -720,7 +726,7 @@ func GenerateCaches() {
 	// We're setting this for the purposes of denying POST requests with a timestamp that is partially or wholly available within our cache bracket. (That is, it's not used to determine where to start generating caches from, we read the actual saved cache for that.)
 	globals.BackendConfig.SetLastCacheGenerationTimestamp(oldestCacheEnd)
 	elapsed := time.Since(start)
-	logging.Logf(2, "Cache generation is complete. It took: %s", elapsed)
+	logging.Logf(1, "Cache generation is complete. It took: %s", elapsed)
 	feapiconsumer.BackendAmbientStatus.CachingStatus = "Idle"
 	feapiconsumer.BackendAmbientStatus.LastCacheGenerationTimestamp = globals.BackendConfig.GetLastCacheGenerationTimestamp()
 	feapiconsumer.BackendAmbientStatus.LastCacheGenerationDurationSeconds = int32(elapsed.Seconds())
@@ -738,3 +744,17 @@ func MaintainCaches() {
 // 		logging.Logf(0, "Start: %v, End: %v, Δ: %v, RUrl: %v \n", time.Unix(int64(v.StartsFrom), 0), time.Unix(int64(v.EndsAt), 0), time.Duration(int64(v.EndsAt-v.StartsFrom))*time.Second, v.ResponseUrl)
 // 	}
 // }
+
+func IsFileNotFoundError(err error) bool {
+	return os.IsNotExist(err)
+	// switch err.(type) {
+	// case os.PathError:
+	// 	return true
+	// default:
+	// 	return false
+	// }
+	// if err != nil && (strings.Contains(err.Error(), "no such file or directory") || strings.Contains(err.Error(), "The system cannot find the file specified") || ) {
+	// 	return true
+	// }
+	return false
+}

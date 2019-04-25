@@ -8,10 +8,10 @@ var actions = {
         var now = Math.floor(Date.now() / 1000);
         // Set the local client state
         context.commit('SAVE_BOARD_SIGNAL', {
-            'fp': fp,
-            'subbed': true,
-            'notify': notify,
-            'lastseen': now,
+            fp: fp,
+            subbed: true,
+            notify: notify,
+            lastseen: now,
         });
         // then send the appropriate message to the frontend
         fe.SetBoardSignal(fp, true, notify, now, false, function (resp) {
@@ -24,9 +24,9 @@ var actions = {
         var fp = _a.fp;
         // Set the local client state
         context.commit('SAVE_BOARD_SIGNAL', {
-            'fp': fp,
-            'subbed': false,
-            'notify': false
+            fp: fp,
+            subbed: false,
+            notify: false,
         });
         // then send the appropriate message to the frontend
         fe.SetBoardSignal(fp, false, false, 0, false, function (resp) {
@@ -39,8 +39,8 @@ var actions = {
         var fp = _a.fp;
         // Set the local client state
         context.commit('SAVE_BOARD_SIGNAL', {
-            'fp': fp,
-            'notify': false
+            fp: fp,
+            notify: false,
         });
         // then send the appropriate message to the frontend
         fe.SetBoardSignal(fp, true, false, 0, false, function (resp) {
@@ -53,8 +53,8 @@ var actions = {
         var fp = _a.fp;
         // Set the local client state
         context.commit('SAVE_BOARD_SIGNAL', {
-            'fp': fp,
-            'notify': true
+            fp: fp,
+            notify: true,
         });
         // then send the appropriate message to the frontend
         fe.SetBoardSignal(fp, true, true, 0, false, function (resp) {
@@ -69,21 +69,22 @@ var actions = {
         var now = Math.floor(Date.now() / 1000);
         // Set the local client state
         context.commit('SAVE_BOARD_SIGNAL', {
-            'fp': fp,
-            'lastseen': now,
+            fp: fp,
+            lastseen: now,
         });
         // then send the appropriate message to the frontend
         fe.SetBoardSignal(fp, false, false, now, true, function (resp) {
             if (resp.committed) {
-                console.log("Last Seen Commit Successful!");
+                console.log('Last Seen Commit Successful!');
             }
         });
-    }
+    },
 };
 var mutations = {
     SAVE_BOARD_SIGNAL: function (state, payload) {
         // Find board in the store and change the state appropriately.
         for (var i = 0; i < state.allBoards.length; i++) {
+            ;
             (function (i) {
                 if (state.allBoards[i].fingerprint === payload.fp) {
                     if (typeof payload.subbed !== 'undefined') {
@@ -111,6 +112,6 @@ var mutations = {
 };
 module.exports = {
     actions: actions,
-    mutations: mutations
+    mutations: mutations,
 };
 //# sourceMappingURL=contentrelations.js.map

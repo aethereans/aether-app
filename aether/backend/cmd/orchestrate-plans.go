@@ -65,7 +65,7 @@ func selectCmdFunc(str string, plan PlanCommand) func() {
 	requestReverseOpen := func() {
 		clr := color.New(color.FgYellow)
 		logging.Log(1, clr.Sprintf("Starting the reverse open sync request with the address: %s:%d now.", plan.ToIp, plan.ToPort))
-		api.RequestInboundSync(plan.ToIp, "", uint16(plan.ToPort))
+		dispatch.RequestInboundSync(plan.ToIp, "", uint16(plan.ToPort))
 	}
 	if str == "connect_force" {
 		return forcedInsert

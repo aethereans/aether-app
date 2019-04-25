@@ -7,7 +7,7 @@ function createCrumb(entityType, visibleName, link, fingerprint) {
         EntityType: entityType,
         VisibleName: visibleName,
         Link: link,
-        Fingerprint: fingerprint
+        Fingerprint: fingerprint,
     };
     return c;
 }
@@ -17,7 +17,7 @@ function createEndCrumb(context, entityType, visibleName, fingerprint) {
         EntityType: entityType,
         VisibleName: visibleName,
         Link: context.state.route.fullPath.substr(1),
-        Fingerprint: fingerprint
+        Fingerprint: fingerprint,
     };
     return c;
 }
@@ -31,9 +31,15 @@ function makeCurrentBoardCrumb(context) {
 function makeCurrentThreadCrumb(context) {
     if (context.state.currentThread.fingerprint.length === 0) {
         // Object not found
-        return createCrumb('thread', 'Not found', 'board/' + context.state.currentBoard.fingerprint + '/thread/' + context.state.currentThread.fingerprint, context.state.currentThread.fingerprint);
+        return createCrumb('thread', 'Not found', 'board/' +
+            context.state.currentBoard.fingerprint +
+            '/thread/' +
+            context.state.currentThread.fingerprint, context.state.currentThread.fingerprint);
     }
-    return createCrumb('thread', context.state.currentThread.name, 'board/' + context.state.currentBoard.fingerprint + '/thread/' + context.state.currentThread.fingerprint, context.state.currentThread.fingerprint);
+    return createCrumb('thread', context.state.currentThread.name, 'board/' +
+        context.state.currentBoard.fingerprint +
+        '/thread/' +
+        context.state.currentThread.fingerprint, context.state.currentThread.fingerprint);
 }
 function makeCurrentUserCrumb(context) {
     return createCrumb('user', globalMethods.GetUserName(context.state.currentUserEntity), 'user/' + context.state.currentUserEntity.fingerprint, context.state.currentUserEntity.fingerprint);
@@ -43,7 +49,15 @@ function makeGlobalCrumb() {
         EntityType: '',
         VisibleName: 'Communities',
         Link: 'globalscope',
-        Fingerprint: ''
+        Fingerprint: '',
+    };
+}
+function makeSearchCrumb() {
+    return {
+        EntityType: '',
+        VisibleName: 'Search',
+        Link: 'searchscope',
+        Fingerprint: '',
     };
 }
 var crumbActions = {
@@ -90,16 +104,27 @@ var crumbActions = {
             updatedCrumbs.push(makeGlobalCrumb());
             updatedCrumbs.push(createEndCrumb(context, 'subscribed', 'Subscribed', ''));
         }
-        else if (context.state.route.name === 'Global>NewBoard') {
-            updatedCrumbs.push(makeGlobalCrumb());
-            updatedCrumbs.push(createEndCrumb(context, 'newBoard', 'New community', ''));
+        else if (context.state.route.name === 'Search') {
+            updatedCrumbs.push(makeSearchCrumb());
+        }
+        else if (context.state.route.name === 'Search>Community') {
+            updatedCrumbs.push(makeSearchCrumb());
+            updatedCrumbs.push(createEndCrumb(context, 'community', 'Community', ''));
+        }
+        else if (context.state.route.name === 'Search>Content') {
+            updatedCrumbs.push(makeSearchCrumb());
+            updatedCrumbs.push(createEndCrumb(context, 'content', 'Content', ''));
+        }
+        else if (context.state.route.name === 'Search>People') {
+            updatedCrumbs.push(makeSearchCrumb());
+            updatedCrumbs.push(createEndCrumb(context, 'people', 'People', ''));
         }
         else if (context.state.route.name === 'Intro') {
             updatedCrumbs.push({
                 EntityType: '',
                 VisibleName: "A Beginner's Guide to the Galaxy",
                 Link: 'intro',
-                Fingerprint: ''
+                Fingerprint: '',
             });
         }
         else if (context.state.route.name === 'Settings') {
@@ -107,7 +132,35 @@ var crumbActions = {
                 EntityType: '',
                 VisibleName: "Settings",
                 Link: 'settings',
-                Fingerprint: ''
+                Fingerprint: '',
+            });
+        }
+        else if (context.state.route.name === 'Settings>Defaults') {
+            updatedCrumbs.push({
+                EntityType: '',
+                VisibleName: "Settings",
+                Link: 'settings',
+                Fingerprint: '',
+            });
+            updatedCrumbs.push({
+                EntityType: '',
+                VisibleName: "Defaults",
+                Link: 'settings/defaults',
+                Fingerprint: '',
+            });
+        }
+        else if (context.state.route.name === 'Settings>Shortcuts') {
+            updatedCrumbs.push({
+                EntityType: '',
+                VisibleName: "Settings",
+                Link: 'settings',
+                Fingerprint: '',
+            });
+            updatedCrumbs.push({
+                EntityType: '',
+                VisibleName: "Shortcuts",
+                Link: 'settings/shortcuts',
+                Fingerprint: '',
             });
         }
         else if (context.state.route.name === 'Settings>Advanced') {
@@ -115,13 +168,13 @@ var crumbActions = {
                 EntityType: '',
                 VisibleName: "Settings",
                 Link: 'settings',
-                Fingerprint: ''
+                Fingerprint: '',
             });
             updatedCrumbs.push({
                 EntityType: '',
                 VisibleName: "Advanced",
                 Link: 'settings/advanced',
-                Fingerprint: ''
+                Fingerprint: '',
             });
         }
         else if (context.state.route.name === 'About') {
@@ -129,7 +182,7 @@ var crumbActions = {
                 EntityType: '',
                 VisibleName: "About",
                 Link: 'about',
-                Fingerprint: ''
+                Fingerprint: '',
             });
         }
         else if (context.state.route.name === 'Membership') {
@@ -137,7 +190,7 @@ var crumbActions = {
                 EntityType: '',
                 VisibleName: "Membership",
                 Link: 'membership',
-                Fingerprint: ''
+                Fingerprint: '',
             });
         }
         else if (context.state.route.name === 'Changelog') {
@@ -145,7 +198,7 @@ var crumbActions = {
                 EntityType: '',
                 VisibleName: "Changelog",
                 Link: 'changelog',
-                Fingerprint: ''
+                Fingerprint: '',
             });
         }
         else if (context.state.route.name === 'AdminsQuickstart') {
@@ -153,7 +206,7 @@ var crumbActions = {
                 EntityType: '',
                 VisibleName: "Admin's Quickstart",
                 Link: 'adminsquickstart',
-                Fingerprint: ''
+                Fingerprint: '',
             });
         }
         else if (context.state.route.name === 'SFWList') {
@@ -161,7 +214,7 @@ var crumbActions = {
                 EntityType: '',
                 VisibleName: "Safe-for-work list",
                 Link: 'sfwlist',
-                Fingerprint: ''
+                Fingerprint: '',
             });
         }
         else if (context.state.route.name === 'Modship') {
@@ -169,7 +222,7 @@ var crumbActions = {
                 EntityType: '',
                 VisibleName: "Mod mode",
                 Link: 'modship',
-                Fingerprint: ''
+                Fingerprint: '',
             });
         }
         else if (context.state.route.name === 'Namemint') {
@@ -177,7 +230,7 @@ var crumbActions = {
                 EntityType: '',
                 VisibleName: "Name minter",
                 Link: 'namemint',
-                Fingerprint: ''
+                Fingerprint: '',
             });
         }
         else if (context.state.route.name === 'NewUser') {
@@ -185,7 +238,7 @@ var crumbActions = {
                 EntityType: '',
                 VisibleName: "Create New User",
                 Link: 'newuser',
-                Fingerprint: ''
+                Fingerprint: '',
             });
         }
         else if (context.state.route.name === 'User') {
@@ -226,6 +279,6 @@ var crumbMutations = {
 };
 module.exports = {
     crumbActions: crumbActions,
-    crumbMutations: crumbMutations
+    crumbMutations: crumbMutations,
 };
 //# sourceMappingURL=crumbs.js.map

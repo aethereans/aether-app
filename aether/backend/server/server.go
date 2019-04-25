@@ -4,7 +4,7 @@
 package server
 
 import (
-	// "aether-core/aether/backend/dispatch"
+	"aether-core/aether/backend/dispatch"
 	"aether-core/aether/backend/responsegenerator"
 	"aether-core/aether/io/api"
 	"aether-core/aether/io/persistence"
@@ -36,8 +36,16 @@ func isReverseConn(host string, port uint16) bool {
 	return host == globals.BackendTransientConfig.ReverseConnData.C1LocalLocalAddr && port == globals.BackendTransientConfig.ReverseConnData.C1LocalLocalPort
 }
 
+func requestIsFromReverseConn(r *http.Request) bool {
+	remoteHost, remotePort := toolbox.SplitHostPort(r.RemoteAddr)
+	if globals.BackendConfig.GetExternalVerifyEnabled() {
+		remoteHost = extverify.Verifier.GetRemoteIP(r.Header)
+	}
+	return isReverseConn(remoteHost, remotePort)
+}
+
 // Bouncer gate
-func isAllowedByBouncer(r *http.Request) bool {
+func isAllowedByBouncer(r *http.Request, reqtype string) bool {
 	remoteHost, remotePort := toolbox.SplitHostPort(r.RemoteAddr)
 	proxy := ""
 	if globals.BackendConfig.GetExternalVerifyEnabled() {
@@ -45,8 +53,18 @@ func isAllowedByBouncer(r *http.Request) bool {
 		remoteHost = extverify.Verifier.GetRemoteIP(r.Header)
 	}
 	reverse := isReverseConn(remoteHost, remotePort)
-	allowed := globals.BackendTransientConfig.Bouncer.RequestInboundLease(remoteHost, "", proxy, remotePort, reverse)
-	logging.Logf(3, "Inbound lease request returned: %v Active Bouncer Inbounds Count: %#v", allowed, len(globals.BackendTransientConfig.Bouncer.Inbounds))
+	allowed := false
+	switch reqtype {
+	case "inbound":
+		allowed = globals.BackendTransientConfig.Bouncer.RequestInboundLease(remoteHost, "", proxy, remotePort, reverse)
+		logging.Logf(3, "Inbound lease request returned: %v Active Bouncer Inbounds Count: %#v", allowed, len(globals.BackendTransientConfig.Bouncer.Inbounds))
+	case "ping":
+		allowed = globals.BackendTransientConfig.Bouncer.RequestPingLease(remoteHost, "", proxy, remotePort)
+		logging.Logf(3, "Ping lease request returned: %v Active Bouncer Pings Count: %#v", allowed, len(globals.BackendTransientConfig.Bouncer.Pings))
+	default:
+		logging.Logf(1, "Bouncer did not recognise the request type assigned by the local server. Reqtype: %v", reqtype)
+		allowed = false
+	}
 	return allowed
 }
 
@@ -117,6 +135,70 @@ func StartMimServer() {
 			w.WriteHeader(http.StatusNoContent)
 		}
 	})
+	pingHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if !isAllowedByNodeType(r.Method) {
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			return
+		}
+		// Check with bouncer if this request is allowed. If not, return too busy.
+		if !isAllowedByBouncer(r, "ping") {
+			w.WriteHeader(http.StatusTooManyRequests)
+			r.Body.Close()
+			return
+		}
+		// Force the content type to application/json, so even in the case of malicious file serving, it won't be executed by default.
+		w.Header().Set("Content-Type", "application/json")
+		switch r.Method {
+		case "GET":
+			switch r.URL.Path {
+			case "/" + protv + "/ping/status", "/" + protv + "/ping/status/":
+				w.WriteHeader(http.StatusOK)
+				w.Write([]byte{})
+
+			case "/" + protv + "/ping/node", "/" + protv + "/ping/node/":
+				// Node GET endpoint returns the node info.
+				var resp api.ApiResponse
+				resp.Prefill()
+				// r := responsegenerator.GeneratePrefilledApiResponse()
+				// resp = *r
+				resp.Endpoint = "node"
+				resp.Entity = "node"
+				resp.Timestamp = api.Timestamp(time.Now().Unix())
+				signingErr := resp.CreateSignature(globals.BackendConfig.GetBackendKeyPair())
+				if signingErr != nil {
+					logging.Log(1, fmt.Sprintf("This cache page failed to be page-signed. Error: %#v Page: %#v\n", signingErr, resp))
+				}
+				jsonResp, err := resp.ToJSON()
+				if err != nil {
+					logging.Log(1, errors.New(fmt.Sprintf("The response that was prepared to respond to this query failed to convert to JSON. Error: %#v\n", err)))
+				}
+				if len(jsonResp) == 0 {
+					w.WriteHeader(http.StatusBadRequest)
+					w.Write([]byte{})
+				} else {
+					w.Write(jsonResp)
+				}
+			}
+		case "POST":
+			switch r.URL.Path {
+			case "/" + protv + "/ping/node", "/" + protv + "/ping/node/":
+				resp, err := NodePOST(r)
+				if err != nil {
+					logging.Log(1, err)
+				}
+				if len(resp) == 0 {
+					w.WriteHeader(http.StatusBadRequest)
+					w.Write([]byte{})
+				} else {
+					w.Write(resp)
+				}
+			}
+		default:
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			return
+		}
+	})
+
 	mainHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// // START SIMULATE NAT
 		// // simulate nat. this works because both apps tend to get ports in +1 -1 of the range of themselves. only accept from internal call.
@@ -131,7 +213,7 @@ func StartMimServer() {
 			return
 		}
 		// Check with bouncer if this request is allowed. If not, return too busy.
-		if !isAllowedByBouncer(r) {
+		if !isAllowedByBouncer(r, "inbound") {
 			w.WriteHeader(http.StatusTooManyRequests)
 			r.Body.Close()
 			return
@@ -204,6 +286,42 @@ func StartMimServer() {
 				} else {
 					w.Write(jsonResp)
 				}
+			/*=======================================================
+			=            Reverse conn status from remote            =
+			=======================================================*/
+			/*
+				These methods allow the remote reverse connecting in to us to tell us about the state of the reverse connection. If none of this happens, we assume a failure state.
+
+				The remote is doing this as courtesy, which is true for the whole of the reverse open system. Even if the remote lies in this state, it does not harm the local computer, since reverse-open is a connectivity-boosting optional subsystem that the app does not rely on for working, assuming that it is correctly configured and port is mapped. The worst that can happen on remote acting maliciously is that the reverse open system doesn't work (i.e. thinks it's successful when it's not). Since this is not the main way through which we achieve connectivity, it doesn't matter.
+
+				Mind that setting the end status does not actually terminate the connection. It just sets the status so that when the connection is terminated, it can be read by the reverse connector.
+			*/
+			case "/" + protv + "/revconn/refused", "/" + protv + "/revconn/refused/":
+				if requestIsFromReverseConn(r) {
+					dispatch.ReverseConnInfo.SetEndStatus("REFUSED")
+					remoteHost, remotePort := toolbox.SplitHostPort(r.RemoteAddr)
+					globals.BackendTransientConfig.Bouncer.ReleaseInboundLease(remoteHost, "", remotePort, false, true)
+				}
+				w.WriteHeader(http.StatusOK)
+				w.Write([]byte{})
+			case "/" + protv + "/revconn/failed", "/" + protv + "/revconn/failed/":
+				if requestIsFromReverseConn(r) {
+					dispatch.ReverseConnInfo.SetEndStatus("FAILED")
+					remoteHost, remotePort := toolbox.SplitHostPort(r.RemoteAddr)
+					globals.BackendTransientConfig.Bouncer.ReleaseInboundLease(remoteHost, "", remotePort, false, true)
+				}
+				w.WriteHeader(http.StatusOK)
+				w.Write([]byte{})
+			case "/" + protv + "/revconn/successful", "/" + protv + "/revconn/successful/":
+				if requestIsFromReverseConn(r) {
+					dispatch.ReverseConnInfo.SetEndStatus("SUCCESSFUL")
+					remoteHost, remotePort := toolbox.SplitHostPort(r.RemoteAddr)
+					globals.BackendTransientConfig.Bouncer.ReleaseInboundLease(remoteHost, "", remotePort, true, true)
+				}
+				w.WriteHeader(http.StatusOK)
+				w.Write([]byte{})
+			/*=====  End of Reverse conn status from remote  ======*/
+
 			default: // this is the part that serves caches
 				// Some safeguards. Some of those are replicated in Go's own http library code, but it's still good to have these here just in case.
 				// This disallows serving of .dotfiles and directory indexes.
@@ -334,6 +452,9 @@ func StartMimServer() {
 
 	gzippedHandler := gziphandler.GzipHandler(handlerFunc)
 	http.Handle("/"+protv+"/responses/", gzippedHandler)
+
+	gzippedPingHandler := gziphandler.GzipHandler(pingHandler)
+	http.Handle("/"+protv+"/ping/", gzippedPingHandler)
 
 	port := globals.BackendConfig.GetExternalPort()
 	// extIp := globals.BackendConfig.GetExternalIp()

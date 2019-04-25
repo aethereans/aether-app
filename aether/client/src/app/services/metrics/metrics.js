@@ -23,7 +23,7 @@ module.exports = function (instantiatedByMainMain, mainMainMetricsDisabled) {
     if (instantiatedByMainMain) {
         var mp = require('mixpanel');
         nodeMixpanel = mp.init('b48754d816a75407938965c24debbe46', {
-            protocol: 'https'
+            protocol: 'https',
         });
     }
     var mixpanelInstance = {};
@@ -38,12 +38,16 @@ module.exports = function (instantiatedByMainMain, mainMainMetricsDisabled) {
     /*
       If this is instantiated by the MainMain, not the Renderer, this will be flipped true. This allows this library to be compatible with both.
     */
-    var appVersionAndBuild = "";
+    var appVersionAndBuild = '';
     if (instantiatedByMainMain) {
-        appVersionAndBuild = require('electron').app.getVersion().split('+');
+        appVersionAndBuild = require('electron')
+            .app.getVersion()
+            .split('+');
     }
     else {
-        appVersionAndBuild = require('electron').remote.app.getVersion().split('+');
+        appVersionAndBuild = require('electron')
+            .remote.app.getVersion()
+            .split('+');
     }
     var appVersion = appVersionAndBuild[0];
     var appBuild = appVersionAndBuild[1];
@@ -61,8 +65,8 @@ module.exports = function (instantiatedByMainMain, mainMainMetricsDisabled) {
             var did = store.get('did');
             if (!did) {
                 // No known did beforehand
-                store.set('did', "MIXPANEL_ELECTRON_CLIENT_DID_NOT_LOAD");
-                if (typeof mixpanelInstance.get_distinct_id !== "undefined") {
+                store.set('did', 'MIXPANEL_ELECTRON_CLIENT_DID_NOT_LOAD');
+                if (typeof mixpanelInstance.get_distinct_id !== 'undefined') {
                     store.set('did', mixpanelInstance.get_distinct_id());
                 }
             }
@@ -97,13 +101,13 @@ module.exports = function (instantiatedByMainMain, mainMainMetricsDisabled) {
         payload['A-Ambient-AppVersion'] = appVersion;
         payload['A-Ambient-AppBuild'] = appBuild;
         if (instantiatedByMainMain) {
-            payload['A-Ambient-Page'] = "Client MainMain";
-            payload['A-Ambient-PageName'] = "Client MainMain";
+            payload['A-Ambient-Page'] = 'Client MainMain';
+            payload['A-Ambient-PageName'] = 'Client MainMain';
             return;
         }
         var vuexStore = require('../../store/index').default;
         // payload['A-Ambient-Page'] = vuexStore.state.route.path
-        payload['A-Ambient-Page'] = "Client Renderer";
+        payload['A-Ambient-Page'] = 'Client Renderer';
         payload['A-Ambient-PageName'] = vuexStore.state.route.name;
     }
     function getFields(customFields) {

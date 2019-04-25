@@ -4,9 +4,15 @@ This is the data store for the client.
 This data store does not hold any persistent data, nor does it cache it. The point of this is to hold the instance data. The frontend is the actual caching and compile logic that regenerates the data to be used as needed.
 */
 
-var Vue = require('../../../node_modules/vue/dist/vue.js')
+const isDev = require('electron-is-dev')
+if (isDev) {
+  var Vue = require('../../../node_modules/vue/dist/vue.js') // Production
+} else {
+  var Vue = require('../../../node_modules/vue/dist/vue.min.js') // Production
+}
 var Vuex = require('../../../node_modules/vuex').default
 Vue.use(Vuex)
+var ipc = require('../../../node_modules/electron-better-ipc')
 var fe = require('../services/feapiconsumer/feapiconsumer')
 var globalMethods = require('../services/globals/methods')
 
@@ -14,7 +20,6 @@ let dataLoaders = require('./dataloaders').default
 let statusLights = require('./statuslights').default
 let contentRelations = require('./contentrelations')
 let crumbs = require('./crumbs')
-
 
 const dataLoaderPlugin = function(store: any) {
   store.watch(
@@ -32,7 +37,7 @@ const dataLoaderPlugin = function(store: any) {
       */
       const metrics = require('../services/metrics/metrics')()
       metrics.SendRaw('App navigate', {
-        'A-App-Location': store.state.route.name
+        'A-App-Location': store.state.route.name,
         /*
         Route name is anonymous.
          i.e. "a board was opened", not "the board 'heavymetal' was opened"
@@ -52,29 +57,40 @@ const dataLoaderPlugin = function(store: any) {
         return
       }
       let routeParams: any = newValue
-      if (store.state.route.name === "Board" || store.state.route.name === "Board>ThreadsNewList" || store.state.route.name === "Board>ModActivity" || store.state.route.name === "Board>Elections") {
+      if (
+        store.state.route.name === 'Board' ||
+        store.state.route.name === 'Board>ThreadsNewList' ||
+        store.state.route.name === 'Board>ModActivity' ||
+        store.state.route.name === 'Board>Elections'
+      ) {
         store.dispatch('loadBoardScopeData', routeParams.boardfp)
         store.dispatch('setLastSeenForBoard', { fp: routeParams.boardfp })
         return
       }
 
-      if (store.state.route.name.includes("Onboard")) {
+      if (store.state.route.name.includes('Onboard')) {
         /*
           If the route name includes the word 'onboard' (i.e. onboard1, onboard2 ...) we will add a check that makes it so that if the onboarding is complete, we redirect to popular.
         */
-        if (store.state.onboardCompleteStatusArrived && store.state.onboardCompleteStatus) {
+        if (
+          store.state.onboardCompleteStatusArrived &&
+          store.state.onboardCompleteStatus
+        ) {
           var router = require('../renderermain').router
-          router.push("/popular")
+          router.push('/popular')
           return
         }
       }
 
-      if (store.state.route.name === "Board>NewThread" || store.state.route.name === "Board>BoardInfo") {
+      if (
+        store.state.route.name === 'Board>NewThread' ||
+        store.state.route.name === 'Board>BoardInfo'
+      ) {
         store.dispatch('loadBoardScopeData', routeParams.boardfp)
         return
       }
 
-      if (store.state.route.name === "Board>Reports") {
+      if (store.state.route.name === 'Board>Reports') {
         store.dispatch('setCurrentBoardReportsArrived', false)
         store.dispatch('loadBoardScopeData', routeParams.boardfp)
         store.dispatch('loadBoardReports', routeParams.boardfp)
@@ -82,7 +98,7 @@ const dataLoaderPlugin = function(store: any) {
         return
       }
 
-      if (store.state.route.name === "Thread") {
+      if (store.state.route.name === 'Thread') {
         store.dispatch('loadThreadScopeData', {
           boardfp: routeParams.boardfp,
           threadfp: routeParams.threadfp,
@@ -90,12 +106,21 @@ const dataLoaderPlugin = function(store: any) {
         return
       }
 
-      if (store.state.route.name === "Global" || store.state.route.name === "Global>Subbed") {
+      if (
+        store.state.route.name === 'Global' ||
+        store.state.route.name === 'Global>Subbed'
+      ) {
         store.dispatch('loadGlobalScopeData')
         return
       }
 
-      if (store.state.route.name === "User" || store.state.route.name === 'User>Boards' || store.state.route.name === 'User>Threads' || store.state.route.name === 'User>Posts' || store.state.route.name === 'User>Notifications') {
+      if (
+        store.state.route.name === 'User' ||
+        store.state.route.name === 'User>Boards' ||
+        store.state.route.name === 'User>Threads' ||
+        store.state.route.name === 'User>Posts' ||
+        store.state.route.name === 'User>Notifications'
+      ) {
         store.dispatch('loadUserScopeData', {
           fp: routeParams.userfp,
           userreq: true,
@@ -117,7 +142,10 @@ let actions = {
   /*
     These are smaller, less encompassing versions of the loaders, and they're meant to be used after the principal payload is brought in.
   */
-  refreshCurrentBoardAndThreads(context: any, { boardfp, sortByNew }: { boardfp: string, sortByNew: boolean }) {
+  refreshCurrentBoardAndThreads(
+    context: any,
+    { boardfp, sortByNew }: { boardfp: string; sortByNew: boolean }
+  ) {
     fe.GetBoardAndThreads(boardfp, sortByNew, function(resp: any) {
       actions.pruneInflights()
       context.commit('SET_CURRENT_BOARD', resp.board)
@@ -126,9 +154,12 @@ let actions = {
     })
   },
   pruneInflights() {
-    fe.SendInflightsPruneRequest(function() { })
+    fe.SendInflightsPruneRequest(function() {})
   },
-  refreshCurrentThreadAndPosts(context: any, { boardfp, threadfp }: { boardfp: string, threadfp: string }) {
+  refreshCurrentThreadAndPosts(
+    context: any,
+    { boardfp, threadfp }: { boardfp: string; threadfp: string }
+  ) {
     fe.GetThreadAndPosts(boardfp, threadfp, function(resp: any) {
       actions.pruneInflights()
       context.commit('SET_CURRENT_BOARD', resp.board)
@@ -150,10 +181,13 @@ let actions = {
     context.commit('SET_AMBIENT_STATUS', ambientStatus)
     // If any of the items in the ambient status is a board that has just been created, add it to subscribed board.
     for (let val of context.state.ambientStatus.inflights.boardsList) {
-      if (val.status.eventtype === "CREATE" && val.status.completionpercent === 100) {
+      if (
+        val.status.eventtype === 'CREATE' &&
+        val.status.completionpercent === 100
+      ) {
         actions.subToBoard(context, {
-          'fp': val.entity.provable.fingerprint,
-          'notify': true
+          fp: val.entity.provable.fingerprint,
+          notify: true,
         })
       }
     }
@@ -162,14 +196,20 @@ let actions = {
     actions.setDotStates(context, context.state.ambientStatus)
   },
   setAmbientLocalUserEntity(context: any, ambientLocalUserEntityPayload: any) {
-    context.commit('SET_AMBIENT_LOCAL_USER_ENTITY', ambientLocalUserEntityPayload)
+    context.commit(
+      'SET_AMBIENT_LOCAL_USER_ENTITY',
+      ambientLocalUserEntityPayload
+    )
   },
   setCurrentBoardFp(context: any, fp: string) {
     let sortByNew = false
     if (context.state.route.name === 'Board>ThreadsNewList') {
       sortByNew = true
     }
-    context.dispatch('setCurrentBoardAndThreads', { boardfp: fp, sortByNew: sortByNew })
+    context.dispatch('setCurrentBoardAndThreads', {
+      boardfp: fp,
+      sortByNew: sortByNew,
+    })
     context.commit('SET_CURRENT_BOARD_FP', fp)
     // // current board fp is the same as what we asked for, but FE has updates.
     // if (context.state.frontendHasUpdates) {
@@ -177,9 +217,14 @@ let actions = {
     //   context.commit('SET_CURRENT_BOARD_FP', fp)
     // }
   },
-  setCurrentThreadFp(context: any, { boardfp, threadfp }: { boardfp: string, threadfp: string }) {
-    context.dispatch('setCurrentThreadAndPosts',
-      { boardfp: boardfp, threadfp: threadfp })
+  setCurrentThreadFp(
+    context: any,
+    { boardfp, threadfp }: { boardfp: string; threadfp: string }
+  ) {
+    context.dispatch('setCurrentThreadAndPosts', {
+      boardfp: boardfp,
+      threadfp: threadfp,
+    })
     context.commit('SET_CURRENT_THREAD_FP', threadfp)
     // Same scope, but fe has updated.
     return
@@ -190,7 +235,10 @@ let actions = {
     //   context.commit('SET_CURRENT_THREAD_FP', threadfp)
     // }
   },
-  setCurrentBoardAndThreads(context: any, { boardfp, sortByNew }: { boardfp: string, sortByNew: boolean }) {
+  setCurrentBoardAndThreads(
+    context: any,
+    { boardfp, sortByNew }: { boardfp: string; sortByNew: boolean }
+  ) {
     if (context.state.currentBoardFp === boardfp) {
       fe.GetBoardAndThreads(boardfp, sortByNew, function(resp: any) {
         context.commit('SET_CURRENT_BOARD', resp.board)
@@ -210,7 +258,10 @@ let actions = {
       // ^ This has to be here because otherwise the BC compute process runs before the data is ready, resulting in empty breadcrumbs.
     })
   },
-  setCurrentThreadAndPosts(context: any, { boardfp, threadfp }: { boardfp: string, threadfp: string }) {
+  setCurrentThreadAndPosts(
+    context: any,
+    { boardfp, threadfp }: { boardfp: string; threadfp: string }
+  ) {
     // if (context.state.currentThreadFp === threadfp) {
     //   context.dispatch('updateBreadcrumbs')
     //   return
@@ -231,7 +282,6 @@ let actions = {
   /*----------  Views insertion  ----------*/
   setHomeView(context: any, threads: any) {
     context.commit('SET_HOME_VIEW', threads)
-
   },
   setPopularView(context: any, threads: any) {
     context.commit('SET_POPULAR_VIEW', threads)
@@ -262,12 +312,21 @@ let actions = {
   setOnboardCompleteStatus(context: any, ocs: boolean) {
     if (ocs === false) {
       var router = require('../renderermain').router
-      router.push("/onboard")
+      router.push('/onboard')
     }
     context.commit('SET_ONBOARD_COMPLETE_STATUS', ocs)
   },
   setModModeEnabledStatus(context: any, modModeEnabled: boolean) {
     context.commit('SET_MOD_MODE_ENABLED_STATUS', modModeEnabled)
+  },
+  setExternalContentAutoloadDisabledStatus(
+    context: any,
+    externalContentAutoloadDisabled: boolean
+  ) {
+    context.commit(
+      'SET_EXTERNAL_CONTENT_AUTOLOAD_DISABLED_STATUS',
+      externalContentAutoloadDisabled
+    )
   },
   /*----------  History state  ----------*/
   registerNextActionIsHistoryMoveForward(context: any) {
@@ -289,6 +348,10 @@ let actions = {
   ...dataLoaders,
   ...crumbs.crumbActions,
   ...contentRelations.actions,
+  /*----------  Search  ----------*/
+  setSearchResult(context: any, response: any) {
+    context.commit('SAVE_SEARCH_RESULT', response)
+  },
 }
 
 let mutations = {
@@ -305,10 +368,12 @@ let mutations = {
   },
   SET_AMBIENT_STATUS(state: any, ambientStatus: any) {
     if (!globalMethods.IsUndefined(ambientStatus.frontendambientstatus)) {
-      state.ambientStatus.frontendambientstatus = ambientStatus.frontendambientstatus
+      state.ambientStatus.frontendambientstatus =
+        ambientStatus.frontendambientstatus
     }
     if (!globalMethods.IsUndefined(ambientStatus.backendambientstatus)) {
-      state.ambientStatus.backendambientstatus = ambientStatus.backendambientstatus
+      state.ambientStatus.backendambientstatus =
+        ambientStatus.backendambientstatus
     }
     if (!globalMethods.IsUndefined(ambientStatus.inflights)) {
       state.ambientStatus.inflights = ambientStatus.inflights
@@ -399,7 +464,7 @@ let mutations = {
     /*----------  Handle OS notifications  ----------*/
     let unreads = []
     let notification: any = {}
-    let localUserFp = ""
+    let localUserFp = ''
     if (state.localUserExists && state.localUserArrived) {
       localUserFp = state.localUser.fingerprint
     }
@@ -422,22 +487,38 @@ let mutations = {
     }
     if (unreads.length > 1) {
       notification = new Notification('New notifications', {
-        body: 'You have ' + unreads.length + ' unread notifications on Aether.'
+        body: 'You have ' + unreads.length + ' unread notifications on Aether.',
       })
       notification.onclick = function() {
         var router = require('../renderermain').router
         router.push('/user/' + localUserFp + '/notifications')
+        ipc.callMain('FocusAndShow')
       }
     }
     if (unreads.length === 1) {
       // Add the name of the user to the notification
-      let user = '@' + unreads[0].responsepostsusersList[0].username
+      let user = ''
+      if (
+        typeof unreads[0].responsepostsusersList[0] !== 'undefined' &&
+        typeof unreads[0].responsepostsusersList[0].username !== 'undefined'
+      ) {
+        user = '@' + unreads[0].responsepostsusersList[0].username
+      }
       notification = new Notification('New notification', {
-        body: user + ' ' + unreads[0].text
+        body: user + ' ' + unreads[0].text,
       })
+      if (user.length === 0) {
+        /*
+          This might happen if the user's name has not yet arrived at the point of notification creation.
+        */
+        notification = new Notification('New notification', {
+          body: 'You have one unread notification on Aether.',
+        })
+      }
       notification.onclick = function() {
         var router = require('../renderermain').router
         router.push('/user/' + localUserFp + '/notifications')
+        ipc.callMain('FocusAndShow')
       }
     }
     /*---------- END Handle OS notifications  ----------*/
@@ -450,11 +531,29 @@ let mutations = {
     state.modModeEnabled = modModeEnabled
     state.modModeEnabledArrived = true
   },
+  SET_EXTERNAL_CONTENT_AUTOLOAD_DISABLED_STATUS(
+    state: any,
+    externalContentAutoloadDisabled: any
+  ) {
+    // If there's a change, apply the new whitelist.
+    if (
+      state.externalContentAutoloadDisabled != externalContentAutoloadDisabled
+    ) {
+      // There *is* a change. Apply the change.
+      if (externalContentAutoloadDisabled) {
+        ipc.callMain('DisableExternalResourceAutoLoad')
+      } else {
+        ipc.callMain('EnableExternalResourceAutoLoad')
+      }
+    }
+    state.externalContentAutoloadDisabled = externalContentAutoloadDisabled
+    state.externalContentAutoloadDisabledArrived = true
+  },
   REGISTER_NEXT_ACTION_IS_HISTORY_MOVE_FORWARD(state: any) {
-    state.historyNextActionType = "HISTORY_BUTTON_MOVE_FORWARD"
+    state.historyNextActionType = 'HISTORY_BUTTON_MOVE_FORWARD'
   },
   REGISTER_NEXT_ACTION_IS_HISTORY_MOVE_BACK(state: any) {
-    state.historyNextActionType = "HISTORY_BUTTON_MOVE_BACK"
+    state.historyNextActionType = 'HISTORY_BUTTON_MOVE_BACK'
   },
   REGISTER_NEXT_MOVE_TO_HISTORY_COUNTER(state: any) {
     // Regular nav
@@ -465,16 +564,20 @@ let mutations = {
       return
     }
     // History back button
-    if (state.historyNextActionType === "HISTORY_BUTTON_MOVE_BACK") {
+    if (state.historyNextActionType === 'HISTORY_BUTTON_MOVE_BACK') {
       // Only currentHistory caret moves back, max stays the same
-      state.historyNextActionType = ""
-      state.historyCurrentCaret > 0 ? state.historyCurrentCaret-- : state.historyCurrentCaret = 0
+      state.historyNextActionType = ''
+      state.historyCurrentCaret > 0
+        ? state.historyCurrentCaret--
+        : (state.historyCurrentCaret = 0)
       return
     }
-    if (state.historyNextActionType === "HISTORY_BUTTON_MOVE_FORWARD") {
+    if (state.historyNextActionType === 'HISTORY_BUTTON_MOVE_FORWARD') {
       // Only currentHistory caret moves back, max stays the same
-      state.historyNextActionType = ""
-      state.historyCurrentCaret < state.historyMaxCaret ? state.historyCurrentCaret++ : state.historyCurrentCaret = state.historyMaxCaret
+      state.historyNextActionType = ''
+      state.historyCurrentCaret < state.historyMaxCaret
+        ? state.historyCurrentCaret++
+        : (state.historyCurrentCaret = state.historyMaxCaret)
     }
   },
   SET_CURRENT_BOARD_REPORTS(state: any, boardReports: any) {
@@ -501,8 +604,24 @@ let mutations = {
     parentFpDrafts.set(draft.contentType, draft.fields)
     // And finally, set the parentfp key on the drafts object with our updated map.
     state.drafts.set(draft.parentFp, parentFpDrafts)
-  }
-}/*
+  },
+  SAVE_SEARCH_RESULT(state: any, searchResult: any) {
+    // state.console.log('result received: ')
+    console.log(searchResult)
+    if (searchResult.searchtype === 'Board') {
+      state.boardsSearchResult = searchResult.boardsList
+    }
+    if (searchResult.searchtype === 'Content') {
+      state.threadsSearchResult = searchResult.threadsList
+      state.postsSearchResult = searchResult.postsList
+    }
+    if (searchResult.searchtype === 'User') {
+      state.usersSearchResult = searchResult.usersList
+    }
+  },
+}
+
+/*
 
 registerNextActionIsHistoryMoveForward(context: any) {
   context.commit('REGISTER_NEXT_ACTION_IS_HISTORY_MOVE_FORWARD')
@@ -524,7 +643,7 @@ let st = new Vuex.Store({
 
     /*----------  Current board main  ----------*/
     currentBoard: {},
-    currentBoardFp: "",
+    currentBoardFp: '',
     currentBoardLoadComplete: false,
     /*----------  Current board sub data  ----------*/
     currentBoardsThreads: [],
@@ -533,14 +652,14 @@ let st = new Vuex.Store({
 
     /*----------  Current thread main  ----------*/
     currentThread: {}, // todo - insert 404 here
-    currentThreadFp: "",
+    currentThreadFp: '',
     currentThreadLoadComplete: false,
     /*----------  Current thread sub data  ----------*/
     currentThreadsPosts: [],
     currentUserBoards: [],
 
     /*----------  Current user main  ----------*/
-    currentUserEntity: {},  // This is the last user entity loaded into the user scope, *not* the current user occupying the client.
+    currentUserEntity: {}, // This is the last user entity loaded into the user scope, *not* the current user occupying the client.
     currentUserLoadComplete: false,
     /*----------  Current user sub data  ----------*/
     currentUserPosts: [],
@@ -564,20 +683,20 @@ let st = new Vuex.Store({
         lastoutboundconntimestamp: 0,
         lastoutbounddurationseconds: 0,
         outboundscount15: 0,
-        localnodeexternalip: "",
+        localnodeexternalip: '',
         localnodeexternalport: 0,
-        upnpstatus: "",
+        upnpstatus: '',
         /*----------  Database  ----------*/
-        databasestatus: "",
+        databasestatus: '',
         dbsizemb: 0,
         lastdbinserttimestamp: 0,
         lastinsertdurationseconds: 0,
         maxdbsizemb: 0,
         /*----------  Caching  ----------*/
-        cachingstatus: "",
+        cachingstatus: '',
         lastcachegenerationdurationseconds: 0,
         lastcachegenerationtimestamp: 0,
-        backendconfiglocation: "",
+        backendconfiglocation: '',
       },
       frontendambientstatus: {
         /*----------  Bootstrap  ----------*/
@@ -586,8 +705,8 @@ let st = new Vuex.Store({
         /*----------  Refresh  ----------*/
         lastrefreshdurationseconds: 0,
         lastrefreshtimestamp: 0,
-        refresherstatus: "",
-        frontendconfiglocation: "",
+        refresherstatus: '',
+        frontendconfiglocation: '',
         sfwlistdisabled: false,
       },
       inflights: {
@@ -596,20 +715,20 @@ let st = new Vuex.Store({
         postsList: [],
         votesList: [],
         keysList: [],
-        truststatesList: []
+        truststatesList: [],
       },
     },
     // States for the status dots visible at the bottom of the sidebar and in the status page.
     dotStates: {
       /*----------  Main dot statuses  ----------*/
-      backendDotState: "status_section_unknown",
-      frontendDotState: "status_section_unknown",
+      backendDotState: 'status_section_unknown',
+      frontendDotState: 'status_section_unknown',
       /*----------  Sub dot states  ----------*/
-      refresherDotState: "status_subsection_unknown",
-      inflightsDotState: "status_subsection_unknown",
-      networkDotState: "status_subsection_unknown",
-      dbDotState: "status_subsection_unknown",
-      cachingDotState: "status_subsection_unknown",
+      refresherDotState: 'status_subsection_unknown',
+      inflightsDotState: 'status_subsection_unknown',
+      networkDotState: 'status_subsection_unknown',
+      dbDotState: 'status_subsection_unknown',
+      cachingDotState: 'status_subsection_unknown',
     },
 
     /*----------  Local user data  ----------*/
@@ -638,10 +757,14 @@ let st = new Vuex.Store({
     modModeEnabled: false,
     modModeEnabledArrived: false,
 
+    /*----------  External content autoload disabled status  ----------*/
+    externalContentAutoloadDisabled: false,
+    externalContentAutoloadEnabledDisabled: false,
+
     /*----------  History state  ----------*/
     historyMaxCaret: 0,
     historyCurrentCaret: 0,
-    historyNextActionType: "",
+    historyNextActionType: '',
     /*----------  App fullscreen state  ----------*/
     appIsFullscreen: false,
     /*----------  Auto update state  ----------*/
@@ -653,6 +776,11 @@ let st = new Vuex.Store({
     // ^ Metrics are enabled by default on pre-release builds (as the user is notified of, in the onboarding process of pre-release versions.)
     /*----------  Drafts  ----------*/
     drafts: new Map(),
+    /*----------  Search result  ----------*/
+    boardsSearchResult: [],
+    threadsSearchResult: [],
+    postsSearchResult: [],
+    usersSearchResult: [],
     /* ----------  Misc  ----------*/
     frontendHasUpdates: true,
     frontendPort: 0,
@@ -683,4 +811,3 @@ changeTestData({commit}) {
   commit('editTestData')
 }
 */
-

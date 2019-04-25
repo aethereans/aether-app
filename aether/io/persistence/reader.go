@@ -24,10 +24,10 @@ func ReadNode(fingerprint api.Fingerprint) (DbNode, error) {
 			return n, err
 		}
 		rows, err := globals.DbInstance.Queryx(query, args...)
-		defer rows.Close() // In case of premature exit.
 		if err != nil {
 			return n, err
 		}
+		defer rows.Close() // In case of premature exit.
 		for rows.Next() {
 			err := rows.StructScan(&n)
 			if err != nil {
@@ -379,10 +379,10 @@ func ReadThreadEmbed(entities []api.Provable) ([]api.Thread, error) {
 			return arr, err
 		}
 		rows, err := globals.DbInstance.Queryx(query, args...)
-		defer rows.Close() // In case of premature exit.
 		if err != nil {
 			return arr, err
 		}
+		defer rows.Close() // In case of premature exit.
 		for rows.Next() {
 			var entity DbThread
 			err := rows.StructScan(&entity)
@@ -428,10 +428,10 @@ func ReadPostEmbed(entities []api.Provable) ([]api.Post, error) {
 			return arr, err
 		}
 		rows, err := globals.DbInstance.Queryx(query, args...)
-		defer rows.Close() // In case of premature exit.
 		if err != nil {
 			return arr, err
 		}
+		defer rows.Close() // In case of premature exit.
 		for rows.Next() {
 			var entity DbPost
 			err := rows.StructScan(&entity)
@@ -477,10 +477,10 @@ func ReadVoteEmbed(entities []api.Provable) ([]api.Vote, error) {
 			return arr, err
 		}
 		rows, err := globals.DbInstance.Queryx(query, args...)
-		defer rows.Close() // In case of premature exit.
 		if err != nil {
 			return arr, err
 		}
+		defer rows.Close() // In case of premature exit.
 		for rows.Next() {
 			var entity DbVote
 			err := rows.StructScan(&entity)
@@ -532,10 +532,10 @@ func ReadKeyEmbed(entities []api.Provable, firstEmbedCache []api.Provable) ([]ap
 		return arr, err
 	}
 	rows, err := globals.DbInstance.Queryx(query, args...)
-	defer rows.Close() // In case of premature exit.
 	if err != nil {
 		return arr, err
 	}
+	defer rows.Close() // In case of premature exit.
 	for rows.Next() {
 		var entity DbKey
 		err := rows.StructScan(&entity)
@@ -633,10 +633,10 @@ func ReadDbBoards(
 		return dbArr, errors.New(fmt.Sprintf("The request you've made to ReadDbBoards was invalid. Fps: %v, Start: %v, End: %v", fingerprints, beginTimestamp, endTimestamp))
 	}
 	rows, err := globals.DbInstance.Queryx(query, args...)
-	defer rows.Close() // In case of premature exit.
 	if err != nil {
 		return dbArr, err
 	}
+	defer rows.Close() // In case of premature exit.
 	for rows.Next() {
 		var entity DbBoard
 		err := rows.StructScan(&entity)
@@ -734,10 +734,10 @@ func ReadDbThreads(
 		return dbArr, errors.New(fmt.Sprintf("The request you've made to ReadDbThreads was invalid. Fps: %v, Start: %v, End: %v", fingerprints, beginTimestamp, endTimestamp))
 	}
 	rows, err := globals.DbInstance.Queryx(query, args...)
-	defer rows.Close() // In case of premature exit.
 	if err != nil {
 		return dbArr, err
 	}
+	defer rows.Close() // In case of premature exit.
 	for rows.Next() {
 		var entity DbThread
 		err := rows.StructScan(&entity)
@@ -846,10 +846,10 @@ func ReadDbPosts(
 		return dbArr, errors.New(fmt.Sprintf("The request you've made to ReadDbPosts was invalid. Fps: %v, Start: %v, End: %v", fingerprints, beginTimestamp, endTimestamp))
 	}
 	rows, err := globals.DbInstance.Queryx(query, args...)
-	defer rows.Close() // In case of premature exit.
 	if err != nil {
 		return dbArr, err
 	}
+	defer rows.Close() // In case of premature exit.
 	for rows.Next() {
 		var entity DbPost
 		err := rows.StructScan(&entity)
@@ -991,10 +991,10 @@ func ReadDbVotes(
 		return dbArr, errors.New(fmt.Sprintf("The request you've made to ReadDbVotes was invalid. Fps: %v, Start: %v, End: %v ReqType: %v", fingerprints, beginTimestamp, endTimestamp, reqtyp))
 	}
 	rows, err := globals.DbInstance.Queryx(query, args...)
-	defer rows.Close() // In case of premature exit.
 	if err != nil {
 		return dbArr, err
 	}
+	defer rows.Close() // In case of premature exit.
 	for rows.Next() {
 		var entity DbVote
 		err := rows.StructScan(&entity)
@@ -1011,10 +1011,10 @@ func readDbAddressesBasicSearch(Location api.Location, Sublocation api.Location,
 	var dbArr []DbAddress
 	if len(Location) > 0 && Port > 0 { // Regular address search.
 		rows, err := globals.DbInstance.Queryx("SELECT * from Addresses WHERE Location = ? AND Sublocation = ? AND Port = ?", Location, Sublocation, Port)
-		defer rows.Close() // In case of premature exit.
 		if err != nil {
 			return &dbArr, err
 		}
+		defer rows.Close() // In case of premature exit.
 		for rows.Next() {
 			var entity DbAddress
 			err := rows.StructScan(&entity)
@@ -1045,12 +1045,10 @@ func readDbAddressesFirstXResultsSearch(maxResults int, offset int, addrType uin
 	}
 	// First X results search.
 	// You have to provide a addrtype, if you search for 0, that will find the nodes you haven't connected yet.
-	if rows != nil {
-		defer rows.Close() // In case of premature exit.
-	}
 	if err != nil {
 		return &dbArr, err
 	}
+	defer rows.Close() // In case of premature exit.
 	for rows.Next() {
 		var entity DbAddress
 		err := rows.StructScan(&entity)
@@ -1093,10 +1091,10 @@ func readDbAddressesTimeRangeSearch(
 	}
 	query := fmt.Sprintf("SELECT DISTINCT * from Addresses WHERE (%s > ? AND %s < ?) ORDER BY %s DESC", rangeSearchColumn, rangeSearchColumn, rangeSearchColumn)
 	rows, err := globals.DbInstance.Queryx(query, beginTimestamp, endTs)
-	defer rows.Close() // In case of premature exit.
 	if err != nil {
 		return &dbArr, err
 	}
+	defer rows.Close() // In case of premature exit.
 	for rows.Next() {
 		var entity DbAddress
 		err := rows.StructScan(&entity)
@@ -1288,10 +1286,10 @@ func ReadDbKeys(
 		return dbArr, errors.New(fmt.Sprintf("The request you've made to ReadDbKeys was invalid. Fps: %v, Start: %v, End: %v", fingerprints, beginTimestamp, endTimestamp))
 	}
 	rows, err := globals.DbInstance.Queryx(query, args...)
-	defer rows.Close() // In case of premature exit.
 	if err != nil {
 		return dbArr, err
 	}
+	defer rows.Close() // In case of premature exit.
 	for rows.Next() {
 		var entity DbKey
 		err := rows.StructScan(&entity)
@@ -1426,10 +1424,10 @@ func ReadDbTruststates(
 	}
 
 	rows, err := globals.DbInstance.Queryx(query, args...)
-	defer rows.Close() // In case of premature exit.
 	if err != nil {
 		return dbArr, err
 	}
+	defer rows.Close() // In case of premature exit.
 	for rows.Next() {
 		var entity DbTruststate
 		err := rows.StructScan(&entity)
@@ -1453,10 +1451,10 @@ func ReadDBBoardOwners(BoardFingerprint api.Fingerprint,
 	// If this query is without a key fingerprint (we want all addresses with that board fingerprint), change the query as such.
 	if KeyFingerprint == "" {
 		rows, err := globals.DbInstance.Queryx("SELECT * from BoardOwners WHERE BoardFingerprint = ?", BoardFingerprint)
-		defer rows.Close() // In case of premature exit.
 		if err != nil {
 			logging.Log(1, err)
 		}
+		defer rows.Close() // In case of premature exit.
 		for rows.Next() {
 			var boardOwner DbBoardOwner
 			err := rows.StructScan(&boardOwner)
@@ -1468,10 +1466,10 @@ func ReadDBBoardOwners(BoardFingerprint api.Fingerprint,
 		rows.Close()
 	} else {
 		rows, err := globals.DbInstance.Queryx("SELECT * from BoardOwners WHERE BoardFingerprint = ? AND KeyFingerprint = ?", BoardFingerprint, KeyFingerprint)
-		defer rows.Close() // In case of premature exit.
 		if err != nil {
 			logging.Log(1, err)
 		}
+		defer rows.Close() // In case of premature exit.
 		for rows.Next() {
 			var boardOwner DbBoardOwner
 			err := rows.StructScan(&boardOwner)
@@ -1490,10 +1488,10 @@ func ReadDBBoardOwners(BoardFingerprint api.Fingerprint,
 func ReadDBSubprotocols(Location api.Location, Sublocation api.Location, Port uint16) ([]DbSubprotocol, error) {
 	var fpArr []api.Fingerprint
 	rows, err := globals.DbInstance.Queryx("SELECT * from AddressesSubprotocols WHERE AddressLocation = ? AND AddressSublocation = ? AND AddressPort = ?", Location, Sublocation, Port)
-	defer rows.Close() // In case of premature exit.
 	if err != nil {
 		logging.Log(1, err)
 	}
+	defer rows.Close() // In case of premature exit.
 	// Get the Subprotocol fingerprints from the junction table.
 	for rows.Next() {
 		var dbAddressSubprot DbAddressSubprotocol
@@ -1508,10 +1506,10 @@ func ReadDBSubprotocols(Location api.Location, Sublocation api.Location, Port ui
 	var subprotArr []DbSubprotocol
 	for _, val := range fpArr {
 		rows, err := globals.DbInstance.Queryx("SELECT * from Subprotocols WHERE Fingerprint = ?", val)
-		defer rows.Close() // In case of premature exit.
 		if err != nil {
 			logging.Log(1, err)
 		}
+		defer rows.Close() // In case of premature exit.
 
 		for rows.Next() {
 			var subprot DbSubprotocol

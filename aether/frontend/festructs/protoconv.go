@@ -214,3 +214,37 @@ func (e *ReportsTabEntryBatch) Protobuf() []*pb.ReportsTabEntry {
 	}
 	return eProtos
 }
+
+/*----------  Batch conversions  ----------*/
+
+func (e *CBoardBatch) Protobuf() []*pb.CompiledBoardEntity {
+	eProtos := []*pb.CompiledBoardEntity{}
+	for k, _ := range *e {
+		eProtos = append(eProtos, (*e)[k].Protobuf())
+	}
+	return eProtos
+}
+
+func (e *CThreadBatch) Protobuf() []*pb.CompiledThreadEntity {
+	eProtos := []*pb.CompiledThreadEntity{}
+	for k, _ := range *e {
+		eProtos = append(eProtos, (*e)[k].Protobuf())
+	}
+	return eProtos
+}
+
+func (e *CPostBatch) Protobuf() []*pb.CompiledPostEntity {
+	eProtos := []*pb.CompiledPostEntity{}
+	for k, _ := range *e {
+		eProtos = append(eProtos, (*e)[k].Protobuf())
+	}
+	return eProtos
+}
+
+func (e *CUserBatch) Protobuf() []*pb.CompiledUserEntity {
+	eProtos := []*pb.CompiledUserEntity{}
+	for k, _ := range *e {
+		eProtos = append(eProtos, (*e)[k].Protobuf())
+	}
+	return eProtos
+}

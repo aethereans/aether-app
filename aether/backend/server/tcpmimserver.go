@@ -7,6 +7,8 @@ import (
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/tcpmim"
 	"bufio"
+	"errors"
+	"fmt"
 	"net"
 	"strconv"
 	"time"
@@ -74,8 +76,36 @@ func (t *TCPMimServer) Serve() {
 	}
 }
 
+/*
+MaybeStartSync checks whether we have a slot allowed in our outbound gate. If so, this will claim a slot (lease), and it will start the sync. This requesting outbound lease logic used here also happens in the sync itself. This is fine, because requesting a lease, if one is present, is idempotent. Likewise, returning a lease is idempotent if the lease has already been returned.
+
+This does not actually make use of lease renewal and return functions provided here. The reason why is that we just get the lease here, and when the appropriate sync enters, it's going to claim the lease we started here and take over the maintenance functions like those. It will also terminate that lease as needed.
+*/
+func MaybeStartSync(reverseConn *net.Conn) error {
+	/*=================================================
+	=            Requesting outbound lease            =
+	=================================================*/
+	allowed, _, _ := dispatch.OutboundAllowed(api.Address{}, reverseConn)
+	if !allowed {
+		api.SendReverseOpenStatusRefused(reverseConn)
+		// ^ The connection is closed within this.
+
+		// time.Sleep(10 * time.Second)
+		// (*reverseConn).Close()
+		errMessage := fmt.Sprintf("We don't have an open outbound lease to respond to this reverse open request, so we declined it. Connection: %#v", reverseConn)
+		logging.Logf(1, errMessage)
+		return errors.New(errMessage)
+	}
+	/*=====  End of Requesting outbound lease  ======*/
+	err := dispatch.Sync(api.Address{}, []string{}, reverseConn)
+	// ^ The connection is closed within this.
+
+	// time.Sleep(10 * time.Second)
+	// (*reverseConn).Close()
+	return err
+}
+
 func (t *TCPMimServer) HandleConn(conn net.Conn) {
-	defer conn.Close()
 	// Make a buffer to hold incoming data.
 	buf := bufio.NewReader(conn)
 	// We only have one message for now. We can skip the protocol parser.
@@ -83,16 +113,20 @@ func (t *TCPMimServer) HandleConn(conn net.Conn) {
 	_, err := buf.Read(msg)
 	if err != nil {
 		logging.Logf(0, "TCPMIMServer: HandleConn: Error reading: %v", err.Error())
+		conn.Close()
 		return
+	}
+	if tcpmim.ParseMimMessage(msg) != tcpmim.ReverseOpenRequest {
+		logging.Logf(0, "TCPMIMServer: HandleConn: Not a known TCPMim message. Message: %v", string(msg))
+		conn.Close()
 	}
 	// logging.Logf(0, "DEBUG TCPMIM: %v, as bytes: %v, source: %v", string(msg), msg, conn.RemoteAddr().String())
-	if tcpmim.ParseMimMessage(msg) == tcpmim.ReverseOpenRequest {
-		// This is a reverse open request.
-		logging.Logf(0, "TCPMIMServer: HandleConn: This is a TCPMim reverse open request from %v", conn.RemoteAddr().String())
-		logging.Logf(0, "TCPMIMServer: HandleConn: Going into sync...")
-		dispatch.Sync(api.Address{}, []string{}, &conn)
-		logging.Logf(0, "TCPMIMServer: HandleConn: Exited sync.")
+	// This is a reverse open request.
+	logging.Logf(0, "TCPMIMServer: HandleConn: This is a TCPMim reverse open request from %v. Going into MaybeSync.", conn.RemoteAddr().String())
+	err2 := MaybeStartSync(&conn)
+	if err2 != nil {
+		logging.Logf(0, "TCPMIMServer: HandleConn: MaybeStartSync errored out. Error: %v", err2)
 		return
 	}
-	logging.Logf(0, "TCPMIMServer: HandleConn: Not a known TCPMim message. Message: %v", string(msg))
+	logging.Logf(0, "TCPMIMServer: HandleConn: Reverse open sync completed successfully.")
 }

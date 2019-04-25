@@ -4,6 +4,7 @@
 package festructs
 
 import (
+	"aether-core/aether/frontend/search"
 	"aether-core/aether/services/ca"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
@@ -11,7 +12,105 @@ import (
 	pbstructs "aether-core/aether/protos/mimapi"
 	"math"
 	"sort"
+	"time"
 )
+
+var (
+	CBoardIndexCache  = CBoardBatch{}
+	CThreadIndexCache = CThreadBatch{}
+	CPostIndexCache   = CPostBatch{}
+	CUserIndexCache   = CUserBatch{}
+)
+
+func CommitSearchIndexes() {
+	logging.Logf(2, "Commit search indexes enters. We have %v boards, %v threads, %v posts, %v users.", len(CBoardIndexCache), len(CThreadIndexCache), len(CPostIndexCache), len(CUserIndexCache))
+
+	start := time.Now()
+	batchSize := 500
+
+	/* Batch boards */
+	var bb []CBoardBatch
+	for batchSize < len(CBoardIndexCache) {
+		CBoardIndexCache, bb = CBoardIndexCache[batchSize:], append(bb, CBoardIndexCache[0:batchSize:batchSize])
+	}
+	bb = append(bb, CBoardIndexCache)
+
+	/* Batch threads */
+	var tb []CThreadBatch
+	for batchSize < len(CThreadIndexCache) {
+		CThreadIndexCache, tb = CThreadIndexCache[batchSize:], append(tb, CThreadIndexCache[0:batchSize:batchSize])
+	}
+	tb = append(tb, CThreadIndexCache)
+
+	/* Batch posts */
+	var pb []CPostBatch
+	for batchSize < len(CPostIndexCache) {
+		CPostIndexCache, pb = CPostIndexCache[batchSize:], append(pb, CPostIndexCache[0:batchSize:batchSize])
+	}
+	pb = append(pb, CPostIndexCache)
+
+	/* Batch users */
+	var ub []CUserBatch
+	for batchSize < len(CUserIndexCache) {
+		CUserIndexCache, ub = CUserIndexCache[batchSize:], append(ub, CUserIndexCache[0:batchSize:batchSize])
+	}
+	ub = append(ub, CUserIndexCache)
+
+	/* Commit board batches */
+	for batchIndex, _ := range bb {
+		ib := search.NewBatch()
+		for k, _ := range bb[batchIndex] {
+			ib.Index(bb[batchIndex][k].SearchId(), bb[batchIndex][k])
+		}
+		err := search.CommitBatch(ib)
+		if err != nil {
+			logging.LogCrash(err)
+		}
+	}
+
+	/* Commit thread batches */
+	for batchIndex, _ := range tb {
+		ib := search.NewBatch()
+		for k, _ := range tb[batchIndex] {
+			ib.Index(tb[batchIndex][k].SearchId(), tb[batchIndex][k])
+		}
+		err := search.CommitBatch(ib)
+		if err != nil {
+			logging.LogCrash(err)
+		}
+	}
+
+	/* Commit post batches */
+	for batchIndex, _ := range pb {
+		ib := search.NewBatch()
+		for k, _ := range pb[batchIndex] {
+			ib.Index(pb[batchIndex][k].SearchId(), pb[batchIndex][k])
+		}
+		err := search.CommitBatch(ib)
+		if err != nil {
+			logging.LogCrash(err)
+		}
+	}
+
+	/* Commit user batches */
+	for batchIndex, _ := range ub {
+		ib := search.NewBatch()
+		for k, _ := range ub[batchIndex] {
+			ib.Index(ub[batchIndex][k].SearchId(), ub[batchIndex][k])
+		}
+		err := search.CommitBatch(ib)
+		if err != nil {
+			logging.LogCrash(err)
+		}
+	}
+
+	elapsed := time.Since(start)
+	logging.Logf(2, "Indexing is complete for the whole batch, board, thread, post, user. Count: %v. Took: %v", len(CBoardIndexCache)+len(CThreadIndexCache)+len(CPostIndexCache)+len(CUserIndexCache), elapsed)
+	CBoardIndexCache = CBoardBatch{}
+	CThreadIndexCache = CThreadBatch{}
+	CPostIndexCache = CPostBatch{}
+	CUserIndexCache = CUserBatch{}
+}
 
 // Compiled types
 
@@ -27,6 +126,31 @@ type CompiledPost struct {
 	Creation               int64
 	LastUpdate             int64
 	Meta                   string
+}
+
+// BleveType satisfies the bleve Classifier interface so that Bleve knows how to parse this to index for search.
+func (c CompiledPost) BleveType() string {
+	return "post"
+}
+
+// SearchId gives the Id on which we'll save this entity. This has enough data to find what we want in a fast manner, and serve it to the user.
+func (c CompiledPost) SearchId() string {
+	// A path that defines a post is board, thread, parent, self fp. No user fp.
+	bid, err := search.MakeSearchId("Post", c.Board, c.Thread, c.Parent, c.Fingerprint, "")
+	if err != nil {
+		logging.Logf(1, "Making search ID failed. Error: %v", err)
+		return ""
+	}
+	return bid
+}
+
+func (c *CompiledPost) IndexForSearch() {
+	// search.Index(c.SearchId(), c)
+	CPostIndexCache = append(CPostIndexCache, *c)
+}
+
+func (c *CompiledPost) DeleteFromSearchIndex() {
+	search.Delete(c.SearchId())
 }
 
 func NewCPost(rp *pbstructs.Post) CompiledPost {
@@ -82,6 +206,7 @@ func (c *CompiledPost) RefreshUserHeader(boardSpecificUserHeaders CUserBatch) {
 func (c *CompiledPost) Insert(ce CompiledPost) {
 	if c.LastUpdate < ce.LastUpdate {
 		*c = ce
+		c.IndexForSearch()
 	}
 }
 
@@ -193,7 +318,29 @@ func isMod(us *CompiledUserSignals) bool {
 
 type CPostBatch []CompiledPost
 
+// IndexForSearch adds all entities in this batch into the search index.
+func (batch *CPostBatch) IndexForSearch() {
+	for k, _ := range *batch {
+		CPostIndexCache = append(CPostIndexCache, (*batch)[k])
+	}
+	// if len(*batch) == 0 {
+	// 	return
+	// }
+	// go func() {
+	// 	ib := search.NewBatch()
+	// 	for k, _ := range *batch {
+	// 		ib.Index((*batch)[k].SearchId(), (*batch)[k])
+	// 	}
+	// 	err := search.CommitBatch(ib)
+	// 	if err != nil {
+	// 		logging.LogCrash(err)
+	// 	}
+	// 	logging.Logf(1, "Indexing is complete for this post batch. Count: %v", len(*batch))
+	// }()
+}
+
 func (batch *CPostBatch) Insert(ces []CompiledPost) {
+	toBeIndexed := CPostBatch{}
 	for k, _ := range ces {
 		i := batch.Find(ces[k].Fingerprint)
 		if i != -1 {
@@ -203,10 +350,14 @@ func (batch *CPostBatch) Insert(ces []CompiledPost) {
 		}
 		// Doesn't exist in our batch. Add it.
 		*batch = append(*batch, ces[k])
+		toBeIndexed = append(toBeIndexed, ces[k])
 	}
+	// Index for new additions. (Index for edits happen inside singular insert.)
+	toBeIndexed.IndexForSearch()
 }
 
 func (batch *CPostBatch) InsertFromProtobuf(ces []*pbstructs.Post) {
+	toBeIndexed := CPostBatch{}
 	for k, _ := range ces {
 		if ces[k] == nil {
 			continue
@@ -221,8 +372,11 @@ func (batch *CPostBatch) InsertFromProtobuf(ces []*pbstructs.Post) {
 			continue
 		}
 		// Doesn't exist in our batch. Add it.
-		*batch = append(*batch, NewCPost(ces[k]))
+		newpost := NewCPost(ces[k])
+		*batch = append(*batch, newpost)
+		toBeIndexed = append(toBeIndexed, newpost)
 	}
+	toBeIndexed.IndexForSearch()
 }
 
 func (batch *CPostBatch) Find(postfp string) int {
@@ -242,7 +396,14 @@ func (batch *CPostBatch) Refresh(catds *CATDBatch, cfgs *CFGBatch, cmas *CMABatc
 
 func (batch *CPostBatch) Sort() {
 	sort.Slice((*batch), func(i, j int) bool {
-		return ((*batch)[i].CompiledContentSignals.Upvotes - (*batch)[i].CompiledContentSignals.Downvotes) > ((*batch)[j].CompiledContentSignals.Upvotes - (*batch)[j].CompiledContentSignals.Downvotes)
+		iVoteDelta := ((*batch)[i].CompiledContentSignals.Upvotes - (*batch)[i].CompiledContentSignals.Downvotes)
+		jVoteDelta := ((*batch)[j].CompiledContentSignals.Upvotes - (*batch)[j].CompiledContentSignals.Downvotes)
+		// If they're not the same, use the vote delta sort.
+		if iVoteDelta-jVoteDelta != 0 {
+			return iVoteDelta > jVoteDelta
+		}
+		// If they are, make it so that the newer post is sorted higher
+		return max((*batch)[i].Creation, (*batch)[i].LastUpdate) > max((*batch)[j].Creation, (*batch)[j].LastUpdate)
 	})
 }
 
@@ -261,6 +422,29 @@ type CompiledThread struct {
 	PostsCount             int
 	Score                  float64
 	ViewMeta_BoardName     string
+}
+
+func (c CompiledThread) BleveType() string {
+	return "thread"
+}
+
+func (c CompiledThread) SearchId() string {
+	// A path that defines a thread is board, threadfp. No user fp.
+	bid, err := search.MakeSearchId("Thread", c.Board, "", "", c.Fingerprint, "")
+	if err != nil {
+		logging.Logf(1, "Making search ID failed. Error: %v", err)
+		return ""
+	}
+	return bid
+}
+
+func (c *CompiledThread) IndexForSearch() {
+	// search.Index(c.SearchId(), c)
+	CThreadIndexCache = append(CThreadIndexCache, *c)
+}
+
+func (c *CompiledThread) DeleteFromSearchIndex() {
+	search.Delete(c.SearchId())
 }
 
 func NewCThread(rp *pbstructs.Thread) CompiledThread {
@@ -317,6 +501,7 @@ func (c *CompiledThread) RefreshUserHeader(boardSpecificUserHeaders CUserBatch) 
 func (c *CompiledThread) Insert(ce CompiledThread) {
 	if c.LastUpdate < ce.LastUpdate {
 		*c = ce
+		c.IndexForSearch()
 	}
 }
 
@@ -413,7 +598,30 @@ func (c *CompiledThread) RefreshExogenousContentSignals(bc *BoardCarrier) {
 
 type CThreadBatch []CompiledThread
 
+// IndexForSearch adds all entities in this batch into the search index.
+func (batch *CThreadBatch) IndexForSearch() {
+	for k, _ := range *batch {
+		CThreadIndexCache = append(CThreadIndexCache, (*batch)[k])
+	}
+
+	// if len(*batch) == 0 {
+	// 	return
+	// }
+	// go func() {
+	// 	ib := search.NewBatch()
+	// 	for k, _ := range *batch {
+	// 		ib.Index((*batch)[k].SearchId(), (*batch)[k])
+	// 	}
+	// 	err := search.CommitBatch(ib)
+	// 	if err != nil {
+	// 		logging.LogCrash(err)
+	// 	}
+	// 	logging.Logf(1, "Indexing is complete for this thread batch. Count: %v", len(*batch))
+	// }()
+}
+
 func (batch *CThreadBatch) Insert(cthreads []CompiledThread) {
+	toBeIndexed := CThreadBatch{}
 	for k, _ := range cthreads {
 		i := batch.Find(cthreads[k].Fingerprint)
 		if i != -1 {
@@ -423,10 +631,14 @@ func (batch *CThreadBatch) Insert(cthreads []CompiledThread) {
 		}
 		// Doesn't exist in our batch. Add it.
 		*batch = append(*batch, cthreads[k])
+		toBeIndexed = append(toBeIndexed, cthreads[k])
 	}
+	// Index for new additions. (Index for edits happen inside singular insert.)
+	toBeIndexed.IndexForSearch()
 }
 
 func (batch *CThreadBatch) InsertFromProtobuf(cthreads []*pbstructs.Thread) {
+	toBeIndexed := CThreadBatch{}
 	for k, _ := range cthreads {
 		if cthreads[k] == nil {
 			continue
@@ -442,8 +654,11 @@ func (batch *CThreadBatch) InsertFromProtobuf(cthreads []*pbstructs.Thread) {
 		}
 		logging.Logf(2, "NOT found in the compiled thread batch, creating")
 		// Doesn't exist in our batch. Add it.
-		*batch = append(*batch, NewCThread(cthreads[k]))
+		newthread := NewCThread(cthreads[k])
+		*batch = append(*batch, newthread)
+		toBeIndexed = append(toBeIndexed, newthread)
 	}
+	toBeIndexed.IndexForSearch()
 }
 
 func (batch *CThreadBatch) Find(threadfp string) int {
@@ -487,6 +702,29 @@ type CompiledUser struct {
 	CompiledUserSignals CompiledUserSignals
 }
 
+func (c CompiledUser) BleveType() string {
+	return "user"
+}
+
+func (c CompiledUser) SearchId() string {
+	// A path that defines a board is fingerprint. no board, thread, post, parent, userfp.
+	bid, err := search.MakeSearchId("User", "", "", "", c.Fingerprint, "")
+	if err != nil {
+		logging.Logf(1, "Making Search ID failed. Error: %v", err)
+		return ""
+	}
+	return bid
+}
+
+func (c *CompiledUser) IndexForSearch() {
+	// search.Index(c.SearchId(), c)
+	CUserIndexCache = append(CUserIndexCache, *c)
+}
+
+func (c *CompiledUser) DeleteFromSearchIndex() {
+	search.Delete(c.SearchId())
+}
+
 func NewCUser(u *pbstructs.Key, nowts int64) CompiledUser {
 	return CompiledUser{
 		Fingerprint:      u.GetProvable().GetFingerprint(),
@@ -513,9 +751,11 @@ func (c *CompiledUser) RefreshUserSignals(
 func (c *CompiledUser) Insert(ce CompiledUser) {
 	if c.LastUpdate < ce.LastUpdate {
 		*c = ce
+		c.IndexForSearch()
 	}
 }
 
+// InsertWithSignalMerge is useful when you want to merge a global user header with a community specific user header. It does a SUM type merge where signals are summed. (The normal merge just overwrites the older signals with the newer, it does not merge.)
 func (c *CompiledUser) InsertWithSignalMerge(ce CompiledUser) {
 	extantSignals := c.CompiledUserSignals
 	oncomingSignals := ce.CompiledUserSignals
@@ -554,7 +794,29 @@ func (c *CompiledUser) GetUsername() CUserUsername {
 
 type CUserBatch []CompiledUser
 
+// IndexForSearch adds all entities in this batch into the search index.
+func (batch *CUserBatch) IndexForSearch() {
+	for k, _ := range *batch {
+		CUserIndexCache = append(CUserIndexCache, (*batch)[k])
+	}
+	// if len(*batch) == 0 {
+	// 	return
+	// }
+	// go func() {
+	// 	ib := search.NewBatch()
+	// 	for k, _ := range *batch {
+	// 		ib.Index((*batch)[k].SearchId(), (*batch)[k])
+	// 	}
+	// 	err := search.CommitBatch(ib)
+	// 	if err != nil {
+	// 		logging.LogCrash(err)
+	// 	}
+	// 	logging.Logf(1, "Indexing is complete for this user batch. Count: %v", len(*batch))
+	// }()
+}
+
 func (batch *CUserBatch) Insert(cusers []CompiledUser) {
+	toBeIndexed := CUserBatch{}
 	for k, _ := range cusers {
 		i := batch.Find(cusers[k].Fingerprint)
 		if i != -1 {
@@ -564,7 +826,10 @@ func (batch *CUserBatch) Insert(cusers []CompiledUser) {
 		}
 		// Doesn't exist in our batch. Add it.
 		*batch = append(*batch, cusers[k])
+		toBeIndexed = append(toBeIndexed, cusers[k])
 	}
+	// Index for new additions. (Index for edits happen inside singular insert.)
+	toBeIndexed.IndexForSearch()
 }
 
 func (batch *CUserBatch) InsertWithSignalMerge(cusers []CompiledUser) {
@@ -578,9 +843,11 @@ func (batch *CUserBatch) InsertWithSignalMerge(cusers []CompiledUser) {
 		// Doesn't exist in our batch. Add it.
 		*batch = append(*batch, cusers[k])
 	}
+	// Heads up: this does not index anything for search, since signals are not indexed, so this action cannot create a change in the index.
 }
 
 func (batch *CUserBatch) InsertFromProtobuf(cusers []*pbstructs.Key, nowts int64) {
+	toBeIndexed := CUserBatch{}
 	for k, _ := range cusers {
 		if cusers[k] == nil {
 			continue
@@ -592,8 +859,11 @@ func (batch *CUserBatch) InsertFromProtobuf(cusers []*pbstructs.Key, nowts int64
 			continue
 		}
 		// Doesn't exist in our batch. Add it.
-		*batch = append(*batch, NewCUser(cusers[k], nowts))
+		newuser := NewCUser(cusers[k], nowts)
+		*batch = append(*batch, newuser)
+		toBeIndexed = append(toBeIndexed, newuser)
 	}
+	toBeIndexed.IndexForSearch()
 }
 
 func (batch *CUserBatch) Find(userfp string) int {
@@ -626,6 +896,29 @@ type CompiledBoard struct {
 	// ^ This carries entitlements specific to this specific board for users. If a person is a mod of this board, this is where his or her modship flag gets stored in.
 	ThreadsCount int
 	UserCount    int
+}
+
+func (c CompiledBoard) BleveType() string {
+	return "board"
+}
+
+func (c CompiledBoard) SearchId() string {
+	// A path that defines a board is fingerprint. no board, thread, post, parent, userfp.
+	bid, err := search.MakeSearchId("Board", "", "", "", c.Fingerprint, "")
+	if err != nil {
+		logging.Logf(1, "Making search ID failed. Error: %v", err)
+		return ""
+	}
+	return bid
+}
+
+func (c *CompiledBoard) IndexForSearch() {
+	// search.Index(c.SearchId(), c)
+	CBoardIndexCache = append(CBoardIndexCache, *c)
+}
+
+func (c *CompiledBoard) DeleteFromSearchIndex() {
+	search.Delete(c.SearchId())
 }
 
 func NewCBoard(rp *pbstructs.Board) CompiledBoard {
@@ -720,6 +1013,7 @@ func (c *CompiledBoard) RefreshUserHeader(boardSpecificUserHeaders CUserBatch) {
 func (c *CompiledBoard) Insert(ce CompiledBoard) {
 	if c.LastUpdate < ce.LastUpdate {
 		*c = ce
+		c.IndexForSearch()
 	}
 }
 
@@ -796,7 +1090,29 @@ func (c *CompiledBoard) RefreshExogenousContentSignals(bc *BoardCarrier) {
 
 type CBoardBatch []CompiledBoard
 
+// IndexForSearch adds all entities in this batch into the search index.
+func (batch *CBoardBatch) IndexForSearch() {
+	for k, _ := range *batch {
+		CBoardIndexCache = append(CBoardIndexCache, (*batch)[k])
+	}
+	// if len(*batch) == 0 {
+	// 	return
+	// }
+	// go func() {
+	// 	ib := search.NewBatch()
+	// 	for k, _ := range *batch {
+	// 		ib.Index((*batch)[k].SearchId(), (*batch)[k])
+	// 	}
+	// 	err := search.CommitBatch(ib)
+	// 	if err != nil {
+	// 		logging.LogCrash(err)
+	// 	}
+	// 	logging.Logf(1, "Indexing is complete for this board batch. Count: %v", len(*batch))
+	// }()
+}
+
 func (batch *CBoardBatch) Insert(cboards []CompiledBoard) {
+	toBeIndexed := CBoardBatch{}
 	for k, _ := range cboards {
 		i := batch.Find(cboards[k].Fingerprint)
 		if i != -1 {
@@ -806,10 +1122,14 @@ func (batch *CBoardBatch) Insert(cboards []CompiledBoard) {
 		}
 		// Doesn't exist in our batch. Add it.
 		*batch = append(*batch, cboards[k])
+		toBeIndexed = append(toBeIndexed, cboards[k])
 	}
+	// Index for new additions. (Index for edits happen inside singular insert.)
+	toBeIndexed.IndexForSearch()
 }
 
 func (batch *CBoardBatch) InsertFromProtobuf(cboards []*pbstructs.Board) {
+	toBeIndexed := CBoardBatch{}
 	for k, _ := range cboards {
 		if cboards[k] == nil {
 			continue
@@ -821,8 +1141,11 @@ func (batch *CBoardBatch) InsertFromProtobuf(cboards []*pbstructs.Board) {
 			continue
 		}
 		// Doesn't exist in our batch. Add it.
-		*batch = append(*batch, NewCBoard(cboards[k]))
+		newboard := NewCBoard(cboards[k])
+		*batch = append(*batch, newboard)
+		toBeIndexed = append(toBeIndexed, newboard)
 	}
+	toBeIndexed.IndexForSearch()
 }
 
 func (batch *CBoardBatch) Find(boardfp string) int {

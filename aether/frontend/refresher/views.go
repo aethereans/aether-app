@@ -120,6 +120,70 @@ func GeneratePopularView() {
 	logging.Logf(1, "Popular view generator took %v seconds.", elapsed.Seconds())
 }
 
+// GenerateNewView gets the top 10 newest items in each of the whitelisted communities and sorts them by rank.
+
+/*
+	This might need a little bit of a different logic here. we want to take all and sort by new. But we want to do this efficiently... Can't just grab the all boards list because that might be just huge.
+*/
+func GenerateNewView() {
+	logging.Logf(1, "Popular view generator is running")
+	start := time.Now()
+	boardCarriers := []festructs.BoardCarrier{}
+	// // check if sfwlist is disabled
+	// if globals.FrontendConfig.ContentRelations.SFWList.GetSFWListDisabled() {
+	// 	// sfwlist disabled
+	// 	err := globals.KvInstance.All(&boardCarriers)
+	// 	if err != nil {
+	// 		logging.Logf(1, "Getting boards while SFWList disabled errored out. Error: %v", err)
+	// 		return
+	// 	}
+	// } else {
+	// 	// sfwlist enabled
+	// 	boardCarriers = *getBoardsByFpList(globals.FrontendConfig.ContentRelations.SFWList.Boards)
+	// 	logging.Logf(1, "base board carriers length: %v", len(boardCarriers))
+	// 	logging.Logf(1, "sfwlist length: %v", len(globals.FrontendConfig.ContentRelations.SFWList.Boards))
+
+	// }
+	boardCarriers = *getBoardsByFpList(globals.FrontendConfig.ContentRelations.SFWList.Boards)
+	/*
+		^ This is a little weird - if this runs before the sfwlist is pulled in, it will result in an empty popular list. But if we make it so that in the case it's empty it generates the popular list from all communities, we might have NSFW threads surfacing up for people who haven't opted in for that.
+
+		Here, I'm opting to show nothing instead of showing potentially risky data. It's a compromise.
+	*/
+	logging.Logf(1, "base board carriers length: %v", len(boardCarriers))
+	logging.Logf(1, "sfwlist length: %v", len(globals.FrontendConfig.ContentRelations.SFWList.Boards))
+	var thrs festructs.CThreadBatch
+	for k, _ := range boardCarriers {
+		// thrlen := min(len(boardCarriers[k].Threads), 10)
+		// boardThreads := boardCarriers[k].Threads[0:thrlen]
+		// thrs = append(thrs, boardThreads...)
+		boardThreads := *(boardCarriers[k].GetTopThreadsForView(10))
+		for j, _ := range boardThreads {
+			boardThreads[j].ViewMeta_BoardName = boardCarriers[k].Boards[0].Name
+		}
+		thrs = append(thrs, boardThreads...)
+	}
+	thrs.SortByScore()
+	existingPopularView := festructs.PopularViewCarrier{}
+	err := globals.KvInstance.One("Id", 1, &existingPopularView)
+	if err != nil && !strings.Contains(err.Error(), "not found") {
+		logging.Logf(1, "Popular view fetch in new popular view creation encountered an error. Error: %v", err)
+		return
+	}
+	if len(thrs) > 0 || len(existingPopularView.Threads) == 0 {
+		globals.KvInstance.Save(&festructs.PopularViewCarrier{
+			Id:      1,
+			Threads: thrs,
+		})
+	} else {
+		logging.Logf(1, "Popular view produced zero threads and thus bailed on updating. This is something that should be looked at.") // TODO FUTURE
+	}
+
+	elapsed := time.Since(start)
+	logging.Logf(1, "Popular items count: %v", len(thrs))
+	logging.Logf(1, "Popular view generator took %v seconds.", elapsed.Seconds())
+}
+
 func getBoardsByFpList(boardFingerprints []string) *[]festructs.BoardCarrier {
 	query := globals.KvInstance.Select(q.In("Fingerprint", boardFingerprints))
 	var bcs []festructs.BoardCarrier

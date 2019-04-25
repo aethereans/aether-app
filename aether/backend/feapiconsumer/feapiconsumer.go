@@ -61,9 +61,9 @@ func SendBackendAmbientStatus() {
 	// Last Inbound
 	BackendAmbientStatus.LastInboundConnTimestamp = globals.BackendTransientConfig.Bouncer.GetLastInboundSyncTimestamp(false)
 	// Last 15m inbounds
-	BackendAmbientStatus.InboundsCount15 = int32(len(globals.BackendTransientConfig.Bouncer.GetInboundsInLastXMinutes(15)))
+	BackendAmbientStatus.InboundsCount15 = int32(len(globals.BackendTransientConfig.Bouncer.GetInboundsInLastXMinutes(15, true)))
 	// Last 15m outbounds
-	BackendAmbientStatus.OutboundsCount15 = int32(len(globals.BackendTransientConfig.Bouncer.GetOutboundsInLastXMinutes(15, false)))
+	BackendAmbientStatus.OutboundsCount15 = int32(len(globals.BackendTransientConfig.Bouncer.GetOutboundsInLastXMinutes(15, true)))
 	/*----------  END Update the relevant backend data.  ----------*/
 	payload := pb.BackendAmbientStatusPayload{
 		BackendAmbientStatus: &BackendAmbientStatus,

@@ -153,17 +153,18 @@ func GeneratePOSTResponse(respType string, req api.ApiResponse) ([]byte, error) 
 	var resp api.ApiResponse
 	resp.Prefill()
 	// Look at filterset to figure out what is being requested
-	logging.Logf(2, "Filters received raw: %#v", req.Filters)
+	logging.Logf(3, "Filters received raw: %#v", req.Filters)
 	filterset := processFilters(&req)
-	logging.Logf(2, "Filters processed: %#v", filterset)
+	logging.Logf(3, "Filters processed: %#v", filterset)
 	filter := reconstructFilters(filterset)
-	logging.Logf(2, "Filters reconstructed: %#v", filter)
+	logging.Logf(3, "Filters reconstructed: %#v", filter)
 	filters := []api.Filter{filter}
 	// Create a random SHA256 hash as folder name to use in the case the response has more than one page.
 	dirname, err := randomhashgen.GenerateInsecureRandomHash()
 	if err != nil {
 		logging.Log(1, err)
 	}
+	logging.Logf(1, "We got a %v POST request with the filters: %#v", respType, filterset)
 	switch respType {
 	case "node":
 		// r := GeneratePrefilledApiResponse()
@@ -228,8 +229,6 @@ func GeneratePOSTResponse(respType string, req api.ApiResponse) ([]byte, error) 
 		/*
 		   An addresses POST response returns results within the time boundary that has been seen online first-person by the remote. It does not communicate addresses that the remote has not connected to.
 		*/
-
-		logging.Log(2, fmt.Sprintf("We've gotten an address request with the filters: %#v", filterset))
 		// Check our post response repo to check if there are any suitable post responses that we can reuse.
 		start := configstore.Timestamp(filterset.TimeStart)
 		end := configstore.Timestamp(filterset.TimeEnd)

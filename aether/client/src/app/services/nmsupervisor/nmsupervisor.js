@@ -17,6 +17,32 @@ var MintNewUniqueUsername = function (requestedUsername, targetKeyFp, expiryTime
     execString += password;
     execString += "\"";
     exec(execString, function (e, stdout) {
+        // , stderr: any
+        if (e instanceof Error) {
+            callback(e.message);
+            return;
+        }
+        callback(stdout);
+    });
+};
+var FetchAlreadyMintedPendingUsernames = function (callback) {
+    var execString = "go run ../../support/nameminter/main.go batchdeliver";
+    exec(execString, function (e, stdout) {
+        // , stderr: any
+        if (e instanceof Error) {
+            callback(e.message);
+            return;
+        }
+        callback(stdout);
+    });
+};
+var MarkUsernamesAsDelivered = function (deliveredUsernames, callback) {
+    var execString = "go run ../../support/nameminter/main.go markdelivered";
+    execString += " --deliveredfps='";
+    execString += JSON.stringify(deliveredUsernames);
+    execString += "'";
+    exec(execString, function (e, stdout) {
+        // , stderr: any
         if (e instanceof Error) {
             callback(e.message);
             return;
@@ -25,6 +51,8 @@ var MintNewUniqueUsername = function (requestedUsername, targetKeyFp, expiryTime
     });
 };
 module.exports = {
-    MintNewUniqueUsername: MintNewUniqueUsername
+    MintNewUniqueUsername: MintNewUniqueUsername,
+    FetchAlreadyMintedPendingUsernames: FetchAlreadyMintedPendingUsernames,
+    MarkUsernamesAsDelivered: MarkUsernamesAsDelivered,
 };
 //# sourceMappingURL=nmsupervisor.js.map
