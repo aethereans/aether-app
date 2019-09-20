@@ -1,0 +1,155 @@
+// Protos for the core API structs. This is what we will be using when we're sending data from backend to frontend.
+
+syntax = "proto3";
+
+option go_package = "aether-core/aether/protos/mimapi";
+
+package mimapi;
+
+
+message Provable {
+  string Fingerprint = 1;
+  int64 Creation = 2;
+  string ProofOfWork = 3;
+  string Signature = 4;
+}
+
+message Updateable {
+  int64 LastUpdate = 1;
+  string UpdateProofOfWork = 2;
+  string UpdateSignature = 3;
+}
+
+message BoardOwner {
+  string KeyFingerprint = 1;
+  int64 Expiry = 2;
+  int32 Level =3;
+}
+
+message Board  {
+  Provable Provable = 1;
+  string Name = 2;
+  repeated BoardOwner BoardOwners = 3;
+  string Description = 4;
+  string Owner = 5;
+  string OwnerPublicKey = 6;
+  int32 EntityVersion = 7;
+  string Language = 8;
+  string Meta = 9;
+  string RealmId = 10;
+  string EncrContent = 11;
+  Updateable Updateable = 12;
+}
+
+message Thread {
+  Provable Provable = 1;
+  string Board = 2;
+  string Name = 3;
+  string Body = 4;
+  string Link = 5;
+  string Owner = 6;
+  string OwnerPublicKey = 7;
+  int32 EntityVersion = 8;
+  string Meta = 9;
+  string RealmId = 10;
+  string EncrContent = 11;
+  Updateable Updateable = 12;
+}
+
+message Post {
+  Provable Provable = 1;
+  string Board = 2;
+  string Thread = 3;
+  string Parent = 4;
+  string Body = 5;
+  string Owner = 6;
+  string OwnerPublicKey = 7;
+  int32 EntityVersion = 8;
+  string Meta = 9;
+  string RealmId = 10;
+  string EncrContent = 11;
+  Updateable Updateable = 12;
+}
+
+message Vote {
+  Provable Provable = 1;
+  string Board = 2;
+  string Thread = 3;
+  string Target = 4;
+  string Owner = 5;
+  string OwnerPublicKey = 6;
+  int32 TypeClass = 7;
+  int32 Type = 8;
+  int32 EntityVersion = 9;
+  string Meta = 10;
+  string RealmId = 11;
+  string EncrContent = 12;
+  Updateable Updateable = 13;
+}
+
+message Key {
+  Provable Provable = 1;
+  string Type = 2;
+  string Key = 3;
+  int64 Expiry = 4;
+  string Name = 5;
+  string Info = 6;
+  int32 EntityVersion = 7;
+  string Meta = 8;
+  string RealmId = 9;
+  string EncrContent = 10;
+  Updateable Updateable = 11;
+}
+
+message Truststate {
+  Provable Provable = 1;
+  string Target = 2;
+  string Owner = 3;
+  string OwnerPublicKey = 4;
+  int32 TypeClass = 5;
+  int32 Type = 6;
+  string Domain = 7;
+  int64 Expiry = 8;
+  int32 EntityVersion = 9;
+  string Meta = 10;
+  string RealmId = 11;
+  string EncrContent = 12;
+  Updateable Updateable = 13;
+}
+
+/*----------  Address and its subtypes  ----------*/
+/*
+  Likely, when we are communicating the address, most of these fields would be empty. Nevertheless, it's good to have it here, and in the future, for some reason we can't predict right now, we might actually need it.
+*/
+message Address {
+  string Location = 1;
+  string Sublocation = 2;
+  int32 LocationType = 3;
+  int32 Port = 4;
+  int64 LastSuccessfulPing = 5;
+  int64 LastSuccessfulSync = 6;
+  Protocol Protocol = 7;
+  Client Client = 8;
+  int32 EntityVersion = 9;
+  string RealmId = 10;
+}
+
+message Subprotocol {
+  string Name = 1;
+  int32 VersionMajor = 2;
+  int32 VersionMinor = 3;
+  repeated string SupportedEntities = 4;
+}
+
+message Protocol {
+  int32 VersionMajor = 1;
+  int32 VersionMinor = 2;
+  repeated Subprotocol Subprotocols = 3;
+}
+
+message Client {
+  int32 VersionMajor = 1;
+  int32 VersionMinor = 2;
+  int32 VersionPatch = 3;
+  string ClientName = 4;
+}

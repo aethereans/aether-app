@@ -37,6 +37,13 @@ ALL NECESSARY SERVICING, REPAIR OR CORRECTION.**
 
 Aether is available for Mac OS, Windows and Linux. The Linux version provided as a courtesy, it might work, but is completely unsupported. Windows and Mac OS versions are supported by users at [meta.geteather.net](https://meta.getaether.net/c/support). 
 
+## Compiling
+
+Aether is a relatively large app with an Electron and Go toolchain, at 100,000+ lines of code. Getting it to compile requires setting up a correct build runtime with the latest versions of Go, Node (for Electron) and C dependencies and development environments. Expect the initial set-up to take a few hours. Be patient! 🙂
+
+### Instructions 
+Compile instructions can be found here at [getaether.net/docs/developers](https://getaether.net/docs/developers/).
+
 ## Filing a bug
 
 Please create a topic in the appropriate section of [meta.getaether.net](https://meta.getaether.net). This allows non-Github-using majority of Aether users to help with your issue, and point you in the right direction.

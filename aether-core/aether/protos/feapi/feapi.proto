@@ -1,0 +1,373 @@
+// Frontend API server Protobufs
+
+syntax = "proto3";
+option go_package = "aether-core/aether/protos/feapi";
+
+package feapi;
+
+import "feobjects/feobjects.proto";
+import "mimapi/mimapi.proto";
+
+// These "Set", "Get" verbs are written from the viewpoint of the consumer of this api.
+service FrontendAPI {
+  /*----------  Methods used by client  ----------*/
+  rpc SetClientAPIServerPort(SetClientAPIServerPortRequest) returns (SetClientAPIServerPortResponse) {}
+  rpc GetThreadAndPosts(ThreadAndPostsRequest) returns (ThreadAndPostsResponse) {}
+  rpc GetBoardAndThreads(BoardAndThreadsRequest) returns (BoardAndThreadsResponse) {}
+  rpc GetAllBoards(AllBoardsRequest) returns (AllBoardsResponse) {}
+  rpc SetBoardSignal(BoardSignalRequest) returns (BoardSignalResponse) {}
+  rpc GetUserAndGraph(UserAndGraphRequest) returns (UserAndGraphResponse) {}
+  rpc SendContentEvent(ContentEventPayload) returns (ContentEventResponse) {}
+  rpc SendSignalEvent(SignalEventPayload) returns (SignalEventResponse) {}
+  rpc GetUncompiledEntityByKey(UncompiledEntityByKeyRequest) returns (UncompiledEntityByKeyResponse) {}
+  rpc SendInflightsPruneRequest(InflightsPruneRequest) returns (InflightsPruneResponse) {}
+  rpc RequestAmbientStatus(AmbientStatusRequest) returns (AmbientStatusResponse) {}
+  // ^ Client requests ambient status to be sent in.
+  rpc RequestHomeView(HomeViewRequest) returns (HomeViewResponse) {}
+  rpc RequestPopularView(PopularViewRequest) returns (PopularViewResponse) {}
+  rpc RequestNewView(NewViewRequest) returns (NewViewResponse) {}
+  rpc RequestNotifications(NotificationsRequest) returns (NotificationsResponse) {}
+  rpc SetNotificationsSignal(NotificationsSignalPayload) returns (NotificationsSignalResponse) {}
+  // rpc RequestOnboardCompleteStatus(OnboardCompleteStatusRequest) returns (OnboardCompleteStatusResponse) {}
+  rpc SetOnboardComplete(OnboardCompleteRequest) returns (OnboardCompleteResponse) {}
+  rpc SendAddress(SendAddressPayload) returns (SendAddressResponse) {}
+  rpc SendFEConfigChanges(FEConfigChangesPayload) returns (FEConfigChangesResponse) {}
+  rpc RequestBoardReports(BoardReportsRequest) returns (BoardReportsResponse) {}
+  rpc RequestBoardModActions(BoardModActionsRequest) returns (BoardModActionsResponse) {}
+  rpc SendMintedUsernames(SendMintedUsernamesPayload) returns (SendMintedUsernamesResponse) {}
+  rpc SendClientVersion(ClientVersionPayload) returns (ClientVersionResponse) {}
+  rpc SendSearchRequest(SearchRequestPayload) returns (SearchRequestResponse) {}
+
+  /*----------  Methods used by backend  ----------*/
+  rpc BackendReady(BEReadyRequest) returns (BEReadyResponse) {}
+  rpc SendBackendAmbientStatus(BackendAmbientStatusPayload) returns (BackendAmbientStatusResponse) {}
+  // ^ Backend sends in the backend ambient status to frontend
+}
+
+message BEReadyRequest {
+  string address = 1;
+  int32 port = 2;
+}
+
+message BEReadyResponse {}
+
+message SetClientAPIServerPortRequest{
+  int32 Port = 1;
+}
+
+message SetClientAPIServerPortResponse {}
+
+message AllBoardsRequest {}
+message AllBoardsResponse {
+  repeated feobjects.CompiledBoardEntity AllBoards = 1;
+}
+
+message ThreadAndPostsRequest {
+  string BoardFingerprint = 1;
+  string ThreadFingerprint = 2;
+}
+
+message ThreadAndPostsResponse {
+  feobjects.CompiledBoardEntity Board = 1;
+  feobjects.CompiledThreadEntity Thread = 2;
+  repeated feobjects.CompiledPostEntity Posts = 3;
+}
+
+message BoardAndThreadsRequest {
+  string BoardFingerprint = 1;
+  bool SortThreadsByNew = 2;
+}
+
+message BoardAndThreadsResponse {
+  feobjects.CompiledBoardEntity Board = 1;
+  repeated feobjects.CompiledThreadEntity Threads = 2;
+}
+
+message BoardSignalRequest {
+  string Fingerprint = 1;
+  bool Subscribed = 2;
+  bool Notify = 3;
+  int64 LastSeen = 4;
+  bool LastSeenOnly = 5;
+  // ^ LastSeenOnly matters, because we don't want lastseen-only signals to wipe out other data, but we also want it to be sendable via other data esp. in the case of a new board being subscribed. If that case doesn't come with last seen, last seen will only be set at the second visit.
+}
+
+message BoardSignalResponse {
+  bool Committed = 1;// If false, the client needs to revert the change.
+}
+
+message UserAndGraphRequest {
+  string Fingerprint = 1;
+  bool UserEntityRequested = 2;
+  bool UserBoardsRequested = 6;
+  bool UserThreadsRequested = 4;
+  bool UserPostsRequested = 5;
+}
+
+message UserAndGraphResponse {
+  feobjects.CompiledUserEntity User = 1;
+  repeated feobjects.CompiledBoardEntity Boards = 2;
+  repeated feobjects.CompiledThreadEntity Threads = 3;
+  repeated feobjects.CompiledPostEntity Posts = 4;
+  bool UserEntityRequested = 5;
+  bool UserBoardsRequested = 6;
+  bool UserThreadsRequested = 7;
+  bool UserPostsRequested = 8;
+}
+
+/*----------  CL > FE Content / Signal creation  ----------*/
+
+/*
+Protobuf compiler has a decree:
+
+UNKNOWN" is already defined in "feapi".
+feapi/feapi.proto:115:3: Note that enum values use C++ scoping rules, meaning that enum values are siblings of their type, not children of it.  Therefore, "UNKNOWN" must be unique within "feapi", not just within "SignalTargetType".
+
+*/
+
+enum EventType {
+  UNKNOWN_EVENT_TYPE = 0;
+  CREATE = 1;
+  UPDATE = 2;
+}
+
+message Event {
+  string OwnerFingerprint = 1;
+  string PriorFingerprint = 2; // if already present, i.e. it's an edit.
+  EventType EventType = 3;
+  int64 Timestamp = 4;
+}
+
+message ContentEventPayload {
+  Event Event = 1;
+  mimapi.Board BoardData = 2;
+  mimapi.Thread ThreadData = 3;
+  mimapi.Post PostData = 4;
+  mimapi.Key KeyData = 5;
+}
+
+message ContentEventResponse {}
+
+enum SignalTargetType {
+  UNKNOWN_SIGNAL_TARGET_TYPE = 0;
+  CONTENT = 1;
+  USER = 2;
+}
+
+enum SignalTypeClass {
+  UNKNOWN_SIGNAL_TYPECLASS = 0;
+  ADDS_TO_DISCUSSION = 1; // Upvote, downvote
+  FOLLOWS_GUIDELINES = 2; // Report to mod
+  MOD_ACTIONS = 3; // Modblock, modapprove
+  PUBLIC_TRUST = 4; // Follow, block
+  NAMING = 5; // Name assign
+  F451 = 6; // Censor assign
+  PUBLIC_ELECT = 7; // Elect, disqualify
+}
+
+enum SignalType {
+  UNKNOWN_SIGNAL_TYPE = 0;
+  // ATD: Aggregate
+  UPVOTE = 1;
+  DOWNVOTE = 2;
+  // FG
+  REPORT_TO_MOD = 3;
+  // MA
+  MODBLOCK = 4;
+  MODAPPROVE = 5;
+  MODIGNORE = 6;
+  // PT: Aggregate
+  FOLLOW = 7;
+  BLOCK = 8;
+  // Naming
+  NAME_ASSIGN = 9;
+  // F451
+  CENSOR_ASSIGN = 10;
+  // PE: Aggregate
+  ELECT = 11;
+  DISQUALIFY = 12;
+  // General
+  RETRACT = 13; // If this is given, the vote is retracted, but the opposite vote, if present, is not cast. So this would be removing an upvote, for example, but not downvoting. This is only defined on non-aggregates.
+}
+
+
+message SignalEventPayload {
+  Event Event = 1;
+  SignalTargetType SignalTargetType = 2;
+  /*----------  Defined for targettype=content  ----------*/
+  string TargetBoard = 3;
+  string TargetThread = 4;
+  /*----------  Defined for targettype=user  ----------*/
+  string TargetDomain = 5;
+  int64 TargetExpiry = 6;
+  string Meta = 7;
+  string TargetFingerprint = 8;
+  SignalTypeClass SignalTypeClass = 9;
+  SignalType SignalType = 10;
+  string SignalText = 11;
+}
+
+message SignalEventResponse {}
+
+
+/*----------  Uncompiled entity req/resp  ----------*/
+
+enum UncompiledEntityType {
+  UNKNOWN_ENTITY_TYPE = 0;
+  BOARD = 1;
+  THREAD = 2;
+  POST = 3;
+  VOTE = 4;
+  KEY = 5;
+  TRUSTSTATE = 6;
+}
+
+message UncompiledEntityByKeyRequest{
+  UncompiledEntityType EntityType = 1;
+  int32 Limit = 2; // 100 items requested...
+  int32 Offset = 3; // ...at offset 300 = get #300-#400.
+  string OwnerFingerprint = 4;
+  string BoardName= 5;
+  string KeyName= 6;
+}
+message UncompiledEntityByKeyResponse{
+  UncompiledEntityType EntityType = 1;
+  repeated mimapi.Board Boards = 2;
+  repeated mimapi.Thread Threads = 3;
+  repeated mimapi.Post Posts = 4;
+  repeated mimapi.Vote Votes = 5;
+  repeated mimapi.Key Keys = 6;
+  repeated mimapi.Truststate Truststates = 7;
+}
+
+
+/*----------  Inflights prune req/resp  ----------*/
+
+/*
+  When this message is sent, the inflight pool moves all completed or failed inflights into a 'completed items' pool, so as to remove them from the visibility of the client.
+*/
+
+message InflightsPruneRequest {}
+message InflightsPruneResponse {}
+
+
+/*----------  Backend ambient status delivery to the frontend  ----------*/
+
+message BackendAmbientStatusPayload{
+  feobjects.BackendAmbientStatus BackendAmbientStatus = 1;
+}
+
+message BackendAmbientStatusResponse{}
+
+
+/*----------  Ambient status request / resp  ----------*/
+/*
+  These are useful because they allow the client to ask for ambient status in the case it refreshes. This is useful for the status entity.
+*/
+message AmbientStatusRequest {}
+message AmbientStatusResponse {}
+
+
+/*----------  Requests for views  ----------*/
+
+message HomeViewRequest{}
+message HomeViewResponse{}
+
+message PopularViewRequest{}
+message PopularViewResponse{}
+
+message NewViewRequest{}
+message NewViewResponse{}
+
+
+/*----------  Requests for notifications  ----------*/
+
+message NotificationsRequest{}
+message NotificationsResponse{}
+
+/*----------  Notifications  ----------*/
+
+message NotificationsSignalPayload {
+  bool Seen = 1;
+  string ReadItemFingerprint = 2; // If given, that item was read + seen is set.
+  bool MarkAllAsRead = 3;
+}
+message NotificationsSignalResponse {}
+
+/*----------  Onboard complete signal  ----------*/
+
+message OnboardCompleteRequest {
+  bool OnboardComplete = 1;
+}
+
+message OnboardCompleteResponse {
+}
+
+/*----------  Send address API  ----------*/
+
+message SendAddressPayload {
+  mimapi.Address Address = 1;
+}
+message SendAddressResponse {
+  int32 StatusCode = 1;
+  string ErrorMessage = 2;
+}
+
+/*----------  FE config changes   ----------*/
+/*
+  The structure of this is that the keys here should be named identically to the keys that they affect in FEconfig. And we only adjust the keys if they are actually set.
+*/
+
+message FEConfigChangesPayload{
+  bool ModModeEnabledIsSet = 1;
+  bool ModModeEnabled = 2;
+  bool ExternalContentAutoloadDisabled = 3;
+  bool ExternalContentAutoloadDisabledIsSet = 4;
+}
+message FEConfigChangesResponse{}
+
+/*----------  Board reports  ----------*/
+
+message BoardReportsRequest {
+  string BoardFingerprint = 1;
+}
+message BoardReportsResponse {
+  repeated feobjects.ReportsTabEntry ReportsTabEntries = 1;
+}
+
+/*----------  Board reports  ----------*/
+
+message BoardModActionsRequest {
+  string BoardFingerprint = 1;
+}
+message BoardModActionsResponse {
+  repeated feobjects.ModActionsTabEntry ModActionsTabEntries = 1;
+}
+
+/*----------  Send minted username API  ----------*/
+
+message SendMintedUsernamesPayload {
+  string MintedUsernamesRawJSON = 1;
+}
+
+message SendMintedUsernamesResponse {}
+
+/*----------  Client version API  ----------*/
+
+message ClientVersionPayload {
+  string CurrentClientVersion = 1;
+}
+
+message ClientVersionResponse {
+  string LastKnownClientVersion = 1;
+}
+
+/*----------  Search request state  ----------*/
+
+message SearchRequestPayload {
+  string SearchType = 1;
+  string SearchQuery = 2;
+}
+
+// Heads up, this will always be empty. The actual result is going to come via the feapi, as a gRPC call initiated by the FE.
+message SearchRequestResponse {}
