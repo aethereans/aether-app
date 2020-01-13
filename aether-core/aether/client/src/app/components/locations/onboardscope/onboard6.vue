@@ -30,12 +30,14 @@ export default {
   },
   methods: {
     toNewUser(this: any) {
-      this.$router.push('/newuser')
-      fe.SetOnboardComplete(true, function() {})
+      fe.SetOnboardComplete(true, () => {
+        this.$router.push('/newuser')
+      })
     },
     toApp(this: any) {
-      this.$router.push('/popular')
-      fe.SetOnboardComplete(true, function() {})
+      fe.SetOnboardComplete(true, () => {
+        this.$router.push('/popular')
+      })
     },
   },
 }
