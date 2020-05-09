@@ -3,7 +3,7 @@
     <router-link class="breadcrumb root" to="/" title="Home">
       <img
         class="root-img"
-        src="../ext_dep/images/logo-sm-h.png"
+        src="../ext_dep/images/Logo-sm-h.png"
         alt=""
         :class="{ 'at-home': isAtHome }"
       />
