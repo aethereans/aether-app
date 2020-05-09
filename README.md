@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://getaether.net/">
-	<img src="https://getaether.net/images/Logo-v3-light-bg.png" width="240">
+    <img src="https://getaether.net/images/Logo-v3-light-bg.png" width="240">
 </a>
 </p>
 <p align="center">
@@ -35,25 +35,25 @@ ALL NECESSARY SERVICING, REPAIR OR CORRECTION.**
 ## Download 
 [Download Aether](https://getaether.net)
 
-Aether is available for Mac OS, Windows and Linux. The Linux version provided as a courtesy, it might work, but is completely unsupported. Windows and Mac OS versions are supported by users at [meta.geteather.net](https://meta.getaether.net/c/support). 
+Aether is available for Mac OS, Windows and Linux. Our community supports Windows, Mac OS and Linux versions at [meta.geteather.net](https://meta.getaether.net/c/support). 
 
 ## Compiling
 
 Aether is a relatively large app with an Electron and Go toolchain, at 100,000+ lines of code. Getting it to compile requires setting up a correct build runtime with the latest versions of Go, Node (for Electron) and C dependencies and development environments. Expect the initial set-up to take a few hours. Be patient! 🙂
 
 ### Instructions 
-Compile instructions can be found here at [getaether.net/docs/developers](https://getaether.net/docs/developers/).
+Compile instructions can be found here on this [gist](https://gist.github.com/nehbit/4a8c3d81d543e85c9df974f521732b1e), and at [getaether.net/docs/developers](https://getaether.net/docs/developers/).
 
 ## Filing a bug
 
-Please create a topic in the appropriate section of [meta.getaether.net](https://meta.getaether.net). This allows non-Github-using majority of Aether users to help with your issue, and point you in the right direction.
+Please create a topic in the appropriate section of [meta.getaether.net](https://meta.getaether.net). This allows the non-Github-using majority of Aether users to help with your issue, and point you in the right direction.
 
 # Backers
 
 Aether exists thanks to the generous fellows below. Funding Aether comes with some perks, such as registering your unique name before anyone else. [See here](https://getaether.net/supporterbenefits) for full benefits. 
 
 <a href="https://www.patreon.com/nehbit">
-	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
+    <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
 </a>
 
 ## Gold Sponsors
