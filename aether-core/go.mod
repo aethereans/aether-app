@@ -17,12 +17,12 @@ require (
 	github.com/couchbase/moss v0.0.0-20181127195802-b19695552c83 // indirect
 	github.com/couchbase/vellum v0.0.0-20190111184608-e91b68ff3efe // indirect
 	github.com/couchbaselabs/ghistogram v0.0.1-0.20160428164519-b7f3fee8c01e // indirect
-	github.com/davecgh/go-spew v1.1.1
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/edsrzf/mmap-go v1.0.0 // indirect
 	github.com/fatih/color v1.7.0
 	github.com/glycerine/go-unsnap-stream v0.0.0-20181221182339-f9677308dec2 // indirect
 	github.com/go-sql-driver/mysql v1.4.0
-	github.com/golang/protobuf v1.2.0
+	github.com/golang/protobuf v1.3.1
 	github.com/golang/snappy v0.0.0-20180518054509-2e65f85255db // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/jmoiron/sqlx v0.0.0-20180614180643-0dae4fefe7c0
@@ -33,6 +33,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.9.0
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/mschoch/smat v0.2.0 // indirect
 	github.com/philhofer/fwd v1.0.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20181016184325-3113b8401b8a // indirect
 	github.com/shibukawa/configdir v0.0.0-20170330084843-e180dbdc8da0
@@ -44,10 +45,9 @@ require (
 	github.com/tinylib/msgp v1.1.0 // indirect
 	github.com/willf/bitset v1.1.9 // indirect
 	github.com/willf/bloom v2.0.3+incompatible
-	golang.org/x/crypto v0.0.0-20180904163835-0709b304e793
-	golang.org/x/net v0.0.0-20180826012351-8a410e7b638d
-	golang.org/x/sys v0.0.0-20180905080454-ebe1bf3edb33 // indirect
-	golang.org/x/text v0.3.0 // indirect
+	golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2
+	golang.org/x/net v0.0.0-20190603091049-60506f45cf65
+	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20180831171423-11092d34479b // indirect
 	google.golang.org/grpc v1.14.0
 )
