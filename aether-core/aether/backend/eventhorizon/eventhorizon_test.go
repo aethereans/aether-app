@@ -165,10 +165,10 @@ func TestPostInsert_Success(t *testing.T) {
 	now := api.Timestamp(time.Now().Unix())
 	p, _ := persistence.ReadPosts([]api.Fingerprint{}, now, now, "", "", "", "", 0, 0)
 	if count > len(p) {
-		t.Errorf("Insertion failed, not all data requested has been inserted.")
+		t.Errorf(fmt.Sprintf("Insertion failed, not all data requested has been inserted. expected %d - actual %d", count, len(p)))
 	}
 	if count < len(p) {
-		t.Errorf("Insertion failed, You have existing data in the DB. Please delete those first before starting the test.")
+		t.Errorf(fmt.Sprintf("Insertion failed, You have existing data in the DB. Please delete those first before starting the test. expected %d - actual %d", count, len(p)))
 	}
 }
 
@@ -199,7 +199,7 @@ func TestPruneDB_WithinLocalMemory_Success(t *testing.T) {
 	now := api.Timestamp(time.Now().Unix())
 	p, _ := persistence.ReadPosts([]api.Fingerprint{}, now, now, "", "", "", "", 0, 0)
 	if len(p) != count {
-		t.Errorf("Event horizon accidentally cleared data that was within the network memory.")
+		t.Errorf(fmt.Sprintf("Event horizon accidentally cleared data that was within the network memory. expected %d - actual %d", count, len(p)))
 	}
 }
 
@@ -225,7 +225,7 @@ func TestPruneDB_WithinLocalMemory_TooBigDb_Success(t *testing.T) {
 	now := api.Timestamp(time.Now().Unix())
 	p, _ := persistence.ReadPosts([]api.Fingerprint{}, now, now, "", "", "", "", 0, 0)
 	if len(p) != count1+count2 {
-		t.Errorf("Event horizon accidentally cleared data that was within the network memory.")
+		t.Errorf(fmt.Sprintf("Event horizon accidentally cleared data that was within the network memory. expected %d - actual %d", count1+count2, len(p)))
 	}
 	// Set the values back to priors.
 	globals.BackendConfig.SetMaxDbSizeMb(priorMaxDbSize)
@@ -281,7 +281,7 @@ func TestPruneDB_ScaledModeGetsEnabled_Success(t *testing.T) {
 	p, _ := persistence.ReadPosts([]api.Fingerprint{}, api.Timestamp(time.Now().Unix()), api.Timestamp(time.Now().Unix()), "", "", "", "", 0, 0)
 	// fmt.Println(len(p))
 	if len(p) != count1 {
-		t.Errorf("Event horizon did not stop deleting from within the network head when it should have.")
+		t.Errorf(fmt.Sprintf("Event horizon did not stop deleting from within the network head when it should have. expected %d - actual %d", count1, len(p)))
 	}
 }
 
@@ -302,6 +302,6 @@ func TestPruneDB_ScaledModeManuallySet_Success(t *testing.T) {
 
 	// fmt.Println(len(p))
 	if len(p) != count1 {
-		t.Errorf("Event horizon did not stop deleting from within the network head when it should have.")
+		t.Errorf(fmt.Sprintf("Event horizon did not stop deleting from within the network head when it should have. expected %d - actual %d", count1, len(p)))
 	}
 }
