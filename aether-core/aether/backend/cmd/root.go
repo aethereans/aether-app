@@ -224,6 +224,7 @@ func EstablishConfigs(cmd *cobra.Command) flags {
 		dbLoc := filepath.Join(globals.BackendConfig.GetSQLiteDBLocation(), "AetherDB.db")
 		if !toolbox.FileExists(dbLoc) {
 			// Db doesn't exist. Make sure that the bootstrap timer and event horizon is reset. Those values depend on the database, and if the DB is deleted while the user settings are not, they can prevent a bootstrap from happening as it should. In the other case where the database isn't created yet, these calls are idempotent.
+			fmt.Println("The database was deleted or is not created yet. Setting event horizon and last successful live, static, bootstrap timestamps to 0.\n")
 			logging.Logf(1, "The database was deleted or is not created yet. Setting event horizon and last successful live, static, bootstrap timestamps to 0.\n")
 			globals.BackendConfig.ResetEventHorizon()
 			globals.BackendConfig.ResetLastLiveAddressConnectionTimestamp()
@@ -233,6 +234,7 @@ func EstablishConfigs(cmd *cobra.Command) flags {
 		conn, err := sqlx.Connect(
 			"sqlite3", dbLoc)
 		if err != nil {
+			fmt.Println("Error: Failed to open the SQLite database in dbLoc:", dbLoc)
 			logging.LogCrash(err)
 		}
 		globals.DbInstance = conn
