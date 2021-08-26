@@ -21,7 +21,7 @@ import (
 // We need to do this in batches of 100. Otherwise we end up with "socket: too many open files" error.
 func Pinger(fullAddressesSlice []api.Address) []api.Address {
 	// Paginate addresses first. We batch these into pages of 100, because it's very easy to run into too many open files error if you just dump it through.
-	logging.Log(2, fmt.Sprintf("Pinger is called for this number of addresses: %#d", len(fullAddressesSlice)))
+	logging.Log(2, fmt.Sprintf("Pinger is called for this number of addresses: %d", len(fullAddressesSlice)))
 	var pages [][]api.Address
 	dataSet := fullAddressesSlice
 	pgSize := globals.BackendConfig.GetPingerPageSize()

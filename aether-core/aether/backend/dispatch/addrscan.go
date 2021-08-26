@@ -29,7 +29,7 @@ func getAllAddresses(isDesc bool) ([]api.Address, error) {
 	}
 	resp, err := pers.ReadAddresses("", "", 0, 0, 0, 0, 0, 0, searchType)
 	if err != nil {
-		errors.New(fmt.Sprintf("getAllAddresses in AddressScanner failed.", err))
+		errors.New(fmt.Sprintf("getAllAddresses in AddressScanner failed: %s", err))
 	}
 	return resp, nil
 }
@@ -74,7 +74,7 @@ func updateAddrs(addrs []api.Address) ([]api.Address, error) {
 	updatedAddrs := Pinger(addrs)
 	err := pers.AddrTrustedInsert(&updatedAddrs)
 	if err != nil {
-		return []api.Address{}, errors.New(fmt.Sprintf("updateAddrs encountered an error in AddrTrustedInsert.", err))
+		return []api.Address{}, errors.New(fmt.Sprintf("updateAddrs encountered an error in AddrTrustedInsert: %s", err))
 	}
 	return updatedAddrs, nil
 }
@@ -213,7 +213,7 @@ func findOnlineNodesV2(count int, reqType, addrType int, excl *[]api.Address, re
 	logging.Logf(1, "Network scan complete within findOnlineNodes.")
 	addrs, err := getAllAddresses(true) // desc - last synced first primary, last pinged first secondary sort
 	if err != nil {
-		return []api.Address{}, errors.New(fmt.Sprintf("findOnlineNodes: getAllAddresses within this function failed.", err))
+		return []api.Address{}, errors.New(fmt.Sprintf("findOnlineNodes: getAllAddresses within this function failed: %s", err))
 	}
 	if addrType > -1 {
 		addrs, _ = filterByAddressType(uint8(addrType), addrs)
@@ -278,7 +278,7 @@ func pickUnconnectedAddrs(addrs []api.Address) ([]api.Address, []api.Address) {
 func RefreshAddresses() error {
 	addrs, err := getAllAddresses(false) // asc - the oldest unconnected first
 	if err != nil {
-		return errors.New(fmt.Sprintf("RefreshAddresses: getAllAddresses within this function failed.", err))
+		return errors.New(fmt.Sprintf("RefreshAddresses: getAllAddresses within this function failed: %s", err))
 	}
 	updateAddrs(addrs)
 	return nil
@@ -322,13 +322,13 @@ func DoNetworkScan() {
 	defer func() { lastNetworkScan = time.Now().Unix() }()
 	addrs, err := getAllAddresses(true) // desc - last synced first primary, last pinged first secondary sort
 	if err != nil {
-		logging.Logf(1, "DoNetworkScan: getAllAddresses within this function failed.", err)
+		logging.Logf(1, "DoNetworkScan: getAllAddresses within this function failed: %s", err)
 		return
 	}
 	var addrUpdateErr error
 	_, addrUpdateErr = updateAddrs(addrs)
 	if addrUpdateErr != nil {
-		logging.Logf(1, "findOnlineNodes: updateAddress within this function failed.", addrUpdateErr)
+		logging.Logf(1, "findOnlineNodes: updateAddress within this function failed: %s", addrUpdateErr)
 		return
 	}
 }

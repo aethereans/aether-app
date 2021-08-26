@@ -77,5 +77,5 @@ func (d *dispatcherExclusions) maintain() {
 }
 
 func (d *dispatcherExclusions) canonicaliseAddr(a api.Address) string {
-	return fmt.Sprintf("%s %s %s", a.Location, a.Sublocation, a.Port)
+	return fmt.Sprintf("%s %s %d", a.Location, a.Sublocation, a.Port)
 }
