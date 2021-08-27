@@ -8,13 +8,13 @@
 var globals = require('./services/globals/globals'); // Register globals
 var metrics = require('./services/metrics/metrics')(true, false);
 require('./services/eipc/eipc-main'); // Register IPC events
-var ipc = require('../../node_modules/electron-better-ipc'); // Register IPC caller
+var ipc = require('../../node_modules/electron-better-ipc').ipcMain; // Register IPC caller
 var elc = require('electron');
 // const starters = require('./starters')
 // const feapiconsumer = require('./services/feapiconsumer/feapiconsumer')
 var minimatch = require('../../node_modules/minimatch');
 var treekill = require('tree-kill');
-// var ipc = require('../../node_modules/electron-better-ipc')
+// var ipc = require('../../node_modules/electron-better-ipc').ipcMain.ipcMain
 // const fesupervisor = require('./services/fesupervisor/fesupervisor')
 // Enable live reload. This should be disabled in production. TODO
 var path = require('path');
@@ -133,6 +133,8 @@ elc.app.on('before-quit', function (e) {
         win.close();
     }
     e.preventDefault();
+// FIXME globals.FrontendDaemon.on is not a function
+console.dir({ globals__FrontendDaemon: globals.FrontendDaemon })
     globals.FrontendDaemon.on('exit', function () {
         console.log('Frontend has exited.');
         elc.app.exit();
@@ -296,6 +298,7 @@ function EstablishElectronWindow() {
         webPreferences: {
             // blinkFeatures: 'OverlayScrollbars'
             nodeIntegration: true,
+            devTools: true,
         },
     };
     if (process.platform === 'win32') {
@@ -309,6 +312,11 @@ function EstablishElectronWindow() {
         // Nothing specific for the frame for now.
     }
     win = new elc.BrowserWindow(windowSpec);
+
+// DEBUG
+console.log('aether/client/src/app/mainmain.js: win.show')
+win.show()
+
     win.once('ready-to-show', function () {
         // We want to show the window only after Electron is done readying itself.
         setTimeout(function () {
@@ -318,8 +326,11 @@ function EstablishElectronWindow() {
         }, 100);
         // Unfortunately, there's a race condition from the Electron side here (I might be making a mistake also, but it is simple enough to reproduce that there is not much space for me to make a mistake). If the setTimeout is 0 or is not present, there's about 1/10 chance the window is painted but completely frozen. Having 100ms seems to make it go away, but it's a little icky, because that basically is my guess. Not great. Hopefully they'll fix this in upcoming Electron 3.
     });
+console.log('aether/client/src/app/mainmain.js: win.loadFile index.html')
     win.loadFile('index.html');
-    if (isDev) {
+// DEBUG
+//    if (isDev) {
+    if (true) {
         // Open the DevTools.
         win.webContents.openDevTools({ mode: 'bottom' });
     }

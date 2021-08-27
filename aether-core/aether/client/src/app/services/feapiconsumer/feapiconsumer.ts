@@ -5,9 +5,9 @@
 export { } // This says this file is a module, not a script.
 
 // Imports
-const grpc = require('grpc')
+const grpc = require('@grpc/grpc-js')
 // const resolve = require('path').resolve
-var ipc = require('../../../../node_modules/electron-better-ipc')
+var ipc = require('../../../../node_modules/electron-better-ipc').ipcMain
 
 // Consts
 // const proto = grpc.load({
@@ -942,7 +942,7 @@ let ExportedMethods = {
 module.exports = ExportedMethods
 
 function WaitUntilFrontendReady(cb: any): any {
-  async function check() {
+  async function check(): Promise<any> {
     let initialised = await ipc.callMain('GetFrontendClientConnInitialised')
     // console.log(initialised)
     if (!initialised) {

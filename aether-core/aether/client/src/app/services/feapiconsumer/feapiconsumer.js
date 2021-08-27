@@ -37,9 +37,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 // Imports
-var grpc = require('grpc');
+var grpc = require('@grpc/grpc-js');
 // const resolve = require('path').resolve
-var ipc = require('../../../../node_modules/electron-better-ipc');
+var ipc = require('../../../../node_modules/electron-better-ipc').ipcMain;
 // Consts
 // const proto = grpc.load({
 //   file: 'feapi/feapi.proto',

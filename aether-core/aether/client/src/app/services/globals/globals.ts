@@ -1,6 +1,6 @@
 // Services > Global Constants
 
-// var ipc = require('../../../../node_modules/electron-better-ipc')
+// var ipc = require('../../../../node_modules/electron-better-ipc').ipcMain
 // const fesupervisor = require('../fesupervisor/fesupervisor')
 
 interface Globals {

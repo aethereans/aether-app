@@ -9,14 +9,14 @@ var globals = require('./services/globals/globals') // Register globals
 var metrics = require('./services/metrics/metrics')(true, false)
 
 require('./services/eipc/eipc-main') // Register IPC events
-var ipc = require('../../node_modules/electron-better-ipc') // Register IPC caller
+var ipc = require('../../node_modules/electron-better-ipc').ipcMain.ipcMain // Register IPC caller
 const elc = require('electron')
 // const starters = require('./starters')
 // const feapiconsumer = require('./services/feapiconsumer/feapiconsumer')
 const minimatch = require('../../node_modules/minimatch')
 const treekill = require('tree-kill')
 
-// var ipc = require('../../node_modules/electron-better-ipc')
+// var ipc = require('../../node_modules/electron-better-ipc').ipcMain.ipcMain
 // const fesupervisor = require('./services/fesupervisor/fesupervisor')
 
 // Enable live reload. This should be disabled in production. TODO
@@ -451,7 +451,7 @@ elc.app.on('will-finish-launching', function() {
 
 let openPreferences = function() {
   openAppWindow()
-  let rendererReadyChecker = function() {
+  let rendererReadyChecker: () => any = function() {
     if (!(globals.RendererReady && DOM_READY)) {
       return setTimeout(rendererReadyChecker, 100)
     }

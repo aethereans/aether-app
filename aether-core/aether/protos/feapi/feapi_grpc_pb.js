@@ -4,7 +4,7 @@
 // Frontend API server Protobufs
 //
 'use strict';
-var grpc = require('grpc');
+var grpc = require('@grpc/grpc-js');
 var feapi_feapi_pb = require('../feapi/feapi_pb.js');
 var feobjects_feobjects_pb = require('../feobjects/feobjects_pb.js');
 var mimapi_mimapi_pb = require('../mimapi/mimapi_pb.js');

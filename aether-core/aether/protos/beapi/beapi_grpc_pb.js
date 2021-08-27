@@ -4,7 +4,7 @@
 // BackendAPI Protobufs
 //
 'use strict';
-var grpc = require('grpc');
+var grpc = require('@grpc/grpc-js');
 var beapi_beapi_pb = require('../beapi/beapi_pb.js');
 var mimapi_mimapi_pb = require('../mimapi/mimapi_pb.js');
 
