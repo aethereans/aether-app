@@ -468,7 +468,7 @@ func (list *Badlist) isBadAddress(loc, subloc string, port uint16) bool {
 		return false
 	}
 	// Full check path
-	parsed := fmt.Sprintf("%s:%s/%s", loc, port, subloc)
+	parsed := fmt.Sprintf("%s:%d/%s", loc, port, subloc)
 	addr := list.Addresses[parsed]
 	if addr.Location == loc && addr.Port == port && addr.Sublocation == subloc {
 		return true

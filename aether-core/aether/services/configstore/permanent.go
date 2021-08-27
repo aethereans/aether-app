@@ -2999,7 +2999,7 @@ func (config *FrontendConfig) GetFrontendKeyPair() *ed25519.PrivateKey {
 	config.InitCheck()
 	keyPair, err := signaturing.UnmarshalPrivateKey(config.FrontendKeyPair)
 	if err != nil {
-		log.Fatal(invalidDataError(fmt.Sprintf("%#v", config.GetFrontendKeyPair) + " Trace: " + toolbox.Trace() + "Error: " + err.Error()))
+		log.Fatal(invalidDataError(fmt.Sprintf("%#v", config.GetFrontendKeyPair()) + " Trace: " + toolbox.Trace() + "Error: " + err.Error()))
 	}
 	return &keyPair
 }
