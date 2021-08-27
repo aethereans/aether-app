@@ -25,7 +25,7 @@ else {
 }
 var Vuex = require('../../../node_modules/vuex').default;
 Vue.use(Vuex);
-var ipc = require('../../../node_modules/electron-better-ipc');
+var ipc = require('../../../node_modules/electron-better-ipc').ipcMain;
 var fe = require('../services/feapiconsumer/feapiconsumer');
 var globalMethods = require('../services/globals/methods');
 var dataLoaders = require('./dataloaders').default;

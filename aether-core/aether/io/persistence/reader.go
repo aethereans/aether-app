@@ -808,6 +808,9 @@ func ReadDbPosts(
 		offset:         offset,
 	}
 	rtype := reqtype(opts)
+
+	fmt.Printf("ReadDbPosts: rtype = %s\n", rtype)
+
 	switch rtype {
 	case "(fp)(ts)":
 		query, args, err = sqlx.In("SELECT * FROM Posts WHERE Fingerprint IN (?) AND (LastReferenced >= ? AND LastReferenced <= ?);", fingerprints, beginTimestamp, endTimestamp)
@@ -850,9 +853,14 @@ func ReadDbPosts(
 			return dbArr, err
 		}
 	default:
+		fmt.Printf("The request you've made to ReadDbPosts was invalid. Fps: %v, Start: %v, End: %v\n", fingerprints, beginTimestamp, endTimestamp)
 		logging.Logf(1, "The request you've made to ReadDbPosts was invalid. Fps: %v, Start: %v, End: %v", fingerprints, beginTimestamp, endTimestamp)
 		return dbArr, errors.New(fmt.Sprintf("The request you've made to ReadDbPosts was invalid. Fps: %v, Start: %v, End: %v", fingerprints, beginTimestamp, endTimestamp))
 	}
+
+	fmt.Printf("ReadDbPosts: query = %s\n", query)
+	fmt.Printf("ReadDbPosts: args = %s\n", args)
+
 	rows, err := globals.DbInstance.Queryx(query, args...)
 	if err != nil {
 		return dbArr, err

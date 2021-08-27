@@ -3,11 +3,11 @@
 // This file is the grpc server we want to use to talk to the frontend.
 Object.defineProperty(exports, "__esModule", { value: true });
 // Imports
-var grpc = require('grpc');
+var grpc = require('@grpc/grpc-js');
 // const resolve = require('path').resolve
 // let globals = require('../globals/globals')
 var feapiconsumer = require('../feapiconsumer/feapiconsumer');
-var ipc = require('../../../../node_modules/electron-better-ipc');
+var ipc = require('../../../../node_modules/electron-better-ipc').ipcMain;
 var vuexStore = require('../../store/index').default;
 // // Load the proto file
 // const proto = grpc.load({

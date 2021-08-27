@@ -2,7 +2,7 @@ export {}
 
 let globals = require('../globals/globals')
 let fesupervisor = require('../fesupervisor/fesupervisor')
-let ipc = require('../../../../node_modules/electron-better-ipc')
+let ipc = require('../../../../node_modules/electron-better-ipc').ipcMain
 
 /*----------  Main receivers  ----------*/
 // i.e. main does something at the request of renderer

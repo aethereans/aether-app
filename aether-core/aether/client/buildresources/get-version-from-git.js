@@ -21,9 +21,10 @@ async function main() {
         */
     const packageJsonPath = resolve.sync('../package.json')
     let packageJsonPkg = await readPkgUp()
-    let pj = packageJsonPkg.pkg
-    let r = compileFullVersion()
-    pj.version = r
+    let pj = packageJsonPkg.packageJson
+    let r = compileFullVersion() // sample: +2108271413.db6a815.d
+    //pj.version = r
+    pj.version = `0.0.1${r}` // TODO get version number, electron requires a "valid semver version"
     await writePkg(packageJsonPath, pj)
     return
   }

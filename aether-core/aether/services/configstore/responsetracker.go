@@ -211,6 +211,6 @@ func (r *POSTResponseRepo) Maintain() {
 }
 
 func (r *POSTResponseRepo) DeleteAllFromDisk() {
-	postDir := fmt.Sprintf("%s/", bc.GetProtURLVersion(), "/responses", bc.GetCachesDirectory())
+	postDir := fmt.Sprintf("%s/responses/%s", bc.GetProtURLVersion(), bc.GetCachesDirectory())
 	toolbox.DeleteFromDisk(postDir)
 }

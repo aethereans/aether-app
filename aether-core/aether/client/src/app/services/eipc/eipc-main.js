@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var globals = require('../globals/globals');
 var fesupervisor = require('../fesupervisor/fesupervisor');
-var ipc = require('../../../../node_modules/electron-better-ipc');
+var ipc = require('../../../../node_modules/electron-better-ipc').ipcMain;
 /*----------  Main receivers  ----------*/
 // i.e. main does something at the request of renderer
 ipc.answerRenderer('GetFrontendReady', function () {

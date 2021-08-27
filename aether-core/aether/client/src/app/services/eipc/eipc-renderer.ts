@@ -1,6 +1,6 @@
 export {}
 
-// let ipc = require('../../../../node_modules/electron-better-ipc')
+// let ipc = require('../../../../node_modules/electron-better-ipc').ipcMain
 
 // /*----------  Renderer receivers  ----------*/
 // // i.e. renderer does something at the request of renderer

@@ -1,7 +1,7 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 'use strict';
-var grpc = require('grpc');
+var grpc = require('@grpc/grpc-js');
 var clapi_clapi_pb = require('../clapi/clapi_pb.js');
 var feobjects_feobjects_pb = require('../feobjects/feobjects_pb.js');
 var mimapi_mimapi_pb = require('../mimapi/mimapi_pb.js');

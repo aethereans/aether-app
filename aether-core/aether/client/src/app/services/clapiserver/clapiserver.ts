@@ -4,11 +4,11 @@
 export { } // This says this file is a module, not a script.
 
 // Imports
-const grpc = require('grpc')
+const grpc = require('@grpc/grpc-js')
 // const resolve = require('path').resolve
 // let globals = require('../globals/globals')
 const feapiconsumer = require('../feapiconsumer/feapiconsumer')
-var ipc = require('../../../../node_modules/electron-better-ipc')
+var ipc = require('../../../../node_modules/electron-better-ipc').ipcMain
 var vuexStore = require('../../store/index').default
 
 // // Load the proto file

@@ -41,7 +41,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 // Electron IPC setup before doing anything else
 require('./services/eipc/eipc-renderer'); // Register IPC events
-var ipc = require('../../node_modules/electron-better-ipc'); // Register IPC caller
+var ipc = require('../../node_modules/electron-better-ipc').ipcMain; // Register IPC caller
 // ^ Heads up, there are some IPC events registered in this renderermain, too.
 // const unhandled = require('../../node_modules/electron-unhandled')
 // unhandled()
