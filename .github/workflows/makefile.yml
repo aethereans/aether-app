@@ -25,29 +25,29 @@ jobs:
         node-version: '11'
 
     - name: test backend
-      working-directory: ./aether/backend
+      working-directory: aether/backend
       run: go run main.go
 
     - name: Build the frontend
-      working-directory: ./aether/client
+      working-directory: aether/client
       run: npm ci; npm run wpbuild; npm run rebuild
 
     - name: Install dependencies
-      working-directory: ./aether
+      working-directory: aether
       run: make
 
     - name: Build linux
-      working-directory: ./aether
+      working-directory: aether
       run: make linux
 
     - name: Build windows
-      working-directory: ./aether
+      working-directory: aether
       run: make win
       
     - name: Build mac
-      working-directory: ./aether
+      working-directory: aether
       run: make mac
       
     - name: Test
-      working-directory: ./aether
+      working-directory: aether
       run: bash run-test.sh
