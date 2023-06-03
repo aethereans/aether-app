@@ -19,10 +19,10 @@ jobs:
       with:
         go-version: '1.15'
         
-    - name: Use Node.js 11
+    - name: Use Node.js 16.18
       uses: actions/setup-node@v3
       with:
-        node-version: '11'
+        node-version: '18.16'
 
     - name: test backend
       working-directory: aether-core/aether/backend
