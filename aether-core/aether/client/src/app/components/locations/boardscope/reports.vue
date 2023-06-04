@@ -23,7 +23,7 @@
             <template
               v-if="
                 report.threadpayload.fingerprint.length > 0 &&
-                  !actionTaken(report.threadpayload.compiledcontentsignals)
+                !actionTaken(report.threadpayload.compiledcontentsignals)
               "
             >
               <a-thread-header-entity
@@ -36,7 +36,7 @@
             <template
               v-if="
                 report.postpayload.fingerprint.length > 0 &&
-                  !actionTaken(report.postpayload.compiledcontentsignals)
+                !actionTaken(report.postpayload.compiledcontentsignals)
               "
             >
               <a-post

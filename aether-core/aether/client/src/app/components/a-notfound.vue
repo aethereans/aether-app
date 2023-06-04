@@ -4,9 +4,7 @@
       <div class="headline">
         <icon name="unlink" scale="4"></icon>
       </div>
-      <div class="subheader">
-        Entity not found
-      </div>
+      <div class="subheader">Entity not found</div>
       <div class="description">
         If you opened the app via clicking a link on the internet, welcome back!
         <br /><b

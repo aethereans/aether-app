@@ -21,16 +21,16 @@ let statusLights = require('./statuslights').default
 let contentRelations = require('./contentrelations')
 let crumbs = require('./crumbs')
 
-const dataLoaderPlugin = function(store: any) {
+const dataLoaderPlugin = function (store: any) {
   store.watch(
     // When the returned result changes,
-    function(state: any) {
+    function (state: any) {
       return state.route.params
     },
     // Run this callback
-    function(newValue: any, oldValue: any) {
+    function (newValue: any, oldValue: any) {
       console.log(store.state.route.name)
-      fe.SendInflightsPruneRequest(function(resp: any) {
+      fe.SendInflightsPruneRequest(function (resp: any) {
         console.log(resp)
       })
       /*
@@ -155,7 +155,7 @@ let actions = {
     context: any,
     { boardfp, sortByNew }: { boardfp: string; sortByNew: boolean }
   ) {
-    fe.GetBoardAndThreads(boardfp, sortByNew, function(resp: any) {
+    fe.GetBoardAndThreads(boardfp, sortByNew, function (resp: any) {
       actions.pruneInflights()
       context.commit('SET_CURRENT_BOARD', resp.board)
       context.commit('SET_CURRENT_BOARDS_THREADS', resp.threadsList)
@@ -163,13 +163,13 @@ let actions = {
     })
   },
   pruneInflights() {
-    fe.SendInflightsPruneRequest(function() { })
+    fe.SendInflightsPruneRequest(function () {})
   },
   refreshCurrentThreadAndPosts(
     context: any,
     { boardfp, threadfp }: { boardfp: string; threadfp: string }
   ) {
-    fe.GetThreadAndPosts(boardfp, threadfp, function(resp: any) {
+    fe.GetThreadAndPosts(boardfp, threadfp, function (resp: any) {
       actions.pruneInflights()
       context.commit('SET_CURRENT_BOARD', resp.board)
       context.commit('SET_CURRENT_THREAD', resp.thread)
@@ -249,7 +249,7 @@ let actions = {
     { boardfp, sortByNew }: { boardfp: string; sortByNew: boolean }
   ) {
     if (context.state.currentBoardFp === boardfp) {
-      fe.GetBoardAndThreads(boardfp, sortByNew, function(resp: any) {
+      fe.GetBoardAndThreads(boardfp, sortByNew, function (resp: any) {
         context.commit('SET_CURRENT_BOARD', resp.board)
         context.commit('SET_CURRENT_BOARDS_THREADS', resp.threadsList)
         context.commit('SET_CURRENT_BOARD_LOAD_COMPLETE', true)
@@ -259,7 +259,7 @@ let actions = {
       // If we're already here, update board but without false/true current board load complete flash.
     }
     context.commit('SET_CURRENT_BOARD_LOAD_COMPLETE', false)
-    fe.GetBoardAndThreads(boardfp, sortByNew, function(resp: any) {
+    fe.GetBoardAndThreads(boardfp, sortByNew, function (resp: any) {
       context.commit('SET_CURRENT_BOARD', resp.board)
       context.commit('SET_CURRENT_BOARDS_THREADS', resp.threadsList)
       context.commit('SET_CURRENT_BOARD_LOAD_COMPLETE', true)
@@ -277,7 +277,7 @@ let actions = {
     // }
     // ^ Nope, you're trying to be way too smart. The user might have updated the thread and if that's the case trying to do that will prevent that update from being visible. I tried doing it like above in boards where you load but without making it invisible, and what that does it creates a flash of old content. Not great. This is the best.
     context.commit('SET_CURRENT_THREAD_LOAD_COMPLETE', false)
-    fe.GetThreadAndPosts(boardfp, threadfp, function(resp: any) {
+    fe.GetThreadAndPosts(boardfp, threadfp, function (resp: any) {
       context.commit('SET_CURRENT_BOARD', resp.board)
       context.commit('SET_CURRENT_THREAD', resp.thread)
       context.commit('SET_CURRENT_THREADS_POSTS', resp.postsList)
@@ -372,7 +372,7 @@ let mutations = {
   },
 
   SET_AMBIENT_BOARDS(state: any, ambientBoards: any) {
-    ambientBoards.sort(function(a: any, b: any) {
+    ambientBoards.sort(function (a: any, b: any) {
       return b.usercount - a.usercount
     })
     state.ambientBoards = ambientBoards
@@ -416,7 +416,7 @@ let mutations = {
     state.currentThreadsPosts = posts
   },
   SET_ALL_BOARDS(state: any, boards: any) {
-    boards.sort(function(a: any, b: any) {
+    boards.sort(function (a: any, b: any) {
       return b.usercount - a.usercount
     })
     state.allBoards = boards
@@ -505,7 +505,7 @@ let mutations = {
       notification = new Notification('New notifications', {
         body: 'You have ' + unreads.length + ' unread notifications on Aether.',
       })
-      notification.onclick = function() {
+      notification.onclick = function () {
         var router = require('../renderermain').router
         router.push('/user/' + localUserFp + '/notifications')
         ipc.callMain('FocusAndShow')
@@ -531,7 +531,7 @@ let mutations = {
           body: 'You have one unread notification on Aether.',
         })
       }
-      notification.onclick = function() {
+      notification.onclick = function () {
         var router = require('../renderermain').router
         router.push('/user/' + localUserFp + '/notifications')
         ipc.callMain('FocusAndShow')

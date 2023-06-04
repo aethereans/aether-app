@@ -15,7 +15,7 @@
         <template
           v-if="
             bracketedSfwlistedBoards.length >=
-              sfwlistedCaret + sfwlistedBatchSize
+            sfwlistedCaret + sfwlistedBatchSize
           "
         >
           <div class="load-more-carrier">
@@ -61,7 +61,7 @@
           <template
             v-if="
               bracketedNonSFWListedBoards.length >=
-                nonsfwlistedCaret + nonsfwlistedBatchSize
+              nonsfwlistedCaret + nonsfwlistedBatchSize
             "
           >
             <div class="load-more-carrier">
@@ -116,7 +116,7 @@ export default {
         sfwlisted = this.allBoards
       } else {
         for (var i = 0; i < this.allBoards.length; i++) {
-          ;(function(i) {
+          ;(function (i) {
             if (vm.allBoards[i].sfwlisted) {
               sfwlisted.push(vm.allBoards[i])
             }
@@ -129,7 +129,7 @@ export default {
       let nonSFWListed = []
       let vm = this
       for (var i = 0; i < this['allBoards'].length; i++) {
-        ;(function(i) {
+        ;(function (i) {
           if (!vm.allBoards[i].sfwlisted) {
             nonSFWListed.push(vm.allBoards[i])
           }

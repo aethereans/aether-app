@@ -9,7 +9,7 @@ This is the main entry point to the client app. See app.vue for the start logic,
   As a result, we start the frontend binary from the main side, but we establish the client gRPC server on the renderer side when it is time to connect to that server, since the data frontend provides needs to be delivered to the renderer, not the main process.
 */
 
-export { }
+export {}
 
 // Electron IPC setup before doing anything else
 require('./services/eipc/eipc-renderer') // Register IPC events
@@ -27,7 +27,7 @@ const clientAPIServerPort: number = clapiserver.StartClientAPIServer()
 console.log('attempting to call get frontend ready')
 ipc
   .callMain('GetFrontendReady')
-  .then(function(resp: any) {
+  .then(function (resp: any) {
     console.log('frontend ready response received')
     console.log(resp)
   })
@@ -43,7 +43,7 @@ ipc.callMain('AskNewUpdateReady')
 console.log('renderer client api server port: ', clientAPIServerPort)
 ipc
   .callMain('SetClientAPIServerPort', clientAPIServerPort)
-  .then(function(feDaemonStarted: boolean) {
+  .then(function (feDaemonStarted: boolean) {
     if (!feDaemonStarted) {
       // It's an Electron refresh, not a cold start.
       feapiconsumer.Initialise()
@@ -236,70 +236,70 @@ const New = require('./components/locations/new.vue').default
 
 /*----------  Global scope (whole network, i.e. list of boards)  ----------*/
 const GlobalScope = require('./components/locations/globalscope.vue').default
-const GlobalRoot = require('./components/locations/globalscope/globalroot.vue')
-  .default
-const GlobalSubbed = require('./components/locations/globalscope/subbedroot.vue')
-  .default
+const GlobalRoot =
+  require('./components/locations/globalscope/globalroot.vue').default
+const GlobalSubbed =
+  require('./components/locations/globalscope/subbedroot.vue').default
 
 /*----------  Board scope (board entity + list of threads)  ----------*/
-const NewBoard = require('./components/locations/globalscope/newboard.vue')
-  .default
+const NewBoard =
+  require('./components/locations/globalscope/newboard.vue').default
 const BoardScope = require('./components/locations/boardscope.vue').default
-const BoardRoot = require('./components/locations/boardscope/boardroot.vue')
-  .default
-const BoardInfo = require('./components/locations/boardscope/boardinfo.vue')
-  .default
-const ModActivity = require('./components/locations/boardscope/modactivity.vue')
-  .default
-const Elections = require('./components/locations/boardscope/elections.vue')
-  .default
+const BoardRoot =
+  require('./components/locations/boardscope/boardroot.vue').default
+const BoardInfo =
+  require('./components/locations/boardscope/boardinfo.vue').default
+const ModActivity =
+  require('./components/locations/boardscope/modactivity.vue').default
+const Elections =
+  require('./components/locations/boardscope/elections.vue').default
 const Reports = require('./components/locations/boardscope/reports.vue').default
 
 /*----------  Thread scope (thread entity + list of posts)  ----------*/
-const NewThread = require('./components/locations/boardscope/newthread.vue')
-  .default
+const NewThread =
+  require('./components/locations/boardscope/newthread.vue').default
 const ThreadScope = require('./components/locations/threadscope.vue').default
 
 /*----------  Settings scope  ----------*/
-const SettingsScope = require('./components/locations/settingsscope.vue')
-  .default
-const SettingsRoot = require('./components/locations/settingsscope/settingsroot.vue')
-  .default
-const Defaults = require('./components/locations/settingsscope/defaults.vue')
-  .default
-const Shortcuts = require('./components/locations/settingsscope/shortcuts.vue')
-  .default
-const AdvancedSettings = require('./components/locations/settingsscope/advancedsettings.vue')
-  .default
+const SettingsScope =
+  require('./components/locations/settingsscope.vue').default
+const SettingsRoot =
+  require('./components/locations/settingsscope/settingsroot.vue').default
+const Defaults =
+  require('./components/locations/settingsscope/defaults.vue').default
+const Shortcuts =
+  require('./components/locations/settingsscope/shortcuts.vue').default
+const AdvancedSettings =
+  require('./components/locations/settingsscope/advancedsettings.vue').default
 const About = require('./components/locations/settingsscope/about.vue').default
-const Membership = require('./components/locations/settingsscope/membership.vue')
-  .default
-const Changelog = require('./components/locations/settingsscope/changelog.vue')
-  .default
-const AdminsQuickstart = require('./components/locations/settingsscope/adminsquickstart.vue')
-  .default
+const Membership =
+  require('./components/locations/settingsscope/membership.vue').default
+const Changelog =
+  require('./components/locations/settingsscope/changelog.vue').default
+const AdminsQuickstart =
+  require('./components/locations/settingsscope/adminsquickstart.vue').default
 const Intro = require('./components/locations/settingsscope/intro.vue').default
-const NewUser = require('./components/locations/settingsscope/newuser.vue')
-  .default
-const SFWList = require('./components/locations/settingsscope/sfwlist.vue')
-  .default
-const Modship = require('./components/locations/settingsscope/modship.vue')
-  .default
-const Namemint = require('./components/locations/settingsscope/namemint.vue')
-  .default
+const NewUser =
+  require('./components/locations/settingsscope/newuser.vue').default
+const SFWList =
+  require('./components/locations/settingsscope/sfwlist.vue').default
+const Modship =
+  require('./components/locations/settingsscope/modship.vue').default
+const Namemint =
+  require('./components/locations/settingsscope/namemint.vue').default
 
 /*----------  User scope  ----------*/
 const UserScope = require('./components/locations/userscope.vue').default
-const UserRoot = require('./components/locations/userscope/userroot.vue')
-  .default
-const UserBoards = require('./components/locations/userscope/userboards.vue')
-  .default
-const UserThreads = require('./components/locations/userscope/userthreads.vue')
-  .default
-const UserPosts = require('./components/locations/userscope/userposts.vue')
-  .default
-const Notifications = require('./components/locations/userscope/notifications.vue')
-  .default
+const UserRoot =
+  require('./components/locations/userscope/userroot.vue').default
+const UserBoards =
+  require('./components/locations/userscope/userboards.vue').default
+const UserThreads =
+  require('./components/locations/userscope/userthreads.vue').default
+const UserPosts =
+  require('./components/locations/userscope/userposts.vue').default
+const Notifications =
+  require('./components/locations/userscope/notifications.vue').default
 
 /*----------  Status scope  ----------*/
 
@@ -308,29 +308,29 @@ const Status = require('./components/locations/status.vue').default
 /*----------  Onboarding scope  ----------*/
 
 const OnboardScope = require('./components/locations/onboardscope.vue').default
-const OnboardRoot = require('./components/locations/onboardscope/onboardroot.vue')
-  .default
-const Onboard1 = require('./components/locations/onboardscope/onboard1.vue')
-  .default
-const Onboard2 = require('./components/locations/onboardscope/onboard2.vue')
-  .default
-const Onboard3 = require('./components/locations/onboardscope/onboard3.vue')
-  .default
-const Onboard4 = require('./components/locations/onboardscope/onboard4.vue')
-  .default
-const Onboard5 = require('./components/locations/onboardscope/onboard5.vue')
-  .default
-const Onboard6 = require('./components/locations/onboardscope/onboard6.vue')
-  .default
+const OnboardRoot =
+  require('./components/locations/onboardscope/onboardroot.vue').default
+const Onboard1 =
+  require('./components/locations/onboardscope/onboard1.vue').default
+const Onboard2 =
+  require('./components/locations/onboardscope/onboard2.vue').default
+const Onboard3 =
+  require('./components/locations/onboardscope/onboard3.vue').default
+const Onboard4 =
+  require('./components/locations/onboardscope/onboard4.vue').default
+const Onboard5 =
+  require('./components/locations/onboardscope/onboard5.vue').default
+const Onboard6 =
+  require('./components/locations/onboardscope/onboard6.vue').default
 
 /*----------  Search scope (search communities, content, users)  ----------*/
 const SearchScope = require('./components/locations/searchscope.vue').default
-const SearchCommunity = require('./components/locations/searchscope/communitysearch.vue')
-  .default
-const SearchContent = require('./components/locations/searchscope/contentsearch.vue')
-  .default
-const SearchUser = require('./components/locations/searchscope/usersearch.vue')
-  .default
+const SearchCommunity =
+  require('./components/locations/searchscope/communitysearch.vue').default
+const SearchContent =
+  require('./components/locations/searchscope/contentsearch.vue').default
+const SearchUser =
+  require('./components/locations/searchscope/usersearch.vue').default
 /*----------  Routes  ----------*/
 
 const routes = [
@@ -413,7 +413,7 @@ const routes = [
     path: '/board/:boardfp/thread/:threadfp',
     component: ThreadScope,
     name: 'Thread',
-    props: function(route: any) {
+    props: function (route: any) {
       let highlightSelectors: any = []
       if (
         !globalMethods.IsUndefined(route.query.highlightSelectors) &&
@@ -526,7 +526,7 @@ const router = new VueRouter({
 
 const Store = require('./store').default
 
-router.beforeEach(function(to: any, { }, next: any) {
+router.beforeEach(function (to: any, {}, next: any) {
   if (
     Store.state.onboardCompleteStatusArrived &&
     !Store.state.onboardCompleteStatus
@@ -567,37 +567,37 @@ store.state.route.query  // current query (object)
 // Disable events that are meaningless in this context.
 
 // Drag start is being able to click and drag a link inside the app to outside of it. Since the app is a local one, that link will just be a local file, and it won't be useful to anybody.
-document.addEventListener('dragstart', function(event: any) {
+document.addEventListener('dragstart', function (event: any) {
   event.preventDefault()
 })
 
 // Dragover is the event that gets fired when a dragged item is on a droppable target, every few hundred milliseconds. We have no drop targets.
-document.addEventListener('dragover', function(event: any) {
+document.addEventListener('dragover', function (event: any) {
   event.preventDefault()
 })
 
 // Cancelling drop prevents anything from being dropped into the container. This can be a mild security risk, if someone can convince you (or somehow automate dropping inside the app container), it can make the container ping a web address. This also assumes the container has the dropped remote address whitelisted, though, so it's a long shot. Still, defence in depth is preferable.
-document.addEventListener('drop', function(event: any) {
+document.addEventListener('drop', function (event: any) {
   event.preventDefault()
 })
 
 /*----------  Some basic keyboard shortcuts  ----------*/
 
-Mousetrap.bind('mod+,', function() {
+Mousetrap.bind('mod+,', function () {
   history.back()
   // if (event.target.nodeName.toLowerCase() !== 'textarea' && event.target.nodeName.toLowerCase() !== 'input' && event.target.contentEditable !== 'true') {
   //   history.back()
   // }
 })
 
-Mousetrap.bind('mod+.', function() {
+Mousetrap.bind('mod+.', function () {
   history.forward()
   // if (event.target.nodeName.toLowerCase() !== 'textarea' && event.target.nodeName.toLowerCase() !== 'input' && event.target.contentEditable !== 'true') {
   //   history.forward()
   // }
 })
 
-Mousetrap.bind('mod+/', function() {
+Mousetrap.bind('mod+/', function () {
   router.push('/user/' + Store.state.localUser.fingerprint + '/notifications')
 })
 
@@ -606,16 +606,16 @@ Mousetrap.bind('mod+/', function() {
 /*
 These are here instead of eipc/eipc-renderer because they do require access to things that are instantiated here, such as router, and there is no way to get to them without importing the main. Importing main is not an option. So these should be here until I split the router into its own service file that is imported separately. That way, eipc import from there, and not from main.
 */
-ipc.answerMain('RouteTo', function(route: string) {
+ipc.answerMain('RouteTo', function (route: string) {
   router.push(route)
   return
 })
 
-ipc.answerMain('FullscreenState', function(isFullscreen: boolean) {
+ipc.answerMain('FullscreenState', function (isFullscreen: boolean) {
   Store.state.appIsFullscreen = isFullscreen
 })
 
-ipc.answerMain('NewUpdateReady', function(newUpdateReady: boolean) {
+ipc.answerMain('NewUpdateReady', function (newUpdateReady: boolean) {
   Store.state.newUpdateReady = newUpdateReady
 })
 
@@ -635,10 +635,10 @@ ElectronHunspell.enableLogger(console)
 
 const init = async () => {
   const browserWindowProvider = new ElectronHunspell.SpellCheckerProvider()
-    ; (window as any).browserWindowProvider = browserWindowProvider
+  ;(window as any).browserWindowProvider = browserWindowProvider
   await browserWindowProvider.initialize({
     // environment: HunspellAsm.ENVIRONMENT.NODE,
-    locateBinary: function(file: any) {
+    locateBinary: function (file: any) {
       if (file.endsWith('.wasm')) {
         return 'node_modules/hunspell-asm/dist/cjs/lib/hunspell.wasm'
       }

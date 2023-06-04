@@ -101,7 +101,7 @@ export default {
         '',
         this.limit,
         this.offset,
-        function(resp: any) {
+        function (resp: any) {
           console.log(resp)
           vm.postsList.push(...resp.postsList)
           vm.currentUserFp = targetuserfp

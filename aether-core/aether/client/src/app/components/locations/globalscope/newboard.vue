@@ -51,7 +51,7 @@ export default {
         },
         commitAction: this.submitBoard,
         commitActionName: 'SUBMIT',
-        cancelAction: function() {
+        cancelAction: function () {
           history.back()
         },
         cancelActionName: 'CANCEL',
@@ -86,10 +86,10 @@ export default {
       vm.$router.push(
         '/user/' + vm.$store.state.localUser.fingerprint + '/boards'
       )
-      fe.SendBoardContent('', board, function(resp: any) {
+      fe.SendBoardContent('', board, function (resp: any) {
         console.log(resp.toObject())
       })
-      fe.SendModModeEnabledStatus(true, function() {
+      fe.SendModModeEnabledStatus(true, function () {
         console.log('Mod mode is enabled due to creation of a board.')
       })
     },

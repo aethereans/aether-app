@@ -24,9 +24,7 @@
           to="/globalscope/subbed"
         >
           <div class="header-icon"></div>
-          <div class="header-text">
-            SUBS
-          </div>
+          <div class="header-text">SUBS</div>
         </router-link>
         <template v-if="ambientBoardsArrived">
           <router-link
@@ -82,9 +80,7 @@
     <router-link tag="div" class="sidebar-group status" to="/status">
       <div class="sidebar-group-header">
         <div class="header-icon"></div>
-        <div class="header-text">
-          STATUS
-        </div>
+        <div class="header-text">STATUS</div>
         <!-- <div class="flex-spacer"></div> -->
         <div class="infomark-container">
           <a-info-marker
@@ -146,8 +142,8 @@ export default {
       if (this.refreshIsWorking) {
         return 'Updating'
       }
-      let rawrefreshts = this.ambientStatus.frontendambientstatus
-        .lastrefreshtimestamp
+      let rawrefreshts =
+        this.ambientStatus.frontendambientstatus.lastrefreshtimestamp
       if (rawrefreshts === 0) {
         return 'Unknown'
       }

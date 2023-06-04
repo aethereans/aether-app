@@ -8,12 +8,8 @@
         ></a-markdown>
       </transition>
       <div class="continue-box">
-        <div class="button is-outlined next-button" @click="toNewUser">
-          YES
-        </div>
-        <div class="button is-outlined next-button" @click="toApp">
-          NO
-        </div>
+        <div class="button is-outlined next-button" @click="toNewUser">YES</div>
+        <div class="button is-outlined next-button" @click="toApp">NO</div>
       </div>
     </div>
   </div>
@@ -31,11 +27,11 @@ export default {
   methods: {
     toNewUser(this: any) {
       this.$router.push('/newuser')
-      fe.SetOnboardComplete(true, function() {})
+      fe.SetOnboardComplete(true, function () {})
     },
     toApp(this: any) {
       this.$router.push('/popular')
-      fe.SetOnboardComplete(true, function() {})
+      fe.SetOnboardComplete(true, function () {})
     },
   },
 }

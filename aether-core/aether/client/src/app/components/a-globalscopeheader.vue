@@ -33,7 +33,7 @@
       <div class="actions-container">
         <router-link
           to="/globalscope/newboard"
-          class="button  is-info is-outlined"
+          class="button is-info is-outlined"
           title="Create a new community"
           v-if="!localUserReadOnly"
           :disabled="newBoardButtonDisabled"

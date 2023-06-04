@@ -96,7 +96,7 @@ export default {
     return {}
   },
   methods: {
-    tabsVisible: function(this: any) {
+    tabsVisible: function (this: any) {
       if (this.$route.name === 'Board>NewThread') {
         return false
       } else {

@@ -3,9 +3,9 @@
     class="bootstrapper"
     v-if="
       containerVisible &&
-        (bootstrapInProgress ||
-          bootstrapRefreshInProgress ||
-          bootstrapRefreshComplete)
+      (bootstrapInProgress ||
+        bootstrapRefreshInProgress ||
+        bootstrapRefreshComplete)
     "
   >
     <div class="bootstrapper-carrier">

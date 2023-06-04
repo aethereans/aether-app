@@ -96,15 +96,21 @@ export default {
   methods: {
     fetchData(this: any, targetuserfp: string) {
       let vm = this
-      fe.GetUncompiledEntityByKey('Board', targetuserfp, '', '', 0, 0, function(
-        resp: any
-      ) {
-        console.log(resp)
-        vm.boardsList = resp.boardsList
-        vm.currentUserFp = targetuserfp
-        vm.loadingComplete = true
-        vm.lastLoadSize = resp.postsList.length
-      })
+      fe.GetUncompiledEntityByKey(
+        'Board',
+        targetuserfp,
+        '',
+        '',
+        0,
+        0,
+        function (resp: any) {
+          console.log(resp)
+          vm.boardsList = resp.boardsList
+          vm.currentUserFp = targetuserfp
+          vm.loadingComplete = true
+          vm.lastLoadSize = resp.postsList.length
+        }
+      )
     },
     loadMore(this: any) {
       this.offset = this.offset + this.limit

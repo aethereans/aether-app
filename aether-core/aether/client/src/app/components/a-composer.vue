@@ -62,14 +62,12 @@
                 class="error"
                 v-show="
                   block._touched &&
-                    block.content.length === 0 &&
-                    !block.optional &&
-                    !block.emptyWarningDisabled
+                  block.content.length === 0 &&
+                  !block.optional &&
+                  !block.emptyWarningDisabled
                 "
               >
-                <div class="error-text">
-                  You need something in here
-                </div>
+                <div class="error-text">You need something in here</div>
               </div>
               <div
                 class="error"
@@ -77,21 +75,17 @@
                   block._touched && block.maxCharCount < block.content.length
                 "
               >
-                <div class="error-text">
-                  This is way too long
-                </div>
+                <div class="error-text">This is way too long</div>
               </div>
               <div
                 class="error"
                 v-show="
                   block._touched &&
-                    block.minCharCount > block.content.length &&
-                    block.content.length !== 0
+                  block.minCharCount > block.content.length &&
+                  block.content.length !== 0
                 "
               >
-                <div class="error-text">
-                  This is too short
-                </div>
+                <div class="error-text">This is too short</div>
               </div>
             </div>
             <div class="flex-spacer"></div>
@@ -190,9 +184,9 @@
                     class="error"
                     v-show="
                       block._touched &&
-                        block.content.length === 0 &&
-                        !block.optional &&
-                        !block.emptyWarningDisabled
+                      block.content.length === 0 &&
+                      !block.optional &&
+                      !block.emptyWarningDisabled
                     "
                   >
                     <!-- Empty warning can be disabled specifically. For example, when you're putting this box on a persistent place that is always visible, you don't want to keep showing an annoying warning if somebody writes something and then decides to not post it and delete it. In text fields that can be closed (like reply to post) that is not a problem, but in ones that cannot be hidden without navigating away, the empty warning is annoying, and disabling the submit button communicates the same. -->
@@ -204,24 +198,20 @@
                     class="error"
                     v-show="
                       block._touched &&
-                        block.maxCharCount < block.content.length
+                      block.maxCharCount < block.content.length
                     "
                   >
-                    <div class="error-text">
-                      This is way too long
-                    </div>
+                    <div class="error-text">This is way too long</div>
                   </div>
                   <div
                     class="error"
                     v-show="
                       block._touched &&
-                        block.minCharCount > block.content.length &&
-                        block.content.length !== 0
+                      block.minCharCount > block.content.length &&
+                      block.content.length !== 0
                     "
                   >
-                    <div class="error-text">
-                      This is too short
-                    </div>
+                    <div class="error-text">This is too short</div>
                   </div>
                 </div>
                 <div
@@ -361,7 +351,7 @@ export default {
         rootMargin: '0px',
         threshold: 0,
       }
-      var observer: any = new IntersectionObserver(function(entries: any) {
+      var observer: any = new IntersectionObserver(function (entries: any) {
         vm.touchingBottom = entries[0].isIntersecting
       }, options)
       this.scrollTarget = document.getElementsByClassName('scrolltarget')[0]
@@ -376,10 +366,10 @@ export default {
     }
     /*----------  Mousetrap bindings  ----------*/
     let vm = this
-    Mousetrap(vm.$el).bind('mod+enter', function() {
+    Mousetrap(vm.$el).bind('mod+enter', function () {
       vm.maybeCommit()
     })
-    Mousetrap(vm.$el).bind('mod+esc', function() {
+    Mousetrap(vm.$el).bind('mod+esc', function () {
       vm.maybeCancel()
     })
   },
@@ -415,7 +405,7 @@ export default {
         if (this.baseData.fixToBottom) {
           if (this.touchingBottom) {
             let vm = this
-            setTimeout(function() {
+            setTimeout(function () {
               if (
                 vm.fullView.getBoundingClientRect().height > vm.fullViewHeight
               ) {

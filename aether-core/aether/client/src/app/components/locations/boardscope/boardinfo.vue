@@ -2,9 +2,7 @@
   <div class="board-sublocation">
     <div class="board-info">
       <div class="user-data-field-container">
-        <div class="user-data-field-header">
-          Description
-        </div>
+        <div class="user-data-field-header">Description</div>
         <div class="user-data-field">
           <template v-if="!editPaneOpen">
             <a-markdown :content="visibleEntity.description"></a-markdown>
@@ -40,9 +38,7 @@
         </div>
       </div> -->
       <div class="user-data-field-container">
-        <div class="user-data-field-header">
-          URL
-        </div>
+        <div class="user-data-field-header">URL</div>
         <div class="user-data-field fingerprint">
           <!-- <div class="fingerprint-text">
             {{$store.state.currentBoard.fingerprint}}
@@ -54,25 +50,19 @@
         </div>
       </div>
       <div class="user-data-field-container">
-        <div class="user-data-field-header">
-          Created
-        </div>
+        <div class="user-data-field-header">Created</div>
         <div class="user-data-field">
           {{ timeString($store.state.currentBoard.creation) }}
         </div>
       </div>
       <div class="user-data-field-container">
-        <div class="user-data-field-header">
-          Created by
-        </div>
+        <div class="user-data-field-header">Created by</div>
         <div class="user-data-field">
           <a-username :owner="$store.state.currentBoard.owner"></a-username>
         </div>
       </div>
       <div class="user-data-field-container">
-        <div class="user-data-field-header">
-          Last Updated
-        </div>
+        <div class="user-data-field-header">Last Updated</div>
         <div class="user-data-field">
           {{ timeString($store.state.currentBoard.lastupdate) }}
         </div>
@@ -127,7 +117,8 @@ export default {
       if (this.editPaneOpen) {
         this.editPaneOpen = false
       } else {
-        this.boardEditExistingSpec.fields[0].content = this.visibleEntity.description
+        this.boardEditExistingSpec.fields[0].content =
+          this.visibleEntity.description
         this.editPaneOpen = true
       }
     },
@@ -145,7 +136,7 @@ export default {
       fe.SendBoardContent(
         this.$store.state.currentBoard.fingerprint,
         board,
-        function(resp: any) {
+        function (resp: any) {
           vm.toggleEditPane()
           console.log(resp.toObject())
         }

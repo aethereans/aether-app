@@ -110,7 +110,7 @@ export default {
     // console.log('this is currentboardsthreads')
     // console.log(this.currentBoardsThreads)
     let vm = this
-    Mousetrap.bind('mod+n', function() {
+    Mousetrap.bind('mod+n', function () {
       vm.$router.push(
         '/board/' + vm.$store.state.currentBoard.fingerprint + '/newthread'
       )

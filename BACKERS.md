@@ -1,6 +1,6 @@
 # Backers
 
-Aether exists thanks to the generous fellows below. Funding Aether comes with some perks, such as registering your unique name before anyone else. [See here](https://getaether.net/supporterbenefits) for full benefits. 
+Aether exists thanks to the generous fellows below. Funding Aether comes with some perks, such as registering your unique name before anyone else. [See here](https://getaether.net/supporterbenefits) for full benefits.
 
 <a href="https://www.patreon.com/nehbit">
 	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">

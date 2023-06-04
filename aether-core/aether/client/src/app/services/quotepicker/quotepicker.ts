@@ -232,7 +232,7 @@ let initd = false
 
 function fixWidows() {
   for (var i = 0; i < quotes.length; i++) {
-    ;(function(i) {
+    ;(function (i) {
       quotes[i].Quote = quotes[i].Quote.replace(/ (?=[^ ]*$)/i, '&nbsp;')
     })(i)
   }

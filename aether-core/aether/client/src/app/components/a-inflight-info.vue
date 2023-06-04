@@ -10,7 +10,7 @@
           <template
             v-if="
               inflightStatus.completionpercent === 100 &&
-                inflightStatus.eventtype != 'UPDATE'
+              inflightStatus.eventtype != 'UPDATE'
             "
           >
             You can

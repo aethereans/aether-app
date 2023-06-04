@@ -8,9 +8,7 @@
     ></a-markdown>
     <div class="settings-action-container">
       <div class="current-state">
-        <div class="current-state-header">
-          Mod mode status
-        </div>
+        <div class="current-state-header">Mod mode status</div>
         <div
           class="current-state-text"
           v-show="modModeEnabled"
@@ -74,13 +72,13 @@ export default {
   methods: {
     enableModMode(this: any) {
       console.log('enable mod mode is called')
-      fe.SendModModeEnabledStatus(true, function(resp: any) {
+      fe.SendModModeEnabledStatus(true, function (resp: any) {
         console.log(resp)
       })
     },
     disableModMode(this: any) {
       console.log('disable mod mode is called')
-      fe.SendModModeEnabledStatus(false, function(resp: any) {
+      fe.SendModModeEnabledStatus(false, function (resp: any) {
         console.log(resp)
       })
     },

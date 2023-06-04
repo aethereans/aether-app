@@ -32,9 +32,7 @@
         </div>
       </div>
       <div class="user-data-field-container">
-        <div class="user-data-field-header">
-          URL
-        </div>
+        <div class="user-data-field-header">URL</div>
         <div class="user-data-field location">
           <!-- <a class="field-action copy-link" @click="copyLink">
               Copy link
@@ -47,9 +45,7 @@
         </div>
       </div>
       <div class="user-data-field-container">
-        <div class="user-data-field-header">
-          Created
-        </div>
+        <div class="user-data-field-header">Created</div>
         <div class="user-data-field">
           <!-- {{timeSince($store.state.currentUserEntity.Creation)}} {{$store.state.currentUserEntity.Creation}} -->{{
             timeString($store.state.currentUserEntity.creation)
@@ -57,9 +53,7 @@
         </div>
       </div>
       <div class="user-data-field-container">
-        <div class="user-data-field-header">
-          Last Updated
-        </div>
+        <div class="user-data-field-header">Last Updated</div>
         <div class="user-data-field">
           {{ timeString($store.state.currentUserEntity.lastupdate) }}
         </div>
@@ -208,7 +202,7 @@ export default {
       fe.SendUserContent(
         this.$store.state.currentUserEntity.fingerprint,
         user,
-        function(resp: any) {
+        function (resp: any) {
           vm.toggleEditPane()
           console.log(resp.toObject())
         }

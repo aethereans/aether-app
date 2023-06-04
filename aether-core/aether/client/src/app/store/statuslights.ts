@@ -157,7 +157,7 @@ function computeBackendDotState(ds: any): string {
     highestErrorState = dotStateOrderSubsection[ds.cachingDotState]
   }
   let result: string = 'status_section_unknown'
-  Object.keys(dotStateOrderSection).forEach(function(key) {
+  Object.keys(dotStateOrderSection).forEach(function (key) {
     if (dotStateOrderSection[key] === highestErrorState) {
       result = key
     }
@@ -173,7 +173,7 @@ function computeFrontendDotState(ds: any): string {
     highestErrorState = dotStateOrderSubsection[ds.inflightsDotState]
   }
   let result: string = 'status_section_unknown'
-  Object.keys(dotStateOrderSection).forEach(function(key) {
+  Object.keys(dotStateOrderSection).forEach(function (key) {
     if (dotStateOrderSection[key] === highestErrorState) {
       result = key
     }

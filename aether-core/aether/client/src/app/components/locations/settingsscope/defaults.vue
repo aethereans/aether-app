@@ -15,9 +15,7 @@
       </div>
     </div>
     <div class="config-location">
-      <div class="config-location-header">
-        Backend preferences file
-      </div>
+      <div class="config-location-header">Backend preferences file</div>
       <div class="config-location-text">
         {{
           $store.state.ambientStatus.backendambientstatus.backendconfiglocation

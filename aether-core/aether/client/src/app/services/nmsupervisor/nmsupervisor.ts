@@ -8,7 +8,7 @@ const { exec } = require('child_process')
 // let os = require('os')
 // let path = require('path')
 
-let MintNewUniqueUsername = function(
+let MintNewUniqueUsername = function (
   requestedUsername: string,
   targetKeyFp: string,
   expiryTimestamp: number,
@@ -26,7 +26,7 @@ let MintNewUniqueUsername = function(
   execString += password
   execString += `"`
 
-  exec(execString, function(e: any, stdout: any) {
+  exec(execString, function (e: any, stdout: any) {
     // , stderr: any
     if (e instanceof Error) {
       callback(e.message)
@@ -36,9 +36,9 @@ let MintNewUniqueUsername = function(
   })
 }
 
-let FetchAlreadyMintedPendingUsernames = function(callback: any) {
+let FetchAlreadyMintedPendingUsernames = function (callback: any) {
   let execString = `go run ../../support/nameminter/main.go batchdeliver`
-  exec(execString, function(e: any, stdout: any) {
+  exec(execString, function (e: any, stdout: any) {
     // , stderr: any
     if (e instanceof Error) {
       callback(e.message)
@@ -48,7 +48,7 @@ let FetchAlreadyMintedPendingUsernames = function(callback: any) {
   })
 }
 
-let MarkUsernamesAsDelivered = function(
+let MarkUsernamesAsDelivered = function (
   deliveredUsernames: any,
   callback: any
 ) {
@@ -56,7 +56,7 @@ let MarkUsernamesAsDelivered = function(
   execString += ` --deliveredfps='`
   execString += JSON.stringify(deliveredUsernames)
   execString += `'`
-  exec(execString, function(e: any, stdout: any) {
+  exec(execString, function (e: any, stdout: any) {
     // , stderr: any
     if (e instanceof Error) {
       callback(e.message)

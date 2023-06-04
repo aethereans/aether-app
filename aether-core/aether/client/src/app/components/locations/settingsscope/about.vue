@@ -19,9 +19,7 @@ export default {
 }
 // These are var's and not let's because lets are defined only from the point they're in the code, and vars are defined for the whole scope regardless of where they are.
 var headline = '# About'
-let versionAndBuild = require('electron')
-  .remote.app.getVersion()
-  .split('+')
+let versionAndBuild = require('electron').remote.app.getVersion().split('+')
 var intro =
   `**Aether Community Edition v` +
   versionAndBuild[0] +

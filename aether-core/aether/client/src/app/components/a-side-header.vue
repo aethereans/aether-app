@@ -4,9 +4,7 @@
     :class="{ 'sidebar-collapsed': !$store.state.sidebarOpen }"
   >
     <div class="app-name" @click="goHome">
-      <span :class="{ 'non-fullscreen': !isFullscreen }">
-        aether
-      </span>
+      <span :class="{ 'non-fullscreen': !isFullscreen }"> aether </span>
     </div>
     <!-- <div class="spacer"></div> -->
     <div class="sidebar-expander-box">

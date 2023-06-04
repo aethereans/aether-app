@@ -4,12 +4,8 @@
       <div class="current-state-header">
         {{ name }}
       </div>
-      <div class="current-state-text" v-show="isEnabled">
-        Enabled
-      </div>
-      <div class="current-state-text" v-show="!isEnabled">
-        Disabled
-      </div>
+      <div class="current-state-text" v-show="isEnabled">Enabled</div>
+      <div class="current-state-text" v-show="!isEnabled">Disabled</div>
     </div>
     <div class="flex-spacer"></div>
     <div class="button-carrier" v-if="!readOnly">
@@ -55,8 +51,8 @@ export default {
     },
     stateCheckFunc: {
       type: Function,
-      default: function() {
-        return function() {}
+      default: function () {
+        return function () {}
       },
     },
     manualState: {
@@ -73,14 +69,14 @@ export default {
     },
     enableFunc: {
       type: Function,
-      default: function() {
-        return function() {}
+      default: function () {
+        return function () {}
       },
     },
     disableFunc: {
       type: Function,
-      default: function() {
-        return function() {}
+      default: function () {
+        return function () {}
       },
     },
     readOnly: {
@@ -124,7 +120,7 @@ export default {
       /*
         This is a hack - however it's necessary because we don't actually know if the function that is going to be given to this block is async or not. If it's async, it'll do its own wait. If it's synchronous, and will make an external roundtrip, we don't have any choice but to wait a set amount of time before we poll for an update to the state.
       */
-      return new Promise(function(resolve: any) {
+      return new Promise(function (resolve: any) {
         setTimeout(resolve, ms)
       })
     },

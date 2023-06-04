@@ -2,7 +2,7 @@
 
 // This service is the API through which the client accesses data in the frontend.
 
-export { } // This says this file is a module, not a script.
+export {} // This says this file is a module, not a script.
 
 // Imports
 const grpc = require('grpc')
@@ -27,7 +27,7 @@ let initInProgress: boolean = false
 let clientApiServerPortIsSet: boolean = false
 
 function timeout(ms: any) {
-  return new Promise(function(resolve) {
+  return new Promise(function (resolve) {
     return setTimeout(resolve, ms)
   })
 }
@@ -68,14 +68,14 @@ let ExportedMethods = {
     initInProgress = false
   },
   GetAllBoards(callback: any) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       console.log('get all boards is making a call')
       console.log('initstate: ', Initialised)
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
       let req = new pmessages.AllBoardsRequest()
-      feAPIConsumer.getAllBoards(req, function(err: any, response: any) {
+      feAPIConsumer.getAllBoards(req, function (err: any, response: any) {
         if (err) {
           console.log(err)
         } else {
@@ -85,7 +85,7 @@ let ExportedMethods = {
     })
   },
   SetClientAPIServerPort(clientAPIServerPort: number) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       console.log(
         'clapiserverport mapping is triggered. initstate: ',
         Initialised
@@ -96,23 +96,23 @@ let ExportedMethods = {
       let req = new pmessages.SetClientAPIServerPortRequest()
       req.setPort(clientAPIServerPort)
       // console.log(req)
-      feAPIConsumer.setClientAPIServerPort(req, function(
-        err: any,
-        response: any
-      ) {
-        if (err) {
-          console.log(err)
-        } else {
-          console.log(response)
-          clientApiServerPortIsSet = true
+      feAPIConsumer.setClientAPIServerPort(
+        req,
+        function (err: any, response: any) {
+          if (err) {
+            console.log(err)
+          } else {
+            console.log(response)
+            clientApiServerPortIsSet = true
+          }
         }
-      })
+      )
     })
   },
   GetBoardAndThreads(boardfp: string, sortByNew: boolean, callback: any) {
     console.log('get boards and threads received:')
     console.log(boardfp, sortByNew)
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -122,7 +122,7 @@ let ExportedMethods = {
       if (sortByNew) {
         req.setSortthreadsbynew(true)
       }
-      feAPIConsumer.getBoardAndThreads(req, function(err: any, resp: any) {
+      feAPIConsumer.getBoardAndThreads(req, function (err: any, resp: any) {
         if (err) {
           console.log(err)
         } else {
@@ -133,7 +133,7 @@ let ExportedMethods = {
     })
   },
   GetThreadAndPosts(boardfp: string, threadfp: string, callback: any) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -141,7 +141,7 @@ let ExportedMethods = {
       let req = new pmessages.ThreadAndPostsRequest()
       req.setBoardfingerprint(boardfp)
       req.setThreadfingerprint(threadfp)
-      feAPIConsumer.getThreadAndPosts(req, function(err: any, resp: any) {
+      feAPIConsumer.getThreadAndPosts(req, function (err: any, resp: any) {
         if (err) {
           console.log(err)
         } else {
@@ -158,7 +158,7 @@ let ExportedMethods = {
     lastSeenOnly: boolean,
     callback: any
   ) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -169,7 +169,7 @@ let ExportedMethods = {
       req.setNotify(notify)
       req.setLastseen(lastseen)
       req.setLastseenonly(lastSeenOnly)
-      feAPIConsumer.setBoardSignal(req, function(err: any, resp: any) {
+      feAPIConsumer.setBoardSignal(req, function (err: any, resp: any) {
         if (err) {
           console.log(err)
         } else {
@@ -186,7 +186,7 @@ let ExportedMethods = {
     postsRequested: boolean,
     callback: any
   ) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -198,7 +198,7 @@ let ExportedMethods = {
       req.setUserthreadsrequested(threadsRequested)
       req.setUserpostsrequested(postsRequested)
       console.log(req)
-      feAPIConsumer.getUserAndGraph(req, function(err: any, resp: any) {
+      feAPIConsumer.getUserAndGraph(req, function (err: any, resp: any) {
         if (err) {
           console.log(err)
         } else {
@@ -216,7 +216,7 @@ let ExportedMethods = {
     offset: number,
     callback: any
   ) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -252,45 +252,45 @@ let ExportedMethods = {
         req.setKeyname(keyName)
       }
       console.log(req)
-      feAPIConsumer.getUncompiledEntityByKey(req, function(
-        err: any,
-        resp: any
-      ) {
-        if (err) {
-          console.log(err)
-        } else {
-          callback(resp.toObject())
+      feAPIConsumer.getUncompiledEntityByKey(
+        req,
+        function (err: any, resp: any) {
+          if (err) {
+            console.log(err)
+          } else {
+            callback(resp.toObject())
+          }
         }
-      })
+      )
     })
   },
   SendInflightsPruneRequest(callback: any) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
       console.log('SendInflightsPruneRequest triggered.')
       let req = new pmessages.InflightsPruneRequest()
-      feAPIConsumer.sendInflightsPruneRequest(req, function(
-        err: any,
-        resp: any
-      ) {
-        if (err) {
-          console.log(err)
-        } else {
-          callback(resp.toObject())
+      feAPIConsumer.sendInflightsPruneRequest(
+        req,
+        function (err: any, resp: any) {
+          if (err) {
+            console.log(err)
+          } else {
+            callback(resp.toObject())
+          }
         }
-      })
+      )
     })
   },
   RequestAmbientStatus(callback: any) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
       console.log('RequestAmbientStatus triggered.')
       let req = new pmessages.AmbientStatusRequest()
-      feAPIConsumer.requestAmbientStatus(req, function(err: any, resp: any) {
+      feAPIConsumer.requestAmbientStatus(req, function (err: any, resp: any) {
         if (err) {
           console.log(err)
         } else {
@@ -305,7 +305,7 @@ let ExportedMethods = {
     markAllAsRead: boolean,
     callback: any
   ) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -314,7 +314,7 @@ let ExportedMethods = {
       req.setSeen(seen)
       req.setReaditemfingerprint(fp)
       req.setMarkallasread(markAllAsRead)
-      feAPIConsumer.setNotificationsSignal(req, function(err: any, resp: any) {
+      feAPIConsumer.setNotificationsSignal(req, function (err: any, resp: any) {
         if (err) {
           console.log(err)
         } else {
@@ -325,14 +325,14 @@ let ExportedMethods = {
   },
 
   SetOnboardComplete(onboardComplete: boolean, callback: any) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
       console.log('SetOnboardComplete triggered.')
       let req = new pmessages.OnboardCompleteRequest()
       req.setOnboardcomplete(onboardComplete)
-      feAPIConsumer.setOnboardComplete(req, function(err: any, resp: any) {
+      feAPIConsumer.setOnboardComplete(req, function (err: any, resp: any) {
         if (err) {
           console.log(err)
         } else {
@@ -345,7 +345,7 @@ let ExportedMethods = {
   },
 
   SendAddress(addr: any, callback: any) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -353,7 +353,7 @@ let ExportedMethods = {
       let req = new pmessages.SendAddressPayload()
       req.setAddress(addr)
       try {
-        feAPIConsumer.sendAddress(req, function(err: any, resp: any) {
+        feAPIConsumer.sendAddress(req, function (err: any, resp: any) {
           if (err) {
             console.log(err)
           } else {
@@ -368,7 +368,7 @@ let ExportedMethods = {
   },
 
   RequestBoardReports(boardfp: any, callback: any) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -376,7 +376,7 @@ let ExportedMethods = {
       let req = new pmessages.BoardReportsRequest()
       req.setBoardfingerprint(boardfp)
       try {
-        feAPIConsumer.requestBoardReports(req, function(err: any, resp: any) {
+        feAPIConsumer.requestBoardReports(req, function (err: any, resp: any) {
           if (err) {
             console.log(err)
           } else {
@@ -391,7 +391,7 @@ let ExportedMethods = {
   },
 
   RequestBoardModActions(boardfp: any, callback: any) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -399,16 +399,16 @@ let ExportedMethods = {
       let req = new pmessages.BoardModActionsRequest()
       req.setBoardfingerprint(boardfp)
       try {
-        feAPIConsumer.requestBoardModActions(req, function(
-          err: any,
-          resp: any
-        ) {
-          if (err) {
-            console.log(err)
-          } else {
-            callback(resp.toObject())
+        feAPIConsumer.requestBoardModActions(
+          req,
+          function (err: any, resp: any) {
+            if (err) {
+              console.log(err)
+            } else {
+              callback(resp.toObject())
+            }
           }
-        })
+        )
       } catch (err) {
         // This catches non-grpc errors like assert.
         callback(err)
@@ -417,7 +417,7 @@ let ExportedMethods = {
   },
 
   SendMintedUsernames(payload: string, callback: any) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -425,7 +425,7 @@ let ExportedMethods = {
       let req = new pmessages.SendMintedUsernamesPayload()
       req.setMintedusernamesrawjson(payload)
       try {
-        feAPIConsumer.sendMintedUsernames(req, function(err: any, resp: any) {
+        feAPIConsumer.sendMintedUsernames(req, function (err: any, resp: any) {
           if (err) {
             console.log(err)
           } else {
@@ -440,7 +440,7 @@ let ExportedMethods = {
   },
 
   SendClientVersion(payload: string, callback: any) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -448,7 +448,7 @@ let ExportedMethods = {
       let req = new pmessages.ClientVersionPayload()
       req.setCurrentclientversion(payload)
       try {
-        feAPIConsumer.sendClientVersion(req, function(err: any, resp: any) {
+        feAPIConsumer.sendClientVersion(req, function (err: any, resp: any) {
           if (err) {
             console.log(err)
           } else {
@@ -484,7 +484,7 @@ let ExportedMethods = {
   /*----------  FE Config changes delivery base  ----------*/
 
   SendFEConfigChanges(feconfig: any, callback: any) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -492,7 +492,7 @@ let ExportedMethods = {
       let req = new pmessages.FEConfigChangesPayload()
       req = feconfig
       try {
-        feAPIConsumer.sendFEConfigChanges(req, function(err: any, resp: any) {
+        feAPIConsumer.sendFEConfigChanges(req, function (err: any, resp: any) {
           if (err) {
             console.log(err)
           } else {
@@ -509,10 +509,10 @@ let ExportedMethods = {
   /*----------  Notifications signals  ----------*/
 
   markSeen() {
-    this.SetNotificationsSignal(true, '', false, function() { })
+    this.SetNotificationsSignal(true, '', false, function () {})
   },
   markRead(fp: string) {
-    this.SetNotificationsSignal(true, fp, false, function() { })
+    this.SetNotificationsSignal(true, fp, false, function () {})
   },
   markAllAsRead(callback: any) {
     this.SetNotificationsSignal(false, '', true, callback)
@@ -747,7 +747,7 @@ let ExportedMethods = {
     threadfp: string,
     callback: any
   ) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -780,7 +780,7 @@ let ExportedMethods = {
       console.log('signal type:')
       console.log(pmessages.SignalType[typ])
       req.setSignaltype(pmessages.SignalType[typ])
-      feAPIConsumer.sendSignalEvent(req, function(err: any, resp: any) {
+      feAPIConsumer.sendSignalEvent(req, function (err: any, resp: any) {
         if (err) {
           console.log(err)
         } else {
@@ -863,7 +863,7 @@ let ExportedMethods = {
     userdata: any,
     callback: any
   ) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -889,7 +889,7 @@ let ExportedMethods = {
       req.setThreaddata(threaddata)
       req.setPostdata(postdata)
       req.setKeydata(userdata)
-      feAPIConsumer.sendContentEvent(req, function(err: any, resp: any) {
+      feAPIConsumer.sendContentEvent(req, function (err: any, resp: any) {
         if (err) {
           console.log(err)
         } else {
@@ -916,7 +916,7 @@ let ExportedMethods = {
   /*----------  Base search request action  ----------*/
 
   sendSearchRequest(searchType: string, query: string, callback: any) {
-    WaitUntilFrontendReady(async function() {
+    WaitUntilFrontendReady(async function () {
       if (!Initialised) {
         await ExportedMethods.Initialise()
       }
@@ -925,7 +925,7 @@ let ExportedMethods = {
       req.setSearchtype(searchType)
       req.setSearchquery(query)
       try {
-        feAPIConsumer.sendSearchRequest(req, function(err: any, resp: any) {
+        feAPIConsumer.sendSearchRequest(req, function (err: any, resp: any) {
           if (err) {
             console.log(err)
           } else {
