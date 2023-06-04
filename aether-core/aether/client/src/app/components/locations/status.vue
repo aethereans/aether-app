@@ -355,13 +355,13 @@ export default {
     }
   },
   beforeMount(this: any) {
-    fe.RequestAmbientStatus(function(resp: any) {
+    fe.RequestAmbientStatus(function (resp: any) {
       console.log(resp)
     })
   },
   mounted(this: any) {
     let vm = this
-    setTimeout(function() {
+    setTimeout(function () {
       vm.loadComplete = true
     }, 0)
     /*
@@ -456,7 +456,7 @@ export default {
     bas(this: any) {
       let bas = Object.assign({}, this.ambientStatus.backendambientstatus)
       // let bas = this.ambientStatus.backendambientstatus
-      Object.keys(bas).forEach(function(key) {
+      Object.keys(bas).forEach(function (key) {
         if (
           bas[key] === 0 ||
           bas[key] === '' ||
@@ -482,7 +482,7 @@ export default {
     fas(this: any) {
       let fas = Object.assign({}, this.ambientStatus.frontendambientstatus)
       // let fas = this.ambientStatus.frontendambientstatus
-      Object.keys(fas).forEach(function(key) {
+      Object.keys(fas).forEach(function (key) {
         if (
           fas[key] === 0 ||
           fas[key] === '' ||
@@ -500,7 +500,7 @@ export default {
   },
   methods: {
     sortByKey(this: any, array: any, key: string) {
-      return array.sort(function(a: any, b: any) {
+      return array.sort(function (a: any, b: any) {
         var x = a[key]
         var y = b[key]
         return x > y ? -1 : x < y ? 1 : 0

@@ -45,17 +45,17 @@ require('electron-context-menu')({
 const autoUpdater = require('../../node_modules/electron-updater')
 autoUpdater.autoUpdater.requestHeaders = { authorization: '' }
 
-autoUpdater.autoUpdater.on('update-downloaded', function() {
+autoUpdater.autoUpdater.on('update-downloaded', function () {
   // ev: any, info: any
   ipc.callRenderer(win, 'NewUpdateReady', true)
 })
 
-ipc.answerRenderer('RestartToUpdateTheApp', function() {
+ipc.answerRenderer('RestartToUpdateTheApp', function () {
   autoUpdater.autoUpdater.quitAndInstall()
   elc.app.quit()
 })
 
-ipc.answerRenderer('AskNewUpdateReady', function() {
+ipc.answerRenderer('AskNewUpdateReady', function () {
   checkSoftwareUpdate()
 })
 
@@ -124,7 +124,7 @@ function saveWinBounds() {
 /*----------  Open / close  ----------*/
 // These are shared methods. If there are any changes to these events, they should be implemented here.
 
-let openAppWindow = function() {
+let openAppWindow = function () {
   if (win === null) {
     main()
   }
@@ -137,7 +137,7 @@ let openAppWindow = function() {
   metrics.SendRaw('App window opened')
 }
 
-let closeAppWindow = function() {
+let closeAppWindow = function () {
   // win = null
   win.hide()
   metrics.SendRaw('App window closed')
@@ -147,10 +147,10 @@ elc.app.on('activate', () => {
   openAppWindow()
 })
 
-elc.app.on('before-quit', function(e: any) {
+elc.app.on('before-quit', function (e: any) {
   contextMenuTemplate[0].label = 'Shutting down...'
   saveWinBounds()
-  setTimeout(function() {
+  setTimeout(function () {
     elc.app.exit()
   }, 3000) // Hard limit - if it doesn't shut down in 3 seconds, we force kill it.
   const contextMenu = elc.Menu.buildFromTemplate(contextMenuTemplate)
@@ -161,7 +161,7 @@ elc.app.on('before-quit', function(e: any) {
     win.close()
   }
   e.preventDefault()
-  globals.FrontendDaemon.on('exit', function() {
+  globals.FrontendDaemon.on('exit', function () {
     console.log('Frontend has exited.')
     elc.app.exit()
   })
@@ -210,7 +210,7 @@ if (!gotSingleInstanceLock) {
   elc.app.exit()
 } else {
   // We have the instance lock, this is our sole instance that is currently running. Set the second instance event.
-  elc.app.on('second-instance', function({ }, argv: any, { }) {
+  elc.app.on('second-instance', function ({}, argv: any, {}) {
     // This event is fired in the first, original instance. We look at the second instance's path to figure out what URL it was fired with, grab the URL, and show it, while the redundant second instance kills itself.
     if (process.platform === 'win32') {
       /*
@@ -277,20 +277,20 @@ function EstablishExternalResourceAutoLoadFiltering() {
   // This list should be editable. (TODO)
   let whitelist = autoloadEnabledWhitelist
 
-  ipc.answerRenderer('DisableExternalResourceAutoLoad', function() {
+  ipc.answerRenderer('DisableExternalResourceAutoLoad', function () {
     // Only the URLs required for correct app functionality.
     whitelist = autoloadDisabledWhitelist
     return true
   })
 
-  ipc.answerRenderer('EnableExternalResourceAutoLoad', function() {
+  ipc.answerRenderer('EnableExternalResourceAutoLoad', function () {
     // Only the URLs required for correct app functionality.
     whitelist = autoloadEnabledWhitelist
     return true
   })
 
   // Allow any auto-load request that's in the whitelist. Deny autoload requests to all other domains.
-  elc.session.defaultSession.webRequest.onBeforeRequest(function(
+  elc.session.defaultSession.webRequest.onBeforeRequest(function (
     details: any,
     cb: any
   ) {
@@ -353,9 +353,9 @@ function EstablishElectronWindow() {
     // Nothing specific for the frame for now.
   }
   win = new elc.BrowserWindow(windowSpec)
-  win.once('ready-to-show', function() {
+  win.once('ready-to-show', function () {
     // We want to show the window only after Electron is done readying itself.
-    setTimeout(function() {
+    setTimeout(function () {
       if (!hiddenStartAtBoot) {
         win.show()
       }
@@ -370,14 +370,14 @@ function EstablishElectronWindow() {
 
   // win.webContents.openDevTools({ mode: 'bottom' })
 
-  win.on('close', function(e: any) {
+  win.on('close', function (e: any) {
     e.preventDefault()
     // ^ Prevents the app from continuing on with destroying the window element. We need that element.
     closeAppWindow()
     // DOM_READY = false // This is useful when the electron window fully shuts down, not when it's not fully shut down.
   })
 
-  win.webContents.on('dom-ready', function() {
+  win.webContents.on('dom-ready', function () {
     DOM_READY = true
     // This is needed because the renderer process won't be able to respond to IPC requests before this event happens.
 
@@ -398,7 +398,7 @@ function EstablishElectronWindow() {
       ipc.callRenderer(win, 'RouteTo', linkToLoadAtBoot)
     }
   })
-  win.webContents.on('will-navigate', function(e: any, reqUrl: any) {
+  win.webContents.on('will-navigate', function (e: any, reqUrl: any) {
     e.preventDefault()
     elc.shell.openExternal(reqUrl)
     // return
@@ -411,7 +411,7 @@ function EstablishElectronWindow() {
     // }
   })
 
-  win.webContents.on('new-window', function(e: any) {
+  win.webContents.on('new-window', function (e: any) {
     e.preventDefault()
   })
 
@@ -419,15 +419,15 @@ function EstablishElectronWindow() {
   function sendFullscreenState(isFullscreen: boolean) {
     ipc.callRenderer(win, 'FullscreenState', isFullscreen)
   }
-  win.on('enter-full-screen', function() {
+  win.on('enter-full-screen', function () {
     sendFullscreenState(true)
   })
-  win.on('leave-full-screen', function() {
+  win.on('leave-full-screen', function () {
     sendFullscreenState(false)
   })
   /*---------- END Fullscreen state comms to the renderer.  ----------*/
 
-  elc.app.on('open-url', function(e: any, url: string) {
+  elc.app.on('open-url', function (e: any, url: string) {
     e.preventDefault()
     ipc.callRenderer(win, 'RouteTo', url.substring(6))
     openAppWindow()
@@ -436,22 +436,22 @@ function EstablishElectronWindow() {
 
 let linkToLoadAtBoot = ''
 
-elc.app.on('will-finish-launching', function() {
+elc.app.on('will-finish-launching', function () {
   // Register Aether's aether:// as a standard (http-like) protocol
   // elc.protocol.registerStandardSchemes(['aether'])
   elc.protocol.registerSchemesAsPrivileged([
     { scheme: 'aether', privileges: { standard: true } },
   ])
 
-  elc.app.on('open-url', function(e: any, url: any) {
+  elc.app.on('open-url', function (e: any, url: any) {
     e.preventDefault()
     linkToLoadAtBoot = url.substring(6)
   })
 })
 
-let openPreferences = function() {
+let openPreferences = function () {
   openAppWindow()
-  let rendererReadyChecker = function() {
+  let rendererReadyChecker = function () {
     if (!(globals.RendererReady && DOM_READY)) {
       return setTimeout(rendererReadyChecker, 100)
     }
@@ -459,11 +459,11 @@ let openPreferences = function() {
   }
   setTimeout(rendererReadyChecker, 100)
 }
-let openSupport = function() {
+let openSupport = function () {
   elc.shell.openExternal('https://meta.getaether.net/c/support')
 }
 
-let quitApp = function() {
+let quitApp = function () {
   elc.app.quit()
 }
 
@@ -508,11 +508,11 @@ function EstablishTray() {
   })
 }
 
-ipc.answerRenderer('QuitApp', function() {
+ipc.answerRenderer('QuitApp', function () {
   elc.app.quit()
 })
 
-ipc.answerRenderer('FocusAndShow', function() {
+ipc.answerRenderer('FocusAndShow', function () {
   openAppWindow()
   return true
 })
@@ -539,7 +539,7 @@ function EnforcePreviewBuildExpiry() {
           'Hey there! This preview build of Aether has expired. You can get the most recent version of Aether from the meta forum at meta.getaether.net.',
         buttons: ['Quit', 'Get new version'],
       },
-      function(respButtonIndex: any) {
+      function (respButtonIndex: any) {
         if (respButtonIndex === 1) {
           // The user asked to go to the downloads page.
           elc.shell.openExternal('https://meta.getaether.net')
@@ -564,7 +564,7 @@ function ConstructAppMenu() {
       submenu: [
         {
           label: 'About Aether',
-          click: function() {
+          click: function () {
             return ipc.callRenderer(win, 'RouteTo', '/about')
           },
         },

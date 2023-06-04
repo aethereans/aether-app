@@ -109,8 +109,8 @@
             class="action edit"
             v-show="
               currentThread.selfcreated &&
-                !isDeletedByCreator &&
-                !inflightInProgress
+              !isDeletedByCreator &&
+              !inflightInProgress
             "
             @click="toggleEditPane"
           >
@@ -120,8 +120,8 @@
             class="action delete"
             v-show="
               currentThread.selfcreated &&
-                !isDeletedByCreator &&
-                !inflightInProgress
+              !isDeletedByCreator &&
+              !inflightInProgress
             "
             @click="toggleSelfDeleteConfirm"
           >
@@ -131,9 +131,9 @@
             class="action report"
             v-show="
               !currentThread.selfcreated &&
-                !reportSubmitted &&
-                !reportSubmittedBefore &&
-                !inflightInProgress
+              !reportSubmitted &&
+              !reportSubmittedBefore &&
+              !inflightInProgress
             "
             @click="toggleReportPane"
           >
@@ -147,9 +147,7 @@
           >
             Moderate
           </a>
-          <a class="action copy-link" @click="copyLink">
-            Copy link
-          </a>
+          <a class="action copy-link" @click="copyLink"> Copy link </a>
           <div class="link-copied-text" v-show="linkCopied">
             Link copied to clipboard
           </div>
@@ -159,12 +157,10 @@
           v-if="
             (isinmodactionsview &&
               !currentThread.compiledcontentsignals.modblocked) ||
-              uncompiled
+            uncompiled
           "
         >
-          <a class="action copy-link" @click="goTo">
-            Go to thread
-          </a>
+          <a class="action copy-link" @click="goTo"> Go to thread </a>
         </div>
       </div>
       <div class="self-delete-confirm-text" v-show="selfDeleteConfirmOpen">
@@ -196,7 +192,7 @@
             class="reports-header"
             v-if="
               reportsList.length > 1 ||
-                (!reportSubmittedBefore && !reportSubmitted)
+              (!reportSubmittedBefore && !reportSubmitted)
             "
           >
             User reports
@@ -265,14 +261,14 @@
                 APPROVE
               </a> -->
               <a
-                class="button is-success  is-outlined"
+                class="button is-success is-outlined"
                 v-show="isinreportsview"
                 @click="submitModIgnore"
               >
                 IGNORE
               </a>
               <a
-                class="button is-success  is-outlined"
+                class="button is-success is-outlined"
                 @click="toggleModDeletePane"
               >
                 DELETE
@@ -361,7 +357,7 @@
                     <template
                       v-if="
                         modActionTaken.sourcefp !==
-                          $store.state.localUser.fingerprint
+                        $store.state.localUser.fingerprint
                       "
                     >
                       <router-link :to="'/user/' + modActionTaken.sourcefp"
@@ -388,9 +384,7 @@
             </div>
             <div class="block iterator-block">
               <div class="final-state-container">
-                <div class="final-state-text">
-                  Result &nbsp;
-                </div>
+                <div class="final-state-text">Result &nbsp;</div>
                 <template
                   v-if="currentThread.compiledcontentsignals.modblocked"
                 >
@@ -436,7 +430,7 @@ export default {
   props: {
     inflightStatus: {
       type: Object,
-      default: function() {
+      default: function () {
         return undefined
       },
     },
@@ -446,7 +440,7 @@ export default {
     },
     thread: {
       type: Object,
-      default: function() {
+      default: function () {
         return undefined
       },
     },
@@ -963,7 +957,7 @@ export default {
     /*----------  Lightbox open/close  ----------*/
     openLightbox(this: any) {
       let vm = this
-      Mousetrap.bind('esc', function() {
+      Mousetrap.bind('esc', function () {
         vm.closeLightbox()
       })
       let vid: any = this.$el.getElementsByClassName('video-player')[0]
@@ -1005,11 +999,13 @@ export default {
       thread.setBoard(this.currentThread.board)
       let vm = this
       vm.toggleEditPane()
-      fe.SendThreadContent(this.currentThread.fingerprint, thread, function(
-        resp: any
-      ) {
-        console.log(resp.toObject())
-      })
+      fe.SendThreadContent(
+        this.currentThread.fingerprint,
+        thread,
+        function (resp: any) {
+          console.log(resp.toObject())
+        }
+      )
     },
     /*----------  Delete actions  ----------*/
     toggleSelfDeleteConfirm(this: any) {
@@ -1022,11 +1018,13 @@ export default {
       thread.setBody(threadBody)
       thread.setBoard(this.currentThread.board)
       this.selfDeleteConfirmOpen = false
-      fe.SendThreadContent(this.currentThread.fingerprint, thread, function(
-        resp: any
-      ) {
-        console.log(resp.toObject())
-      })
+      fe.SendThreadContent(
+        this.currentThread.fingerprint,
+        thread,
+        function (resp: any) {
+          console.log(resp.toObject())
+        }
+      )
     },
     /*----------  Report actions  ----------*/
     toggleReportPane(this: any) {
@@ -1050,7 +1048,7 @@ export default {
         reportReason,
         this.currentThread.board,
         this.currentThread.fingerprint,
-        function(resp: any) {
+        function (resp: any) {
           console.log(resp.toObject())
           vm.toggleReportPane()
           vm.reportSubmitted = true
@@ -1094,7 +1092,7 @@ export default {
         approvalReason,
         this.currentThread.board,
         this.currentThread.fingerprint,
-        function(resp: any) {
+        function (resp: any) {
           console.log(resp.toObject())
           vm.toggleModApprovalPane()
           vm.modApprovalSubmitted = true
@@ -1123,7 +1121,7 @@ export default {
         deleteReason,
         this.currentThread.board,
         this.currentThread.fingerprint,
-        function(resp: any) {
+        function (resp: any) {
           console.log(resp.toObject())
           vm.toggleModDeletePane()
           vm.modDeleteSubmitted = true
@@ -1139,7 +1137,7 @@ export default {
         '',
         this.currentThread.board,
         this.currentThread.fingerprint,
-        function(resp: any) {
+        function (resp: any) {
           console.log(resp.toObject())
           vm.modIgnoreSubmitted = true
         }
@@ -1156,7 +1154,7 @@ export default {
       this.linkCopied = true
       // Prevent repeated clicks while in progress
       let vm = this
-      setTimeout(function() {
+      setTimeout(function () {
         vm.linkCopied = false
         vm.copyLinkInProgress = false
       }, 1250)

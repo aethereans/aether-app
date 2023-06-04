@@ -93,7 +93,7 @@ export default {
         commitActionName: 'CREATE',
         commitAction: this.submitNewUser,
         cancelActionName: '',
-        cancelAction: function() {},
+        cancelAction: function () {},
         fixToBottom: true,
         autofocus: true,
       },
@@ -148,7 +148,7 @@ export default {
       user.setName(userName)
       user.setInfo(userInfo)
       // let vm = this
-      fe.SendUserContent('', user, function(resp: any) {
+      fe.SendUserContent('', user, function (resp: any) {
         console.log('user create request sent in.')
         console.log(resp.toObject())
       })

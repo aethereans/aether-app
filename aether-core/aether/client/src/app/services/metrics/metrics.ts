@@ -15,7 +15,7 @@ const Store = require('electron-store')
 const store = new Store()
 const isDev = require('electron-is-dev')
 
-module.exports = function(
+module.exports = function (
   instantiatedByMainMain: boolean,
   mainMainMetricsDisabled: boolean
 ) {
@@ -50,19 +50,15 @@ module.exports = function(
   */
   let appVersionAndBuild = ''
   if (instantiatedByMainMain) {
-    appVersionAndBuild = require('electron')
-      .app.getVersion()
-      .split('+')
+    appVersionAndBuild = require('electron').app.getVersion().split('+')
   } else {
-    appVersionAndBuild = require('electron')
-      .remote.app.getVersion()
-      .split('+')
+    appVersionAndBuild = require('electron').remote.app.getVersion().split('+')
   }
   let appVersion = appVersionAndBuild[0]
   let appBuild = appVersionAndBuild[1]
 
   /*----------  Public methods  ----------*/
-  module.SendRaw = function(metric: string, payload: any) {
+  module.SendRaw = function (metric: string, payload: any) {
     // console.log('Metrics received a send request.')
     if (metricsDisabled()) {
       return
@@ -93,7 +89,7 @@ module.exports = function(
     }
   }
 
-  module.SendContentEvent = function(
+  module.SendContentEvent = function (
     contentType: string,
     eventType: string,
     customFields: any
@@ -104,7 +100,7 @@ module.exports = function(
     module.SendRaw('ContentEvent', fields)
   }
 
-  module.SendSignalEvent = function(
+  module.SendSignalEvent = function (
     signalType: string,
     eventType: string,
     customFields: any

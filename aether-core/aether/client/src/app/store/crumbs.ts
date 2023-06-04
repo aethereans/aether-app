@@ -2,7 +2,7 @@
 
 // This library handles the construction of breadcrumbs.
 
-export { }
+export {}
 
 var globalMethods = require('../services/globals/methods')
 
@@ -83,9 +83,9 @@ function makeCurrentThreadCrumb(context: any) {
       'thread',
       'Not found',
       'board/' +
-      currentBoard.fingerprint +
-      '/thread/' +
-      context.state.currentThreadFp,
+        currentBoard.fingerprint +
+        '/thread/' +
+        context.state.currentThreadFp,
       context.state.currentThreadFp
     )
   }
@@ -95,9 +95,9 @@ function makeCurrentThreadCrumb(context: any) {
       'thread',
       'Not found',
       'board/' +
-      currentBoard.fingerprint +
-      '/thread/' +
-      context.state.currentThread.fingerprint,
+        currentBoard.fingerprint +
+        '/thread/' +
+        context.state.currentThread.fingerprint,
       context.state.currentThread.fingerprint
     )
   }
@@ -105,9 +105,9 @@ function makeCurrentThreadCrumb(context: any) {
     'thread',
     context.state.currentThread.name,
     'board/' +
-    currentBoard.fingerprint +
-    '/thread/' +
-    context.state.currentThread.fingerprint,
+      currentBoard.fingerprint +
+      '/thread/' +
+      context.state.currentThread.fingerprint,
     context.state.currentThread.fingerprint
   )
 }

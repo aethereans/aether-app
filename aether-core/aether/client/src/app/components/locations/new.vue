@@ -23,9 +23,7 @@
         </template>
         <div
           class="load-more-carrier"
-          v-show="
-            !(loadMoreCaret + loadMoreBatchSize >= mergedNewList.length)
-          "
+          v-show="!(loadMoreCaret + loadMoreBatchSize >= mergedNewList.length)"
         >
           <a
             class="button is-warning is-outlined load-more-button"
@@ -40,9 +38,7 @@
           v-if="mergedNewList.length === 0"
         ></a-no-content>
         <a-fin-puck
-          v-show="
-            loadMoreCaret + loadMoreBatchSize >= mergedNewList.length
-          "
+          v-show="loadMoreCaret + loadMoreBatchSize >= mergedNewList.length"
         ></a-fin-puck>
       </template>
     </div>

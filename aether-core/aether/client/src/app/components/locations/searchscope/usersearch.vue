@@ -46,8 +46,8 @@
             <a-no-content
               :no-content-text="
                 'No results found for \'' +
-                  currentSearchTerm +
-                  '\'. A shorter query might help.'
+                currentSearchTerm +
+                '\'. A shorter query might help.'
               "
               :quote-disabled="true"
             ></a-no-content>
@@ -165,7 +165,7 @@ export default {
         commitActionName: 'SEARCH',
         commitAction: this.submitSearch,
         cancelActionName: '',
-        cancelAction: function() {},
+        cancelAction: function () {},
         fixToBottom: true,
         autofocus: true,
         preventClearAfterSuccessfulCommit: true,
@@ -173,11 +173,11 @@ export default {
       stmService: {},
       stmCurrState: {},
       stmActions: {
-        search: function(_: any, event: any) {
+        search: function (_: any, event: any) {
           // _ = context: any, comes from machine context defined above.
           feapiconsumer.SendUserSearchRequest(
             event.vars.searchTerm,
-            function() {
+            function () {
               console.log('successfully sent')
             }
           )
@@ -200,7 +200,7 @@ export default {
         secondaryListCaret: 0,
         secondaryListBatchSize: 25,
       },
-      unsubFromMutationFunc: function() {},
+      unsubFromMutationFunc: function () {},
     }
   },
   created(this: any) {
@@ -209,7 +209,7 @@ export default {
     this.stmService = stm.service
     this.stmCurrState = stm.initialState
     this.stmService
-      .onTransition(function(state: any) {
+      .onTransition(function (state: any) {
         vm.stmCurrState = state
       })
       .start()
@@ -241,7 +241,8 @@ export default {
         type: 'SEARCH_STARTED',
         vars: { searchTerm: this.$store.state.route.query.searchTerm },
       })
-      this.searchSpec.fields[0].content = this.$store.state.route.query.searchTerm
+      this.searchSpec.fields[0].content =
+        this.$store.state.route.query.searchTerm
       // this.searchSpec.fields[0]._touched = true
       // ^ Not necessary, since if it was not valid the last time around to submit, it would not have gotten into here.
     }

@@ -20,7 +20,7 @@ let actions = {
       lastseen: now,
     })
     // then send the appropriate message to the frontend
-    fe.SetBoardSignal(fp, true, notify, now, false, function(resp: any) {
+    fe.SetBoardSignal(fp, true, notify, now, false, function (resp: any) {
       if (resp.committed) {
         // console.log("Commit Successful!")
       }
@@ -34,7 +34,7 @@ let actions = {
       notify: false,
     })
     // then send the appropriate message to the frontend
-    fe.SetBoardSignal(fp, false, false, 0, false, function(resp: any) {
+    fe.SetBoardSignal(fp, false, false, 0, false, function (resp: any) {
       if (resp.committed) {
         // console.log("Commit Successful!")
       }
@@ -47,7 +47,7 @@ let actions = {
       notify: false,
     })
     // then send the appropriate message to the frontend
-    fe.SetBoardSignal(fp, true, false, 0, false, function(resp: any) {
+    fe.SetBoardSignal(fp, true, false, 0, false, function (resp: any) {
       if (resp.committed) {
         // console.log("Commit Successful!")
       }
@@ -60,7 +60,7 @@ let actions = {
       notify: true,
     })
     // then send the appropriate message to the frontend
-    fe.SetBoardSignal(fp, true, true, 0, false, function(resp: any) {
+    fe.SetBoardSignal(fp, true, true, 0, false, function (resp: any) {
       if (resp.committed) {
         // console.log("Commit Successful!")
       }
@@ -75,7 +75,7 @@ let actions = {
       lastseen: now,
     })
     // then send the appropriate message to the frontend
-    fe.SetBoardSignal(fp, false, false, now, true, function(resp: any) {
+    fe.SetBoardSignal(fp, false, false, now, true, function (resp: any) {
       if (resp.committed) {
         console.log('Last Seen Commit Successful!')
       }
@@ -87,7 +87,7 @@ let mutations = {
   SAVE_BOARD_SIGNAL(state: any, payload: any) {
     // Find board in the store and change the state appropriately.
     for (var i: number = 0; i < state.allBoards.length; i++) {
-      ;(function(i: number) {
+      ;(function (i: number) {
         if (state.allBoards[i].fingerprint === payload.fp) {
           if (typeof payload.subbed !== 'undefined') {
             state.allBoards[i].subscribed = payload.subbed

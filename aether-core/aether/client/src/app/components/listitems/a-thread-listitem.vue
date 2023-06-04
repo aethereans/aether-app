@@ -178,7 +178,7 @@ export default {
   methods: {
     openLightbox(this: any) {
       let vm = this
-      Mousetrap.bind('esc', function() {
+      Mousetrap.bind('esc', function () {
         vm.closeLightbox()
         console.log('mousetrap bind works')
       })

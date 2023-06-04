@@ -45,8 +45,8 @@
             <a-no-content
               :no-content-text="
                 'No results found for \'' +
-                  currentSearchTerm +
-                  '\'. A shorter query might help.'
+                currentSearchTerm +
+                '\'. A shorter query might help.'
               "
               :quote-disabled="true"
             ></a-no-content>
@@ -102,8 +102,8 @@
           <template
             v-if="
               !primaryListLoadMoreVisible &&
-                !secondaryListNotEmpty &&
-                !secondaryListVisible
+              !secondaryListNotEmpty &&
+              !secondaryListVisible
             "
           >
             <!-- Primary list fin puck - only visible if there's nothing in the secondary list. -->
@@ -219,7 +219,7 @@ export default {
         commitActionName: 'SEARCH',
         commitAction: this.submitSearch,
         cancelActionName: '',
-        cancelAction: function() {},
+        cancelAction: function () {},
         fixToBottom: true,
         autofocus: true,
         preventClearAfterSuccessfulCommit: true,
@@ -227,11 +227,11 @@ export default {
       stmService: {},
       stmCurrState: {},
       stmActions: {
-        search: function(_: any, event: any) {
+        search: function (_: any, event: any) {
           // _ = context: any, comes from machine context defined above.
           feapiconsumer.SendCommunitySearchRequest(
             event.vars.searchTerm,
-            function() {
+            function () {
               console.log('successfully sent')
             }
           )
@@ -254,7 +254,7 @@ export default {
         secondaryListCaret: 0,
         secondaryListBatchSize: 25,
       },
-      unsubFromMutationFunc: function() {},
+      unsubFromMutationFunc: function () {},
     }
   },
   created(this: any) {
@@ -263,7 +263,7 @@ export default {
     this.stmService = stm.service
     this.stmCurrState = stm.initialState
     this.stmService
-      .onTransition(function(state: any) {
+      .onTransition(function (state: any) {
         vm.stmCurrState = state
       })
       .start()
@@ -295,7 +295,8 @@ export default {
         type: 'SEARCH_STARTED',
         vars: { searchTerm: this.$store.state.route.query.searchTerm },
       })
-      this.searchSpec.fields[0].content = this.$store.state.route.query.searchTerm
+      this.searchSpec.fields[0].content =
+        this.$store.state.route.query.searchTerm
       // this.searchSpec.fields[0]._touched = true
       // ^ Not necessary, since if it was not valid the last time around to submit, it would not have gotten into here.
     }
@@ -318,7 +319,7 @@ export default {
         primaryList = this.$store.state.boardsSearchResult
       } else {
         for (var i = 0; i < this.$store.state.boardsSearchResult.length; i++) {
-          ;(function(i) {
+          ;(function (i) {
             if (
               vm.$store.state.boardsSearchResult[i].compiledcontentsignals
                 .modblocked
@@ -341,7 +342,7 @@ export default {
       let secondaryList = []
       let vm = this
       for (var i = 0; i < this.$store.state.boardsSearchResult.length; i++) {
-        ;(function(i) {
+        ;(function (i) {
           if (!vm.$store.state.boardsSearchResult[i].sfwlisted) {
             secondaryList.push(vm.$store.state.boardsSearchResult[i])
           }

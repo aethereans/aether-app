@@ -9,7 +9,7 @@ let clientAPIServerIP: string = '127.0.0.1'
 let os = require('os')
 let path = require('path')
 
-let StartFrontendDaemon = function(clientAPIServerPort: number): boolean {
+let StartFrontendDaemon = function (clientAPIServerPort: number): boolean {
   if (globals.FrontendDaemonStarted) {
     console.log('frontend daemon already running. skipping the start.')
     return false
@@ -81,7 +81,7 @@ let StartFrontendDaemon = function(clientAPIServerPort: number): boolean {
     What's below needs to within this function, because this needs to all be set whenever the FE daemon is assigned. If you bring it outside, it attempts to set it at the very beginning, when it is actually undefined.
   */
   // child.unref() // Unreference = means it can continue running even when client shuts down. todo: figure out how to make best use of this, we want the frontend to shut down but maybe not the backend? do we want client to have code that searches for an existing fe?
-  globals.FrontendDaemon.on('exit', function(code: any, signal: any) {
+  globals.FrontendDaemon.on('exit', function (code: any, signal: any) {
     if (globals.AppIsShuttingDown) {
       // THis is not a crash, it is a shut down. This does not apply.
       return
@@ -91,7 +91,7 @@ let StartFrontendDaemon = function(clientAPIServerPort: number): boolean {
       'Frontend process exited with ' + `code ${code} and signal ${signal}`
     )
     console.log('We will reattempt to start the frontend daemon in 10 seconds.')
-    setTimeout(function() {
+    setTimeout(function () {
       console.log('Attempting to restart the frontend now.')
       console.log(globals.ClientAPIServerPort)
       console.log(globals)

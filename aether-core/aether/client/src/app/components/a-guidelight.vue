@@ -7,7 +7,7 @@
       title="Status data from this component has not loaded."
       v-show="
         notifyState === 'status_section_unknown' ||
-          notifyState === 'status_subsection_unknown'
+        notifyState === 'status_subsection_unknown'
       "
     >
       <div class="guidelight-dot blue"></div>
@@ -19,7 +19,7 @@
       title="All components are working fine."
       v-show="
         notifyState === 'status_section_ok' ||
-          notifyState === 'status_subsection_ok'
+        notifyState === 'status_subsection_ok'
       "
     >
       <div class="guidelight-dot green"></div>

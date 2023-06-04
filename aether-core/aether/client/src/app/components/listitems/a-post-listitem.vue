@@ -58,7 +58,7 @@ export default {
   props: {
     post: {
       type: Object,
-      default: function() {
+      default: function () {
         return undefined
       },
     },

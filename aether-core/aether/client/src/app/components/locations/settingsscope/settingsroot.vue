@@ -66,18 +66,18 @@ export default {
       let autoloadDisabled = this.$store.state.externalContentAutoloadDisabled
       console.log('autoload disabled state is:')
       console.log(autoloadDisabled)
-      let autoloadDisabledArrived = this.$store.state
-        .externalContentAutoloadDisabledArrived
+      let autoloadDisabledArrived =
+        this.$store.state.externalContentAutoloadDisabledArrived
       if (!autoloadDisabledArrived) {
         return false
       }
       return !autoloadDisabled
     },
     enableAutoload(this: any) {
-      fe.SendExternalContentAutoloadDisabledStatus(false, function() {})
+      fe.SendExternalContentAutoloadDisabledStatus(false, function () {})
     },
     disableAutoload(this: any) {
-      fe.SendExternalContentAutoloadDisabledStatus(true, function() {})
+      fe.SendExternalContentAutoloadDisabledStatus(true, function () {})
     },
   },
 }

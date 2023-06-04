@@ -52,8 +52,8 @@
             <a-no-content
               :no-content-text="
                 'No results found for \'' +
-                  currentSearchTerm +
-                  '\'. A shorter query might help.'
+                currentSearchTerm +
+                '\'. A shorter query might help.'
               "
               :quote-disabled="true"
             ></a-no-content>
@@ -116,8 +116,8 @@
           <template
             v-if="
               !primaryListLoadMoreVisible &&
-                !secondaryListNotEmpty &&
-                !secondaryListVisible
+              !secondaryListNotEmpty &&
+              !secondaryListVisible
             "
           >
             <!-- Primary list fin puck - only visible if there's nothing in the secondary list. -->
@@ -232,7 +232,7 @@ export default {
         commitActionName: 'SEARCH',
         commitAction: this.submitSearch,
         cancelActionName: '',
-        cancelAction: function() {},
+        cancelAction: function () {},
         fixToBottom: true,
         autofocus: true,
         preventClearAfterSuccessfulCommit: true,
@@ -240,11 +240,11 @@ export default {
       stmService: {},
       stmCurrState: {},
       stmActions: {
-        search: function(_: any, event: any) {
+        search: function (_: any, event: any) {
           // _ = context: any, comes from machine context defined above.
           feapiconsumer.SendContentSearchRequest(
             event.vars.searchTerm,
-            function() {
+            function () {
               console.log('successfully sent')
             }
           )
@@ -267,7 +267,7 @@ export default {
         secondaryListCaret: 0,
         secondaryListBatchSize: 25,
       },
-      unsubFromMutationFunc: function() {},
+      unsubFromMutationFunc: function () {},
     }
   },
   created(this: any) {
@@ -276,7 +276,7 @@ export default {
     this.stmService = stm.service
     this.stmCurrState = stm.initialState
     this.stmService
-      .onTransition(function(state: any) {
+      .onTransition(function (state: any) {
         vm.stmCurrState = state
       })
       .start()
@@ -301,7 +301,8 @@ export default {
   mounted(this: any) {
     // We look at the search query - if there's a query present, we need to make the search API call for it, so we can show refreshed results for that query. This effectively is only useful when the user is navigating with back/forward, allows us to capture the searched term in history from the query string and do a re-search.
     if (typeof this.$store.state.route.query.searchHashtag !== 'undefined') {
-      this.$store.state.route.query.searchTerm = '#' + this.$store.state.route.query.searchHashtag
+      this.$store.state.route.query.searchTerm =
+        '#' + this.$store.state.route.query.searchHashtag
     }
     if (
       typeof this.$store.state.route.query !== 'undefined' &&
@@ -311,7 +312,8 @@ export default {
         type: 'SEARCH_STARTED',
         vars: { searchTerm: this.$store.state.route.query.searchTerm },
       })
-      this.searchSpec.fields[0].content = this.$store.state.route.query.searchTerm
+      this.searchSpec.fields[0].content =
+        this.$store.state.route.query.searchTerm
       // this.searchSpec.fields[0]._touched = true
       // ^ Not necessary, since if it was not valid the last time around to submit, it would not have gotten into here.
     }
@@ -344,7 +346,7 @@ export default {
         primaryList = this.mergedRawContentList
       } else {
         for (var i = 0; i < this.mergedRawContentList.length; i++) {
-          ;(function(i) {
+          ;(function (i) {
             if (vm.mergedRawContentList[i].compiledcontentsignals.modblocked) {
               return
               // If modblocked by a valid mod that the user considers valid, don't show. (Heads up, we don't have modblocked for boards themselves yet.)
@@ -381,7 +383,7 @@ export default {
         secondaryList = this.mergedRawContentList
       } else {
         for (var i = 0; i < this.mergedRawContentList.length; i++) {
-          ;(function(i) {
+          ;(function (i) {
             if (vm.mergedRawContentList[i].compiledcontentsignals.modblocked) {
               return
               // If modblocked by a valid mod that the user considers valid, don't show. (Heads up, we don't have modblocked for boards themselves yet.)

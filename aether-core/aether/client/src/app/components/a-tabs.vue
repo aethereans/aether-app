@@ -31,7 +31,7 @@ export default {
     // ...Vuex.mapState(['currentBoardFp']),
   },
   methods: {
-    isThread: function(this: any) {
+    isThread: function (this: any) {
       if (this.$route.params.threadfp) {
         return true
       } else {

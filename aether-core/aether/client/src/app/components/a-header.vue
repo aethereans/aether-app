@@ -49,9 +49,7 @@
                 {{ localUserName }}
               </div>
               <div class="mod-puck-container" v-show="isMod">
-                <div class="mod-puck">
-                  mod
-                </div>
+                <div class="mod-puck">mod</div>
               </div>
             </template>
             <div class="profile-caret-icon">

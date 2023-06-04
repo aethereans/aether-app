@@ -212,7 +212,7 @@ export default {
         this.voteVisibleFingerprint,
         this.boardfp,
         this.threadfp,
-        function(resp: any) {
+        function (resp: any) {
           console.log('we got a callback: ', resp)
           vm.upvoteInSendProgress = false
           vm.upvoteCommitted = true
@@ -241,7 +241,7 @@ export default {
         this.voteVisibleFingerprint,
         this.boardfp,
         this.threadfp,
-        function(resp: any) {
+        function (resp: any) {
           console.log('we got a callback: ', resp)
           vm.downvoteInSendProgress = false
           vm.downvoteCommitted = true

@@ -54,7 +54,7 @@
           @click="silenceBoard({ fp: $store.state.currentBoard.fingerprint })"
           v-show="
             $store.state.currentBoard.subscribed &&
-              $store.state.currentBoard.notify
+            $store.state.currentBoard.notify
           "
         >
           <icon name="bell"></icon>
@@ -66,7 +66,7 @@
           @click="unsilenceBoard({ fp: $store.state.currentBoard.fingerprint })"
           v-show="
             $store.state.currentBoard.subscribed &&
-              !$store.state.currentBoard.notify
+            !$store.state.currentBoard.notify
           "
         >
           <icon name="regular/bell-slash"></icon>
@@ -106,7 +106,7 @@ export default {
       'silenceBoard',
       'unsilenceBoard',
     ]),
-    headerInvisible: function(this: any) {
+    headerInvisible: function (this: any) {
       if (this.$route.name === 'Thread') {
         return true
       } else {

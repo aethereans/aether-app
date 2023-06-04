@@ -33,7 +33,7 @@ export default {
       let subbed = []
       let vm = this
       for (var i = 0; i < this['allBoards'].length; i++) {
-        ;(function(i) {
+        ;(function (i) {
           if (vm.allBoards[i].subscribed) {
             subbed.push(vm.allBoards[i])
           }

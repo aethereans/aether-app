@@ -1,7 +1,7 @@
 // Client > ClientAPIServer
 // This file is the grpc server we want to use to talk to the frontend.
 
-export { } // This says this file is a module, not a script.
+export {} // This says this file is a module, not a script.
 
 // Imports
 const grpc = require('grpc')
@@ -26,9 +26,9 @@ var services = require('../../../../../protos/clapi/clapi_grpc_pb')
 
 export function StartClientAPIServer(): number {
   let server = new grpc.Server({
-      'grpc.max_receive_message_length':2147483647,
-      'grpc.max_send_message_length':2147483647,
-    })
+    'grpc.max_receive_message_length': 2147483647,
+    'grpc.max_send_message_length': 2147483647,
+  })
   server.addService(services.ClientAPIService, {
     frontendReady: FrontendReady,
     deliverAmbients: DeliverAmbients,
@@ -40,12 +40,13 @@ export function StartClientAPIServer(): number {
     sendNotifications: SendNotifications,
     sendOnboardCompleteStatus: SendOnboardCompleteStatus,
     sendModModeEnabledStatus: SendModModeEnabledStatus,
-    sendExternalContentAutoloadDisabledStatus: SendExternalContentAutoloadDisabledStatus,
+    sendExternalContentAutoloadDisabledStatus:
+      SendExternalContentAutoloadDisabledStatus,
     sendSearchResult: SendSearchResult,
   })
   let boundPort: number = server.bind(
     '127.0.0.1:0',
-    grpc.ServerCredentials.createInsecure(),
+    grpc.ServerCredentials.createInsecure()
   )
   server.start()
   return boundPort
@@ -135,7 +136,7 @@ function SendOnboardCompleteStatus(req: any, callback: any) {
   let versionAndBuild = require('electron').remote.app.getVersion()
   let firstEverOpen = false
   let firstOpenAfterSuccessfulUpdate = false
-  feapiconsumer.SendClientVersion(versionAndBuild, function(resp: any) {
+  feapiconsumer.SendClientVersion(versionAndBuild, function (resp: any) {
     if (resp.lastknownclientversion.length === 0) {
       console.log('This is the first time this app was ever open.')
       firstEverOpen = true

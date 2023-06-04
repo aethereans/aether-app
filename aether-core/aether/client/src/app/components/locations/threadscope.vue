@@ -59,7 +59,7 @@ export default {
     },
     route_highlightSelectors: {
       type: Array,
-      default: function() {
+      default: function () {
         return []
       },
     },
@@ -87,7 +87,7 @@ export default {
         },
         commitAction: this.submitPost,
         commitActionName: 'SUBMIT',
-        cancelAction: function() {},
+        cancelAction: function () {},
         // ^ It doesn't have a cancel action because it does not have a cancel button.
         cancelActionName: '',
       },
@@ -137,7 +137,7 @@ export default {
       post.setThread(this.$store.state.currentThread.fingerprint)
       post.setParent(this.$store.state.currentThread.fingerprint)
       post.setBody(postBody)
-      fe.SendPostContent('', post, function(resp: any) {
+      fe.SendPostContent('', post, function (resp: any) {
         console.log(resp.toObject())
       })
     },

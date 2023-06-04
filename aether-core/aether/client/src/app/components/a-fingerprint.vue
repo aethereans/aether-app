@@ -58,7 +58,7 @@ export default {
       let row1 = vm.fp.substr(0, vm.fp.length / 2)
       let row1blocks: any = []
       for (var i = 0; i < row1.length; i++) {
-        ;(function(i) {
+        ;(function (i) {
           if (i % 4 === 0) {
             row1blocks.push(row1[i])
           } else {
@@ -67,7 +67,7 @@ export default {
         })(i)
       }
       for (var i = 0; i < row1blocks.length; i++) {
-        ;(function(i) {
+        ;(function (i) {
           row1blocks[i] = row1blocks[i].replace(
             /(\d+)/g,
             '<span class="number">$1</span>'
@@ -78,7 +78,7 @@ export default {
       let row2 = vm.fp.substr(vm.fp.length / 2, vm.fp.length)
       let row2blocks: any = []
       for (var i = 0; i < row2.length; i++) {
-        ;(function(i) {
+        ;(function (i) {
           if (i % 4 === 0) {
             row2blocks.push(row2[i])
           } else {
@@ -87,7 +87,7 @@ export default {
         })(i)
       }
       for (var i = 0; i < row2blocks.length; i++) {
-        ;(function(i) {
+        ;(function (i) {
           row2blocks[i] = row2blocks[i].replace(
             /(\d+)/g,
             '<span class="number">$1</span>'
@@ -116,7 +116,7 @@ export default {
       this.linkCopied = true
       // Prevent repeated clicks while in progress
       let vm = this
-      setTimeout(function() {
+      setTimeout(function () {
         vm.linkCopied = false
         vm.copyLinkInProgress = false
       }, 1250)

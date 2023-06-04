@@ -61,7 +61,7 @@ export default {
         },
         commitAction: this.submitThread,
         commitActionName: 'SUBMIT',
-        cancelAction: function() {
+        cancelAction: function () {
           history.back()
         },
         cancelActionName: 'CANCEL',
@@ -96,7 +96,7 @@ export default {
       thread.setLink(threadLink)
       thread.setBody(threadBody)
       let vm = this
-      fe.SendThreadContent('', thread, function(resp: any) {
+      fe.SendThreadContent('', thread, function (resp: any) {
         console.log('New thread sent.')
         console.log(resp.toObject())
       })

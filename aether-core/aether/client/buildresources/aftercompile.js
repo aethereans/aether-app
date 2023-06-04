@@ -69,13 +69,13 @@ function main() {
     targetDirectory = '/ReleaseArchive'
     sourceDirectory = '/BundledReleases'
   }
-  fs.readdir(sourceDirectory, function(err, files) {
+  fs.readdir(sourceDirectory, function (err, files) {
     for (let val of files) {
       let slc = val.split('+')
       moveFiles(val, slc, fileEndings, sourceDirectory, targetDirectory)
     }
   })
-  fs.readdir(serverSourceDirectory, function(err, files) {
+  fs.readdir(serverSourceDirectory, function (err, files) {
     for (let val of files) {
       let slc = val.split('+')
       moveFiles(
@@ -137,7 +137,7 @@ function moveFiles(unparsedName, parsedName, mapping, sourceDir, targetDir) {
 function rimraf(dir_path) {
   if (fs.existsSync(dir_path)) {
     try {
-      fs.readdirSync(dir_path).forEach(function(entry) {
+      fs.readdirSync(dir_path).forEach(function (entry) {
         var entry_path = path.join(dir_path, entry)
         if (fs.lstatSync(entry_path).isDirectory()) {
           rimraf(entry_path)

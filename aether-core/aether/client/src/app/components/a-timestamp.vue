@@ -22,7 +22,7 @@ export default {
     return {}
   },
   computed: {
-    nowTs: function(): number {
+    nowTs: function (): number {
       return Math.floor(Date.now() / 1000)
     },
   },

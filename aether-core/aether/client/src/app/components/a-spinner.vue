@@ -41,7 +41,7 @@ export default {
       return
     }
     let vm = this
-    setTimeout(function() {
+    setTimeout(function () {
       vm.visible = true
     }, this.delay)
   },

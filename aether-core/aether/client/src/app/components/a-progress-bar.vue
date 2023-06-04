@@ -73,7 +73,7 @@ export default {
       this.animateDeltaRunning = true
       let stepCount = 0
       let vm = this
-      let step = function() {
+      let step = function () {
         if (vm.percent === -1) {
           vm.currentPercent = 100
           return

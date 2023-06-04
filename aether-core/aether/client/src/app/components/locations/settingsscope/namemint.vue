@@ -19,23 +19,17 @@
       </a>
       <template v-if="pendingNamesState === 'idle'">
         <div class="pending-status">
-          <code>
-            Pending names pull hasn't started.
-          </code>
+          <code> Pending names pull hasn't started. </code>
         </div>
       </template>
       <template v-if="pendingNamesState === 'pullingFromNamemint'">
         <div class="pending-status">
-          <code>
-            Pending names are being pulled...
-          </code>
+          <code> Pending names are being pulled... </code>
         </div>
       </template>
       <template v-if="pendingNamesState === 'sendingToFrontend'">
         <div class="pending-status">
-          <code>
-            Pending names are being sent to the frontend...
-          </code>
+          <code> Pending names are being sent to the frontend... </code>
         </div>
       </template>
       <template v-if="pendingNamesState === 'markingAsDelivered'">
@@ -154,7 +148,7 @@ export default {
         ],
         commitAction: this.submitUniqueUsernameRequest,
         commitActionName: 'SUBMIT',
-        cancelAction: function() {
+        cancelAction: function () {
           history.back()
         },
         cancelActionName: 'CANCEL',
@@ -172,13 +166,13 @@ export default {
         fields[1].content,
         fields[2].content,
         fields[3].content,
-        function(resp: string) {
+        function (resp: string) {
           vm.mintedUniqueNameResp = resp
           if (resp.indexOf('Command failed:') !== -1) {
             vm.mintingState = 'failed'
             return
           }
-          feapiconsumer.SendMintedUsernames(resp, function() {
+          feapiconsumer.SendMintedUsernames(resp, function () {
             //resp:any
             vm.mintingState = 'complete'
             // console.log('minted username sent, response: ')
@@ -191,7 +185,7 @@ export default {
       let vm = this
       console.log('get pending payload runs')
       vm.pendingNamesState = 'pullingFromNamemint'
-      nmsupervisor.FetchAlreadyMintedPendingUsernames(function(resp: string) {
+      nmsupervisor.FetchAlreadyMintedPendingUsernames(function (resp: string) {
         console.log(resp)
         let apiTses = JSON.parse(resp)
         let fps: any = []
@@ -201,7 +195,7 @@ export default {
           }
         }
         vm.pendingNamesState = 'sendingToFrontend'
-        feapiconsumer.SendMintedUsernames(resp, function() {
+        feapiconsumer.SendMintedUsernames(resp, function () {
           // send the truststates to the frontend.
           console.log('received truststates pushed to the frontend:')
           console.log(fps)
@@ -214,16 +208,17 @@ export default {
       let vm = this
       console.log('mark usernames as delivered runs')
       vm.pendingNamesState = 'markingAsDelivered'
-      nmsupervisor.MarkUsernamesAsDelivered(fpsToMarkDelivered, function(
-        resp: string
-      ) {
-        console.log(resp)
-        console.log('We marked the usernames below as delivered:')
-        console.log(fpsToMarkDelivered)
-        console.log('Response received:')
-        console.log(resp)
-        vm.pendingNamesState = 'pendingNamesComplete'
-      })
+      nmsupervisor.MarkUsernamesAsDelivered(
+        fpsToMarkDelivered,
+        function (resp: string) {
+          console.log(resp)
+          console.log('We marked the usernames below as delivered:')
+          console.log(fpsToMarkDelivered)
+          console.log('Response received:')
+          console.log(resp)
+          vm.pendingNamesState = 'pendingNamesComplete'
+        }
+      )
     },
   },
 }

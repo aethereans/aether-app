@@ -138,7 +138,7 @@ export default {
         ],
         commitAction: this.sendAddressEntity,
         commitActionName: 'SUBMIT',
-        cancelAction: function() {},
+        cancelAction: function () {},
         cancelActionName: '',
         autofocus: false,
       },
@@ -169,7 +169,7 @@ export default {
       addr.setSublocation(addressSublocation)
       addr.setPort(addressPort)
       let vm = this
-      fe.SendAddress(addr, function(resp: any) {
+      fe.SendAddress(addr, function (resp: any) {
         if (!globalMethods.IsUndefined(resp.reportErrorToServer)) {
           // This is an error
           vm.addressSendInProgress = false

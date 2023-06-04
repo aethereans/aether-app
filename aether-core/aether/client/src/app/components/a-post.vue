@@ -54,9 +54,7 @@
           </template>
 
           <div class="actions-rack" v-if="actionsVisible">
-            <a class="action reply" @click="toggleReplyPane">
-              Reply
-            </a>
+            <a class="action reply" @click="toggleReplyPane"> Reply </a>
             <a
               class="action edit"
               v-show="
@@ -79,9 +77,9 @@
               class="action report"
               v-show="
                 !post.selfcreated &&
-                  !reportSubmitted &&
-                  !reportSubmittedBefore &&
-                  !inflightInProgress
+                !reportSubmitted &&
+                !reportSubmittedBefore &&
+                !inflightInProgress
               "
               @click="toggleReportPane"
             >
@@ -96,9 +94,7 @@
               Moderate
             </a>
 
-            <a class="action copy-link" @click="copyLink">
-              Copy link
-            </a>
+            <a class="action copy-link" @click="copyLink"> Copy link </a>
             <div class="link-copied-text" v-show="linkCopied">
               Link copied to clipboard
             </div>
@@ -107,12 +103,10 @@
             class="actions-rack"
             v-if="
               (isinmodactionsview && !post.compiledcontentsignals.modblocked) ||
-                uncompiled
+              uncompiled
             "
           >
-            <a class="action copy-link" @click="goTo">
-              Go to post
-            </a>
+            <a class="action copy-link" @click="goTo"> Go to post </a>
           </div>
           <div class="self-delete-confirm-text" v-show="selfDeleteConfirmOpen">
             Are you sure you want to delete this? <a @click="selfDelete">Yes</a>
@@ -143,7 +137,7 @@
                 class="reports-header"
                 v-if="
                   reportsList.length > 1 ||
-                    (!reportSubmittedBefore && !reportSubmitted)
+                  (!reportSubmittedBefore && !reportSubmitted)
                 "
               >
                 User reports
@@ -191,7 +185,7 @@
             </div>
             <template v-if="isMod">
               <div
-                class="mod-actions-container  modtools-block"
+                class="mod-actions-container modtools-block"
                 v-if="modActionsVisible"
               >
                 <div class="mod-actions-header">
@@ -205,7 +199,7 @@
                   class="buttons-row"
                   v-show="
                     !(modApprovalPaneOpen || modDeletePaneOpen) &&
-                      !modActionTaken
+                    !modActionTaken
                   "
                 >
                   <!-- <a
@@ -215,14 +209,14 @@
                     APPROVE
                   </a> -->
                   <a
-                    class="button is-success  is-outlined"
+                    class="button is-success is-outlined"
                     v-show="isinreportsview"
                     @click="submitModIgnore"
                   >
                     IGNORE
                   </a>
                   <a
-                    class="button is-success  is-outlined"
+                    class="button is-success is-outlined"
                     @click="toggleModDeletePane"
                   >
                     DELETE
@@ -316,7 +310,7 @@
                         <template
                           v-if="
                             modActionTaken.sourcefp !==
-                              $store.state.localUser.fingerprint
+                            $store.state.localUser.fingerprint
                           "
                         >
                           <router-link :to="'/user/' + modActionTaken.sourcefp"
@@ -345,9 +339,7 @@
                 </div>
                 <div class="block iterator-block">
                   <div class="final-state-container">
-                    <div class="final-state-text">
-                      Result &nbsp;
-                    </div>
+                    <div class="final-state-text">Result &nbsp;</div>
                     <template v-if="post.compiledcontentsignals.modblocked">
                       <div class="final-state-result">
                         <a class="button is-danger is-small is-disabled">
@@ -407,13 +399,13 @@ export default {
   props: {
     post: {
       type: Object,
-      default: function() {
+      default: function () {
         return undefined
       },
     },
     inflightStatus: {
       type: Object,
-      default: function() {
+      default: function () {
         return undefined
       },
     },
@@ -427,7 +419,7 @@ export default {
     },
     notificationhighlights: {
       type: Array,
-      default: function() {
+      default: function () {
         return []
       },
     },
@@ -1031,7 +1023,7 @@ export default {
       post.setParent(this.post.fingerprint)
       post.setBody(postBody)
       let vm = this
-      fe.SendPostContent('', post, function(resp: any) {
+      fe.SendPostContent('', post, function (resp: any) {
         console.log(resp.toObject())
         vm.toggleReplyPane()
       })
@@ -1062,7 +1054,7 @@ export default {
       post.setParent(this.post.parent) // < heads up, this is different
       post.setBody(postBody)
       this.selfDeleteConfirmOpen = false
-      fe.SendPostContent(this.post.fingerprint, post, function(resp: any) {
+      fe.SendPostContent(this.post.fingerprint, post, function (resp: any) {
         console.log(resp.toObject())
       })
     },
@@ -1084,7 +1076,7 @@ export default {
       post.setBody(postBody)
       console.log(this.post.fingerprint)
       let vm = this
-      fe.SendPostContent(this.post.fingerprint, post, function(resp: any) {
+      fe.SendPostContent(this.post.fingerprint, post, function (resp: any) {
         console.log(resp.toObject())
         vm.toggleEditPane()
       })
@@ -1111,7 +1103,7 @@ export default {
         reportReason,
         this.post.board,
         this.post.thread,
-        function(resp: any) {
+        function (resp: any) {
           console.log(resp.toObject())
           vm.toggleReportPane()
           vm.reportSubmitted = true
@@ -1148,7 +1140,7 @@ export default {
         approvalReason,
         this.post.board,
         this.post.thread,
-        function(resp: any) {
+        function (resp: any) {
           console.log(resp.toObject())
           vm.toggleModApprovalPane()
           vm.modApprovalSubmitted = true
@@ -1177,7 +1169,7 @@ export default {
         deleteReason,
         this.post.board,
         this.post.thread,
-        function(resp: any) {
+        function (resp: any) {
           console.log(resp.toObject())
           vm.toggleModDeletePane()
           vm.modDeleteSubmitted = true
@@ -1193,7 +1185,7 @@ export default {
         '',
         this.post.board,
         this.post.thread,
-        function(resp: any) {
+        function (resp: any) {
           console.log(resp.toObject())
           vm.modIgnoreSubmitted = true
         }
@@ -1217,7 +1209,7 @@ export default {
       elc.clipboard.writeText(this.externalUrl)
       this.linkCopied = true
       let vm = this
-      setTimeout(function() {
+      setTimeout(function () {
         vm.linkCopied = false
         vm.copyLinkInProgress = false
       }, 1250)

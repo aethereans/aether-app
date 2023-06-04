@@ -117,7 +117,7 @@ export default {
         '',
         this.limit,
         this.offset,
-        function(resp: any) {
+        function (resp: any) {
           console.log(resp)
           vm.threadsList = resp.threadsList
           vm.currentUserFp = targetuserfp

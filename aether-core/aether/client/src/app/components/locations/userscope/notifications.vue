@@ -72,7 +72,7 @@ export default {
     markAllAsRead(this: any) {
       let vm = this
       vm.markAllAsReadInProgress = true
-      fe.markAllAsRead(function() {
+      fe.markAllAsRead(function () {
         vm.markAllAsReadInProgress = false
       })
     },

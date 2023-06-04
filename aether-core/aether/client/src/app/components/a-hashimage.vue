@@ -3,14 +3,14 @@
     class="hashimage"
     :style="
       'background-image: ' +
-        dataurl +
-        ';' +
-        ' height: ' +
-        height +
-        ';' +
-        ' width: ' +
-        height +
-        ';'
+      dataurl +
+      ';' +
+      ' height: ' +
+      height +
+      ';' +
+      ' width: ' +
+      height +
+      ';'
     "
   ></div>
 </template>
