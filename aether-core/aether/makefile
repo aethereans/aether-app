@@ -48,7 +48,7 @@ GOCLEAN=$(GOCMD) clean
 UPX= upx -1
 BE_BINARY_NAME=aether-backend
 FE_BINARY_NAME=aether-frontend
-CGO=CGO_ENABLED=1
+CGO=CGO_ENABLED=0
 # CGO=
 # Workdir prep
 
