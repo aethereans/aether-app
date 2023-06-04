@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
-cd $GOPATH/src/aether-core
+#cd client/src/app/
 echo "Running all tests and generating coverage profile for the entire project. It will be shown in browser once complete."
 for d in $(go list ./... | grep -v vendor); do
     go test -coverprofile=profile.out -covermode=atomic $d

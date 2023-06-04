@@ -3,6 +3,11 @@ build/Release
 BundledReleases
 ReleaseArchive
 aether-core/aether/client/MAKE_BINARIES
+aether-core/aether/client/dist
 
 # Dependency directories
 node_modules/
+
+# Tests
+coverage.txt
+profile.out
