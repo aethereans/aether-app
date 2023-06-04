@@ -52,9 +52,10 @@ jobs:
       working-directory: aether-core/aether
       run: make linux-native
 
-    - name: Build windows
-      working-directory: aether-core/aether
-      run: make win
+    # Skipping windows build alias black magic
+    #- name: Build windows
+    #  working-directory: aether-core/aether
+    #  run: make win
       
     - name: Test
       working-directory: aether-core/aether
