@@ -13,6 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      
+    - name: Set up Python 2
+      uses: actions/setup-python@v4
+      with:
+        python-version: '2.x'
     
     - name: Set up Go
       uses: actions/setup-go@v4
@@ -22,7 +27,18 @@ jobs:
     - name: Use Node.js 16.18
       uses: actions/setup-node@v3
       with:
-        node-version: '18.16'
+        node-version: '11'
+    
+    - name: Set up GCC
+      uses: egor-tensin/setup-gcc@v1
+      with:
+        version: latest
+        platform: x64
+        
+    - name: Install UPX
+      uses: crazy-max/ghaction-upx@v2
+      with:
+        install-only: true
 
     - name: test backend
       working-directory: aether-core/aether/backend
