@@ -206,7 +206,7 @@ var content = `
 
 
 * **Descriptions of more consequential settings are below.**
-For the rest, the descriptions can be found [here](https://github.com/nehbit/aether/blob/master/aether/services/configstore/permanent.go).
+For the rest, the descriptions can be found [here](https://github.com/Frigyes06/aether-app/blob/master/aether-core/aether/services/configstore/permanent.go).
 
 * **Network settings, if misconfigured, can get your machine and user key permanently banned by other nodes.** The settings that modify local behaviour are generally safe to fiddle with. Ones that relate to network behaviour are not.
 

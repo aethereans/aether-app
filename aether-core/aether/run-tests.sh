@@ -10,4 +10,4 @@ for d in $(go list ./... | grep -v vendor); do
         rm profile.out
     fi
 done
-echo "mode: atomic" > result.txt && cat coverage.txt | grep -v mode: | sort -r | awk '{if($1 != last) {print $0;last=$1}}' >> result.txt && go tool cover -html=result.txt && rm result.txt && rm coverage.txt
+echo "mode: atomic" > result.txt && cat coverage.txt | grep -v mode: | sort -r | awk '{if($1 != last) {print $0;last=$1}}' >> result.txt && rm result.txt && rm coverage.txt

@@ -26,7 +26,7 @@ For example: The app 'Aether' uses ARE to communicate in c0 and dweb Mim subprot
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(`You've attempted to run the Aether Runtime Environment without any commands. ARE requires some variables to be passed to it to be able to do what you want.
+		fmt.Print(`You've attempted to run the Aether Runtime Environment without any commands. ARE requires some variables to be passed to it to be able to do what you want.
 
 Please run "aether-backend --help" to see all available options.
 `)
