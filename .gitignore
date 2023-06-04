@@ -1,5 +1,8 @@
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
+BundledReleases
+ReleaseArchive
+aether-core/aether/client/MAKE_BINARIES
 
 # Dependency directories
 node_modules/
