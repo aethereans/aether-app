@@ -1283,7 +1283,7 @@ proto.feapi.ThreadAndPostsResponse.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getBoard();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       1,
       f,
@@ -1291,7 +1291,7 @@ proto.feapi.ThreadAndPostsResponse.serializeBinaryToWriter = function (
     );
   }
   f = message.getThread();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       2,
       f,
@@ -1336,7 +1336,7 @@ proto.feapi.ThreadAndPostsResponse.prototype.clearBoard = function () {
  * @return {!boolean}
  */
 proto.feapi.ThreadAndPostsResponse.prototype.hasBoard = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -1367,7 +1367,7 @@ proto.feapi.ThreadAndPostsResponse.prototype.clearThread = function () {
  * @return {!boolean}
  */
 proto.feapi.ThreadAndPostsResponse.prototype.hasThread = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -1755,7 +1755,7 @@ proto.feapi.BoardAndThreadsResponse.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getBoard();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       1,
       f,
@@ -1800,7 +1800,7 @@ proto.feapi.BoardAndThreadsResponse.prototype.clearBoard = function () {
  * @return {!boolean}
  */
 proto.feapi.BoardAndThreadsResponse.prototype.hasBoard = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -2694,7 +2694,7 @@ proto.feapi.UserAndGraphResponse.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getUser();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       1,
       f,
@@ -2771,7 +2771,7 @@ proto.feapi.UserAndGraphResponse.prototype.clearUser = function () {
  * @return {!boolean}
  */
 proto.feapi.UserAndGraphResponse.prototype.hasUser = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -3348,23 +3348,23 @@ proto.feapi.ContentEventPayload.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getEvent();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.feapi.Event.serializeBinaryToWriter);
   }
   f = message.getBoarddata();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, mimapi_mimapi_pb.Board.serializeBinaryToWriter);
   }
   f = message.getThreaddata();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(3, f, mimapi_mimapi_pb.Thread.serializeBinaryToWriter);
   }
   f = message.getPostdata();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(4, f, mimapi_mimapi_pb.Post.serializeBinaryToWriter);
   }
   f = message.getKeydata();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(5, f, mimapi_mimapi_pb.Key.serializeBinaryToWriter);
   }
 };
@@ -3393,7 +3393,7 @@ proto.feapi.ContentEventPayload.prototype.clearEvent = function () {
  * @return {!boolean}
  */
 proto.feapi.ContentEventPayload.prototype.hasEvent = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -3420,7 +3420,7 @@ proto.feapi.ContentEventPayload.prototype.clearBoarddata = function () {
  * @return {!boolean}
  */
 proto.feapi.ContentEventPayload.prototype.hasBoarddata = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -3447,7 +3447,7 @@ proto.feapi.ContentEventPayload.prototype.clearThreaddata = function () {
  * @return {!boolean}
  */
 proto.feapi.ContentEventPayload.prototype.hasThreaddata = function () {
-  return jspb.Message.getField(this, 3) != null;
+  return jspb.Message.getField(this, 3) !== null;
 };
 
 /**
@@ -3474,7 +3474,7 @@ proto.feapi.ContentEventPayload.prototype.clearPostdata = function () {
  * @return {!boolean}
  */
 proto.feapi.ContentEventPayload.prototype.hasPostdata = function () {
-  return jspb.Message.getField(this, 4) != null;
+  return jspb.Message.getField(this, 4) !== null;
 };
 
 /**
@@ -3501,7 +3501,7 @@ proto.feapi.ContentEventPayload.prototype.clearKeydata = function () {
  * @return {!boolean}
  */
 proto.feapi.ContentEventPayload.prototype.hasKeydata = function () {
-  return jspb.Message.getField(this, 5) != null;
+  return jspb.Message.getField(this, 5) !== null;
 };
 
 /**
@@ -3806,7 +3806,7 @@ proto.feapi.SignalEventPayload.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getEvent();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.feapi.Event.serializeBinaryToWriter);
   }
   f = message.getSignaltargettype();
@@ -3875,7 +3875,7 @@ proto.feapi.SignalEventPayload.prototype.clearEvent = function () {
  * @return {!boolean}
  */
 proto.feapi.SignalEventPayload.prototype.hasEvent = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -5342,7 +5342,7 @@ proto.feapi.BackendAmbientStatusPayload.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getBackendambientstatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       1,
       f,
@@ -5383,7 +5383,7 @@ proto.feapi.BackendAmbientStatusPayload.prototype.clearBackendambientstatus =
  */
 proto.feapi.BackendAmbientStatusPayload.prototype.hasBackendambientstatus =
   function () {
-    return jspb.Message.getField(this, 1) != null;
+    return jspb.Message.getField(this, 1) !== null;
   };
 
 /**
@@ -7436,7 +7436,7 @@ proto.feapi.SendAddressPayload.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getAddress();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, mimapi_mimapi_pb.Address.serializeBinaryToWriter);
   }
 };
@@ -7465,7 +7465,7 @@ proto.feapi.SendAddressPayload.prototype.clearAddress = function () {
  * @return {!boolean}
  */
 proto.feapi.SendAddressPayload.prototype.hasAddress = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
