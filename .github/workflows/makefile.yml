@@ -48,21 +48,13 @@ jobs:
       working-directory: aether-core/aether/client
       run: npm ci; npm run wpbuild; npm run rebuild
 
-    - name: Install dependencies
-      working-directory: aether-core/aether
-      run: make
-
     - name: Build linux
       working-directory: aether-core/aether
-      run: make linux
+      run: make linux-native
 
     - name: Build windows
       working-directory: aether-core/aether
       run: make win
-      
-    - name: Build mac
-      working-directory: aether-core/aether
-      run: make mac
       
     - name: Test
       working-directory: aether-core/aether
