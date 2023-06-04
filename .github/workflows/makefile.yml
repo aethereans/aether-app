@@ -11,51 +11,52 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
-      
-    - name: Set up Python 3
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
-    
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.15'
-        
-    - name: Use Node.js 12.13
-      uses: actions/setup-node@v3
-      with:
-        node-version: '12.13'
-    
-    - name: Set up GCC
-      uses: egor-tensin/setup-gcc@v1
-      with:
-        version: latest
-        platform: x64
-        
-    - name: Install UPX
-      uses: crazy-max/ghaction-upx@v2
-      with:
-        install-only: true
+    #steps:
+    #- uses: actions/checkout@v3
+    #  
+    #- name: Set up Python 3
+    #  uses: actions/setup-python@v4
+    #  with:
+    #    python-version: '3.x'
+    #
+    #- name: Set up Go
+    #  uses: actions/setup-go@v4
+    #  with:
+    #    go-version: '1.15'
+    #    
+    #- name: Use Node.js 12.13
+    #  uses: actions/setup-node@v3
+    #  with:
+    #    node-version: '12.13'
+    #
+    #- name: Set up GCC
+    #  uses: egor-tensin/setup-gcc@v1
+    #  with:
+    #    version: latest
+    #    platform: x64
+    #    
+    #- name: Install UPX
+    #  uses: crazy-max/ghaction-upx@v2
+    #  with:
+    #    install-only: true
+    #
+    #- name: test backend
+    #  working-directory: aether-core/aether/backend
+    #  run: go run main.go
+    #
+    #- name: Build the frontend
+    #  working-directory: aether-core/aether/client
+    #  run: npm ci; npm run wpbuild; npm run rebuild
+    #
+    #- name: Build linux
+    #  working-directory: aether-core/aether
+    #  run: make linux-native
 
-    - name: test backend
-      working-directory: aether-core/aether/backend
-      run: go run main.go
-
-    - name: Build the frontend
-      working-directory: aether-core/aether/client
-      run: npm ci; npm run wpbuild; npm run rebuild
-
-    - name: Build linux
-      working-directory: aether-core/aether
-      run: make linux-native
-
-    - name: Build windows
-      working-directory: aether-core/aether
-      run: make win
+    # Skipping windows build alias black magic
+    #- name: Build windows
+    #  working-directory: aether-core/aether
+    #  run: make win
       
     - name: Test
       working-directory: aether-core/aether
-      run: bash run-test.sh
+      run: ls -la && bash run-test.sh

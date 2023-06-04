@@ -52,4 +52,4 @@ require (
 	google.golang.org/grpc v1.14.0
 )
 
-go 1.13
+go 1.20
