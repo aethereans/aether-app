@@ -32,6 +32,10 @@
   },
   "homepage": "https://getaether.net",
   "license": "SEE LICENSE IN the repository.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Frigyes06/aether-app"
+  },
   "devDependencies": {
     "@electron/rebuild": "^3.2.13",
     "dotenv": "8.0.0",
@@ -40,7 +44,6 @@
     "electron-notarize": "0.1.1",
     "file-loader": "3.0.1",
     "node-sass": "4.12.0",
-    "read-pkg-up": "4.0.0",
     "resolve": "1.10.0",
     "resolve-url-loader": "3.0.0",
     "sass-loader": "7.1.0",
@@ -51,8 +54,7 @@
     "vue-template-compiler": "2.7.14",
     "webpack": "4.29.0",
     "webpack-cli": "3.2.1",
-    "webpack-node-externals": "1.7.2",
-    "write-pkg": "3.2.0"
+    "webpack-node-externals": "1.7.2"
   },
   "dependencies": {
     "ajv": "6.9.1",
