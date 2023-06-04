@@ -13,6 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - run: |
+          git fetch --unshallow --tags
+          echo $?
+          git tag --list
       
     - name: Set up Python 3
       uses: actions/setup-python@v4
