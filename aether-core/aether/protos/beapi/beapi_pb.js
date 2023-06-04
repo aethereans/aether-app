@@ -541,19 +541,19 @@ proto.beapi.Filters.prototype.serializeBinary = function () {
 proto.beapi.Filters.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getLastreftimerange();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.TimeRange.serializeBinaryToWriter);
   }
   f = message.getFingerprints();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, proto.beapi.Fingerprints.serializeBinaryToWriter);
   }
   f = message.getTypefilters();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(3, f, proto.beapi.TypeFilters.serializeBinaryToWriter);
   }
   f = message.getGraphfilters();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(4, f, proto.beapi.GraphFilters.serializeBinaryToWriter);
   }
 };
@@ -582,7 +582,7 @@ proto.beapi.Filters.prototype.clearLastreftimerange = function () {
  * @return {!boolean}
  */
 proto.beapi.Filters.prototype.hasLastreftimerange = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -609,7 +609,7 @@ proto.beapi.Filters.prototype.clearFingerprints = function () {
  * @return {!boolean}
  */
 proto.beapi.Filters.prototype.hasFingerprints = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -636,7 +636,7 @@ proto.beapi.Filters.prototype.clearTypefilters = function () {
  * @return {!boolean}
  */
 proto.beapi.Filters.prototype.hasTypefilters = function () {
-  return jspb.Message.getField(this, 3) != null;
+  return jspb.Message.getField(this, 3) !== null;
 };
 
 /**
@@ -663,7 +663,7 @@ proto.beapi.Filters.prototype.clearGraphfilters = function () {
  * @return {!boolean}
  */
 proto.beapi.Filters.prototype.hasGraphfilters = function () {
-  return jspb.Message.getField(this, 4) != null;
+  return jspb.Message.getField(this, 4) !== null;
 };
 
 /**
@@ -1582,7 +1582,7 @@ proto.beapi.AccessRequest.prototype.serializeBinary = function () {
 proto.beapi.AccessRequest.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getRequesterid();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.RequesterId.serializeBinaryToWriter);
   }
 };
@@ -1611,7 +1611,7 @@ proto.beapi.AccessRequest.prototype.clearRequesterid = function () {
  * @return {!boolean}
  */
 proto.beapi.AccessRequest.prototype.hasRequesterid = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -1745,7 +1745,7 @@ proto.beapi.AccessResponse.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.Status.serializeBinaryToWriter);
   }
   f = message.getAccesstoken();
@@ -1778,7 +1778,7 @@ proto.beapi.AccessResponse.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.beapi.AccessResponse.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -1925,11 +1925,11 @@ proto.beapi.BoardsRequest.prototype.serializeBinary = function () {
 proto.beapi.BoardsRequest.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getRequesterid();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.RequesterId.serializeBinaryToWriter);
   }
   f = message.getFilters();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, proto.beapi.Filters.serializeBinaryToWriter);
   }
 };
@@ -1958,7 +1958,7 @@ proto.beapi.BoardsRequest.prototype.clearRequesterid = function () {
  * @return {!boolean}
  */
 proto.beapi.BoardsRequest.prototype.hasRequesterid = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -1985,7 +1985,7 @@ proto.beapi.BoardsRequest.prototype.clearFilters = function () {
  * @return {!boolean}
  */
 proto.beapi.BoardsRequest.prototype.hasFilters = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -2140,7 +2140,7 @@ proto.beapi.BoardsResponse.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.Status.serializeBinaryToWriter);
   }
   f = message.getBoardsList();
@@ -2177,7 +2177,7 @@ proto.beapi.BoardsResponse.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.beapi.BoardsResponse.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -2354,11 +2354,11 @@ proto.beapi.ThreadsRequest.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getRequesterid();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.RequesterId.serializeBinaryToWriter);
   }
   f = message.getFilters();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, proto.beapi.Filters.serializeBinaryToWriter);
   }
 };
@@ -2387,7 +2387,7 @@ proto.beapi.ThreadsRequest.prototype.clearRequesterid = function () {
  * @return {!boolean}
  */
 proto.beapi.ThreadsRequest.prototype.hasRequesterid = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -2414,7 +2414,7 @@ proto.beapi.ThreadsRequest.prototype.clearFilters = function () {
  * @return {!boolean}
  */
 proto.beapi.ThreadsRequest.prototype.hasFilters = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -2569,7 +2569,7 @@ proto.beapi.ThreadsResponse.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.Status.serializeBinaryToWriter);
   }
   f = message.getThreadsList();
@@ -2606,7 +2606,7 @@ proto.beapi.ThreadsResponse.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.beapi.ThreadsResponse.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -2775,11 +2775,11 @@ proto.beapi.PostsRequest.prototype.serializeBinary = function () {
 proto.beapi.PostsRequest.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getRequesterid();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.RequesterId.serializeBinaryToWriter);
   }
   f = message.getFilters();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, proto.beapi.Filters.serializeBinaryToWriter);
   }
 };
@@ -2808,7 +2808,7 @@ proto.beapi.PostsRequest.prototype.clearRequesterid = function () {
  * @return {!boolean}
  */
 proto.beapi.PostsRequest.prototype.hasRequesterid = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -2835,7 +2835,7 @@ proto.beapi.PostsRequest.prototype.clearFilters = function () {
  * @return {!boolean}
  */
 proto.beapi.PostsRequest.prototype.hasFilters = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -2984,7 +2984,7 @@ proto.beapi.PostsResponse.prototype.serializeBinary = function () {
 proto.beapi.PostsResponse.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.Status.serializeBinaryToWriter);
   }
   f = message.getPostsList();
@@ -3021,7 +3021,7 @@ proto.beapi.PostsResponse.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.beapi.PostsResponse.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -3187,11 +3187,11 @@ proto.beapi.VotesRequest.prototype.serializeBinary = function () {
 proto.beapi.VotesRequest.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getRequesterid();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.RequesterId.serializeBinaryToWriter);
   }
   f = message.getFilters();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, proto.beapi.Filters.serializeBinaryToWriter);
   }
 };
@@ -3220,7 +3220,7 @@ proto.beapi.VotesRequest.prototype.clearRequesterid = function () {
  * @return {!boolean}
  */
 proto.beapi.VotesRequest.prototype.hasRequesterid = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -3247,7 +3247,7 @@ proto.beapi.VotesRequest.prototype.clearFilters = function () {
  * @return {!boolean}
  */
 proto.beapi.VotesRequest.prototype.hasFilters = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -3396,7 +3396,7 @@ proto.beapi.VotesResponse.prototype.serializeBinary = function () {
 proto.beapi.VotesResponse.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.Status.serializeBinaryToWriter);
   }
   f = message.getVotesList();
@@ -3433,7 +3433,7 @@ proto.beapi.VotesResponse.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.beapi.VotesResponse.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -3599,11 +3599,11 @@ proto.beapi.KeysRequest.prototype.serializeBinary = function () {
 proto.beapi.KeysRequest.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getRequesterid();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.RequesterId.serializeBinaryToWriter);
   }
   f = message.getFilters();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, proto.beapi.Filters.serializeBinaryToWriter);
   }
 };
@@ -3632,7 +3632,7 @@ proto.beapi.KeysRequest.prototype.clearRequesterid = function () {
  * @return {!boolean}
  */
 proto.beapi.KeysRequest.prototype.hasRequesterid = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -3659,7 +3659,7 @@ proto.beapi.KeysRequest.prototype.clearFilters = function () {
  * @return {!boolean}
  */
 proto.beapi.KeysRequest.prototype.hasFilters = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -3806,7 +3806,7 @@ proto.beapi.KeysResponse.prototype.serializeBinary = function () {
 proto.beapi.KeysResponse.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.Status.serializeBinaryToWriter);
   }
   f = message.getKeysList();
@@ -3843,7 +3843,7 @@ proto.beapi.KeysResponse.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.beapi.KeysResponse.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -4020,11 +4020,11 @@ proto.beapi.TruststatesRequest.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getRequesterid();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.RequesterId.serializeBinaryToWriter);
   }
   f = message.getFilters();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, proto.beapi.Filters.serializeBinaryToWriter);
   }
 };
@@ -4053,7 +4053,7 @@ proto.beapi.TruststatesRequest.prototype.clearRequesterid = function () {
  * @return {!boolean}
  */
 proto.beapi.TruststatesRequest.prototype.hasRequesterid = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -4080,7 +4080,7 @@ proto.beapi.TruststatesRequest.prototype.clearFilters = function () {
  * @return {!boolean}
  */
 proto.beapi.TruststatesRequest.prototype.hasFilters = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -4239,7 +4239,7 @@ proto.beapi.TruststatesResponse.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.Status.serializeBinaryToWriter);
   }
   f = message.getTruststatesList();
@@ -4276,7 +4276,7 @@ proto.beapi.TruststatesResponse.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.beapi.TruststatesResponse.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -4459,7 +4459,7 @@ proto.beapi.BoardThreadsCountRequest.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getRequesterid();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.RequesterId.serializeBinaryToWriter);
   }
   f = message.getFingerprint();
@@ -4494,7 +4494,7 @@ proto.beapi.BoardThreadsCountRequest.prototype.clearRequesterid = function () {
  * @return {!boolean}
  */
 proto.beapi.BoardThreadsCountRequest.prototype.hasRequesterid = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -4653,7 +4653,7 @@ proto.beapi.BoardThreadsCountResponse.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.Status.serializeBinaryToWriter);
   }
   f = message.getCount();
@@ -4686,7 +4686,7 @@ proto.beapi.BoardThreadsCountResponse.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.beapi.BoardThreadsCountResponse.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -4843,7 +4843,7 @@ proto.beapi.ThreadPostsCountRequest.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getRequesterid();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.RequesterId.serializeBinaryToWriter);
   }
   f = message.getFingerprint();
@@ -4878,7 +4878,7 @@ proto.beapi.ThreadPostsCountRequest.prototype.clearRequesterid = function () {
  * @return {!boolean}
  */
 proto.beapi.ThreadPostsCountRequest.prototype.hasRequesterid = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -5037,7 +5037,7 @@ proto.beapi.ThreadPostsCountResponse.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.Status.serializeBinaryToWriter);
   }
   f = message.getCount();
@@ -5070,7 +5070,7 @@ proto.beapi.ThreadPostsCountResponse.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.beapi.ThreadPostsCountResponse.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -5320,7 +5320,7 @@ proto.beapi.MintedContentPayload.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getRequesterid();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.RequesterId.serializeBinaryToWriter);
   }
   f = message.getBoardsList();
@@ -5405,7 +5405,7 @@ proto.beapi.MintedContentPayload.prototype.clearRequesterid = function () {
  * @return {!boolean}
  */
 proto.beapi.MintedContentPayload.prototype.hasRequesterid = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -5802,7 +5802,7 @@ proto.beapi.MintedContentResponse.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.Status.serializeBinaryToWriter);
   }
 };
@@ -5831,7 +5831,7 @@ proto.beapi.MintedContentResponse.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.beapi.MintedContentResponse.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -5981,11 +5981,11 @@ proto.beapi.ConnectToRemoteRequest.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getRequesterid();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.RequesterId.serializeBinaryToWriter);
   }
   f = message.getAddress();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, mimapi_mimapi_pb.Address.serializeBinaryToWriter);
   }
 };
@@ -6014,7 +6014,7 @@ proto.beapi.ConnectToRemoteRequest.prototype.clearRequesterid = function () {
  * @return {!boolean}
  */
 proto.beapi.ConnectToRemoteRequest.prototype.hasRequesterid = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -6041,7 +6041,7 @@ proto.beapi.ConnectToRemoteRequest.prototype.clearAddress = function () {
  * @return {!boolean}
  */
 proto.beapi.ConnectToRemoteRequest.prototype.hasAddress = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -6180,7 +6180,7 @@ proto.beapi.ConnectToRemoteResponse.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.beapi.Status.serializeBinaryToWriter);
   }
 };
@@ -6209,7 +6209,7 @@ proto.beapi.ConnectToRemoteResponse.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.beapi.ConnectToRemoteResponse.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 goog.object.extend(exports, proto.beapi);

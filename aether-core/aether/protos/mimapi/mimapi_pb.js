@@ -769,7 +769,7 @@ proto.mimapi.Board.prototype.serializeBinary = function () {
 proto.mimapi.Board.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getProvable();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.mimapi.Provable.serializeBinaryToWriter);
   }
   f = message.getName();
@@ -817,7 +817,7 @@ proto.mimapi.Board.serializeBinaryToWriter = function (message, writer) {
     writer.writeString(11, f);
   }
   f = message.getUpdateable();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(12, f, proto.mimapi.Updateable.serializeBinaryToWriter);
   }
 };
@@ -846,7 +846,7 @@ proto.mimapi.Board.prototype.clearProvable = function () {
  * @return {!boolean}
  */
 proto.mimapi.Board.prototype.hasProvable = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -1024,7 +1024,7 @@ proto.mimapi.Board.prototype.clearUpdateable = function () {
  * @return {!boolean}
  */
 proto.mimapi.Board.prototype.hasUpdateable = function () {
-  return jspb.Message.getField(this, 12) != null;
+  return jspb.Message.getField(this, 12) !== null;
 };
 
 /**
@@ -1206,7 +1206,7 @@ proto.mimapi.Thread.prototype.serializeBinary = function () {
 proto.mimapi.Thread.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getProvable();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.mimapi.Provable.serializeBinaryToWriter);
   }
   f = message.getBoard();
@@ -1250,7 +1250,7 @@ proto.mimapi.Thread.serializeBinaryToWriter = function (message, writer) {
     writer.writeString(11, f);
   }
   f = message.getUpdateable();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(12, f, proto.mimapi.Updateable.serializeBinaryToWriter);
   }
 };
@@ -1279,7 +1279,7 @@ proto.mimapi.Thread.prototype.clearProvable = function () {
  * @return {!boolean}
  */
 proto.mimapi.Thread.prototype.hasProvable = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -1436,7 +1436,7 @@ proto.mimapi.Thread.prototype.clearUpdateable = function () {
  * @return {!boolean}
  */
 proto.mimapi.Thread.prototype.hasUpdateable = function () {
-  return jspb.Message.getField(this, 12) != null;
+  return jspb.Message.getField(this, 12) !== null;
 };
 
 /**
@@ -1618,7 +1618,7 @@ proto.mimapi.Post.prototype.serializeBinary = function () {
 proto.mimapi.Post.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getProvable();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.mimapi.Provable.serializeBinaryToWriter);
   }
   f = message.getBoard();
@@ -1662,7 +1662,7 @@ proto.mimapi.Post.serializeBinaryToWriter = function (message, writer) {
     writer.writeString(11, f);
   }
   f = message.getUpdateable();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(12, f, proto.mimapi.Updateable.serializeBinaryToWriter);
   }
 };
@@ -1691,7 +1691,7 @@ proto.mimapi.Post.prototype.clearProvable = function () {
  * @return {!boolean}
  */
 proto.mimapi.Post.prototype.hasProvable = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -1848,7 +1848,7 @@ proto.mimapi.Post.prototype.clearUpdateable = function () {
  * @return {!boolean}
  */
 proto.mimapi.Post.prototype.hasUpdateable = function () {
-  return jspb.Message.getField(this, 12) != null;
+  return jspb.Message.getField(this, 12) !== null;
 };
 
 /**
@@ -2035,7 +2035,7 @@ proto.mimapi.Vote.prototype.serializeBinary = function () {
 proto.mimapi.Vote.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getProvable();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.mimapi.Provable.serializeBinaryToWriter);
   }
   f = message.getBoard();
@@ -2083,7 +2083,7 @@ proto.mimapi.Vote.serializeBinaryToWriter = function (message, writer) {
     writer.writeString(12, f);
   }
   f = message.getUpdateable();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(13, f, proto.mimapi.Updateable.serializeBinaryToWriter);
   }
 };
@@ -2112,7 +2112,7 @@ proto.mimapi.Vote.prototype.clearProvable = function () {
  * @return {!boolean}
  */
 proto.mimapi.Vote.prototype.hasProvable = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -2282,7 +2282,7 @@ proto.mimapi.Vote.prototype.clearUpdateable = function () {
  * @return {!boolean}
  */
 proto.mimapi.Vote.prototype.hasUpdateable = function () {
-  return jspb.Message.getField(this, 13) != null;
+  return jspb.Message.getField(this, 13) !== null;
 };
 
 /**
@@ -2459,7 +2459,7 @@ proto.mimapi.Key.prototype.serializeBinary = function () {
 proto.mimapi.Key.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getProvable();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.mimapi.Provable.serializeBinaryToWriter);
   }
   f = message.getType();
@@ -2499,7 +2499,7 @@ proto.mimapi.Key.serializeBinaryToWriter = function (message, writer) {
     writer.writeString(10, f);
   }
   f = message.getUpdateable();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(11, f, proto.mimapi.Updateable.serializeBinaryToWriter);
   }
 };
@@ -2528,7 +2528,7 @@ proto.mimapi.Key.prototype.clearProvable = function () {
  * @return {!boolean}
  */
 proto.mimapi.Key.prototype.hasProvable = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -2672,7 +2672,7 @@ proto.mimapi.Key.prototype.clearUpdateable = function () {
  * @return {!boolean}
  */
 proto.mimapi.Key.prototype.hasUpdateable = function () {
-  return jspb.Message.getField(this, 11) != null;
+  return jspb.Message.getField(this, 11) !== null;
 };
 
 /**
@@ -2859,7 +2859,7 @@ proto.mimapi.Truststate.prototype.serializeBinary = function () {
 proto.mimapi.Truststate.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getProvable();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(1, f, proto.mimapi.Provable.serializeBinaryToWriter);
   }
   f = message.getTarget();
@@ -2907,7 +2907,7 @@ proto.mimapi.Truststate.serializeBinaryToWriter = function (message, writer) {
     writer.writeString(12, f);
   }
   f = message.getUpdateable();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(13, f, proto.mimapi.Updateable.serializeBinaryToWriter);
   }
 };
@@ -2936,7 +2936,7 @@ proto.mimapi.Truststate.prototype.clearProvable = function () {
  * @return {!boolean}
  */
 proto.mimapi.Truststate.prototype.hasProvable = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -3106,7 +3106,7 @@ proto.mimapi.Truststate.prototype.clearUpdateable = function () {
  * @return {!boolean}
  */
 proto.mimapi.Truststate.prototype.hasUpdateable = function () {
-  return jspb.Message.getField(this, 13) != null;
+  return jspb.Message.getField(this, 13) !== null;
 };
 
 /**
@@ -3302,11 +3302,11 @@ proto.mimapi.Address.serializeBinaryToWriter = function (message, writer) {
     writer.writeInt64(6, f);
   }
   f = message.getProtocol();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(7, f, proto.mimapi.Protocol.serializeBinaryToWriter);
   }
   f = message.getClient();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(8, f, proto.mimapi.Client.serializeBinaryToWriter);
   }
   f = message.getEntityversion();
@@ -3421,7 +3421,7 @@ proto.mimapi.Address.prototype.clearProtocol = function () {
  * @return {!boolean}
  */
 proto.mimapi.Address.prototype.hasProtocol = function () {
-  return jspb.Message.getField(this, 7) != null;
+  return jspb.Message.getField(this, 7) !== null;
 };
 
 /**
@@ -3448,7 +3448,7 @@ proto.mimapi.Address.prototype.clearClient = function () {
  * @return {!boolean}
  */
 proto.mimapi.Address.prototype.hasClient = function () {
-  return jspb.Message.getField(this, 8) != null;
+  return jspb.Message.getField(this, 8) !== null;
 };
 
 /**

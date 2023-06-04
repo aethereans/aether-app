@@ -992,7 +992,7 @@ proto.clapi.InflightBoard.prototype.serializeBinary = function () {
 proto.clapi.InflightBoard.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       1,
       f,
@@ -1000,7 +1000,7 @@ proto.clapi.InflightBoard.serializeBinaryToWriter = function (message, writer) {
     );
   }
   f = message.getEntity();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, mimapi_mimapi_pb.Board.serializeBinaryToWriter);
   }
 };
@@ -1029,7 +1029,7 @@ proto.clapi.InflightBoard.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.clapi.InflightBoard.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -1056,7 +1056,7 @@ proto.clapi.InflightBoard.prototype.clearEntity = function () {
  * @return {!boolean}
  */
 proto.clapi.InflightBoard.prototype.hasEntity = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -1196,7 +1196,7 @@ proto.clapi.InflightThread.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       1,
       f,
@@ -1204,7 +1204,7 @@ proto.clapi.InflightThread.serializeBinaryToWriter = function (
     );
   }
   f = message.getEntity();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, mimapi_mimapi_pb.Thread.serializeBinaryToWriter);
   }
 };
@@ -1233,7 +1233,7 @@ proto.clapi.InflightThread.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.clapi.InflightThread.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -1260,7 +1260,7 @@ proto.clapi.InflightThread.prototype.clearEntity = function () {
  * @return {!boolean}
  */
 proto.clapi.InflightThread.prototype.hasEntity = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -1392,7 +1392,7 @@ proto.clapi.InflightPost.prototype.serializeBinary = function () {
 proto.clapi.InflightPost.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       1,
       f,
@@ -1400,7 +1400,7 @@ proto.clapi.InflightPost.serializeBinaryToWriter = function (message, writer) {
     );
   }
   f = message.getEntity();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, mimapi_mimapi_pb.Post.serializeBinaryToWriter);
   }
 };
@@ -1429,7 +1429,7 @@ proto.clapi.InflightPost.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.clapi.InflightPost.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -1456,7 +1456,7 @@ proto.clapi.InflightPost.prototype.clearEntity = function () {
  * @return {!boolean}
  */
 proto.clapi.InflightPost.prototype.hasEntity = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -1588,7 +1588,7 @@ proto.clapi.InflightVote.prototype.serializeBinary = function () {
 proto.clapi.InflightVote.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       1,
       f,
@@ -1596,7 +1596,7 @@ proto.clapi.InflightVote.serializeBinaryToWriter = function (message, writer) {
     );
   }
   f = message.getEntity();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, mimapi_mimapi_pb.Vote.serializeBinaryToWriter);
   }
 };
@@ -1625,7 +1625,7 @@ proto.clapi.InflightVote.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.clapi.InflightVote.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -1652,7 +1652,7 @@ proto.clapi.InflightVote.prototype.clearEntity = function () {
  * @return {!boolean}
  */
 proto.clapi.InflightVote.prototype.hasEntity = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -1784,7 +1784,7 @@ proto.clapi.InflightKey.prototype.serializeBinary = function () {
 proto.clapi.InflightKey.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       1,
       f,
@@ -1792,7 +1792,7 @@ proto.clapi.InflightKey.serializeBinaryToWriter = function (message, writer) {
     );
   }
   f = message.getEntity();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(2, f, mimapi_mimapi_pb.Key.serializeBinaryToWriter);
   }
 };
@@ -1821,7 +1821,7 @@ proto.clapi.InflightKey.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.clapi.InflightKey.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -1848,7 +1848,7 @@ proto.clapi.InflightKey.prototype.clearEntity = function () {
  * @return {!boolean}
  */
 proto.clapi.InflightKey.prototype.hasEntity = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -1991,7 +1991,7 @@ proto.clapi.InflightTruststate.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getStatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       1,
       f,
@@ -1999,7 +1999,7 @@ proto.clapi.InflightTruststate.serializeBinaryToWriter = function (
     );
   }
   f = message.getEntity();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       2,
       f,
@@ -2032,7 +2032,7 @@ proto.clapi.InflightTruststate.prototype.clearStatus = function () {
  * @return {!boolean}
  */
 proto.clapi.InflightTruststate.prototype.hasStatus = function () {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 1) !== null;
 };
 
 /**
@@ -2059,7 +2059,7 @@ proto.clapi.InflightTruststate.prototype.clearEntity = function () {
  * @return {!boolean}
  */
 proto.clapi.InflightTruststate.prototype.hasEntity = function () {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 2) !== null;
 };
 
 /**
@@ -2680,7 +2680,7 @@ proto.clapi.AmbientStatusPayload.serializeBinaryToWriter = function (
 ) {
   var f = undefined;
   f = message.getBackendambientstatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       1,
       f,
@@ -2688,7 +2688,7 @@ proto.clapi.AmbientStatusPayload.serializeBinaryToWriter = function (
     );
   }
   f = message.getFrontendambientstatus();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       2,
       f,
@@ -2696,7 +2696,7 @@ proto.clapi.AmbientStatusPayload.serializeBinaryToWriter = function (
     );
   }
   f = message.getInflights();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(3, f, proto.clapi.Inflights.serializeBinaryToWriter);
   }
 };
@@ -2734,7 +2734,7 @@ proto.clapi.AmbientStatusPayload.prototype.clearBackendambientstatus =
  */
 proto.clapi.AmbientStatusPayload.prototype.hasBackendambientstatus =
   function () {
-    return jspb.Message.getField(this, 1) != null;
+    return jspb.Message.getField(this, 1) !== null;
   };
 
 /**
@@ -2770,7 +2770,7 @@ proto.clapi.AmbientStatusPayload.prototype.clearFrontendambientstatus =
  */
 proto.clapi.AmbientStatusPayload.prototype.hasFrontendambientstatus =
   function () {
-    return jspb.Message.getField(this, 2) != null;
+    return jspb.Message.getField(this, 2) !== null;
   };
 
 /**
@@ -2797,7 +2797,7 @@ proto.clapi.AmbientStatusPayload.prototype.clearInflights = function () {
  * @return {!boolean}
  */
 proto.clapi.AmbientStatusPayload.prototype.hasInflights = function () {
-  return jspb.Message.getField(this, 3) != null;
+  return jspb.Message.getField(this, 3) !== null;
 };
 
 /**
@@ -3073,7 +3073,7 @@ proto.clapi.AmbientLocalUserEntityPayload.serializeBinaryToWriter = function (
     writer.writeBool(1, f);
   }
   f = message.getLocaluserentity();
-  if (f != null) {
+  if (f !== null) {
     writer.writeMessage(
       2,
       f,
@@ -3133,7 +3133,7 @@ proto.clapi.AmbientLocalUserEntityPayload.prototype.clearLocaluserentity =
  */
 proto.clapi.AmbientLocalUserEntityPayload.prototype.hasLocaluserentity =
   function () {
-    return jspb.Message.getField(this, 2) != null;
+    return jspb.Message.getField(this, 2) !== null;
   };
 
 /**
