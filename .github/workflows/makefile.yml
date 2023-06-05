@@ -31,7 +31,7 @@ jobs:
     - name: Use Node.js 12.13
       uses: actions/setup-node@v3
       with:
-        node-version: '12.13'
+        node-version: '12.22.12'
     
     - name: Set up GCC
       uses: egor-tensin/setup-gcc@v1
