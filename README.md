@@ -19,6 +19,8 @@ The current version is a developer preview. It collects usage metrics to help de
 
 This is a developer preview, a pre-alpha. It is unstable and untested. It is not production-ready.
 
+This is a development fork of Aether. It is not an official version!
+
 ### Legalese
 
 This software is provided for free, on an **_as-is_** basis, with no warranty, and **_without any expressed or implied offer of support_**.
