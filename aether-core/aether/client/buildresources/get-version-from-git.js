@@ -12,15 +12,23 @@ function gitIsDirty() {
   /*
           Check if we have any uncommitted changes at the moment of compile.
       */
-  let isDirty = execSync(
-    `git diff-index --quiet HEAD -- . ':!*package-lock.json' ':!*package.json' ':!*buildresources/get-version-from-git.js' ':!../support/getaether-website' || echo 'dirty'`
-  )
+  let isDirty = ""
+  if(process.platform == "win32") {
+    let isDirty = execSync(
+      `(git diff-index --quiet HEAD -- . ':!*package-lock.json' ':!*package.json' ':!*buildresources/get-version-from-git.js' ':!../support/getaether-website') -or (echo 'dirty')`
+    )
+  } else {
+    let isDirty = execSync(
+      `git diff-index --quiet HEAD -- . ':!*package-lock.json' ':!*package.json' ':!*buildresources/get-version-from-git.js' ':!../support/getaether-website' || echo 'dirty'`
+    )
+  }
+  
   return isDirty.toString()
 }
 
 function getBaseVersion() {
   if(process.platform == "win32") {
-    return execSync('print "%s" `git describe --abbrev=0 --tags`').toString()
+    return execSync('git describe --abbrev=0 --tags').toString()
   } else return execSync('printf "%s" `git describe --abbrev=0 --tags`').toString()
 }
 
@@ -28,7 +36,7 @@ function getBaseBuildNumber() {
   let humanTimestamp = generateTimestamp()
   let commitHash = ""
   if(process.platform == "win32") {
-    let commitHash = execSync('print "%s" `git rev-parse --short HEAD`')
+    let commitHash = execSync('git rev-parse --short HEAD')
   } else {
     let commitHash = execSync('printf "%s" `git rev-parse --short HEAD`')
   }

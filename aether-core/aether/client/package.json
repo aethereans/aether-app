@@ -1,6 +1,6 @@
 {
   "name": "Aether",
-  "version": "2.0.0-dev.16",
+  "version": "2.0.0-dev",
   "description": "Aether",
   "readme": "https://getaether.net",
   "main": "src/app/mainmain.js",
