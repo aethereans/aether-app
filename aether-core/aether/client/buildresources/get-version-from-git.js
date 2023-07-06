@@ -19,12 +19,19 @@ function gitIsDirty() {
 }
 
 function getBaseVersion() {
-  return execSync('printf "%s" `git describe --abbrev=0 --tags`').toString()
+  if(process.platform == "win32") {
+    return execSync('print "%s" `git describe --abbrev=0 --tags`').toString()
+  } else return execSync('printf "%s" `git describe --abbrev=0 --tags`').toString()
 }
 
 function getBaseBuildNumber() {
   let humanTimestamp = generateTimestamp()
-  let commitHash = execSync('printf "%s" `git rev-parse --short HEAD`')
+  let commitHash = ""
+  if(process.platform == "win32") {
+    let commitHash = execSync('print "%s" `git rev-parse --short HEAD`')
+  } else {
+    let commitHash = execSync('printf "%s" `git rev-parse --short HEAD`')
+  }
   let dirty = gitIsDirty()
   let str = humanTimestamp + '.' + commitHash
   if (dirty) {
