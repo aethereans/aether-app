@@ -13,15 +13,10 @@ function gitIsDirty() {
           Check if we have any uncommitted changes at the moment of compile.
       */
   let isDirty = ""
-  if(process.platform == "win32") {
-    let isDirty = execSync(
-      `(git diff-index --quiet HEAD -- . ':!*package-lock.json' ':!*package.json' ':!*buildresources/get-version-from-git.js' ':!../support/getaether-website') -or (echo 'dirty')`
-    )
-  } else {
-    let isDirty = execSync(
-      `git diff-index --quiet HEAD -- . ':!*package-lock.json' ':!*package.json' ':!*buildresources/get-version-from-git.js' ':!../support/getaether-website' || echo 'dirty'`
-    )
-  }
+  
+  let isDirty = execSync(
+    `git diff-index --quiet HEAD -- . ':!*package-lock.json' ':!*package.json' ':!*buildresources/get-version-from-git.js' ':!../support/getaether-website' || echo 'dirty'`
+  )
   
   return isDirty.toString()
 }
