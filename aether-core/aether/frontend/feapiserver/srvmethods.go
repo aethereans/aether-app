@@ -8,6 +8,7 @@ import (
 	"aether-core/aether/frontend/clapiconsumer"
 	"aether-core/aether/frontend/festructs"
 	"aether-core/aether/frontend/refresher"
+
 	// "aether-core/aether/frontend/objpool"
 	"aether-core/aether/frontend/inflights"
 	// "aether-core/aether/io/api"
@@ -22,10 +23,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"golang.org/x/net/context"
-	"google.golang.org/grpc/peer"
 	"net"
 	"time"
+
+	"golang.org/x/net/context"
+	"google.golang.org/grpc/peer"
 )
 
 type server struct{}
@@ -168,7 +170,7 @@ func (s *server) GetAllBoards(ctx context.Context, req *pb.AllBoardsRequest) (*p
 	}
 
 	fmt.Printf("Number of items found in get all boards: %v\n", len(boards))
-	resp := pb.AllBoardsResponse{cproto}
+	resp := pb.AllBoardsResponse{AllBoards: cproto}
 	elapsed := time.Since(start)
 	fmt.Println(elapsed)
 	return &resp, nil
@@ -191,7 +193,9 @@ func (s *server) SetClientAPIServerPort(ctx context.Context, req *pb.SetClientAP
 	clapiconsumer.SendNotifications()
 	clapiconsumer.SendOnboardCompleteStatus()
 	clapiconsumer.SendModModeEnabledStatus()
+	clapiconsumer.SendAlwaysShowNSFWListStatus()
 	clapiconsumer.SendExternalContentAutoloadDisabledStatus()
+	clapiconsumer.SendSFWListDisabledStatus()
 	resp := pb.SetClientAPIServerPortResponse{}
 	return &resp, nil
 }
@@ -422,7 +426,9 @@ func (s *server) SendFEConfigChanges(ctx context.Context, req *pb.FEConfigChange
 	logging.Logf(1, "We've received a FE config change request. Event: %v", *req)
 	ApplyFEConfigChanges(req)
 	clapiconsumer.SendModModeEnabledStatus()
+	clapiconsumer.SendAlwaysShowNSFWListStatus()
 	clapiconsumer.SendExternalContentAutoloadDisabledStatus()
+	clapiconsumer.SendSFWListDisabledStatus()
 	resp := pb.FEConfigChangesResponse{}
 	return &resp, nil
 }
@@ -431,8 +437,15 @@ func ApplyFEConfigChanges(req *pb.FEConfigChangesPayload) {
 	if req.GetModModeEnabledIsSet() {
 		globals.FrontendConfig.SetModModeEnabled(req.GetModModeEnabled())
 	}
+	if req.GetAlwaysShowNSFWListIsSet() {
+		globals.FrontendConfig.SetAlwaysShowNSFWList(req.GetAlwaysShowNSFWList())
+	}
 	if req.GetExternalContentAutoloadDisabledIsSet() {
 		globals.FrontendConfig.SetExternalContentAutoloadDisabled(req.GetExternalContentAutoloadDisabled())
+	}
+	// Added functionality to be able to turn on and off SFW Lists
+	if req.GetSFWListDisabledIsSet() {
+		globals.FrontendConfig.SetSFWListDisabled(req.GetSFWListDisabled())
 	}
 }
 

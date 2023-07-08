@@ -6,6 +6,11 @@
   >
     <div class="flex-carrier signals" v-if="signalsVisible">
       <div class="signals-container">
+        <div 
+          class="nsfw-box"
+          v-show="nsfwBoard">
+          <span class="nsfw-text">NSFW</span>
+        </div>
         <div class="population-count">
           <icon name="regular/user-circle"></icon> {{ userCount }}
         </div>
@@ -71,8 +76,10 @@ var vuexStore = require('../../store/index').default
 export default {
   name: 'a-board-listitem',
   props: ['board', 'inflightStatus', 'uncompiled', 'refresher'],
-  data() {
-    return {}
+  data(this: any) {
+    return {
+      nsfwBoard: !this.board.sfwlisted
+    }
   },
   methods: {
     ...Vuex.mapActions([
@@ -219,6 +226,18 @@ a:hover {
   display: flex;
   flex-direction: column;
   color: $a-grey-600;
+  .nsfw-box {
+    border: 1px solid $a-red;
+    text-align: center;
+    padding:1px;
+    white-space: nowrap;
+    margin:auto;
+    display:flex;
+    .nsfw-box-text {
+      color: $a-red;
+      vertical-align: middle;
+    }
+  }
   .threads-count,
   .population-count {
     margin: auto;

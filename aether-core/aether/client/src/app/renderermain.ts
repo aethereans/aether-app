@@ -165,6 +165,10 @@ Vue.component(
   require('./components/a-notifications-icon.vue').default
 )
 Vue.component(
+  'a-sfwlist-icon',
+  require('./components/a-sfwlist-icon.vue').default
+)
+Vue.component(
   'a-notification-entity',
   require('./components/a-notification-entity.vue').default
 )

@@ -12,10 +12,12 @@ import (
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/toolbox"
+
 	// "aether-core/aether/services/scheduling"
 	// "aether-core/aether/services/toolbox"
 	"encoding/json"
 	"fmt"
+
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	// "sync"
@@ -370,6 +372,20 @@ func SendModModeEnabledStatus() {
 	}
 }
 
+/*----------- Always Show NSFW Lists ------------*/
+func SendAlwaysShowNSFWListStatus() {
+	logging.Logf(1, "SendAlwaysShowNSFWListStatus is called")
+	c, conn := StartClientAPIConnection()
+	defer conn.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), globals.FrontendConfig.GetGRPCServiceTimeout())
+	defer cancel()
+	resp := pb.AlwaysShowNSFWListStatusPayload{AlwaysShowNSFWList: globals.FrontendConfig.GetAlwaysShowNSFWList()}
+	_, err2 := c.SendAlwaysShowNSFWListStatus(ctx, &resp)
+	if err2 != nil {
+		logging.Logf(1, "SendAlwaysShowNSFWListStatus encountered an error. Err: %v", err2)
+	}
+}
+
 /*----------  External content autoload enabled status  ----------*/
 func SendExternalContentAutoloadDisabledStatus() {
 	logging.Logf(1, "SendExternalContentAutoloadDisabledStatus is called")
@@ -381,6 +397,19 @@ func SendExternalContentAutoloadDisabledStatus() {
 	_, err2 := c.SendExternalContentAutoloadDisabledStatus(ctx, &resp)
 	if err2 != nil {
 		logging.Logf(1, "SendExternalContentAutoloadDisabledStatus encountered an error. Err: %v", err2)
+	}
+}
+
+func SendSFWListDisabledStatus() {
+	logging.Logf(1, "SendSFWListDisabledStatus is called")
+	c, conn := StartClientAPIConnection()
+	defer conn.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), globals.FrontendConfig.GetGRPCServiceTimeout())
+	defer cancel()
+	resp := pb.SFWListDisabledStatusPayload{SFWListDisabled: globals.FrontendConfig.GetSFWListDisabled()}
+	_, err2 := c.SendSFWListDisabledStatus(ctx, &resp)
+	if err2 != nil {
+		logging.Logf(1, "SendSFWListDisabledStatus encountered an error. Err: %v", err2)
 	}
 }
 

@@ -40,8 +40,10 @@ export function StartClientAPIServer(): number {
     sendNotifications: SendNotifications,
     sendOnboardCompleteStatus: SendOnboardCompleteStatus,
     sendModModeEnabledStatus: SendModModeEnabledStatus,
+    sendAlwaysShowNSFWListStatus: SendAlwaysShowNSFWListStatus,
     sendExternalContentAutoloadDisabledStatus:
       SendExternalContentAutoloadDisabledStatus,
+    sendSFWListDisabledStatus: SendSFWListDisabledStatus,
     sendSearchResult: SendSearchResult,
   })
   let boundPort: number = server.bind(
@@ -180,7 +182,13 @@ function SendModModeEnabledStatus(req: any, callback: any) {
   let resp = new messages.ModModeEnabledStatusResponse()
   callback(null, resp)
 }
-
+function SendAlwaysShowNSFWListStatus(req: any, callback: any) {
+  console.log('nsfw list status arrived.')
+  let r = req.request.toObject()
+  vuexStore.dispatch('setAlwaysShowNSFWListStatus', r.alwaysshownsfwlist)
+  let resp = new messages.AlwaysShowNSFWListStatusResponse()
+  callback(null, resp)
+}
 function SendExternalContentAutoloadDisabledStatus(req: any, callback: any) {
   console.log('external content autoload disabled status arrived.')
   let r = req.request.toObject()
@@ -191,7 +199,16 @@ function SendExternalContentAutoloadDisabledStatus(req: any, callback: any) {
   let resp = new messages.ExternalContentAutoloadDisabledStatusResponse()
   callback(null, resp)
 }
-
+function SendSFWListDisabledStatus(req: any, callback: any) {
+  console.log('sfw list disabled status arrived.')
+  var r = req.request.toObject()
+  vuexStore.dispatch(
+    'setSFWListDisabledStatus',
+    r.sfwlistdisabled
+  )
+  var resp = new messages.SFWListDisabledStatusResponse()
+  callback(null, resp)
+}
 function SendSearchResult(req: any, callback: any) {
   console.log('Search result arrived.')
   let r = req.request.toObject()

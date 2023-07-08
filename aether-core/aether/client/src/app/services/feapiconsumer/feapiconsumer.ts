@@ -470,7 +470,15 @@ let ExportedMethods = {
     e.setModmodeenabledisset(true)
     this.SendFEConfigChanges(e, callback)
   },
-
+  SendAlwaysShowNSFWListStatus(
+    alwaysShowNSFWList: boolean,
+    callback: any
+  ) {
+    let e = new pmessages.FEConfigChangesPayload()
+    e.setAlwaysshownsfwlist(alwaysShowNSFWList)
+    e.setAlwaysshownsfwlistisset(true)
+    this.SendFEConfigChanges(e, callback)
+  },
   SendExternalContentAutoloadDisabledStatus(
     externalContentAutoloadDisabled: boolean,
     callback: any
@@ -478,6 +486,15 @@ let ExportedMethods = {
     let e = new pmessages.FEConfigChangesPayload()
     e.setExternalcontentautoloaddisabled(externalContentAutoloadDisabled)
     e.setExternalcontentautoloaddisabledisset(true)
+    this.SendFEConfigChanges(e, callback)
+  },
+  SendSFWListDisabledStatus(
+    sfwListDisabled: boolean,
+    callback: any
+  ) {
+    let e = new pmessages.FEConfigChangesPayload()
+    e.setSfwlistdisabled(sfwListDisabled)
+    e.setSfwlistdisabledisset(true)
     this.SendFEConfigChanges(e, callback)
   },
 
