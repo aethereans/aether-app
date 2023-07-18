@@ -29,9 +29,9 @@ function getBaseBuildNumber() {
   let humanTimestamp = generateTimestamp()
   let commitHash = ""
   if(process.platform == "win32") {
-    let commitHash = execSync('git rev-parse --short HEAD')
+    commitHash = execSync('git rev-parse --short HEAD')
   } else {
-    let commitHash = execSync('printf "%s" `git rev-parse --short HEAD`')
+    commitHash = execSync('printf "%s" `git rev-parse --short HEAD`')
   }
   let dirty = gitIsDirty()
   let str = humanTimestamp + '.' + commitHash
