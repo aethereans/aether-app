@@ -3,7 +3,7 @@ const execSync = require('child_process').execSync
 function main() {
   let version = (getBaseVersion() + '+' + getBaseBuildNumber()).toLowerCase()
   execSync(
-    'npm version --allow-same-version --git-tag-version false ' + version
+    'npm -v --allow-same-version --git-tag-version false ' + version
   )
   console.log(version)
 }
