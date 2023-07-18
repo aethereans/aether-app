@@ -6,9 +6,7 @@
   >
     <div class="flex-carrier signals" v-if="signalsVisible">
       <div class="signals-container">
-        <div 
-          class="nsfw-box"
-          v-show="nsfwBoard">
+        <div class="nsfw-box" v-show="nsfwBoard">
           <span class="nsfw-text">NSFW</span>
         </div>
         <div class="population-count">
@@ -78,7 +76,7 @@ export default {
   props: ['board', 'inflightStatus', 'uncompiled', 'refresher'],
   data(this: any) {
     return {
-      nsfwBoard: !this.board.sfwlisted
+      nsfwBoard: !this.board.sfwlisted,
     }
   },
   methods: {
@@ -229,10 +227,10 @@ a:hover {
   .nsfw-box {
     border: 1px solid $a-red;
     text-align: center;
-    padding:1px;
+    padding: 1px;
     white-space: nowrap;
-    margin:auto;
-    display:flex;
+    margin: auto;
+    display: flex;
     .nsfw-box-text {
       color: $a-red;
       vertical-align: middle;
