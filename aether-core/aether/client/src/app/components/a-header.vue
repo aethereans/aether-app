@@ -16,6 +16,7 @@
     <div class="breadcrumbs-container">
       <a-breadcrumbs></a-breadcrumbs>
     </div>
+    <a-sfwlist-icon v-if="localUserExists"></a-sfwlist-icon>
     <a-software-update-icon v-if="newUpdateReady"></a-software-update-icon>
     <a-notifications-icon v-if="localUserExists"></a-notifications-icon>
     <!-- <a-search-icon></a-search-icon> -->

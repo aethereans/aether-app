@@ -331,6 +331,9 @@ let actions = {
   setModModeEnabledStatus(context: any, modModeEnabled: boolean) {
     context.commit('SET_MOD_MODE_ENABLED_STATUS', modModeEnabled)
   },
+  setAlwaysShowNSFWListStatus(context: any, alwaysShowNSFWList: boolean){
+    context.commit('SET_ALWAYS_SHOW_NSFW_LIST_STATUS', alwaysShowNSFWList)
+  },
   setExternalContentAutoloadDisabledStatus(
     context: any,
     externalContentAutoloadDisabled: boolean
@@ -338,6 +341,15 @@ let actions = {
     context.commit(
       'SET_EXTERNAL_CONTENT_AUTOLOAD_DISABLED_STATUS',
       externalContentAutoloadDisabled
+    )
+  },
+  setSFWListDisabledStatus: function (
+    context: any,
+    sfwListDisabled: boolean
+  ) {
+    context.commit(
+      'SET_SFW_LIST_DISABLED_STATUS',
+      sfwListDisabled
     )
   },
   /*----------  History state  ----------*/
@@ -547,6 +559,10 @@ let mutations = {
     state.modModeEnabled = modModeEnabled
     state.modModeEnabledArrived = true
   },
+  SET_ALWAYS_SHOW_NSFW_LIST_STATUS(state: any, alwaysShowNSFWList: any) {
+    state.alwaysShowNSFWList = alwaysShowNSFWList
+    state.alwaysShowNSFWListArrived = true
+  },
   SET_EXTERNAL_CONTENT_AUTOLOAD_DISABLED_STATUS(
     state: any,
     externalContentAutoloadDisabled: any
@@ -564,6 +580,20 @@ let mutations = {
     }
     state.externalContentAutoloadDisabled = externalContentAutoloadDisabled
     state.externalContentAutoloadDisabledArrived = true
+  },
+  SET_SFW_LIST_DISABLED_STATUS(
+    state: any,
+    sfwListDisabled: any
+  ) {
+    // If there's a change, apply the new whitelist.
+    if (
+      state.sfwListDisabled != sfwListDisabled || state.ambientStatus.frontendambientstatus.sfwlistdisabled != sfwListDisabled
+    ) {
+      // There *is* a change. Apply the change.
+      state.ambientStatus.frontendambientstatus.sfwlistdisabled = sfwListDisabled
+      state.sfwListDisabled = sfwListDisabled
+    }
+    state.sfwListDisabledArrived = true
   },
   REGISTER_NEXT_ACTION_IS_HISTORY_MOVE_FORWARD(state: any) {
     state.historyNextActionType = 'HISTORY_BUTTON_MOVE_FORWARD'
@@ -793,9 +823,17 @@ let st = new Vuex.Store({
     modModeEnabled: false,
     modModeEnabledArrived: false,
 
+    /*---------- Always Show NSFW Lists  ------------*/
+    alwaysShowNSFWList: false,
+    alwaysShowNSFWListArrived: false,
+
     /*----------  External content autoload disabled status  ----------*/
     externalContentAutoloadDisabled: false,
     externalContentAutoloadEnabledDisabled: false,
+
+    /*---------- SFWLIST Disabled State ----------*/
+    sfwListDisabled: false,
+    sfwListDisabledArrived: false,
 
     /*----------  History state  ----------*/
     historyMaxCaret: 0,

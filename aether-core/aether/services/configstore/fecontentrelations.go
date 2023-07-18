@@ -250,9 +250,6 @@ func (list *sfwlist) Refresh() {
 }
 
 func (list *sfwlist) IsSFWListedBoard(fp string) (isSFWListed bool) {
-	if list.GetSFWListDisabled() {
-		return true
-	}
 	list.Refresh()
 	return list.FindBoardInSFWList(fp) != -1
 }

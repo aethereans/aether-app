@@ -1,5 +1,5 @@
-'use strict'
-Object.defineProperty(exports, '__esModule', { value: true })
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // let ipc = require('../../../../node_modules/electron-better-ipc')
 // /*----------  Renderer receivers  ----------*/
 // // i.e. renderer does something at the request of renderer

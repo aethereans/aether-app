@@ -2,11 +2,40 @@
   <div class="settings-sublocation">
     <a-markdown :content="headline"></a-markdown>
     <a-markdown :content="intro"></a-markdown>
+    <a
+      class="button is-success is-outlined"
+      @click="toggleSFWListDisabled"
+      v-show="$store.state.ambientStatus.frontendambientstatus.sfwlistdisabled"
+    >
+      NSFW List On
+    </a>
+    <a
+      class="button is-success is-outlined"
+      @click="toggleSFWListDisabled"
+      v-show="!$store.state.ambientStatus.frontendambientstatus.sfwlistdisabled"
+    >
+      NSFW List Off
+    </a>
+    <a
+      class="button is-success is-outlined"
+      @click="toggleAlwaysShowNSFWList"
+      v-show="!$store.state.alwaysShowNSFWList"
+    >
+      Always Show NSFW Boards: Off
+    </a>
+    <a
+      class="button is-success is-outlined"
+      @click="toggleAlwaysShowNSFWList"
+      v-show="$store.state.alwaysShowNSFWList"
+    >
+    Always Show NSFW Boards: On
+    </a>
     <a-markdown :content="content"></a-markdown>
   </div>
 </template>
 
 <script lang="ts">
+var fe = require('../../../services/feapiconsumer/feapiconsumer')
 export default {
   name: 'sfwlist',
   data() {
@@ -16,6 +45,15 @@ export default {
       content: content,
     }
   },
+  methods:{
+    async toggleSFWListDisabled(this: any) {
+        fe.SendSFWListDisabledStatus(!this.$store.state.ambientStatus.frontendambientstatus.sfwlistdisabled, function () {});
+    },
+    async toggleAlwaysShowNSFWList(this: any) {
+      console.log("alwaysShowNSFWList: " + this.$store.state.alwaysShowNSFWList)
+        fe.SendAlwaysShowNSFWListStatus(!this.$store.state.alwaysShowNSFWList, function () {});
+    }
+  }
 }
 // These are var's and not let's because lets are defined only from the point they're in the code, and vars are defined for the whole scope regardless of where they are.
 var headline = '# Safe-for-work communities list'

@@ -10,13 +10,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	cdir "github.com/shibukawa/configdir"
-	"golang.org/x/crypto/ed25519"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 	"time"
+
+	cdir "github.com/shibukawa/configdir"
+	"golang.org/x/crypto/ed25519"
 )
 
 // Config interface, so that we can actually have methods that take either frontend or backend config.
@@ -2918,6 +2919,7 @@ type FrontendConfig struct {
 	OnboardComplete                         bool
 	SFWListDisabled                         bool
 	ModModeEnabled                          bool
+	AlwaysShowNSFWList                      bool
 	KvStoreRetentionDays                    uint
 	LocalDevBackendEnabled                  bool
 	LocalDevBackendDirectory                string
@@ -3284,6 +3286,11 @@ func (config *FrontendConfig) GetSFWListDisabled() bool {
 func (config *FrontendConfig) GetModModeEnabled() bool {
 	config.InitCheck()
 	return config.ModModeEnabled
+}
+
+func (config *FrontendConfig) GetAlwaysShowNSFWList() bool {
+	config.InitCheck()
+	return config.AlwaysShowNSFWList
 }
 
 func (config *FrontendConfig) GetKvStoreRetentionDays() int {
@@ -3811,6 +3818,16 @@ func (config *FrontendConfig) SetOnboardComplete(val bool) error {
 func (config *FrontendConfig) SetSFWListDisabled(val bool) error {
 	config.InitCheck()
 	config.SFWListDisabled = val
+	commitErr := config.Commit()
+	if commitErr != nil {
+		return commitErr
+	}
+	return nil
+}
+
+func (config *FrontendConfig) SetAlwaysShowNSFWList(val bool) error {
+	config.InitCheck()
+	config.AlwaysShowNSFWList = val
 	commitErr := config.Commit()
 	if commitErr != nil {
 		return commitErr

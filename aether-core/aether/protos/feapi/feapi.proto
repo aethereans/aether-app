@@ -323,6 +323,10 @@ message FEConfigChangesPayload{
   bool ModModeEnabled = 2;
   bool ExternalContentAutoloadDisabled = 3;
   bool ExternalContentAutoloadDisabledIsSet = 4;
+  bool SFWListDisabled = 5;
+  bool SFWListDisabledIsSet = 6;
+  bool AlwaysShowNSFWList = 7;
+  bool AlwaysShowNSFWListIsSet = 8;
 }
 message FEConfigChangesResponse{}
 

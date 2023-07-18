@@ -21,7 +21,9 @@ service ClientAPI {
   rpc SendNotifications(NotificationsPayload) returns (NotificationsResponse) {}
   rpc SendOnboardCompleteStatus(OnboardCompleteStatusPayload) returns (OnboardCompleteStatusResponse) {}
   rpc SendModModeEnabledStatus(ModModeEnabledStatusPayload) returns (ModModeEnabledStatusResponse) {}
+  rpc SendAlwaysShowNSFWListStatus(AlwaysShowNSFWListStatusPayload) returns (AlwaysShowNSFWListStatusResponse) {}
   rpc SendExternalContentAutoloadDisabledStatus(ExternalContentAutoloadDisabledStatusPayload) returns (ExternalContentAutoloadDisabledStatusResponse) {}
+  rpc SendSFWListDisabledStatus(SFWListDisabledStatusPayload) returns (SFWListDisabledStatusResponse) {}
   rpc SendSearchResult(SearchResultPayload) returns (SearchResultResponse) {}
 }
 
@@ -166,6 +168,14 @@ message ModModeEnabledStatusPayload {
 
 message ModModeEnabledStatusResponse {}
 
+/*----------  Always Show NSFW List  ----------*/
+
+message AlwaysShowNSFWListStatusPayload {
+  bool AlwaysShowNSFWList = 1;
+}
+
+message AlwaysShowNSFWListStatusResponse {}
+
 /*----------  External content autoload state  ----------*/
 
 message ExternalContentAutoloadDisabledStatusPayload {
@@ -173,6 +183,14 @@ message ExternalContentAutoloadDisabledStatusPayload {
 }
 
 message ExternalContentAutoloadDisabledStatusResponse {}
+
+/*----------  SFW List Disabled autoload state  ----------*/
+
+message SFWListDisabledStatusPayload {
+  bool SFWListDisabled = 1;
+}
+
+message SFWListDisabledStatusResponse {}
 
 /*----------  Search result delivery API  ----------*/
 

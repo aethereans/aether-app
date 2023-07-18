@@ -57,7 +57,7 @@
               class="non-sfwlist-info"
               v-show="
                 !$store.state.ambientStatus.frontendambientstatus
-                  .sfwlistdisabled
+                  .sfwlistdisabled || !$store.state.alwaysShowNSFWList
               "
             >
               <div class="non-sfwlist-info-carrier">
@@ -197,6 +197,7 @@ export default {
       loadingComplete: true,
       currentSearchTerm: '',
       secondaryListVisible: false,
+      alwaysShowNSFWList: this.$store.state.alwaysShowNSFWList,
       searchSpec: {
         fields: [
           {
@@ -313,7 +314,7 @@ export default {
       let primaryList = []
       let vm = this
       if (
-        this.$store.state.ambientStatus.frontendambientstatus.sfwlistdisabled
+        this.$store.state.ambientStatus.frontendambientstatus.sfwlistdisabled && this.$store.state.alwaysShowNSFWList // Only combine lists if "AlwaysShowNSFWList" is enabled. Otherswise continue seperated display.
       ) {
         // SFW list is disabled. All communities are sfw listed communities.
         primaryList = this.$store.state.boardsSearchResult
@@ -392,7 +393,7 @@ export default {
       this.sendEvent({ type: 'INCR_SECONDARY_LIST_CARET' })
     },
     toggleSecondaryListVisible(this: any) {
-      this.secondaryListVisible = this.secondaryListVisible ? false : true
+      this.secondaryListVisible = !this.secondaryListVisible
     },
   },
 }
