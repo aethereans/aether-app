@@ -64,6 +64,31 @@ export default {
 var headline = '# Changelog'
 var intro = `**This is the change history between versions. The most current version of the changelog can be found [here](https://getaether.net/docs/changelog).**`
 var content = `
+## 2.1.0.dev.1
+*July 19, 2023*
+
+This is the first versioed release of Aether since I (Frigyes06) started work on the codebase
+
+### Features
+
+- NSFW List toggle: next to notifications icon
+
+- NSFW list options in the UI under Preferences > Safe-for-work list
+
+### Improvements
+
+- Upgraded a lot of dependencies, including upgrading to Node v12
+
+- Upgraded to go 1.20
+
+- Upgraded vie to 2.7.x
+
+### Bug fixes
+
+- Made the codebase buildable again.
+
+- Fixed 404 error from link in the advanced settings
+
 ## 2.0.0.dev.14
 *Sept 19, 2019*
 
