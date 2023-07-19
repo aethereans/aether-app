@@ -378,7 +378,8 @@ export default {
       let secondaryList = []
       let vm = this
       if (
-        this.$store.state.ambientStatus.frontendambientstatus.sfwlistdisabled && this.$store.state.alwaysShowNSFWList
+        this.$store.state.ambientStatus.frontendambientstatus.sfwlistdisabled &&
+        this.$store.state.alwaysShowNSFWList
       ) {
         // SFW list is disabled. All communities are sfw listed communities.
         secondaryList = this.mergedRawContentList

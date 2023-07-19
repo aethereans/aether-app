@@ -3,590 +3,713 @@
 // Original file comments:
 // Frontend API server Protobufs
 //
-'use strict';
-var grpc = require('grpc');
-var feapi_feapi_pb = require('../feapi/feapi_pb.js');
-var feobjects_feobjects_pb = require('../feobjects/feobjects_pb.js');
-var mimapi_mimapi_pb = require('../mimapi/mimapi_pb.js');
+"use strict";
+var grpc = require("grpc");
+var feapi_feapi_pb = require("../feapi/feapi_pb.js");
+var feobjects_feobjects_pb = require("../feobjects/feobjects_pb.js");
+var mimapi_mimapi_pb = require("../mimapi/mimapi_pb.js");
 
 function serialize_feapi_AllBoardsRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.AllBoardsRequest)) {
-    throw new Error('Expected argument of type feapi.AllBoardsRequest');
+    throw new Error("Expected argument of type feapi.AllBoardsRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_AllBoardsRequest(buffer_arg) {
-  return feapi_feapi_pb.AllBoardsRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.AllBoardsRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_AllBoardsResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.AllBoardsResponse)) {
-    throw new Error('Expected argument of type feapi.AllBoardsResponse');
+    throw new Error("Expected argument of type feapi.AllBoardsResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_AllBoardsResponse(buffer_arg) {
-  return feapi_feapi_pb.AllBoardsResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.AllBoardsResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_AmbientStatusRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.AmbientStatusRequest)) {
-    throw new Error('Expected argument of type feapi.AmbientStatusRequest');
+    throw new Error("Expected argument of type feapi.AmbientStatusRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_AmbientStatusRequest(buffer_arg) {
-  return feapi_feapi_pb.AmbientStatusRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.AmbientStatusRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_AmbientStatusResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.AmbientStatusResponse)) {
-    throw new Error('Expected argument of type feapi.AmbientStatusResponse');
+    throw new Error("Expected argument of type feapi.AmbientStatusResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_AmbientStatusResponse(buffer_arg) {
-  return feapi_feapi_pb.AmbientStatusResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.AmbientStatusResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_BEReadyRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.BEReadyRequest)) {
-    throw new Error('Expected argument of type feapi.BEReadyRequest');
+    throw new Error("Expected argument of type feapi.BEReadyRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_BEReadyRequest(buffer_arg) {
-  return feapi_feapi_pb.BEReadyRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.BEReadyRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_BEReadyResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.BEReadyResponse)) {
-    throw new Error('Expected argument of type feapi.BEReadyResponse');
+    throw new Error("Expected argument of type feapi.BEReadyResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_BEReadyResponse(buffer_arg) {
-  return feapi_feapi_pb.BEReadyResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.BEReadyResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_BackendAmbientStatusPayload(arg) {
   if (!(arg instanceof feapi_feapi_pb.BackendAmbientStatusPayload)) {
-    throw new Error('Expected argument of type feapi.BackendAmbientStatusPayload');
+    throw new Error(
+      "Expected argument of type feapi.BackendAmbientStatusPayload",
+    );
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_BackendAmbientStatusPayload(buffer_arg) {
-  return feapi_feapi_pb.BackendAmbientStatusPayload.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.BackendAmbientStatusPayload.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_BackendAmbientStatusResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.BackendAmbientStatusResponse)) {
-    throw new Error('Expected argument of type feapi.BackendAmbientStatusResponse');
+    throw new Error(
+      "Expected argument of type feapi.BackendAmbientStatusResponse",
+    );
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_BackendAmbientStatusResponse(buffer_arg) {
-  return feapi_feapi_pb.BackendAmbientStatusResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.BackendAmbientStatusResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_BoardAndThreadsRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.BoardAndThreadsRequest)) {
-    throw new Error('Expected argument of type feapi.BoardAndThreadsRequest');
+    throw new Error("Expected argument of type feapi.BoardAndThreadsRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_BoardAndThreadsRequest(buffer_arg) {
-  return feapi_feapi_pb.BoardAndThreadsRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.BoardAndThreadsRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_BoardAndThreadsResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.BoardAndThreadsResponse)) {
-    throw new Error('Expected argument of type feapi.BoardAndThreadsResponse');
+    throw new Error("Expected argument of type feapi.BoardAndThreadsResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_BoardAndThreadsResponse(buffer_arg) {
-  return feapi_feapi_pb.BoardAndThreadsResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.BoardAndThreadsResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_BoardModActionsRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.BoardModActionsRequest)) {
-    throw new Error('Expected argument of type feapi.BoardModActionsRequest');
+    throw new Error("Expected argument of type feapi.BoardModActionsRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_BoardModActionsRequest(buffer_arg) {
-  return feapi_feapi_pb.BoardModActionsRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.BoardModActionsRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_BoardModActionsResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.BoardModActionsResponse)) {
-    throw new Error('Expected argument of type feapi.BoardModActionsResponse');
+    throw new Error("Expected argument of type feapi.BoardModActionsResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_BoardModActionsResponse(buffer_arg) {
-  return feapi_feapi_pb.BoardModActionsResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.BoardModActionsResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_BoardReportsRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.BoardReportsRequest)) {
-    throw new Error('Expected argument of type feapi.BoardReportsRequest');
+    throw new Error("Expected argument of type feapi.BoardReportsRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_BoardReportsRequest(buffer_arg) {
-  return feapi_feapi_pb.BoardReportsRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.BoardReportsRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_BoardReportsResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.BoardReportsResponse)) {
-    throw new Error('Expected argument of type feapi.BoardReportsResponse');
+    throw new Error("Expected argument of type feapi.BoardReportsResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_BoardReportsResponse(buffer_arg) {
-  return feapi_feapi_pb.BoardReportsResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.BoardReportsResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_BoardSignalRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.BoardSignalRequest)) {
-    throw new Error('Expected argument of type feapi.BoardSignalRequest');
+    throw new Error("Expected argument of type feapi.BoardSignalRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_BoardSignalRequest(buffer_arg) {
-  return feapi_feapi_pb.BoardSignalRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.BoardSignalRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_BoardSignalResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.BoardSignalResponse)) {
-    throw new Error('Expected argument of type feapi.BoardSignalResponse');
+    throw new Error("Expected argument of type feapi.BoardSignalResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_BoardSignalResponse(buffer_arg) {
-  return feapi_feapi_pb.BoardSignalResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.BoardSignalResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_ClientVersionPayload(arg) {
   if (!(arg instanceof feapi_feapi_pb.ClientVersionPayload)) {
-    throw new Error('Expected argument of type feapi.ClientVersionPayload');
+    throw new Error("Expected argument of type feapi.ClientVersionPayload");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_ClientVersionPayload(buffer_arg) {
-  return feapi_feapi_pb.ClientVersionPayload.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.ClientVersionPayload.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_ClientVersionResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.ClientVersionResponse)) {
-    throw new Error('Expected argument of type feapi.ClientVersionResponse');
+    throw new Error("Expected argument of type feapi.ClientVersionResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_ClientVersionResponse(buffer_arg) {
-  return feapi_feapi_pb.ClientVersionResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.ClientVersionResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_ContentEventPayload(arg) {
   if (!(arg instanceof feapi_feapi_pb.ContentEventPayload)) {
-    throw new Error('Expected argument of type feapi.ContentEventPayload');
+    throw new Error("Expected argument of type feapi.ContentEventPayload");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_ContentEventPayload(buffer_arg) {
-  return feapi_feapi_pb.ContentEventPayload.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.ContentEventPayload.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_ContentEventResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.ContentEventResponse)) {
-    throw new Error('Expected argument of type feapi.ContentEventResponse');
+    throw new Error("Expected argument of type feapi.ContentEventResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_ContentEventResponse(buffer_arg) {
-  return feapi_feapi_pb.ContentEventResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.ContentEventResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_FEConfigChangesPayload(arg) {
   if (!(arg instanceof feapi_feapi_pb.FEConfigChangesPayload)) {
-    throw new Error('Expected argument of type feapi.FEConfigChangesPayload');
+    throw new Error("Expected argument of type feapi.FEConfigChangesPayload");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_FEConfigChangesPayload(buffer_arg) {
-  return feapi_feapi_pb.FEConfigChangesPayload.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.FEConfigChangesPayload.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_FEConfigChangesResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.FEConfigChangesResponse)) {
-    throw new Error('Expected argument of type feapi.FEConfigChangesResponse');
+    throw new Error("Expected argument of type feapi.FEConfigChangesResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_FEConfigChangesResponse(buffer_arg) {
-  return feapi_feapi_pb.FEConfigChangesResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.FEConfigChangesResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_HomeViewRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.HomeViewRequest)) {
-    throw new Error('Expected argument of type feapi.HomeViewRequest');
+    throw new Error("Expected argument of type feapi.HomeViewRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_HomeViewRequest(buffer_arg) {
-  return feapi_feapi_pb.HomeViewRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.HomeViewRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_HomeViewResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.HomeViewResponse)) {
-    throw new Error('Expected argument of type feapi.HomeViewResponse');
+    throw new Error("Expected argument of type feapi.HomeViewResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_HomeViewResponse(buffer_arg) {
-  return feapi_feapi_pb.HomeViewResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.HomeViewResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_InflightsPruneRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.InflightsPruneRequest)) {
-    throw new Error('Expected argument of type feapi.InflightsPruneRequest');
+    throw new Error("Expected argument of type feapi.InflightsPruneRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_InflightsPruneRequest(buffer_arg) {
-  return feapi_feapi_pb.InflightsPruneRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.InflightsPruneRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_InflightsPruneResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.InflightsPruneResponse)) {
-    throw new Error('Expected argument of type feapi.InflightsPruneResponse');
+    throw new Error("Expected argument of type feapi.InflightsPruneResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_InflightsPruneResponse(buffer_arg) {
-  return feapi_feapi_pb.InflightsPruneResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.InflightsPruneResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_NewViewRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.NewViewRequest)) {
-    throw new Error('Expected argument of type feapi.NewViewRequest');
+    throw new Error("Expected argument of type feapi.NewViewRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_NewViewRequest(buffer_arg) {
-  return feapi_feapi_pb.NewViewRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.NewViewRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_NewViewResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.NewViewResponse)) {
-    throw new Error('Expected argument of type feapi.NewViewResponse');
+    throw new Error("Expected argument of type feapi.NewViewResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_NewViewResponse(buffer_arg) {
-  return feapi_feapi_pb.NewViewResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.NewViewResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_NotificationsRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.NotificationsRequest)) {
-    throw new Error('Expected argument of type feapi.NotificationsRequest');
+    throw new Error("Expected argument of type feapi.NotificationsRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_NotificationsRequest(buffer_arg) {
-  return feapi_feapi_pb.NotificationsRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.NotificationsRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_NotificationsResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.NotificationsResponse)) {
-    throw new Error('Expected argument of type feapi.NotificationsResponse');
+    throw new Error("Expected argument of type feapi.NotificationsResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_NotificationsResponse(buffer_arg) {
-  return feapi_feapi_pb.NotificationsResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.NotificationsResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_NotificationsSignalPayload(arg) {
   if (!(arg instanceof feapi_feapi_pb.NotificationsSignalPayload)) {
-    throw new Error('Expected argument of type feapi.NotificationsSignalPayload');
+    throw new Error(
+      "Expected argument of type feapi.NotificationsSignalPayload",
+    );
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_NotificationsSignalPayload(buffer_arg) {
-  return feapi_feapi_pb.NotificationsSignalPayload.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.NotificationsSignalPayload.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_NotificationsSignalResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.NotificationsSignalResponse)) {
-    throw new Error('Expected argument of type feapi.NotificationsSignalResponse');
+    throw new Error(
+      "Expected argument of type feapi.NotificationsSignalResponse",
+    );
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_NotificationsSignalResponse(buffer_arg) {
-  return feapi_feapi_pb.NotificationsSignalResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.NotificationsSignalResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_OnboardCompleteRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.OnboardCompleteRequest)) {
-    throw new Error('Expected argument of type feapi.OnboardCompleteRequest');
+    throw new Error("Expected argument of type feapi.OnboardCompleteRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_OnboardCompleteRequest(buffer_arg) {
-  return feapi_feapi_pb.OnboardCompleteRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.OnboardCompleteRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_OnboardCompleteResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.OnboardCompleteResponse)) {
-    throw new Error('Expected argument of type feapi.OnboardCompleteResponse');
+    throw new Error("Expected argument of type feapi.OnboardCompleteResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_OnboardCompleteResponse(buffer_arg) {
-  return feapi_feapi_pb.OnboardCompleteResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.OnboardCompleteResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_PopularViewRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.PopularViewRequest)) {
-    throw new Error('Expected argument of type feapi.PopularViewRequest');
+    throw new Error("Expected argument of type feapi.PopularViewRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_PopularViewRequest(buffer_arg) {
-  return feapi_feapi_pb.PopularViewRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.PopularViewRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_PopularViewResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.PopularViewResponse)) {
-    throw new Error('Expected argument of type feapi.PopularViewResponse');
+    throw new Error("Expected argument of type feapi.PopularViewResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_PopularViewResponse(buffer_arg) {
-  return feapi_feapi_pb.PopularViewResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.PopularViewResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_SearchRequestPayload(arg) {
   if (!(arg instanceof feapi_feapi_pb.SearchRequestPayload)) {
-    throw new Error('Expected argument of type feapi.SearchRequestPayload');
+    throw new Error("Expected argument of type feapi.SearchRequestPayload");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_SearchRequestPayload(buffer_arg) {
-  return feapi_feapi_pb.SearchRequestPayload.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.SearchRequestPayload.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_SearchRequestResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.SearchRequestResponse)) {
-    throw new Error('Expected argument of type feapi.SearchRequestResponse');
+    throw new Error("Expected argument of type feapi.SearchRequestResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_SearchRequestResponse(buffer_arg) {
-  return feapi_feapi_pb.SearchRequestResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.SearchRequestResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_SendAddressPayload(arg) {
   if (!(arg instanceof feapi_feapi_pb.SendAddressPayload)) {
-    throw new Error('Expected argument of type feapi.SendAddressPayload');
+    throw new Error("Expected argument of type feapi.SendAddressPayload");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_SendAddressPayload(buffer_arg) {
-  return feapi_feapi_pb.SendAddressPayload.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.SendAddressPayload.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_SendAddressResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.SendAddressResponse)) {
-    throw new Error('Expected argument of type feapi.SendAddressResponse');
+    throw new Error("Expected argument of type feapi.SendAddressResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_SendAddressResponse(buffer_arg) {
-  return feapi_feapi_pb.SendAddressResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.SendAddressResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_SendMintedUsernamesPayload(arg) {
   if (!(arg instanceof feapi_feapi_pb.SendMintedUsernamesPayload)) {
-    throw new Error('Expected argument of type feapi.SendMintedUsernamesPayload');
+    throw new Error(
+      "Expected argument of type feapi.SendMintedUsernamesPayload",
+    );
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_SendMintedUsernamesPayload(buffer_arg) {
-  return feapi_feapi_pb.SendMintedUsernamesPayload.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.SendMintedUsernamesPayload.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_SendMintedUsernamesResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.SendMintedUsernamesResponse)) {
-    throw new Error('Expected argument of type feapi.SendMintedUsernamesResponse');
+    throw new Error(
+      "Expected argument of type feapi.SendMintedUsernamesResponse",
+    );
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_SendMintedUsernamesResponse(buffer_arg) {
-  return feapi_feapi_pb.SendMintedUsernamesResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.SendMintedUsernamesResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_SetClientAPIServerPortRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.SetClientAPIServerPortRequest)) {
-    throw new Error('Expected argument of type feapi.SetClientAPIServerPortRequest');
+    throw new Error(
+      "Expected argument of type feapi.SetClientAPIServerPortRequest",
+    );
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_SetClientAPIServerPortRequest(buffer_arg) {
-  return feapi_feapi_pb.SetClientAPIServerPortRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.SetClientAPIServerPortRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_SetClientAPIServerPortResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.SetClientAPIServerPortResponse)) {
-    throw new Error('Expected argument of type feapi.SetClientAPIServerPortResponse');
+    throw new Error(
+      "Expected argument of type feapi.SetClientAPIServerPortResponse",
+    );
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_SetClientAPIServerPortResponse(buffer_arg) {
-  return feapi_feapi_pb.SetClientAPIServerPortResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.SetClientAPIServerPortResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_SignalEventPayload(arg) {
   if (!(arg instanceof feapi_feapi_pb.SignalEventPayload)) {
-    throw new Error('Expected argument of type feapi.SignalEventPayload');
+    throw new Error("Expected argument of type feapi.SignalEventPayload");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_SignalEventPayload(buffer_arg) {
-  return feapi_feapi_pb.SignalEventPayload.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.SignalEventPayload.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_SignalEventResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.SignalEventResponse)) {
-    throw new Error('Expected argument of type feapi.SignalEventResponse');
+    throw new Error("Expected argument of type feapi.SignalEventResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_SignalEventResponse(buffer_arg) {
-  return feapi_feapi_pb.SignalEventResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.SignalEventResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_ThreadAndPostsRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.ThreadAndPostsRequest)) {
-    throw new Error('Expected argument of type feapi.ThreadAndPostsRequest');
+    throw new Error("Expected argument of type feapi.ThreadAndPostsRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_ThreadAndPostsRequest(buffer_arg) {
-  return feapi_feapi_pb.ThreadAndPostsRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.ThreadAndPostsRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_ThreadAndPostsResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.ThreadAndPostsResponse)) {
-    throw new Error('Expected argument of type feapi.ThreadAndPostsResponse');
+    throw new Error("Expected argument of type feapi.ThreadAndPostsResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_ThreadAndPostsResponse(buffer_arg) {
-  return feapi_feapi_pb.ThreadAndPostsResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.ThreadAndPostsResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_UncompiledEntityByKeyRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.UncompiledEntityByKeyRequest)) {
-    throw new Error('Expected argument of type feapi.UncompiledEntityByKeyRequest');
+    throw new Error(
+      "Expected argument of type feapi.UncompiledEntityByKeyRequest",
+    );
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_UncompiledEntityByKeyRequest(buffer_arg) {
-  return feapi_feapi_pb.UncompiledEntityByKeyRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.UncompiledEntityByKeyRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_UncompiledEntityByKeyResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.UncompiledEntityByKeyResponse)) {
-    throw new Error('Expected argument of type feapi.UncompiledEntityByKeyResponse');
+    throw new Error(
+      "Expected argument of type feapi.UncompiledEntityByKeyResponse",
+    );
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_UncompiledEntityByKeyResponse(buffer_arg) {
-  return feapi_feapi_pb.UncompiledEntityByKeyResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.UncompiledEntityByKeyResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_UserAndGraphRequest(arg) {
   if (!(arg instanceof feapi_feapi_pb.UserAndGraphRequest)) {
-    throw new Error('Expected argument of type feapi.UserAndGraphRequest');
+    throw new Error("Expected argument of type feapi.UserAndGraphRequest");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_UserAndGraphRequest(buffer_arg) {
-  return feapi_feapi_pb.UserAndGraphRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.UserAndGraphRequest.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
 function serialize_feapi_UserAndGraphResponse(arg) {
   if (!(arg instanceof feapi_feapi_pb.UserAndGraphResponse)) {
-    throw new Error('Expected argument of type feapi.UserAndGraphResponse');
+    throw new Error("Expected argument of type feapi.UserAndGraphResponse");
   }
   return new Buffer(arg.serializeBinary());
 }
 
 function deserialize_feapi_UserAndGraphResponse(buffer_arg) {
-  return feapi_feapi_pb.UserAndGraphResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return feapi_feapi_pb.UserAndGraphResponse.deserializeBinary(
+    new Uint8Array(buffer_arg),
+  );
 }
 
-
 // These "Set", "Get" verbs are written from the viewpoint of the consumer of this api.
-var FrontendAPIService = exports.FrontendAPIService = {
+var FrontendAPIService = (exports.FrontendAPIService = {
   // ----------  Methods used by client  ----------
   setClientAPIServerPort: {
-    path: '/feapi.FrontendAPI/SetClientAPIServerPort',
+    path: "/feapi.FrontendAPI/SetClientAPIServerPort",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.SetClientAPIServerPortRequest,
@@ -597,7 +720,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_SetClientAPIServerPortResponse,
   },
   getThreadAndPosts: {
-    path: '/feapi.FrontendAPI/GetThreadAndPosts',
+    path: "/feapi.FrontendAPI/GetThreadAndPosts",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.ThreadAndPostsRequest,
@@ -608,7 +731,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_ThreadAndPostsResponse,
   },
   getBoardAndThreads: {
-    path: '/feapi.FrontendAPI/GetBoardAndThreads',
+    path: "/feapi.FrontendAPI/GetBoardAndThreads",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.BoardAndThreadsRequest,
@@ -619,7 +742,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_BoardAndThreadsResponse,
   },
   getAllBoards: {
-    path: '/feapi.FrontendAPI/GetAllBoards',
+    path: "/feapi.FrontendAPI/GetAllBoards",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.AllBoardsRequest,
@@ -630,7 +753,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_AllBoardsResponse,
   },
   setBoardSignal: {
-    path: '/feapi.FrontendAPI/SetBoardSignal',
+    path: "/feapi.FrontendAPI/SetBoardSignal",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.BoardSignalRequest,
@@ -641,7 +764,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_BoardSignalResponse,
   },
   getUserAndGraph: {
-    path: '/feapi.FrontendAPI/GetUserAndGraph',
+    path: "/feapi.FrontendAPI/GetUserAndGraph",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.UserAndGraphRequest,
@@ -652,7 +775,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_UserAndGraphResponse,
   },
   sendContentEvent: {
-    path: '/feapi.FrontendAPI/SendContentEvent',
+    path: "/feapi.FrontendAPI/SendContentEvent",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.ContentEventPayload,
@@ -663,7 +786,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_ContentEventResponse,
   },
   sendSignalEvent: {
-    path: '/feapi.FrontendAPI/SendSignalEvent',
+    path: "/feapi.FrontendAPI/SendSignalEvent",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.SignalEventPayload,
@@ -674,7 +797,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_SignalEventResponse,
   },
   getUncompiledEntityByKey: {
-    path: '/feapi.FrontendAPI/GetUncompiledEntityByKey',
+    path: "/feapi.FrontendAPI/GetUncompiledEntityByKey",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.UncompiledEntityByKeyRequest,
@@ -685,7 +808,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_UncompiledEntityByKeyResponse,
   },
   sendInflightsPruneRequest: {
-    path: '/feapi.FrontendAPI/SendInflightsPruneRequest',
+    path: "/feapi.FrontendAPI/SendInflightsPruneRequest",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.InflightsPruneRequest,
@@ -696,7 +819,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_InflightsPruneResponse,
   },
   requestAmbientStatus: {
-    path: '/feapi.FrontendAPI/RequestAmbientStatus',
+    path: "/feapi.FrontendAPI/RequestAmbientStatus",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.AmbientStatusRequest,
@@ -708,7 +831,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
   },
   // ^ Client requests ambient status to be sent in.
   requestHomeView: {
-    path: '/feapi.FrontendAPI/RequestHomeView',
+    path: "/feapi.FrontendAPI/RequestHomeView",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.HomeViewRequest,
@@ -719,7 +842,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_HomeViewResponse,
   },
   requestPopularView: {
-    path: '/feapi.FrontendAPI/RequestPopularView',
+    path: "/feapi.FrontendAPI/RequestPopularView",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.PopularViewRequest,
@@ -730,7 +853,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_PopularViewResponse,
   },
   requestNewView: {
-    path: '/feapi.FrontendAPI/RequestNewView',
+    path: "/feapi.FrontendAPI/RequestNewView",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.NewViewRequest,
@@ -741,7 +864,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_NewViewResponse,
   },
   requestNotifications: {
-    path: '/feapi.FrontendAPI/RequestNotifications',
+    path: "/feapi.FrontendAPI/RequestNotifications",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.NotificationsRequest,
@@ -752,7 +875,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_NotificationsResponse,
   },
   setNotificationsSignal: {
-    path: '/feapi.FrontendAPI/SetNotificationsSignal',
+    path: "/feapi.FrontendAPI/SetNotificationsSignal",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.NotificationsSignalPayload,
@@ -764,7 +887,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
   },
   // rpc RequestOnboardCompleteStatus(OnboardCompleteStatusRequest) returns (OnboardCompleteStatusResponse) {}
   setOnboardComplete: {
-    path: '/feapi.FrontendAPI/SetOnboardComplete',
+    path: "/feapi.FrontendAPI/SetOnboardComplete",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.OnboardCompleteRequest,
@@ -775,7 +898,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_OnboardCompleteResponse,
   },
   sendAddress: {
-    path: '/feapi.FrontendAPI/SendAddress',
+    path: "/feapi.FrontendAPI/SendAddress",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.SendAddressPayload,
@@ -786,7 +909,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_SendAddressResponse,
   },
   sendFEConfigChanges: {
-    path: '/feapi.FrontendAPI/SendFEConfigChanges',
+    path: "/feapi.FrontendAPI/SendFEConfigChanges",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.FEConfigChangesPayload,
@@ -797,7 +920,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_FEConfigChangesResponse,
   },
   requestBoardReports: {
-    path: '/feapi.FrontendAPI/RequestBoardReports',
+    path: "/feapi.FrontendAPI/RequestBoardReports",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.BoardReportsRequest,
@@ -808,7 +931,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_BoardReportsResponse,
   },
   requestBoardModActions: {
-    path: '/feapi.FrontendAPI/RequestBoardModActions',
+    path: "/feapi.FrontendAPI/RequestBoardModActions",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.BoardModActionsRequest,
@@ -819,7 +942,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_BoardModActionsResponse,
   },
   sendMintedUsernames: {
-    path: '/feapi.FrontendAPI/SendMintedUsernames',
+    path: "/feapi.FrontendAPI/SendMintedUsernames",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.SendMintedUsernamesPayload,
@@ -830,7 +953,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_SendMintedUsernamesResponse,
   },
   sendClientVersion: {
-    path: '/feapi.FrontendAPI/SendClientVersion',
+    path: "/feapi.FrontendAPI/SendClientVersion",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.ClientVersionPayload,
@@ -841,7 +964,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_ClientVersionResponse,
   },
   sendSearchRequest: {
-    path: '/feapi.FrontendAPI/SendSearchRequest',
+    path: "/feapi.FrontendAPI/SendSearchRequest",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.SearchRequestPayload,
@@ -853,7 +976,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
   },
   // ----------  Methods used by backend  ----------
   backendReady: {
-    path: '/feapi.FrontendAPI/BackendReady',
+    path: "/feapi.FrontendAPI/BackendReady",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.BEReadyRequest,
@@ -864,7 +987,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseDeserialize: deserialize_feapi_BEReadyResponse,
   },
   sendBackendAmbientStatus: {
-    path: '/feapi.FrontendAPI/SendBackendAmbientStatus',
+    path: "/feapi.FrontendAPI/SendBackendAmbientStatus",
     requestStream: false,
     responseStream: false,
     requestType: feapi_feapi_pb.BackendAmbientStatusPayload,
@@ -874,6 +997,7 @@ var FrontendAPIService = exports.FrontendAPIService = {
     responseSerialize: serialize_feapi_BackendAmbientStatusResponse,
     responseDeserialize: deserialize_feapi_BackendAmbientStatusResponse,
   },
-};
+});
 
-exports.FrontendAPIClient = grpc.makeGenericClientConstructor(FrontendAPIService);
+exports.FrontendAPIClient =
+  grpc.makeGenericClientConstructor(FrontendAPIService);

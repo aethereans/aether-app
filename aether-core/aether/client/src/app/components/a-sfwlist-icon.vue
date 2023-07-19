@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="sfwlist-box"
-    title="Enable/Disable SFW Lists"
-  >
+  <div class="sfwlist-box" title="Enable/Disable SFW Lists">
     <a-header-icon
       id="toggleSFWListIcon"
       class="sfwlist-icon-safe"
@@ -29,9 +26,12 @@ export default {
   },
   methods: {
     async toggleSFWListDisabled(this: any) {
-        fe.SendSFWListDisabledStatus(!this.$store.state.ambientStatus.frontendambientstatus.sfwlistdisabled, function () {});
-    }
-  }
+      fe.SendSFWListDisabledStatus(
+        !this.$store.state.ambientStatus.frontendambientstatus.sfwlistdisabled,
+        function () {}
+      )
+    },
+  },
 }
 </script>
 
@@ -45,4 +45,3 @@ export default {
   color: $a-red;
 }
 </style>
-

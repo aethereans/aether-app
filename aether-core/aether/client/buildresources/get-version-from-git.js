@@ -2,9 +2,7 @@ const execSync = require('child_process').execSync
 
 function main() {
   let version = (getBaseVersion() + '+' + getBaseBuildNumber()).toLowerCase()
-  execSync(
-    'npm -v --allow-same-version --git-tag-version false ' + version
-  )
+  execSync('npm -v --allow-same-version --git-tag-version false ' + version)
   console.log(version)
 }
 
@@ -15,20 +13,21 @@ function gitIsDirty() {
   let isDirty = execSync(
     `git diff-index --quiet HEAD -- . ':!*package-lock.json' ':!*package.json' ':!*buildresources/get-version-from-git.js' ':!../support/getaether-website' || echo 'dirty'`
   )
-  
+
   return isDirty.toString()
 }
 
 function getBaseVersion() {
-  if(process.platform == "win32") {
+  if (process.platform == 'win32') {
     return execSync('git describe --abbrev=0 --tags').toString()
-  } else return execSync('printf "%s" `git describe --abbrev=0 --tags`').toString()
+  } else
+    return execSync('printf "%s" `git describe --abbrev=0 --tags`').toString()
 }
 
 function getBaseBuildNumber() {
   let humanTimestamp = generateTimestamp()
-  let commitHash = ""
-  if(process.platform == "win32") {
+  let commitHash = ''
+  if (process.platform == 'win32') {
     commitHash = execSync('git rev-parse --short HEAD')
   } else {
     commitHash = execSync('printf "%s" `git rev-parse --short HEAD`')

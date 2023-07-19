@@ -331,7 +331,7 @@ let actions = {
   setModModeEnabledStatus(context: any, modModeEnabled: boolean) {
     context.commit('SET_MOD_MODE_ENABLED_STATUS', modModeEnabled)
   },
-  setAlwaysShowNSFWListStatus(context: any, alwaysShowNSFWList: boolean){
+  setAlwaysShowNSFWListStatus(context: any, alwaysShowNSFWList: boolean) {
     context.commit('SET_ALWAYS_SHOW_NSFW_LIST_STATUS', alwaysShowNSFWList)
   },
   setExternalContentAutoloadDisabledStatus(
@@ -343,14 +343,8 @@ let actions = {
       externalContentAutoloadDisabled
     )
   },
-  setSFWListDisabledStatus: function (
-    context: any,
-    sfwListDisabled: boolean
-  ) {
-    context.commit(
-      'SET_SFW_LIST_DISABLED_STATUS',
-      sfwListDisabled
-    )
+  setSFWListDisabledStatus: function (context: any, sfwListDisabled: boolean) {
+    context.commit('SET_SFW_LIST_DISABLED_STATUS', sfwListDisabled)
   },
   /*----------  History state  ----------*/
   registerNextActionIsHistoryMoveForward(context: any) {
@@ -581,16 +575,16 @@ let mutations = {
     state.externalContentAutoloadDisabled = externalContentAutoloadDisabled
     state.externalContentAutoloadDisabledArrived = true
   },
-  SET_SFW_LIST_DISABLED_STATUS(
-    state: any,
-    sfwListDisabled: any
-  ) {
+  SET_SFW_LIST_DISABLED_STATUS(state: any, sfwListDisabled: any) {
     // If there's a change, apply the new whitelist.
     if (
-      state.sfwListDisabled != sfwListDisabled || state.ambientStatus.frontendambientstatus.sfwlistdisabled != sfwListDisabled
+      state.sfwListDisabled != sfwListDisabled ||
+      state.ambientStatus.frontendambientstatus.sfwlistdisabled !=
+        sfwListDisabled
     ) {
       // There *is* a change. Apply the change.
-      state.ambientStatus.frontendambientstatus.sfwlistdisabled = sfwListDisabled
+      state.ambientStatus.frontendambientstatus.sfwlistdisabled =
+        sfwListDisabled
       state.sfwListDisabled = sfwListDisabled
     }
     state.sfwListDisabledArrived = true

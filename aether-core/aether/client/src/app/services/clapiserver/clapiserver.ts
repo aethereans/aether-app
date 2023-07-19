@@ -202,10 +202,7 @@ function SendExternalContentAutoloadDisabledStatus(req: any, callback: any) {
 function SendSFWListDisabledStatus(req: any, callback: any) {
   console.log('sfw list disabled status arrived.')
   var r = req.request.toObject()
-  vuexStore.dispatch(
-    'setSFWListDisabledStatus',
-    r.sfwlistdisabled
-  )
+  vuexStore.dispatch('setSFWListDisabledStatus', r.sfwlistdisabled)
   var resp = new messages.SFWListDisabledStatusResponse()
   callback(null, resp)
 }

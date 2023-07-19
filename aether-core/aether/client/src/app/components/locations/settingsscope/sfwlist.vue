@@ -28,7 +28,7 @@
       @click="toggleAlwaysShowNSFWList"
       v-show="$store.state.alwaysShowNSFWList"
     >
-    Always Show NSFW Boards: On
+      Always Show NSFW Boards: On
     </a>
     <a-markdown :content="content"></a-markdown>
   </div>
@@ -45,15 +45,21 @@ export default {
       content: content,
     }
   },
-  methods:{
+  methods: {
     async toggleSFWListDisabled(this: any) {
-        fe.SendSFWListDisabledStatus(!this.$store.state.ambientStatus.frontendambientstatus.sfwlistdisabled, function () {});
+      fe.SendSFWListDisabledStatus(
+        !this.$store.state.ambientStatus.frontendambientstatus.sfwlistdisabled,
+        function () {}
+      )
     },
     async toggleAlwaysShowNSFWList(this: any) {
-      console.log("alwaysShowNSFWList: " + this.$store.state.alwaysShowNSFWList)
-        fe.SendAlwaysShowNSFWListStatus(!this.$store.state.alwaysShowNSFWList, function () {});
-    }
-  }
+      console.log('alwaysShowNSFWList: ' + this.$store.state.alwaysShowNSFWList)
+      fe.SendAlwaysShowNSFWListStatus(
+        !this.$store.state.alwaysShowNSFWList,
+        function () {}
+      )
+    },
+  },
 }
 // These are var's and not let's because lets are defined only from the point they're in the code, and vars are defined for the whole scope regardless of where they are.
 var headline = '# Safe-for-work communities list'

@@ -314,7 +314,8 @@ export default {
       let primaryList = []
       let vm = this
       if (
-        this.$store.state.ambientStatus.frontendambientstatus.sfwlistdisabled && this.$store.state.alwaysShowNSFWList // Only combine lists if "AlwaysShowNSFWList" is enabled. Otherswise continue seperated display.
+        this.$store.state.ambientStatus.frontendambientstatus.sfwlistdisabled &&
+        this.$store.state.alwaysShowNSFWList // Only combine lists if "AlwaysShowNSFWList" is enabled. Otherswise continue seperated display.
       ) {
         // SFW list is disabled. All communities are sfw listed communities.
         primaryList = this.$store.state.boardsSearchResult

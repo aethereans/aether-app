@@ -7,48 +7,56 @@
  */
 // GENERATED CODE -- DO NOT EDIT!
 
-var jspb = require('google-protobuf');
+var jspb = require("google-protobuf");
 var goog = jspb;
-var global = Function('return this')();
+var global = Function("return this")();
 
-var feobjects_feobjects_pb = require('../feobjects/feobjects_pb.js');
-var mimapi_mimapi_pb = require('../mimapi/mimapi_pb.js');
-goog.exportSymbol('proto.clapi.AlwaysShowNSFWListStatusPayload', null, global);
-goog.exportSymbol('proto.clapi.AlwaysShowNSFWListStatusResponse', null, global);
-goog.exportSymbol('proto.clapi.AmbientLocalUserEntityPayload', null, global);
-goog.exportSymbol('proto.clapi.AmbientLocalUserEntityResponse', null, global);
-goog.exportSymbol('proto.clapi.AmbientStatusPayload', null, global);
-goog.exportSymbol('proto.clapi.AmbientStatusResponse', null, global);
-goog.exportSymbol('proto.clapi.AmbientsRequest', null, global);
-goog.exportSymbol('proto.clapi.AmbientsResponse', null, global);
-goog.exportSymbol('proto.clapi.ExternalContentAutoloadDisabledStatusPayload', null, global);
-goog.exportSymbol('proto.clapi.ExternalContentAutoloadDisabledStatusResponse', null, global);
-goog.exportSymbol('proto.clapi.FEReadyRequest', null, global);
-goog.exportSymbol('proto.clapi.FEReadyResponse', null, global);
-goog.exportSymbol('proto.clapi.HomeViewPayload', null, global);
-goog.exportSymbol('proto.clapi.HomeViewResponse', null, global);
-goog.exportSymbol('proto.clapi.InflightBoard', null, global);
-goog.exportSymbol('proto.clapi.InflightKey', null, global);
-goog.exportSymbol('proto.clapi.InflightPost', null, global);
-goog.exportSymbol('proto.clapi.InflightStatus', null, global);
-goog.exportSymbol('proto.clapi.InflightThread', null, global);
-goog.exportSymbol('proto.clapi.InflightTruststate', null, global);
-goog.exportSymbol('proto.clapi.InflightVote', null, global);
-goog.exportSymbol('proto.clapi.Inflights', null, global);
-goog.exportSymbol('proto.clapi.ModModeEnabledStatusPayload', null, global);
-goog.exportSymbol('proto.clapi.ModModeEnabledStatusResponse', null, global);
-goog.exportSymbol('proto.clapi.NewViewPayload', null, global);
-goog.exportSymbol('proto.clapi.NewViewResponse', null, global);
-goog.exportSymbol('proto.clapi.NotificationsPayload', null, global);
-goog.exportSymbol('proto.clapi.NotificationsResponse', null, global);
-goog.exportSymbol('proto.clapi.OnboardCompleteStatusPayload', null, global);
-goog.exportSymbol('proto.clapi.OnboardCompleteStatusResponse', null, global);
-goog.exportSymbol('proto.clapi.PopularViewPayload', null, global);
-goog.exportSymbol('proto.clapi.PopularViewResponse', null, global);
-goog.exportSymbol('proto.clapi.SFWListDisabledStatusPayload', null, global);
-goog.exportSymbol('proto.clapi.SFWListDisabledStatusResponse', null, global);
-goog.exportSymbol('proto.clapi.SearchResultPayload', null, global);
-goog.exportSymbol('proto.clapi.SearchResultResponse', null, global);
+var feobjects_feobjects_pb = require("../feobjects/feobjects_pb.js");
+var mimapi_mimapi_pb = require("../mimapi/mimapi_pb.js");
+goog.exportSymbol("proto.clapi.AlwaysShowNSFWListStatusPayload", null, global);
+goog.exportSymbol("proto.clapi.AlwaysShowNSFWListStatusResponse", null, global);
+goog.exportSymbol("proto.clapi.AmbientLocalUserEntityPayload", null, global);
+goog.exportSymbol("proto.clapi.AmbientLocalUserEntityResponse", null, global);
+goog.exportSymbol("proto.clapi.AmbientStatusPayload", null, global);
+goog.exportSymbol("proto.clapi.AmbientStatusResponse", null, global);
+goog.exportSymbol("proto.clapi.AmbientsRequest", null, global);
+goog.exportSymbol("proto.clapi.AmbientsResponse", null, global);
+goog.exportSymbol(
+  "proto.clapi.ExternalContentAutoloadDisabledStatusPayload",
+  null,
+  global,
+);
+goog.exportSymbol(
+  "proto.clapi.ExternalContentAutoloadDisabledStatusResponse",
+  null,
+  global,
+);
+goog.exportSymbol("proto.clapi.FEReadyRequest", null, global);
+goog.exportSymbol("proto.clapi.FEReadyResponse", null, global);
+goog.exportSymbol("proto.clapi.HomeViewPayload", null, global);
+goog.exportSymbol("proto.clapi.HomeViewResponse", null, global);
+goog.exportSymbol("proto.clapi.InflightBoard", null, global);
+goog.exportSymbol("proto.clapi.InflightKey", null, global);
+goog.exportSymbol("proto.clapi.InflightPost", null, global);
+goog.exportSymbol("proto.clapi.InflightStatus", null, global);
+goog.exportSymbol("proto.clapi.InflightThread", null, global);
+goog.exportSymbol("proto.clapi.InflightTruststate", null, global);
+goog.exportSymbol("proto.clapi.InflightVote", null, global);
+goog.exportSymbol("proto.clapi.Inflights", null, global);
+goog.exportSymbol("proto.clapi.ModModeEnabledStatusPayload", null, global);
+goog.exportSymbol("proto.clapi.ModModeEnabledStatusResponse", null, global);
+goog.exportSymbol("proto.clapi.NewViewPayload", null, global);
+goog.exportSymbol("proto.clapi.NewViewResponse", null, global);
+goog.exportSymbol("proto.clapi.NotificationsPayload", null, global);
+goog.exportSymbol("proto.clapi.NotificationsResponse", null, global);
+goog.exportSymbol("proto.clapi.OnboardCompleteStatusPayload", null, global);
+goog.exportSymbol("proto.clapi.OnboardCompleteStatusResponse", null, global);
+goog.exportSymbol("proto.clapi.PopularViewPayload", null, global);
+goog.exportSymbol("proto.clapi.PopularViewResponse", null, global);
+goog.exportSymbol("proto.clapi.SFWListDisabledStatusPayload", null, global);
+goog.exportSymbol("proto.clapi.SFWListDisabledStatusResponse", null, global);
+goog.exportSymbol("proto.clapi.SearchResultPayload", null, global);
+goog.exportSymbol("proto.clapi.SearchResultResponse", null, global);
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -60,65 +68,64 @@ goog.exportSymbol('proto.clapi.SearchResultResponse', null, global);
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.FEReadyRequest = function(opt_data) {
+proto.clapi.FEReadyRequest = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.FEReadyRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.FEReadyRequest.displayName = 'proto.clapi.FEReadyRequest';
+  proto.clapi.FEReadyRequest.displayName = "proto.clapi.FEReadyRequest";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.FEReadyRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.FEReadyRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.FEReadyRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.FEReadyRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    address: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    port: jspb.Message.getFieldWithDefault(msg, 2, 0)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.FEReadyRequest.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.FEReadyRequest.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.FEReadyRequest} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.FEReadyRequest.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        address: jspb.Message.getFieldWithDefault(msg, 1, ""),
+        port: jspb.Message.getFieldWithDefault(msg, 2, 0),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.FEReadyRequest}
  */
-proto.clapi.FEReadyRequest.deserializeBinary = function(bytes) {
+proto.clapi.FEReadyRequest.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.FEReadyRequest;
+  var msg = new proto.clapi.FEReadyRequest();
   return proto.clapi.FEReadyRequest.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -127,40 +134,41 @@ proto.clapi.FEReadyRequest.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.FEReadyRequest}
  */
-proto.clapi.FEReadyRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.FEReadyRequest.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setAddress(value);
-      break;
-    case 2:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setPort(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = /** @type {string} */ (reader.readString());
+        msg.setAddress(value);
+        break;
+      case 2:
+        var value = /** @type {number} */ (reader.readInt32());
+        msg.setPort(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.FEReadyRequest.prototype.serializeBinary = function() {
+proto.clapi.FEReadyRequest.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.FEReadyRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -169,55 +177,46 @@ proto.clapi.FEReadyRequest.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.FEReadyRequest.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.FEReadyRequest.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getAddress();
   if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
+    writer.writeString(1, f);
   }
   f = message.getPort();
   if (f !== 0) {
-    writer.writeInt32(
-      2,
-      f
-    );
+    writer.writeInt32(2, f);
   }
 };
-
 
 /**
  * optional string address = 1;
  * @return {string}
  */
-proto.clapi.FEReadyRequest.prototype.getAddress = function() {
+proto.clapi.FEReadyRequest.prototype.getAddress = function () {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
-
 /** @param {string} value */
-proto.clapi.FEReadyRequest.prototype.setAddress = function(value) {
+proto.clapi.FEReadyRequest.prototype.setAddress = function (value) {
   jspb.Message.setField(this, 1, value);
 };
-
 
 /**
  * optional int32 port = 2;
  * @return {number}
  */
-proto.clapi.FEReadyRequest.prototype.getPort = function() {
+proto.clapi.FEReadyRequest.prototype.getPort = function () {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
-
 /** @param {number} value */
-proto.clapi.FEReadyRequest.prototype.setPort = function(value) {
+proto.clapi.FEReadyRequest.prototype.setPort = function (value) {
   jspb.Message.setField(this, 2, value);
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -229,64 +228,61 @@ proto.clapi.FEReadyRequest.prototype.setPort = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.FEReadyResponse = function(opt_data) {
+proto.clapi.FEReadyResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.FEReadyResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.FEReadyResponse.displayName = 'proto.clapi.FEReadyResponse';
+  proto.clapi.FEReadyResponse.displayName = "proto.clapi.FEReadyResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.FEReadyResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.FEReadyResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.FEReadyResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.FEReadyResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.FEReadyResponse.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.FEReadyResponse.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.FEReadyResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.FEReadyResponse.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {};
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.FEReadyResponse}
  */
-proto.clapi.FEReadyResponse.deserializeBinary = function(bytes) {
+proto.clapi.FEReadyResponse.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.FEReadyResponse;
+  var msg = new proto.clapi.FEReadyResponse();
   return proto.clapi.FEReadyResponse.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -295,32 +291,33 @@ proto.clapi.FEReadyResponse.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.FEReadyResponse}
  */
-proto.clapi.FEReadyResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.FEReadyResponse.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    default:
-      reader.skipField();
-      break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.FEReadyResponse.prototype.serializeBinary = function() {
+proto.clapi.FEReadyResponse.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.FEReadyResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -329,11 +326,12 @@ proto.clapi.FEReadyResponse.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.FEReadyResponse.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.FEReadyResponse.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -345,12 +343,19 @@ proto.clapi.FEReadyResponse.serializeBinaryToWriter = function(message, writer) 
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.AmbientsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.clapi.AmbientsRequest.repeatedFields_, null);
+proto.clapi.AmbientsRequest = function (opt_data) {
+  jspb.Message.initialize(
+    this,
+    opt_data,
+    0,
+    -1,
+    proto.clapi.AmbientsRequest.repeatedFields_,
+    null,
+  );
 };
 goog.inherits(proto.clapi.AmbientsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.AmbientsRequest.displayName = 'proto.clapi.AmbientsRequest';
+  proto.clapi.AmbientsRequest.displayName = "proto.clapi.AmbientsRequest";
 }
 /**
  * List of repeated fields within this message type.
@@ -359,58 +364,59 @@ if (goog.DEBUG && !COMPILED) {
  */
 proto.clapi.AmbientsRequest.repeatedFields_ = [1];
 
-
-
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.AmbientsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.AmbientsRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.AmbientsRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.AmbientsRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    boardsList: jspb.Message.toObjectList(msg.getBoardsList(),
-    feobjects_feobjects_pb.AmbientBoardEntity.toObject, includeInstance)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.AmbientsRequest.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.AmbientsRequest.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.AmbientsRequest} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.AmbientsRequest.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        boardsList: jspb.Message.toObjectList(
+          msg.getBoardsList(),
+          feobjects_feobjects_pb.AmbientBoardEntity.toObject,
+          includeInstance,
+        ),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.AmbientsRequest}
  */
-proto.clapi.AmbientsRequest.deserializeBinary = function(bytes) {
+proto.clapi.AmbientsRequest.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.AmbientsRequest;
+  var msg = new proto.clapi.AmbientsRequest();
   return proto.clapi.AmbientsRequest.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -419,37 +425,41 @@ proto.clapi.AmbientsRequest.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.AmbientsRequest}
  */
-proto.clapi.AmbientsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.AmbientsRequest.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new feobjects_feobjects_pb.AmbientBoardEntity;
-      reader.readMessage(value,feobjects_feobjects_pb.AmbientBoardEntity.deserializeBinaryFromReader);
-      msg.addBoards(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new feobjects_feobjects_pb.AmbientBoardEntity();
+        reader.readMessage(
+          value,
+          feobjects_feobjects_pb.AmbientBoardEntity.deserializeBinaryFromReader,
+        );
+        msg.addBoards(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.AmbientsRequest.prototype.serializeBinary = function() {
+proto.clapi.AmbientsRequest.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.AmbientsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -458,50 +468,61 @@ proto.clapi.AmbientsRequest.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.AmbientsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.AmbientsRequest.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getBoardsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      feobjects_feobjects_pb.AmbientBoardEntity.serializeBinaryToWriter
+      feobjects_feobjects_pb.AmbientBoardEntity.serializeBinaryToWriter,
     );
   }
 };
-
 
 /**
  * repeated feobjects.AmbientBoardEntity Boards = 1;
  * @return {!Array.<!proto.feobjects.AmbientBoardEntity>}
  */
-proto.clapi.AmbientsRequest.prototype.getBoardsList = function() {
+proto.clapi.AmbientsRequest.prototype.getBoardsList = function () {
   return /** @type{!Array.<!proto.feobjects.AmbientBoardEntity>} */ (
-    jspb.Message.getRepeatedWrapperField(this, feobjects_feobjects_pb.AmbientBoardEntity, 1));
+    jspb.Message.getRepeatedWrapperField(
+      this,
+      feobjects_feobjects_pb.AmbientBoardEntity,
+      1,
+    )
+  );
 };
-
 
 /** @param {!Array.<!proto.feobjects.AmbientBoardEntity>} value */
-proto.clapi.AmbientsRequest.prototype.setBoardsList = function(value) {
+proto.clapi.AmbientsRequest.prototype.setBoardsList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
-
 
 /**
  * @param {!proto.feobjects.AmbientBoardEntity=} opt_value
  * @param {number=} opt_index
  * @return {!proto.feobjects.AmbientBoardEntity}
  */
-proto.clapi.AmbientsRequest.prototype.addBoards = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.feobjects.AmbientBoardEntity, opt_index);
+proto.clapi.AmbientsRequest.prototype.addBoards = function (
+  opt_value,
+  opt_index,
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    1,
+    opt_value,
+    proto.feobjects.AmbientBoardEntity,
+    opt_index,
+  );
 };
 
-
-proto.clapi.AmbientsRequest.prototype.clearBoardsList = function() {
+proto.clapi.AmbientsRequest.prototype.clearBoardsList = function () {
   this.setBoardsList([]);
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -513,64 +534,61 @@ proto.clapi.AmbientsRequest.prototype.clearBoardsList = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.AmbientsResponse = function(opt_data) {
+proto.clapi.AmbientsResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.AmbientsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.AmbientsResponse.displayName = 'proto.clapi.AmbientsResponse';
+  proto.clapi.AmbientsResponse.displayName = "proto.clapi.AmbientsResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.AmbientsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.AmbientsResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.AmbientsResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.AmbientsResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.AmbientsResponse.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.AmbientsResponse.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.AmbientsResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.AmbientsResponse.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {};
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.AmbientsResponse}
  */
-proto.clapi.AmbientsResponse.deserializeBinary = function(bytes) {
+proto.clapi.AmbientsResponse.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.AmbientsResponse;
+  var msg = new proto.clapi.AmbientsResponse();
   return proto.clapi.AmbientsResponse.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -579,32 +597,33 @@ proto.clapi.AmbientsResponse.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.AmbientsResponse}
  */
-proto.clapi.AmbientsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.AmbientsResponse.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    default:
-      reader.skipField();
-      break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.AmbientsResponse.prototype.serializeBinary = function() {
+proto.clapi.AmbientsResponse.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.AmbientsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -613,11 +632,12 @@ proto.clapi.AmbientsResponse.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.AmbientsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.AmbientsResponse.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -629,68 +649,67 @@ proto.clapi.AmbientsResponse.serializeBinaryToWriter = function(message, writer)
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.InflightStatus = function(opt_data) {
+proto.clapi.InflightStatus = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.InflightStatus, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.InflightStatus.displayName = 'proto.clapi.InflightStatus';
+  proto.clapi.InflightStatus.displayName = "proto.clapi.InflightStatus";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.InflightStatus.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.InflightStatus.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.InflightStatus} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.InflightStatus.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    completionpercent: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    statustext: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    requestedtimestamp: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    lastactiontimestamp: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    eventtype: jspb.Message.getFieldWithDefault(msg, 6, "")
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.InflightStatus.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.InflightStatus.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.InflightStatus} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.InflightStatus.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        completionpercent: jspb.Message.getFieldWithDefault(msg, 1, 0),
+        statustext: jspb.Message.getFieldWithDefault(msg, 2, ""),
+        requestedtimestamp: jspb.Message.getFieldWithDefault(msg, 4, 0),
+        lastactiontimestamp: jspb.Message.getFieldWithDefault(msg, 5, 0),
+        eventtype: jspb.Message.getFieldWithDefault(msg, 6, ""),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.InflightStatus}
  */
-proto.clapi.InflightStatus.deserializeBinary = function(bytes) {
+proto.clapi.InflightStatus.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.InflightStatus;
+  var msg = new proto.clapi.InflightStatus();
   return proto.clapi.InflightStatus.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -699,52 +718,53 @@ proto.clapi.InflightStatus.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.InflightStatus}
  */
-proto.clapi.InflightStatus.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.InflightStatus.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setCompletionpercent(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setStatustext(value);
-      break;
-    case 4:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setRequestedtimestamp(value);
-      break;
-    case 5:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setLastactiontimestamp(value);
-      break;
-    case 6:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setEventtype(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = /** @type {number} */ (reader.readInt32());
+        msg.setCompletionpercent(value);
+        break;
+      case 2:
+        var value = /** @type {string} */ (reader.readString());
+        msg.setStatustext(value);
+        break;
+      case 4:
+        var value = /** @type {number} */ (reader.readInt64());
+        msg.setRequestedtimestamp(value);
+        break;
+      case 5:
+        var value = /** @type {number} */ (reader.readInt64());
+        msg.setLastactiontimestamp(value);
+        break;
+      case 6:
+        var value = /** @type {string} */ (reader.readString());
+        msg.setEventtype(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.InflightStatus.prototype.serializeBinary = function() {
+proto.clapi.InflightStatus.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.InflightStatus.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -753,121 +773,97 @@ proto.clapi.InflightStatus.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.InflightStatus.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.InflightStatus.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getCompletionpercent();
   if (f !== 0) {
-    writer.writeInt32(
-      1,
-      f
-    );
+    writer.writeInt32(1, f);
   }
   f = message.getStatustext();
   if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
+    writer.writeString(2, f);
   }
   f = message.getRequestedtimestamp();
   if (f !== 0) {
-    writer.writeInt64(
-      4,
-      f
-    );
+    writer.writeInt64(4, f);
   }
   f = message.getLastactiontimestamp();
   if (f !== 0) {
-    writer.writeInt64(
-      5,
-      f
-    );
+    writer.writeInt64(5, f);
   }
   f = message.getEventtype();
   if (f.length > 0) {
-    writer.writeString(
-      6,
-      f
-    );
+    writer.writeString(6, f);
   }
 };
-
 
 /**
  * optional int32 CompletionPercent = 1;
  * @return {number}
  */
-proto.clapi.InflightStatus.prototype.getCompletionpercent = function() {
+proto.clapi.InflightStatus.prototype.getCompletionpercent = function () {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
-
 /** @param {number} value */
-proto.clapi.InflightStatus.prototype.setCompletionpercent = function(value) {
+proto.clapi.InflightStatus.prototype.setCompletionpercent = function (value) {
   jspb.Message.setField(this, 1, value);
 };
-
 
 /**
  * optional string StatusText = 2;
  * @return {string}
  */
-proto.clapi.InflightStatus.prototype.getStatustext = function() {
+proto.clapi.InflightStatus.prototype.getStatustext = function () {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
-
 /** @param {string} value */
-proto.clapi.InflightStatus.prototype.setStatustext = function(value) {
+proto.clapi.InflightStatus.prototype.setStatustext = function (value) {
   jspb.Message.setField(this, 2, value);
 };
-
 
 /**
  * optional int64 RequestedTimestamp = 4;
  * @return {number}
  */
-proto.clapi.InflightStatus.prototype.getRequestedtimestamp = function() {
+proto.clapi.InflightStatus.prototype.getRequestedtimestamp = function () {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
-
 /** @param {number} value */
-proto.clapi.InflightStatus.prototype.setRequestedtimestamp = function(value) {
+proto.clapi.InflightStatus.prototype.setRequestedtimestamp = function (value) {
   jspb.Message.setField(this, 4, value);
 };
-
 
 /**
  * optional int64 LastActionTimestamp = 5;
  * @return {number}
  */
-proto.clapi.InflightStatus.prototype.getLastactiontimestamp = function() {
+proto.clapi.InflightStatus.prototype.getLastactiontimestamp = function () {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
-
 /** @param {number} value */
-proto.clapi.InflightStatus.prototype.setLastactiontimestamp = function(value) {
+proto.clapi.InflightStatus.prototype.setLastactiontimestamp = function (value) {
   jspb.Message.setField(this, 5, value);
 };
-
 
 /**
  * optional string EventType = 6;
  * @return {string}
  */
-proto.clapi.InflightStatus.prototype.getEventtype = function() {
+proto.clapi.InflightStatus.prototype.getEventtype = function () {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
-
 /** @param {string} value */
-proto.clapi.InflightStatus.prototype.setEventtype = function(value) {
+proto.clapi.InflightStatus.prototype.setEventtype = function (value) {
   jspb.Message.setField(this, 6, value);
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -879,65 +875,68 @@ proto.clapi.InflightStatus.prototype.setEventtype = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.InflightBoard = function(opt_data) {
+proto.clapi.InflightBoard = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.InflightBoard, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.InflightBoard.displayName = 'proto.clapi.InflightBoard';
+  proto.clapi.InflightBoard.displayName = "proto.clapi.InflightBoard";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.InflightBoard.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.InflightBoard.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.InflightBoard} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.InflightBoard.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    status: (f = msg.getStatus()) && proto.clapi.InflightStatus.toObject(includeInstance, f),
-    entity: (f = msg.getEntity()) && mimapi_mimapi_pb.Board.toObject(includeInstance, f)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.InflightBoard.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.InflightBoard.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.InflightBoard} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.InflightBoard.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        status:
+          (f = msg.getStatus()) &&
+          proto.clapi.InflightStatus.toObject(includeInstance, f),
+        entity:
+          (f = msg.getEntity()) &&
+          mimapi_mimapi_pb.Board.toObject(includeInstance, f),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.InflightBoard}
  */
-proto.clapi.InflightBoard.deserializeBinary = function(bytes) {
+proto.clapi.InflightBoard.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.InflightBoard;
+  var msg = new proto.clapi.InflightBoard();
   return proto.clapi.InflightBoard.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -946,42 +945,46 @@ proto.clapi.InflightBoard.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.InflightBoard}
  */
-proto.clapi.InflightBoard.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.InflightBoard.deserializeBinaryFromReader = function (msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new proto.clapi.InflightStatus;
-      reader.readMessage(value,proto.clapi.InflightStatus.deserializeBinaryFromReader);
-      msg.setStatus(value);
-      break;
-    case 2:
-      var value = new mimapi_mimapi_pb.Board;
-      reader.readMessage(value,mimapi_mimapi_pb.Board.deserializeBinaryFromReader);
-      msg.setEntity(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new proto.clapi.InflightStatus();
+        reader.readMessage(
+          value,
+          proto.clapi.InflightStatus.deserializeBinaryFromReader,
+        );
+        msg.setStatus(value);
+        break;
+      case 2:
+        var value = new mimapi_mimapi_pb.Board();
+        reader.readMessage(
+          value,
+          mimapi_mimapi_pb.Board.deserializeBinaryFromReader,
+        );
+        msg.setEntity(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.InflightBoard.prototype.serializeBinary = function() {
+proto.clapi.InflightBoard.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.InflightBoard.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -990,87 +993,75 @@ proto.clapi.InflightBoard.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.InflightBoard.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.InflightBoard.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      proto.clapi.InflightStatus.serializeBinaryToWriter
+      proto.clapi.InflightStatus.serializeBinaryToWriter,
     );
   }
   f = message.getEntity();
   if (f != null) {
-    writer.writeMessage(
-      2,
-      f,
-      mimapi_mimapi_pb.Board.serializeBinaryToWriter
-    );
+    writer.writeMessage(2, f, mimapi_mimapi_pb.Board.serializeBinaryToWriter);
   }
 };
-
 
 /**
  * optional InflightStatus Status = 1;
  * @return {?proto.clapi.InflightStatus}
  */
-proto.clapi.InflightBoard.prototype.getStatus = function() {
+proto.clapi.InflightBoard.prototype.getStatus = function () {
   return /** @type{?proto.clapi.InflightStatus} */ (
-    jspb.Message.getWrapperField(this, proto.clapi.InflightStatus, 1));
+    jspb.Message.getWrapperField(this, proto.clapi.InflightStatus, 1)
+  );
 };
 
-
 /** @param {?proto.clapi.InflightStatus|undefined} value */
-proto.clapi.InflightBoard.prototype.setStatus = function(value) {
+proto.clapi.InflightBoard.prototype.setStatus = function (value) {
   jspb.Message.setWrapperField(this, 1, value);
 };
 
-
-proto.clapi.InflightBoard.prototype.clearStatus = function() {
+proto.clapi.InflightBoard.prototype.clearStatus = function () {
   this.setStatus(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.InflightBoard.prototype.hasStatus = function() {
+proto.clapi.InflightBoard.prototype.hasStatus = function () {
   return jspb.Message.getField(this, 1) != null;
 };
-
 
 /**
  * optional mimapi.Board Entity = 2;
  * @return {?proto.mimapi.Board}
  */
-proto.clapi.InflightBoard.prototype.getEntity = function() {
+proto.clapi.InflightBoard.prototype.getEntity = function () {
   return /** @type{?proto.mimapi.Board} */ (
-    jspb.Message.getWrapperField(this, mimapi_mimapi_pb.Board, 2));
+    jspb.Message.getWrapperField(this, mimapi_mimapi_pb.Board, 2)
+  );
 };
 
-
 /** @param {?proto.mimapi.Board|undefined} value */
-proto.clapi.InflightBoard.prototype.setEntity = function(value) {
+proto.clapi.InflightBoard.prototype.setEntity = function (value) {
   jspb.Message.setWrapperField(this, 2, value);
 };
 
-
-proto.clapi.InflightBoard.prototype.clearEntity = function() {
+proto.clapi.InflightBoard.prototype.clearEntity = function () {
   this.setEntity(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.InflightBoard.prototype.hasEntity = function() {
+proto.clapi.InflightBoard.prototype.hasEntity = function () {
   return jspb.Message.getField(this, 2) != null;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -1082,65 +1073,68 @@ proto.clapi.InflightBoard.prototype.hasEntity = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.InflightThread = function(opt_data) {
+proto.clapi.InflightThread = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.InflightThread, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.InflightThread.displayName = 'proto.clapi.InflightThread';
+  proto.clapi.InflightThread.displayName = "proto.clapi.InflightThread";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.InflightThread.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.InflightThread.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.InflightThread} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.InflightThread.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    status: (f = msg.getStatus()) && proto.clapi.InflightStatus.toObject(includeInstance, f),
-    entity: (f = msg.getEntity()) && mimapi_mimapi_pb.Thread.toObject(includeInstance, f)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.InflightThread.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.InflightThread.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.InflightThread} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.InflightThread.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        status:
+          (f = msg.getStatus()) &&
+          proto.clapi.InflightStatus.toObject(includeInstance, f),
+        entity:
+          (f = msg.getEntity()) &&
+          mimapi_mimapi_pb.Thread.toObject(includeInstance, f),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.InflightThread}
  */
-proto.clapi.InflightThread.deserializeBinary = function(bytes) {
+proto.clapi.InflightThread.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.InflightThread;
+  var msg = new proto.clapi.InflightThread();
   return proto.clapi.InflightThread.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -1149,42 +1143,49 @@ proto.clapi.InflightThread.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.InflightThread}
  */
-proto.clapi.InflightThread.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.InflightThread.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new proto.clapi.InflightStatus;
-      reader.readMessage(value,proto.clapi.InflightStatus.deserializeBinaryFromReader);
-      msg.setStatus(value);
-      break;
-    case 2:
-      var value = new mimapi_mimapi_pb.Thread;
-      reader.readMessage(value,mimapi_mimapi_pb.Thread.deserializeBinaryFromReader);
-      msg.setEntity(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new proto.clapi.InflightStatus();
+        reader.readMessage(
+          value,
+          proto.clapi.InflightStatus.deserializeBinaryFromReader,
+        );
+        msg.setStatus(value);
+        break;
+      case 2:
+        var value = new mimapi_mimapi_pb.Thread();
+        reader.readMessage(
+          value,
+          mimapi_mimapi_pb.Thread.deserializeBinaryFromReader,
+        );
+        msg.setEntity(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.InflightThread.prototype.serializeBinary = function() {
+proto.clapi.InflightThread.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.InflightThread.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -1193,87 +1194,78 @@ proto.clapi.InflightThread.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.InflightThread.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.InflightThread.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      proto.clapi.InflightStatus.serializeBinaryToWriter
+      proto.clapi.InflightStatus.serializeBinaryToWriter,
     );
   }
   f = message.getEntity();
   if (f != null) {
-    writer.writeMessage(
-      2,
-      f,
-      mimapi_mimapi_pb.Thread.serializeBinaryToWriter
-    );
+    writer.writeMessage(2, f, mimapi_mimapi_pb.Thread.serializeBinaryToWriter);
   }
 };
-
 
 /**
  * optional InflightStatus Status = 1;
  * @return {?proto.clapi.InflightStatus}
  */
-proto.clapi.InflightThread.prototype.getStatus = function() {
+proto.clapi.InflightThread.prototype.getStatus = function () {
   return /** @type{?proto.clapi.InflightStatus} */ (
-    jspb.Message.getWrapperField(this, proto.clapi.InflightStatus, 1));
+    jspb.Message.getWrapperField(this, proto.clapi.InflightStatus, 1)
+  );
 };
 
-
 /** @param {?proto.clapi.InflightStatus|undefined} value */
-proto.clapi.InflightThread.prototype.setStatus = function(value) {
+proto.clapi.InflightThread.prototype.setStatus = function (value) {
   jspb.Message.setWrapperField(this, 1, value);
 };
 
-
-proto.clapi.InflightThread.prototype.clearStatus = function() {
+proto.clapi.InflightThread.prototype.clearStatus = function () {
   this.setStatus(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.InflightThread.prototype.hasStatus = function() {
+proto.clapi.InflightThread.prototype.hasStatus = function () {
   return jspb.Message.getField(this, 1) != null;
 };
-
 
 /**
  * optional mimapi.Thread Entity = 2;
  * @return {?proto.mimapi.Thread}
  */
-proto.clapi.InflightThread.prototype.getEntity = function() {
+proto.clapi.InflightThread.prototype.getEntity = function () {
   return /** @type{?proto.mimapi.Thread} */ (
-    jspb.Message.getWrapperField(this, mimapi_mimapi_pb.Thread, 2));
+    jspb.Message.getWrapperField(this, mimapi_mimapi_pb.Thread, 2)
+  );
 };
 
-
 /** @param {?proto.mimapi.Thread|undefined} value */
-proto.clapi.InflightThread.prototype.setEntity = function(value) {
+proto.clapi.InflightThread.prototype.setEntity = function (value) {
   jspb.Message.setWrapperField(this, 2, value);
 };
 
-
-proto.clapi.InflightThread.prototype.clearEntity = function() {
+proto.clapi.InflightThread.prototype.clearEntity = function () {
   this.setEntity(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.InflightThread.prototype.hasEntity = function() {
+proto.clapi.InflightThread.prototype.hasEntity = function () {
   return jspb.Message.getField(this, 2) != null;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -1285,65 +1277,66 @@ proto.clapi.InflightThread.prototype.hasEntity = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.InflightPost = function(opt_data) {
+proto.clapi.InflightPost = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.InflightPost, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.InflightPost.displayName = 'proto.clapi.InflightPost';
+  proto.clapi.InflightPost.displayName = "proto.clapi.InflightPost";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.InflightPost.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.InflightPost.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.InflightPost} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.InflightPost.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    status: (f = msg.getStatus()) && proto.clapi.InflightStatus.toObject(includeInstance, f),
-    entity: (f = msg.getEntity()) && mimapi_mimapi_pb.Post.toObject(includeInstance, f)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.InflightPost.prototype.toObject = function (opt_includeInstance) {
+    return proto.clapi.InflightPost.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.InflightPost} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.InflightPost.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        status:
+          (f = msg.getStatus()) &&
+          proto.clapi.InflightStatus.toObject(includeInstance, f),
+        entity:
+          (f = msg.getEntity()) &&
+          mimapi_mimapi_pb.Post.toObject(includeInstance, f),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.InflightPost}
  */
-proto.clapi.InflightPost.deserializeBinary = function(bytes) {
+proto.clapi.InflightPost.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.InflightPost;
+  var msg = new proto.clapi.InflightPost();
   return proto.clapi.InflightPost.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -1352,42 +1345,46 @@ proto.clapi.InflightPost.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.InflightPost}
  */
-proto.clapi.InflightPost.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.InflightPost.deserializeBinaryFromReader = function (msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new proto.clapi.InflightStatus;
-      reader.readMessage(value,proto.clapi.InflightStatus.deserializeBinaryFromReader);
-      msg.setStatus(value);
-      break;
-    case 2:
-      var value = new mimapi_mimapi_pb.Post;
-      reader.readMessage(value,mimapi_mimapi_pb.Post.deserializeBinaryFromReader);
-      msg.setEntity(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new proto.clapi.InflightStatus();
+        reader.readMessage(
+          value,
+          proto.clapi.InflightStatus.deserializeBinaryFromReader,
+        );
+        msg.setStatus(value);
+        break;
+      case 2:
+        var value = new mimapi_mimapi_pb.Post();
+        reader.readMessage(
+          value,
+          mimapi_mimapi_pb.Post.deserializeBinaryFromReader,
+        );
+        msg.setEntity(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.InflightPost.prototype.serializeBinary = function() {
+proto.clapi.InflightPost.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.InflightPost.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -1396,87 +1393,75 @@ proto.clapi.InflightPost.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.InflightPost.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.InflightPost.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      proto.clapi.InflightStatus.serializeBinaryToWriter
+      proto.clapi.InflightStatus.serializeBinaryToWriter,
     );
   }
   f = message.getEntity();
   if (f != null) {
-    writer.writeMessage(
-      2,
-      f,
-      mimapi_mimapi_pb.Post.serializeBinaryToWriter
-    );
+    writer.writeMessage(2, f, mimapi_mimapi_pb.Post.serializeBinaryToWriter);
   }
 };
-
 
 /**
  * optional InflightStatus Status = 1;
  * @return {?proto.clapi.InflightStatus}
  */
-proto.clapi.InflightPost.prototype.getStatus = function() {
+proto.clapi.InflightPost.prototype.getStatus = function () {
   return /** @type{?proto.clapi.InflightStatus} */ (
-    jspb.Message.getWrapperField(this, proto.clapi.InflightStatus, 1));
+    jspb.Message.getWrapperField(this, proto.clapi.InflightStatus, 1)
+  );
 };
 
-
 /** @param {?proto.clapi.InflightStatus|undefined} value */
-proto.clapi.InflightPost.prototype.setStatus = function(value) {
+proto.clapi.InflightPost.prototype.setStatus = function (value) {
   jspb.Message.setWrapperField(this, 1, value);
 };
 
-
-proto.clapi.InflightPost.prototype.clearStatus = function() {
+proto.clapi.InflightPost.prototype.clearStatus = function () {
   this.setStatus(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.InflightPost.prototype.hasStatus = function() {
+proto.clapi.InflightPost.prototype.hasStatus = function () {
   return jspb.Message.getField(this, 1) != null;
 };
-
 
 /**
  * optional mimapi.Post Entity = 2;
  * @return {?proto.mimapi.Post}
  */
-proto.clapi.InflightPost.prototype.getEntity = function() {
+proto.clapi.InflightPost.prototype.getEntity = function () {
   return /** @type{?proto.mimapi.Post} */ (
-    jspb.Message.getWrapperField(this, mimapi_mimapi_pb.Post, 2));
+    jspb.Message.getWrapperField(this, mimapi_mimapi_pb.Post, 2)
+  );
 };
 
-
 /** @param {?proto.mimapi.Post|undefined} value */
-proto.clapi.InflightPost.prototype.setEntity = function(value) {
+proto.clapi.InflightPost.prototype.setEntity = function (value) {
   jspb.Message.setWrapperField(this, 2, value);
 };
 
-
-proto.clapi.InflightPost.prototype.clearEntity = function() {
+proto.clapi.InflightPost.prototype.clearEntity = function () {
   this.setEntity(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.InflightPost.prototype.hasEntity = function() {
+proto.clapi.InflightPost.prototype.hasEntity = function () {
   return jspb.Message.getField(this, 2) != null;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -1488,65 +1473,66 @@ proto.clapi.InflightPost.prototype.hasEntity = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.InflightVote = function(opt_data) {
+proto.clapi.InflightVote = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.InflightVote, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.InflightVote.displayName = 'proto.clapi.InflightVote';
+  proto.clapi.InflightVote.displayName = "proto.clapi.InflightVote";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.InflightVote.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.InflightVote.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.InflightVote} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.InflightVote.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    status: (f = msg.getStatus()) && proto.clapi.InflightStatus.toObject(includeInstance, f),
-    entity: (f = msg.getEntity()) && mimapi_mimapi_pb.Vote.toObject(includeInstance, f)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.InflightVote.prototype.toObject = function (opt_includeInstance) {
+    return proto.clapi.InflightVote.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.InflightVote} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.InflightVote.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        status:
+          (f = msg.getStatus()) &&
+          proto.clapi.InflightStatus.toObject(includeInstance, f),
+        entity:
+          (f = msg.getEntity()) &&
+          mimapi_mimapi_pb.Vote.toObject(includeInstance, f),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.InflightVote}
  */
-proto.clapi.InflightVote.deserializeBinary = function(bytes) {
+proto.clapi.InflightVote.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.InflightVote;
+  var msg = new proto.clapi.InflightVote();
   return proto.clapi.InflightVote.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -1555,42 +1541,46 @@ proto.clapi.InflightVote.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.InflightVote}
  */
-proto.clapi.InflightVote.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.InflightVote.deserializeBinaryFromReader = function (msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new proto.clapi.InflightStatus;
-      reader.readMessage(value,proto.clapi.InflightStatus.deserializeBinaryFromReader);
-      msg.setStatus(value);
-      break;
-    case 2:
-      var value = new mimapi_mimapi_pb.Vote;
-      reader.readMessage(value,mimapi_mimapi_pb.Vote.deserializeBinaryFromReader);
-      msg.setEntity(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new proto.clapi.InflightStatus();
+        reader.readMessage(
+          value,
+          proto.clapi.InflightStatus.deserializeBinaryFromReader,
+        );
+        msg.setStatus(value);
+        break;
+      case 2:
+        var value = new mimapi_mimapi_pb.Vote();
+        reader.readMessage(
+          value,
+          mimapi_mimapi_pb.Vote.deserializeBinaryFromReader,
+        );
+        msg.setEntity(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.InflightVote.prototype.serializeBinary = function() {
+proto.clapi.InflightVote.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.InflightVote.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -1599,87 +1589,75 @@ proto.clapi.InflightVote.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.InflightVote.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.InflightVote.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      proto.clapi.InflightStatus.serializeBinaryToWriter
+      proto.clapi.InflightStatus.serializeBinaryToWriter,
     );
   }
   f = message.getEntity();
   if (f != null) {
-    writer.writeMessage(
-      2,
-      f,
-      mimapi_mimapi_pb.Vote.serializeBinaryToWriter
-    );
+    writer.writeMessage(2, f, mimapi_mimapi_pb.Vote.serializeBinaryToWriter);
   }
 };
-
 
 /**
  * optional InflightStatus Status = 1;
  * @return {?proto.clapi.InflightStatus}
  */
-proto.clapi.InflightVote.prototype.getStatus = function() {
+proto.clapi.InflightVote.prototype.getStatus = function () {
   return /** @type{?proto.clapi.InflightStatus} */ (
-    jspb.Message.getWrapperField(this, proto.clapi.InflightStatus, 1));
+    jspb.Message.getWrapperField(this, proto.clapi.InflightStatus, 1)
+  );
 };
 
-
 /** @param {?proto.clapi.InflightStatus|undefined} value */
-proto.clapi.InflightVote.prototype.setStatus = function(value) {
+proto.clapi.InflightVote.prototype.setStatus = function (value) {
   jspb.Message.setWrapperField(this, 1, value);
 };
 
-
-proto.clapi.InflightVote.prototype.clearStatus = function() {
+proto.clapi.InflightVote.prototype.clearStatus = function () {
   this.setStatus(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.InflightVote.prototype.hasStatus = function() {
+proto.clapi.InflightVote.prototype.hasStatus = function () {
   return jspb.Message.getField(this, 1) != null;
 };
-
 
 /**
  * optional mimapi.Vote Entity = 2;
  * @return {?proto.mimapi.Vote}
  */
-proto.clapi.InflightVote.prototype.getEntity = function() {
+proto.clapi.InflightVote.prototype.getEntity = function () {
   return /** @type{?proto.mimapi.Vote} */ (
-    jspb.Message.getWrapperField(this, mimapi_mimapi_pb.Vote, 2));
+    jspb.Message.getWrapperField(this, mimapi_mimapi_pb.Vote, 2)
+  );
 };
 
-
 /** @param {?proto.mimapi.Vote|undefined} value */
-proto.clapi.InflightVote.prototype.setEntity = function(value) {
+proto.clapi.InflightVote.prototype.setEntity = function (value) {
   jspb.Message.setWrapperField(this, 2, value);
 };
 
-
-proto.clapi.InflightVote.prototype.clearEntity = function() {
+proto.clapi.InflightVote.prototype.clearEntity = function () {
   this.setEntity(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.InflightVote.prototype.hasEntity = function() {
+proto.clapi.InflightVote.prototype.hasEntity = function () {
   return jspb.Message.getField(this, 2) != null;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -1691,65 +1669,66 @@ proto.clapi.InflightVote.prototype.hasEntity = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.InflightKey = function(opt_data) {
+proto.clapi.InflightKey = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.InflightKey, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.InflightKey.displayName = 'proto.clapi.InflightKey';
+  proto.clapi.InflightKey.displayName = "proto.clapi.InflightKey";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.InflightKey.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.InflightKey.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.InflightKey} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.InflightKey.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    status: (f = msg.getStatus()) && proto.clapi.InflightStatus.toObject(includeInstance, f),
-    entity: (f = msg.getEntity()) && mimapi_mimapi_pb.Key.toObject(includeInstance, f)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.InflightKey.prototype.toObject = function (opt_includeInstance) {
+    return proto.clapi.InflightKey.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.InflightKey} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.InflightKey.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        status:
+          (f = msg.getStatus()) &&
+          proto.clapi.InflightStatus.toObject(includeInstance, f),
+        entity:
+          (f = msg.getEntity()) &&
+          mimapi_mimapi_pb.Key.toObject(includeInstance, f),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.InflightKey}
  */
-proto.clapi.InflightKey.deserializeBinary = function(bytes) {
+proto.clapi.InflightKey.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.InflightKey;
+  var msg = new proto.clapi.InflightKey();
   return proto.clapi.InflightKey.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -1758,42 +1737,46 @@ proto.clapi.InflightKey.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.InflightKey}
  */
-proto.clapi.InflightKey.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.InflightKey.deserializeBinaryFromReader = function (msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new proto.clapi.InflightStatus;
-      reader.readMessage(value,proto.clapi.InflightStatus.deserializeBinaryFromReader);
-      msg.setStatus(value);
-      break;
-    case 2:
-      var value = new mimapi_mimapi_pb.Key;
-      reader.readMessage(value,mimapi_mimapi_pb.Key.deserializeBinaryFromReader);
-      msg.setEntity(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new proto.clapi.InflightStatus();
+        reader.readMessage(
+          value,
+          proto.clapi.InflightStatus.deserializeBinaryFromReader,
+        );
+        msg.setStatus(value);
+        break;
+      case 2:
+        var value = new mimapi_mimapi_pb.Key();
+        reader.readMessage(
+          value,
+          mimapi_mimapi_pb.Key.deserializeBinaryFromReader,
+        );
+        msg.setEntity(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.InflightKey.prototype.serializeBinary = function() {
+proto.clapi.InflightKey.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.InflightKey.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -1802,87 +1785,75 @@ proto.clapi.InflightKey.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.InflightKey.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.InflightKey.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      proto.clapi.InflightStatus.serializeBinaryToWriter
+      proto.clapi.InflightStatus.serializeBinaryToWriter,
     );
   }
   f = message.getEntity();
   if (f != null) {
-    writer.writeMessage(
-      2,
-      f,
-      mimapi_mimapi_pb.Key.serializeBinaryToWriter
-    );
+    writer.writeMessage(2, f, mimapi_mimapi_pb.Key.serializeBinaryToWriter);
   }
 };
-
 
 /**
  * optional InflightStatus Status = 1;
  * @return {?proto.clapi.InflightStatus}
  */
-proto.clapi.InflightKey.prototype.getStatus = function() {
+proto.clapi.InflightKey.prototype.getStatus = function () {
   return /** @type{?proto.clapi.InflightStatus} */ (
-    jspb.Message.getWrapperField(this, proto.clapi.InflightStatus, 1));
+    jspb.Message.getWrapperField(this, proto.clapi.InflightStatus, 1)
+  );
 };
 
-
 /** @param {?proto.clapi.InflightStatus|undefined} value */
-proto.clapi.InflightKey.prototype.setStatus = function(value) {
+proto.clapi.InflightKey.prototype.setStatus = function (value) {
   jspb.Message.setWrapperField(this, 1, value);
 };
 
-
-proto.clapi.InflightKey.prototype.clearStatus = function() {
+proto.clapi.InflightKey.prototype.clearStatus = function () {
   this.setStatus(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.InflightKey.prototype.hasStatus = function() {
+proto.clapi.InflightKey.prototype.hasStatus = function () {
   return jspb.Message.getField(this, 1) != null;
 };
-
 
 /**
  * optional mimapi.Key Entity = 2;
  * @return {?proto.mimapi.Key}
  */
-proto.clapi.InflightKey.prototype.getEntity = function() {
+proto.clapi.InflightKey.prototype.getEntity = function () {
   return /** @type{?proto.mimapi.Key} */ (
-    jspb.Message.getWrapperField(this, mimapi_mimapi_pb.Key, 2));
+    jspb.Message.getWrapperField(this, mimapi_mimapi_pb.Key, 2)
+  );
 };
 
-
 /** @param {?proto.mimapi.Key|undefined} value */
-proto.clapi.InflightKey.prototype.setEntity = function(value) {
+proto.clapi.InflightKey.prototype.setEntity = function (value) {
   jspb.Message.setWrapperField(this, 2, value);
 };
 
-
-proto.clapi.InflightKey.prototype.clearEntity = function() {
+proto.clapi.InflightKey.prototype.clearEntity = function () {
   this.setEntity(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.InflightKey.prototype.hasEntity = function() {
+proto.clapi.InflightKey.prototype.hasEntity = function () {
   return jspb.Message.getField(this, 2) != null;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -1894,65 +1865,71 @@ proto.clapi.InflightKey.prototype.hasEntity = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.InflightTruststate = function(opt_data) {
+proto.clapi.InflightTruststate = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.InflightTruststate, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.InflightTruststate.displayName = 'proto.clapi.InflightTruststate';
+  proto.clapi.InflightTruststate.displayName = "proto.clapi.InflightTruststate";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.InflightTruststate.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.InflightTruststate.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.InflightTruststate} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.InflightTruststate.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    status: (f = msg.getStatus()) && proto.clapi.InflightStatus.toObject(includeInstance, f),
-    entity: (f = msg.getEntity()) && mimapi_mimapi_pb.Truststate.toObject(includeInstance, f)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.InflightTruststate.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.InflightTruststate.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.InflightTruststate} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.InflightTruststate.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        status:
+          (f = msg.getStatus()) &&
+          proto.clapi.InflightStatus.toObject(includeInstance, f),
+        entity:
+          (f = msg.getEntity()) &&
+          mimapi_mimapi_pb.Truststate.toObject(includeInstance, f),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.InflightTruststate}
  */
-proto.clapi.InflightTruststate.deserializeBinary = function(bytes) {
+proto.clapi.InflightTruststate.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.InflightTruststate;
-  return proto.clapi.InflightTruststate.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.InflightTruststate();
+  return proto.clapi.InflightTruststate.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -1961,42 +1938,49 @@ proto.clapi.InflightTruststate.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.InflightTruststate}
  */
-proto.clapi.InflightTruststate.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.InflightTruststate.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new proto.clapi.InflightStatus;
-      reader.readMessage(value,proto.clapi.InflightStatus.deserializeBinaryFromReader);
-      msg.setStatus(value);
-      break;
-    case 2:
-      var value = new mimapi_mimapi_pb.Truststate;
-      reader.readMessage(value,mimapi_mimapi_pb.Truststate.deserializeBinaryFromReader);
-      msg.setEntity(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new proto.clapi.InflightStatus();
+        reader.readMessage(
+          value,
+          proto.clapi.InflightStatus.deserializeBinaryFromReader,
+        );
+        msg.setStatus(value);
+        break;
+      case 2:
+        var value = new mimapi_mimapi_pb.Truststate();
+        reader.readMessage(
+          value,
+          mimapi_mimapi_pb.Truststate.deserializeBinaryFromReader,
+        );
+        msg.setEntity(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.InflightTruststate.prototype.serializeBinary = function() {
+proto.clapi.InflightTruststate.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.InflightTruststate.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -2005,14 +1989,17 @@ proto.clapi.InflightTruststate.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.InflightTruststate.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.InflightTruststate.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      proto.clapi.InflightStatus.serializeBinaryToWriter
+      proto.clapi.InflightStatus.serializeBinaryToWriter,
     );
   }
   f = message.getEntity();
@@ -2020,72 +2007,64 @@ proto.clapi.InflightTruststate.serializeBinaryToWriter = function(message, write
     writer.writeMessage(
       2,
       f,
-      mimapi_mimapi_pb.Truststate.serializeBinaryToWriter
+      mimapi_mimapi_pb.Truststate.serializeBinaryToWriter,
     );
   }
 };
-
 
 /**
  * optional InflightStatus Status = 1;
  * @return {?proto.clapi.InflightStatus}
  */
-proto.clapi.InflightTruststate.prototype.getStatus = function() {
+proto.clapi.InflightTruststate.prototype.getStatus = function () {
   return /** @type{?proto.clapi.InflightStatus} */ (
-    jspb.Message.getWrapperField(this, proto.clapi.InflightStatus, 1));
+    jspb.Message.getWrapperField(this, proto.clapi.InflightStatus, 1)
+  );
 };
 
-
 /** @param {?proto.clapi.InflightStatus|undefined} value */
-proto.clapi.InflightTruststate.prototype.setStatus = function(value) {
+proto.clapi.InflightTruststate.prototype.setStatus = function (value) {
   jspb.Message.setWrapperField(this, 1, value);
 };
 
-
-proto.clapi.InflightTruststate.prototype.clearStatus = function() {
+proto.clapi.InflightTruststate.prototype.clearStatus = function () {
   this.setStatus(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.InflightTruststate.prototype.hasStatus = function() {
+proto.clapi.InflightTruststate.prototype.hasStatus = function () {
   return jspb.Message.getField(this, 1) != null;
 };
-
 
 /**
  * optional mimapi.Truststate Entity = 2;
  * @return {?proto.mimapi.Truststate}
  */
-proto.clapi.InflightTruststate.prototype.getEntity = function() {
+proto.clapi.InflightTruststate.prototype.getEntity = function () {
   return /** @type{?proto.mimapi.Truststate} */ (
-    jspb.Message.getWrapperField(this, mimapi_mimapi_pb.Truststate, 2));
+    jspb.Message.getWrapperField(this, mimapi_mimapi_pb.Truststate, 2)
+  );
 };
 
-
 /** @param {?proto.mimapi.Truststate|undefined} value */
-proto.clapi.InflightTruststate.prototype.setEntity = function(value) {
+proto.clapi.InflightTruststate.prototype.setEntity = function (value) {
   jspb.Message.setWrapperField(this, 2, value);
 };
 
-
-proto.clapi.InflightTruststate.prototype.clearEntity = function() {
+proto.clapi.InflightTruststate.prototype.clearEntity = function () {
   this.setEntity(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.InflightTruststate.prototype.hasEntity = function() {
+proto.clapi.InflightTruststate.prototype.hasEntity = function () {
   return jspb.Message.getField(this, 2) != null;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -2097,82 +2076,103 @@ proto.clapi.InflightTruststate.prototype.hasEntity = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.Inflights = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.clapi.Inflights.repeatedFields_, null);
+proto.clapi.Inflights = function (opt_data) {
+  jspb.Message.initialize(
+    this,
+    opt_data,
+    0,
+    -1,
+    proto.clapi.Inflights.repeatedFields_,
+    null,
+  );
 };
 goog.inherits(proto.clapi.Inflights, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.Inflights.displayName = 'proto.clapi.Inflights';
+  proto.clapi.Inflights.displayName = "proto.clapi.Inflights";
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.clapi.Inflights.repeatedFields_ = [1,2,3,4,5,6];
-
-
+proto.clapi.Inflights.repeatedFields_ = [1, 2, 3, 4, 5, 6];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.Inflights.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.Inflights.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.Inflights} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.Inflights.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    boardsList: jspb.Message.toObjectList(msg.getBoardsList(),
-    proto.clapi.InflightBoard.toObject, includeInstance),
-    threadsList: jspb.Message.toObjectList(msg.getThreadsList(),
-    proto.clapi.InflightThread.toObject, includeInstance),
-    postsList: jspb.Message.toObjectList(msg.getPostsList(),
-    proto.clapi.InflightPost.toObject, includeInstance),
-    votesList: jspb.Message.toObjectList(msg.getVotesList(),
-    proto.clapi.InflightVote.toObject, includeInstance),
-    keysList: jspb.Message.toObjectList(msg.getKeysList(),
-    proto.clapi.InflightKey.toObject, includeInstance),
-    truststatesList: jspb.Message.toObjectList(msg.getTruststatesList(),
-    proto.clapi.InflightTruststate.toObject, includeInstance)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.Inflights.prototype.toObject = function (opt_includeInstance) {
+    return proto.clapi.Inflights.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.Inflights} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.Inflights.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        boardsList: jspb.Message.toObjectList(
+          msg.getBoardsList(),
+          proto.clapi.InflightBoard.toObject,
+          includeInstance,
+        ),
+        threadsList: jspb.Message.toObjectList(
+          msg.getThreadsList(),
+          proto.clapi.InflightThread.toObject,
+          includeInstance,
+        ),
+        postsList: jspb.Message.toObjectList(
+          msg.getPostsList(),
+          proto.clapi.InflightPost.toObject,
+          includeInstance,
+        ),
+        votesList: jspb.Message.toObjectList(
+          msg.getVotesList(),
+          proto.clapi.InflightVote.toObject,
+          includeInstance,
+        ),
+        keysList: jspb.Message.toObjectList(
+          msg.getKeysList(),
+          proto.clapi.InflightKey.toObject,
+          includeInstance,
+        ),
+        truststatesList: jspb.Message.toObjectList(
+          msg.getTruststatesList(),
+          proto.clapi.InflightTruststate.toObject,
+          includeInstance,
+        ),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.Inflights}
  */
-proto.clapi.Inflights.deserializeBinary = function(bytes) {
+proto.clapi.Inflights.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.Inflights;
+  var msg = new proto.clapi.Inflights();
   return proto.clapi.Inflights.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -2181,62 +2181,78 @@ proto.clapi.Inflights.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.Inflights}
  */
-proto.clapi.Inflights.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.Inflights.deserializeBinaryFromReader = function (msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new proto.clapi.InflightBoard;
-      reader.readMessage(value,proto.clapi.InflightBoard.deserializeBinaryFromReader);
-      msg.addBoards(value);
-      break;
-    case 2:
-      var value = new proto.clapi.InflightThread;
-      reader.readMessage(value,proto.clapi.InflightThread.deserializeBinaryFromReader);
-      msg.addThreads(value);
-      break;
-    case 3:
-      var value = new proto.clapi.InflightPost;
-      reader.readMessage(value,proto.clapi.InflightPost.deserializeBinaryFromReader);
-      msg.addPosts(value);
-      break;
-    case 4:
-      var value = new proto.clapi.InflightVote;
-      reader.readMessage(value,proto.clapi.InflightVote.deserializeBinaryFromReader);
-      msg.addVotes(value);
-      break;
-    case 5:
-      var value = new proto.clapi.InflightKey;
-      reader.readMessage(value,proto.clapi.InflightKey.deserializeBinaryFromReader);
-      msg.addKeys(value);
-      break;
-    case 6:
-      var value = new proto.clapi.InflightTruststate;
-      reader.readMessage(value,proto.clapi.InflightTruststate.deserializeBinaryFromReader);
-      msg.addTruststates(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new proto.clapi.InflightBoard();
+        reader.readMessage(
+          value,
+          proto.clapi.InflightBoard.deserializeBinaryFromReader,
+        );
+        msg.addBoards(value);
+        break;
+      case 2:
+        var value = new proto.clapi.InflightThread();
+        reader.readMessage(
+          value,
+          proto.clapi.InflightThread.deserializeBinaryFromReader,
+        );
+        msg.addThreads(value);
+        break;
+      case 3:
+        var value = new proto.clapi.InflightPost();
+        reader.readMessage(
+          value,
+          proto.clapi.InflightPost.deserializeBinaryFromReader,
+        );
+        msg.addPosts(value);
+        break;
+      case 4:
+        var value = new proto.clapi.InflightVote();
+        reader.readMessage(
+          value,
+          proto.clapi.InflightVote.deserializeBinaryFromReader,
+        );
+        msg.addVotes(value);
+        break;
+      case 5:
+        var value = new proto.clapi.InflightKey();
+        reader.readMessage(
+          value,
+          proto.clapi.InflightKey.deserializeBinaryFromReader,
+        );
+        msg.addKeys(value);
+        break;
+      case 6:
+        var value = new proto.clapi.InflightTruststate();
+        reader.readMessage(
+          value,
+          proto.clapi.InflightTruststate.deserializeBinaryFromReader,
+        );
+        msg.addTruststates(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.Inflights.prototype.serializeBinary = function() {
+proto.clapi.Inflights.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.Inflights.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -2245,14 +2261,14 @@ proto.clapi.Inflights.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.Inflights.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.Inflights.serializeBinaryToWriter = function (message, writer) {
   var f = undefined;
   f = message.getBoardsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      proto.clapi.InflightBoard.serializeBinaryToWriter
+      proto.clapi.InflightBoard.serializeBinaryToWriter,
     );
   }
   f = message.getThreadsList();
@@ -2260,7 +2276,7 @@ proto.clapi.Inflights.serializeBinaryToWriter = function(message, writer) {
     writer.writeRepeatedMessage(
       2,
       f,
-      proto.clapi.InflightThread.serializeBinaryToWriter
+      proto.clapi.InflightThread.serializeBinaryToWriter,
     );
   }
   f = message.getPostsList();
@@ -2268,7 +2284,7 @@ proto.clapi.Inflights.serializeBinaryToWriter = function(message, writer) {
     writer.writeRepeatedMessage(
       3,
       f,
-      proto.clapi.InflightPost.serializeBinaryToWriter
+      proto.clapi.InflightPost.serializeBinaryToWriter,
     );
   }
   f = message.getVotesList();
@@ -2276,7 +2292,7 @@ proto.clapi.Inflights.serializeBinaryToWriter = function(message, writer) {
     writer.writeRepeatedMessage(
       4,
       f,
-      proto.clapi.InflightVote.serializeBinaryToWriter
+      proto.clapi.InflightVote.serializeBinaryToWriter,
     );
   }
   f = message.getKeysList();
@@ -2284,7 +2300,7 @@ proto.clapi.Inflights.serializeBinaryToWriter = function(message, writer) {
     writer.writeRepeatedMessage(
       5,
       f,
-      proto.clapi.InflightKey.serializeBinaryToWriter
+      proto.clapi.InflightKey.serializeBinaryToWriter,
     );
   }
   f = message.getTruststatesList();
@@ -2292,198 +2308,221 @@ proto.clapi.Inflights.serializeBinaryToWriter = function(message, writer) {
     writer.writeRepeatedMessage(
       6,
       f,
-      proto.clapi.InflightTruststate.serializeBinaryToWriter
+      proto.clapi.InflightTruststate.serializeBinaryToWriter,
     );
   }
 };
-
 
 /**
  * repeated InflightBoard Boards = 1;
  * @return {!Array.<!proto.clapi.InflightBoard>}
  */
-proto.clapi.Inflights.prototype.getBoardsList = function() {
+proto.clapi.Inflights.prototype.getBoardsList = function () {
   return /** @type{!Array.<!proto.clapi.InflightBoard>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.clapi.InflightBoard, 1));
+    jspb.Message.getRepeatedWrapperField(this, proto.clapi.InflightBoard, 1)
+  );
 };
-
 
 /** @param {!Array.<!proto.clapi.InflightBoard>} value */
-proto.clapi.Inflights.prototype.setBoardsList = function(value) {
+proto.clapi.Inflights.prototype.setBoardsList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
-
 
 /**
  * @param {!proto.clapi.InflightBoard=} opt_value
  * @param {number=} opt_index
  * @return {!proto.clapi.InflightBoard}
  */
-proto.clapi.Inflights.prototype.addBoards = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.clapi.InflightBoard, opt_index);
+proto.clapi.Inflights.prototype.addBoards = function (opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    1,
+    opt_value,
+    proto.clapi.InflightBoard,
+    opt_index,
+  );
 };
 
-
-proto.clapi.Inflights.prototype.clearBoardsList = function() {
+proto.clapi.Inflights.prototype.clearBoardsList = function () {
   this.setBoardsList([]);
 };
-
 
 /**
  * repeated InflightThread Threads = 2;
  * @return {!Array.<!proto.clapi.InflightThread>}
  */
-proto.clapi.Inflights.prototype.getThreadsList = function() {
+proto.clapi.Inflights.prototype.getThreadsList = function () {
   return /** @type{!Array.<!proto.clapi.InflightThread>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.clapi.InflightThread, 2));
+    jspb.Message.getRepeatedWrapperField(this, proto.clapi.InflightThread, 2)
+  );
 };
-
 
 /** @param {!Array.<!proto.clapi.InflightThread>} value */
-proto.clapi.Inflights.prototype.setThreadsList = function(value) {
+proto.clapi.Inflights.prototype.setThreadsList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
-
 
 /**
  * @param {!proto.clapi.InflightThread=} opt_value
  * @param {number=} opt_index
  * @return {!proto.clapi.InflightThread}
  */
-proto.clapi.Inflights.prototype.addThreads = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.clapi.InflightThread, opt_index);
+proto.clapi.Inflights.prototype.addThreads = function (opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    2,
+    opt_value,
+    proto.clapi.InflightThread,
+    opt_index,
+  );
 };
 
-
-proto.clapi.Inflights.prototype.clearThreadsList = function() {
+proto.clapi.Inflights.prototype.clearThreadsList = function () {
   this.setThreadsList([]);
 };
-
 
 /**
  * repeated InflightPost Posts = 3;
  * @return {!Array.<!proto.clapi.InflightPost>}
  */
-proto.clapi.Inflights.prototype.getPostsList = function() {
+proto.clapi.Inflights.prototype.getPostsList = function () {
   return /** @type{!Array.<!proto.clapi.InflightPost>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.clapi.InflightPost, 3));
+    jspb.Message.getRepeatedWrapperField(this, proto.clapi.InflightPost, 3)
+  );
 };
-
 
 /** @param {!Array.<!proto.clapi.InflightPost>} value */
-proto.clapi.Inflights.prototype.setPostsList = function(value) {
+proto.clapi.Inflights.prototype.setPostsList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
-
 
 /**
  * @param {!proto.clapi.InflightPost=} opt_value
  * @param {number=} opt_index
  * @return {!proto.clapi.InflightPost}
  */
-proto.clapi.Inflights.prototype.addPosts = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.clapi.InflightPost, opt_index);
+proto.clapi.Inflights.prototype.addPosts = function (opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    3,
+    opt_value,
+    proto.clapi.InflightPost,
+    opt_index,
+  );
 };
 
-
-proto.clapi.Inflights.prototype.clearPostsList = function() {
+proto.clapi.Inflights.prototype.clearPostsList = function () {
   this.setPostsList([]);
 };
-
 
 /**
  * repeated InflightVote Votes = 4;
  * @return {!Array.<!proto.clapi.InflightVote>}
  */
-proto.clapi.Inflights.prototype.getVotesList = function() {
+proto.clapi.Inflights.prototype.getVotesList = function () {
   return /** @type{!Array.<!proto.clapi.InflightVote>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.clapi.InflightVote, 4));
+    jspb.Message.getRepeatedWrapperField(this, proto.clapi.InflightVote, 4)
+  );
 };
-
 
 /** @param {!Array.<!proto.clapi.InflightVote>} value */
-proto.clapi.Inflights.prototype.setVotesList = function(value) {
+proto.clapi.Inflights.prototype.setVotesList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 4, value);
 };
-
 
 /**
  * @param {!proto.clapi.InflightVote=} opt_value
  * @param {number=} opt_index
  * @return {!proto.clapi.InflightVote}
  */
-proto.clapi.Inflights.prototype.addVotes = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.clapi.InflightVote, opt_index);
+proto.clapi.Inflights.prototype.addVotes = function (opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    4,
+    opt_value,
+    proto.clapi.InflightVote,
+    opt_index,
+  );
 };
 
-
-proto.clapi.Inflights.prototype.clearVotesList = function() {
+proto.clapi.Inflights.prototype.clearVotesList = function () {
   this.setVotesList([]);
 };
-
 
 /**
  * repeated InflightKey Keys = 5;
  * @return {!Array.<!proto.clapi.InflightKey>}
  */
-proto.clapi.Inflights.prototype.getKeysList = function() {
+proto.clapi.Inflights.prototype.getKeysList = function () {
   return /** @type{!Array.<!proto.clapi.InflightKey>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.clapi.InflightKey, 5));
+    jspb.Message.getRepeatedWrapperField(this, proto.clapi.InflightKey, 5)
+  );
 };
-
 
 /** @param {!Array.<!proto.clapi.InflightKey>} value */
-proto.clapi.Inflights.prototype.setKeysList = function(value) {
+proto.clapi.Inflights.prototype.setKeysList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 5, value);
 };
-
 
 /**
  * @param {!proto.clapi.InflightKey=} opt_value
  * @param {number=} opt_index
  * @return {!proto.clapi.InflightKey}
  */
-proto.clapi.Inflights.prototype.addKeys = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 5, opt_value, proto.clapi.InflightKey, opt_index);
+proto.clapi.Inflights.prototype.addKeys = function (opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    5,
+    opt_value,
+    proto.clapi.InflightKey,
+    opt_index,
+  );
 };
 
-
-proto.clapi.Inflights.prototype.clearKeysList = function() {
+proto.clapi.Inflights.prototype.clearKeysList = function () {
   this.setKeysList([]);
 };
-
 
 /**
  * repeated InflightTruststate Truststates = 6;
  * @return {!Array.<!proto.clapi.InflightTruststate>}
  */
-proto.clapi.Inflights.prototype.getTruststatesList = function() {
+proto.clapi.Inflights.prototype.getTruststatesList = function () {
   return /** @type{!Array.<!proto.clapi.InflightTruststate>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.clapi.InflightTruststate, 6));
+    jspb.Message.getRepeatedWrapperField(
+      this,
+      proto.clapi.InflightTruststate,
+      6,
+    )
+  );
 };
-
 
 /** @param {!Array.<!proto.clapi.InflightTruststate>} value */
-proto.clapi.Inflights.prototype.setTruststatesList = function(value) {
+proto.clapi.Inflights.prototype.setTruststatesList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 6, value);
 };
-
 
 /**
  * @param {!proto.clapi.InflightTruststate=} opt_value
  * @param {number=} opt_index
  * @return {!proto.clapi.InflightTruststate}
  */
-proto.clapi.Inflights.prototype.addTruststates = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 6, opt_value, proto.clapi.InflightTruststate, opt_index);
+proto.clapi.Inflights.prototype.addTruststates = function (
+  opt_value,
+  opt_index,
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    6,
+    opt_value,
+    proto.clapi.InflightTruststate,
+    opt_index,
+  );
 };
 
-
-proto.clapi.Inflights.prototype.clearTruststatesList = function() {
+proto.clapi.Inflights.prototype.clearTruststatesList = function () {
   this.setTruststatesList([]);
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -2495,66 +2534,81 @@ proto.clapi.Inflights.prototype.clearTruststatesList = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.AmbientStatusPayload = function(opt_data) {
+proto.clapi.AmbientStatusPayload = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.AmbientStatusPayload, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.AmbientStatusPayload.displayName = 'proto.clapi.AmbientStatusPayload';
+  proto.clapi.AmbientStatusPayload.displayName =
+    "proto.clapi.AmbientStatusPayload";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.AmbientStatusPayload.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.AmbientStatusPayload.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.AmbientStatusPayload} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.AmbientStatusPayload.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    backendambientstatus: (f = msg.getBackendambientstatus()) && feobjects_feobjects_pb.BackendAmbientStatus.toObject(includeInstance, f),
-    frontendambientstatus: (f = msg.getFrontendambientstatus()) && feobjects_feobjects_pb.FrontendAmbientStatus.toObject(includeInstance, f),
-    inflights: (f = msg.getInflights()) && proto.clapi.Inflights.toObject(includeInstance, f)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.AmbientStatusPayload.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.AmbientStatusPayload.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.AmbientStatusPayload} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.AmbientStatusPayload.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        backendambientstatus:
+          (f = msg.getBackendambientstatus()) &&
+          feobjects_feobjects_pb.BackendAmbientStatus.toObject(
+            includeInstance,
+            f,
+          ),
+        frontendambientstatus:
+          (f = msg.getFrontendambientstatus()) &&
+          feobjects_feobjects_pb.FrontendAmbientStatus.toObject(
+            includeInstance,
+            f,
+          ),
+        inflights:
+          (f = msg.getInflights()) &&
+          proto.clapi.Inflights.toObject(includeInstance, f),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.AmbientStatusPayload}
  */
-proto.clapi.AmbientStatusPayload.deserializeBinary = function(bytes) {
+proto.clapi.AmbientStatusPayload.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.AmbientStatusPayload;
-  return proto.clapi.AmbientStatusPayload.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.AmbientStatusPayload();
+  return proto.clapi.AmbientStatusPayload.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -2563,47 +2617,59 @@ proto.clapi.AmbientStatusPayload.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.AmbientStatusPayload}
  */
-proto.clapi.AmbientStatusPayload.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.AmbientStatusPayload.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new feobjects_feobjects_pb.BackendAmbientStatus;
-      reader.readMessage(value,feobjects_feobjects_pb.BackendAmbientStatus.deserializeBinaryFromReader);
-      msg.setBackendambientstatus(value);
-      break;
-    case 2:
-      var value = new feobjects_feobjects_pb.FrontendAmbientStatus;
-      reader.readMessage(value,feobjects_feobjects_pb.FrontendAmbientStatus.deserializeBinaryFromReader);
-      msg.setFrontendambientstatus(value);
-      break;
-    case 3:
-      var value = new proto.clapi.Inflights;
-      reader.readMessage(value,proto.clapi.Inflights.deserializeBinaryFromReader);
-      msg.setInflights(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new feobjects_feobjects_pb.BackendAmbientStatus();
+        reader.readMessage(
+          value,
+          feobjects_feobjects_pb.BackendAmbientStatus
+            .deserializeBinaryFromReader,
+        );
+        msg.setBackendambientstatus(value);
+        break;
+      case 2:
+        var value = new feobjects_feobjects_pb.FrontendAmbientStatus();
+        reader.readMessage(
+          value,
+          feobjects_feobjects_pb.FrontendAmbientStatus
+            .deserializeBinaryFromReader,
+        );
+        msg.setFrontendambientstatus(value);
+        break;
+      case 3:
+        var value = new proto.clapi.Inflights();
+        reader.readMessage(
+          value,
+          proto.clapi.Inflights.deserializeBinaryFromReader,
+        );
+        msg.setInflights(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.AmbientStatusPayload.prototype.serializeBinary = function() {
+proto.clapi.AmbientStatusPayload.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.AmbientStatusPayload.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -2612,14 +2678,17 @@ proto.clapi.AmbientStatusPayload.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.AmbientStatusPayload.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.AmbientStatusPayload.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getBackendambientstatus();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      feobjects_feobjects_pb.BackendAmbientStatus.serializeBinaryToWriter
+      feobjects_feobjects_pb.BackendAmbientStatus.serializeBinaryToWriter,
     );
   }
   f = message.getFrontendambientstatus();
@@ -2627,110 +2696,113 @@ proto.clapi.AmbientStatusPayload.serializeBinaryToWriter = function(message, wri
     writer.writeMessage(
       2,
       f,
-      feobjects_feobjects_pb.FrontendAmbientStatus.serializeBinaryToWriter
+      feobjects_feobjects_pb.FrontendAmbientStatus.serializeBinaryToWriter,
     );
   }
   f = message.getInflights();
   if (f != null) {
-    writer.writeMessage(
-      3,
-      f,
-      proto.clapi.Inflights.serializeBinaryToWriter
-    );
+    writer.writeMessage(3, f, proto.clapi.Inflights.serializeBinaryToWriter);
   }
 };
-
 
 /**
  * optional feobjects.BackendAmbientStatus BackendAmbientStatus = 1;
  * @return {?proto.feobjects.BackendAmbientStatus}
  */
-proto.clapi.AmbientStatusPayload.prototype.getBackendambientstatus = function() {
-  return /** @type{?proto.feobjects.BackendAmbientStatus} */ (
-    jspb.Message.getWrapperField(this, feobjects_feobjects_pb.BackendAmbientStatus, 1));
-};
-
+proto.clapi.AmbientStatusPayload.prototype.getBackendambientstatus =
+  function () {
+    return /** @type{?proto.feobjects.BackendAmbientStatus} */ (
+      jspb.Message.getWrapperField(
+        this,
+        feobjects_feobjects_pb.BackendAmbientStatus,
+        1,
+      )
+    );
+  };
 
 /** @param {?proto.feobjects.BackendAmbientStatus|undefined} value */
-proto.clapi.AmbientStatusPayload.prototype.setBackendambientstatus = function(value) {
+proto.clapi.AmbientStatusPayload.prototype.setBackendambientstatus = function (
+  value,
+) {
   jspb.Message.setWrapperField(this, 1, value);
 };
 
-
-proto.clapi.AmbientStatusPayload.prototype.clearBackendambientstatus = function() {
-  this.setBackendambientstatus(undefined);
-};
-
+proto.clapi.AmbientStatusPayload.prototype.clearBackendambientstatus =
+  function () {
+    this.setBackendambientstatus(undefined);
+  };
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.AmbientStatusPayload.prototype.hasBackendambientstatus = function() {
-  return jspb.Message.getField(this, 1) != null;
-};
-
+proto.clapi.AmbientStatusPayload.prototype.hasBackendambientstatus =
+  function () {
+    return jspb.Message.getField(this, 1) != null;
+  };
 
 /**
  * optional feobjects.FrontendAmbientStatus FrontendAmbientStatus = 2;
  * @return {?proto.feobjects.FrontendAmbientStatus}
  */
-proto.clapi.AmbientStatusPayload.prototype.getFrontendambientstatus = function() {
-  return /** @type{?proto.feobjects.FrontendAmbientStatus} */ (
-    jspb.Message.getWrapperField(this, feobjects_feobjects_pb.FrontendAmbientStatus, 2));
-};
-
+proto.clapi.AmbientStatusPayload.prototype.getFrontendambientstatus =
+  function () {
+    return /** @type{?proto.feobjects.FrontendAmbientStatus} */ (
+      jspb.Message.getWrapperField(
+        this,
+        feobjects_feobjects_pb.FrontendAmbientStatus,
+        2,
+      )
+    );
+  };
 
 /** @param {?proto.feobjects.FrontendAmbientStatus|undefined} value */
-proto.clapi.AmbientStatusPayload.prototype.setFrontendambientstatus = function(value) {
+proto.clapi.AmbientStatusPayload.prototype.setFrontendambientstatus = function (
+  value,
+) {
   jspb.Message.setWrapperField(this, 2, value);
 };
 
-
-proto.clapi.AmbientStatusPayload.prototype.clearFrontendambientstatus = function() {
-  this.setFrontendambientstatus(undefined);
-};
-
+proto.clapi.AmbientStatusPayload.prototype.clearFrontendambientstatus =
+  function () {
+    this.setFrontendambientstatus(undefined);
+  };
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.AmbientStatusPayload.prototype.hasFrontendambientstatus = function() {
-  return jspb.Message.getField(this, 2) != null;
-};
-
+proto.clapi.AmbientStatusPayload.prototype.hasFrontendambientstatus =
+  function () {
+    return jspb.Message.getField(this, 2) != null;
+  };
 
 /**
  * optional Inflights Inflights = 3;
  * @return {?proto.clapi.Inflights}
  */
-proto.clapi.AmbientStatusPayload.prototype.getInflights = function() {
+proto.clapi.AmbientStatusPayload.prototype.getInflights = function () {
   return /** @type{?proto.clapi.Inflights} */ (
-    jspb.Message.getWrapperField(this, proto.clapi.Inflights, 3));
+    jspb.Message.getWrapperField(this, proto.clapi.Inflights, 3)
+  );
 };
 
-
 /** @param {?proto.clapi.Inflights|undefined} value */
-proto.clapi.AmbientStatusPayload.prototype.setInflights = function(value) {
+proto.clapi.AmbientStatusPayload.prototype.setInflights = function (value) {
   jspb.Message.setWrapperField(this, 3, value);
 };
 
-
-proto.clapi.AmbientStatusPayload.prototype.clearInflights = function() {
+proto.clapi.AmbientStatusPayload.prototype.clearInflights = function () {
   this.setInflights(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.AmbientStatusPayload.prototype.hasInflights = function() {
+proto.clapi.AmbientStatusPayload.prototype.hasInflights = function () {
   return jspb.Message.getField(this, 3) != null;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -2742,64 +2814,68 @@ proto.clapi.AmbientStatusPayload.prototype.hasInflights = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.AmbientStatusResponse = function(opt_data) {
+proto.clapi.AmbientStatusResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.AmbientStatusResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.AmbientStatusResponse.displayName = 'proto.clapi.AmbientStatusResponse';
+  proto.clapi.AmbientStatusResponse.displayName =
+    "proto.clapi.AmbientStatusResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.AmbientStatusResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.AmbientStatusResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.AmbientStatusResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.AmbientStatusResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.AmbientStatusResponse.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.AmbientStatusResponse.toObject(
+      opt_includeInstance,
+      this,
+    );
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.AmbientStatusResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.AmbientStatusResponse.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {};
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.AmbientStatusResponse}
  */
-proto.clapi.AmbientStatusResponse.deserializeBinary = function(bytes) {
+proto.clapi.AmbientStatusResponse.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.AmbientStatusResponse;
-  return proto.clapi.AmbientStatusResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.AmbientStatusResponse();
+  return proto.clapi.AmbientStatusResponse.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -2808,32 +2884,33 @@ proto.clapi.AmbientStatusResponse.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.AmbientStatusResponse}
  */
-proto.clapi.AmbientStatusResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.AmbientStatusResponse.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    default:
-      reader.skipField();
-      break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.AmbientStatusResponse.prototype.serializeBinary = function() {
+proto.clapi.AmbientStatusResponse.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.AmbientStatusResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -2842,11 +2919,12 @@ proto.clapi.AmbientStatusResponse.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.AmbientStatusResponse.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.AmbientStatusResponse.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -2858,65 +2936,79 @@ proto.clapi.AmbientStatusResponse.serializeBinaryToWriter = function(message, wr
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.AmbientLocalUserEntityPayload = function(opt_data) {
+proto.clapi.AmbientLocalUserEntityPayload = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.AmbientLocalUserEntityPayload, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.AmbientLocalUserEntityPayload.displayName = 'proto.clapi.AmbientLocalUserEntityPayload';
+  proto.clapi.AmbientLocalUserEntityPayload.displayName =
+    "proto.clapi.AmbientLocalUserEntityPayload";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.AmbientLocalUserEntityPayload.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.AmbientLocalUserEntityPayload.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.AmbientLocalUserEntityPayload} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.AmbientLocalUserEntityPayload.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    localuserexists: jspb.Message.getFieldWithDefault(msg, 1, false),
-    localuserentity: (f = msg.getLocaluserentity()) && feobjects_feobjects_pb.CompiledUserEntity.toObject(includeInstance, f)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.AmbientLocalUserEntityPayload.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.AmbientLocalUserEntityPayload.toObject(
+      opt_includeInstance,
+      this,
+    );
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.AmbientLocalUserEntityPayload} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.AmbientLocalUserEntityPayload.toObject = function (
+    includeInstance,
+    msg,
+  ) {
+    var f,
+      obj = {
+        localuserexists: jspb.Message.getFieldWithDefault(msg, 1, false),
+        localuserentity:
+          (f = msg.getLocaluserentity()) &&
+          feobjects_feobjects_pb.CompiledUserEntity.toObject(
+            includeInstance,
+            f,
+          ),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.AmbientLocalUserEntityPayload}
  */
-proto.clapi.AmbientLocalUserEntityPayload.deserializeBinary = function(bytes) {
+proto.clapi.AmbientLocalUserEntityPayload.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.AmbientLocalUserEntityPayload;
-  return proto.clapi.AmbientLocalUserEntityPayload.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.AmbientLocalUserEntityPayload();
+  return proto.clapi.AmbientLocalUserEntityPayload.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -2925,41 +3017,48 @@ proto.clapi.AmbientLocalUserEntityPayload.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.AmbientLocalUserEntityPayload}
  */
-proto.clapi.AmbientLocalUserEntityPayload.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.clapi.AmbientLocalUserEntityPayload.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        case 1:
+          var value = /** @type {boolean} */ (reader.readBool());
+          msg.setLocaluserexists(value);
+          break;
+        case 2:
+          var value = new feobjects_feobjects_pb.CompiledUserEntity();
+          reader.readMessage(
+            value,
+            feobjects_feobjects_pb.CompiledUserEntity
+              .deserializeBinaryFromReader,
+          );
+          msg.setLocaluserentity(value);
+          break;
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setLocaluserexists(value);
-      break;
-    case 2:
-      var value = new feobjects_feobjects_pb.CompiledUserEntity;
-      reader.readMessage(value,feobjects_feobjects_pb.CompiledUserEntity.deserializeBinaryFromReader);
-      msg.setLocaluserentity(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.AmbientLocalUserEntityPayload.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.clapi.AmbientLocalUserEntityPayload.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.clapi.AmbientLocalUserEntityPayload.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.clapi.AmbientLocalUserEntityPayload.serializeBinaryToWriter(
+      this,
+      writer,
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -2968,25 +3067,24 @@ proto.clapi.AmbientLocalUserEntityPayload.prototype.serializeBinary = function()
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.AmbientLocalUserEntityPayload.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.AmbientLocalUserEntityPayload.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getLocaluserexists();
   if (f) {
-    writer.writeBool(
-      1,
-      f
-    );
+    writer.writeBool(1, f);
   }
   f = message.getLocaluserentity();
   if (f != null) {
     writer.writeMessage(
       2,
       f,
-      feobjects_feobjects_pb.CompiledUserEntity.serializeBinaryToWriter
+      feobjects_feobjects_pb.CompiledUserEntity.serializeBinaryToWriter,
     );
   }
 };
-
 
 /**
  * optional bool LocalUserExists = 1;
@@ -2994,47 +3092,53 @@ proto.clapi.AmbientLocalUserEntityPayload.serializeBinaryToWriter = function(mes
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.clapi.AmbientLocalUserEntityPayload.prototype.getLocaluserexists = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 1, false));
-};
-
+proto.clapi.AmbientLocalUserEntityPayload.prototype.getLocaluserexists =
+  function () {
+    return /** @type {boolean} */ (
+      jspb.Message.getFieldWithDefault(this, 1, false)
+    );
+  };
 
 /** @param {boolean} value */
-proto.clapi.AmbientLocalUserEntityPayload.prototype.setLocaluserexists = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
+proto.clapi.AmbientLocalUserEntityPayload.prototype.setLocaluserexists =
+  function (value) {
+    jspb.Message.setField(this, 1, value);
+  };
 
 /**
  * optional feobjects.CompiledUserEntity LocalUserEntity = 2;
  * @return {?proto.feobjects.CompiledUserEntity}
  */
-proto.clapi.AmbientLocalUserEntityPayload.prototype.getLocaluserentity = function() {
-  return /** @type{?proto.feobjects.CompiledUserEntity} */ (
-    jspb.Message.getWrapperField(this, feobjects_feobjects_pb.CompiledUserEntity, 2));
-};
-
+proto.clapi.AmbientLocalUserEntityPayload.prototype.getLocaluserentity =
+  function () {
+    return /** @type{?proto.feobjects.CompiledUserEntity} */ (
+      jspb.Message.getWrapperField(
+        this,
+        feobjects_feobjects_pb.CompiledUserEntity,
+        2,
+      )
+    );
+  };
 
 /** @param {?proto.feobjects.CompiledUserEntity|undefined} value */
-proto.clapi.AmbientLocalUserEntityPayload.prototype.setLocaluserentity = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
-};
+proto.clapi.AmbientLocalUserEntityPayload.prototype.setLocaluserentity =
+  function (value) {
+    jspb.Message.setWrapperField(this, 2, value);
+  };
 
-
-proto.clapi.AmbientLocalUserEntityPayload.prototype.clearLocaluserentity = function() {
-  this.setLocaluserentity(undefined);
-};
-
+proto.clapi.AmbientLocalUserEntityPayload.prototype.clearLocaluserentity =
+  function () {
+    this.setLocaluserentity(undefined);
+  };
 
 /**
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.clapi.AmbientLocalUserEntityPayload.prototype.hasLocaluserentity = function() {
-  return jspb.Message.getField(this, 2) != null;
-};
-
-
+proto.clapi.AmbientLocalUserEntityPayload.prototype.hasLocaluserentity =
+  function () {
+    return jspb.Message.getField(this, 2) != null;
+  };
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -3046,64 +3150,73 @@ proto.clapi.AmbientLocalUserEntityPayload.prototype.hasLocaluserentity = functio
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.AmbientLocalUserEntityResponse = function(opt_data) {
+proto.clapi.AmbientLocalUserEntityResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.AmbientLocalUserEntityResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.AmbientLocalUserEntityResponse.displayName = 'proto.clapi.AmbientLocalUserEntityResponse';
+  proto.clapi.AmbientLocalUserEntityResponse.displayName =
+    "proto.clapi.AmbientLocalUserEntityResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.AmbientLocalUserEntityResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.AmbientLocalUserEntityResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.AmbientLocalUserEntityResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.AmbientLocalUserEntityResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.AmbientLocalUserEntityResponse.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.AmbientLocalUserEntityResponse.toObject(
+      opt_includeInstance,
+      this,
+    );
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.AmbientLocalUserEntityResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.AmbientLocalUserEntityResponse.toObject = function (
+    includeInstance,
+    msg,
+  ) {
+    var f,
+      obj = {};
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.AmbientLocalUserEntityResponse}
  */
-proto.clapi.AmbientLocalUserEntityResponse.deserializeBinary = function(bytes) {
+proto.clapi.AmbientLocalUserEntityResponse.deserializeBinary = function (
+  bytes,
+) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.AmbientLocalUserEntityResponse;
-  return proto.clapi.AmbientLocalUserEntityResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.AmbientLocalUserEntityResponse();
+  return proto.clapi.AmbientLocalUserEntityResponse.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -3112,32 +3225,35 @@ proto.clapi.AmbientLocalUserEntityResponse.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.AmbientLocalUserEntityResponse}
  */
-proto.clapi.AmbientLocalUserEntityResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.clapi.AmbientLocalUserEntityResponse.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.AmbientLocalUserEntityResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.clapi.AmbientLocalUserEntityResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.clapi.AmbientLocalUserEntityResponse.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.clapi.AmbientLocalUserEntityResponse.serializeBinaryToWriter(
+      this,
+      writer,
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -3146,11 +3262,12 @@ proto.clapi.AmbientLocalUserEntityResponse.prototype.serializeBinary = function(
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.AmbientLocalUserEntityResponse.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.AmbientLocalUserEntityResponse.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -3162,12 +3279,19 @@ proto.clapi.AmbientLocalUserEntityResponse.serializeBinaryToWriter = function(me
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.HomeViewPayload = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.clapi.HomeViewPayload.repeatedFields_, null);
+proto.clapi.HomeViewPayload = function (opt_data) {
+  jspb.Message.initialize(
+    this,
+    opt_data,
+    0,
+    -1,
+    proto.clapi.HomeViewPayload.repeatedFields_,
+    null,
+  );
 };
 goog.inherits(proto.clapi.HomeViewPayload, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.HomeViewPayload.displayName = 'proto.clapi.HomeViewPayload';
+  proto.clapi.HomeViewPayload.displayName = "proto.clapi.HomeViewPayload";
 }
 /**
  * List of repeated fields within this message type.
@@ -3176,58 +3300,59 @@ if (goog.DEBUG && !COMPILED) {
  */
 proto.clapi.HomeViewPayload.repeatedFields_ = [1];
 
-
-
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.HomeViewPayload.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.HomeViewPayload.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.HomeViewPayload} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.HomeViewPayload.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    threadsList: jspb.Message.toObjectList(msg.getThreadsList(),
-    feobjects_feobjects_pb.CompiledThreadEntity.toObject, includeInstance)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.HomeViewPayload.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.HomeViewPayload.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.HomeViewPayload} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.HomeViewPayload.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        threadsList: jspb.Message.toObjectList(
+          msg.getThreadsList(),
+          feobjects_feobjects_pb.CompiledThreadEntity.toObject,
+          includeInstance,
+        ),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.HomeViewPayload}
  */
-proto.clapi.HomeViewPayload.deserializeBinary = function(bytes) {
+proto.clapi.HomeViewPayload.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.HomeViewPayload;
+  var msg = new proto.clapi.HomeViewPayload();
   return proto.clapi.HomeViewPayload.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -3236,37 +3361,42 @@ proto.clapi.HomeViewPayload.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.HomeViewPayload}
  */
-proto.clapi.HomeViewPayload.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.HomeViewPayload.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new feobjects_feobjects_pb.CompiledThreadEntity;
-      reader.readMessage(value,feobjects_feobjects_pb.CompiledThreadEntity.deserializeBinaryFromReader);
-      msg.addThreads(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new feobjects_feobjects_pb.CompiledThreadEntity();
+        reader.readMessage(
+          value,
+          feobjects_feobjects_pb.CompiledThreadEntity
+            .deserializeBinaryFromReader,
+        );
+        msg.addThreads(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.HomeViewPayload.prototype.serializeBinary = function() {
+proto.clapi.HomeViewPayload.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.HomeViewPayload.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -3275,50 +3405,61 @@ proto.clapi.HomeViewPayload.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.HomeViewPayload.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.HomeViewPayload.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getThreadsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      feobjects_feobjects_pb.CompiledThreadEntity.serializeBinaryToWriter
+      feobjects_feobjects_pb.CompiledThreadEntity.serializeBinaryToWriter,
     );
   }
 };
-
 
 /**
  * repeated feobjects.CompiledThreadEntity Threads = 1;
  * @return {!Array.<!proto.feobjects.CompiledThreadEntity>}
  */
-proto.clapi.HomeViewPayload.prototype.getThreadsList = function() {
+proto.clapi.HomeViewPayload.prototype.getThreadsList = function () {
   return /** @type{!Array.<!proto.feobjects.CompiledThreadEntity>} */ (
-    jspb.Message.getRepeatedWrapperField(this, feobjects_feobjects_pb.CompiledThreadEntity, 1));
+    jspb.Message.getRepeatedWrapperField(
+      this,
+      feobjects_feobjects_pb.CompiledThreadEntity,
+      1,
+    )
+  );
 };
-
 
 /** @param {!Array.<!proto.feobjects.CompiledThreadEntity>} value */
-proto.clapi.HomeViewPayload.prototype.setThreadsList = function(value) {
+proto.clapi.HomeViewPayload.prototype.setThreadsList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
-
 
 /**
  * @param {!proto.feobjects.CompiledThreadEntity=} opt_value
  * @param {number=} opt_index
  * @return {!proto.feobjects.CompiledThreadEntity}
  */
-proto.clapi.HomeViewPayload.prototype.addThreads = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.feobjects.CompiledThreadEntity, opt_index);
+proto.clapi.HomeViewPayload.prototype.addThreads = function (
+  opt_value,
+  opt_index,
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    1,
+    opt_value,
+    proto.feobjects.CompiledThreadEntity,
+    opt_index,
+  );
 };
 
-
-proto.clapi.HomeViewPayload.prototype.clearThreadsList = function() {
+proto.clapi.HomeViewPayload.prototype.clearThreadsList = function () {
   this.setThreadsList([]);
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -3330,64 +3471,61 @@ proto.clapi.HomeViewPayload.prototype.clearThreadsList = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.HomeViewResponse = function(opt_data) {
+proto.clapi.HomeViewResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.HomeViewResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.HomeViewResponse.displayName = 'proto.clapi.HomeViewResponse';
+  proto.clapi.HomeViewResponse.displayName = "proto.clapi.HomeViewResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.HomeViewResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.HomeViewResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.HomeViewResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.HomeViewResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.HomeViewResponse.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.HomeViewResponse.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.HomeViewResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.HomeViewResponse.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {};
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.HomeViewResponse}
  */
-proto.clapi.HomeViewResponse.deserializeBinary = function(bytes) {
+proto.clapi.HomeViewResponse.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.HomeViewResponse;
+  var msg = new proto.clapi.HomeViewResponse();
   return proto.clapi.HomeViewResponse.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -3396,32 +3534,33 @@ proto.clapi.HomeViewResponse.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.HomeViewResponse}
  */
-proto.clapi.HomeViewResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.HomeViewResponse.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    default:
-      reader.skipField();
-      break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.HomeViewResponse.prototype.serializeBinary = function() {
+proto.clapi.HomeViewResponse.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.HomeViewResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -3430,11 +3569,12 @@ proto.clapi.HomeViewResponse.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.HomeViewResponse.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.HomeViewResponse.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -3446,12 +3586,19 @@ proto.clapi.HomeViewResponse.serializeBinaryToWriter = function(message, writer)
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.PopularViewPayload = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.clapi.PopularViewPayload.repeatedFields_, null);
+proto.clapi.PopularViewPayload = function (opt_data) {
+  jspb.Message.initialize(
+    this,
+    opt_data,
+    0,
+    -1,
+    proto.clapi.PopularViewPayload.repeatedFields_,
+    null,
+  );
 };
 goog.inherits(proto.clapi.PopularViewPayload, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.PopularViewPayload.displayName = 'proto.clapi.PopularViewPayload';
+  proto.clapi.PopularViewPayload.displayName = "proto.clapi.PopularViewPayload";
 }
 /**
  * List of repeated fields within this message type.
@@ -3460,58 +3607,62 @@ if (goog.DEBUG && !COMPILED) {
  */
 proto.clapi.PopularViewPayload.repeatedFields_ = [1];
 
-
-
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.PopularViewPayload.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.PopularViewPayload.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.PopularViewPayload} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.PopularViewPayload.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    threadsList: jspb.Message.toObjectList(msg.getThreadsList(),
-    feobjects_feobjects_pb.CompiledThreadEntity.toObject, includeInstance)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.PopularViewPayload.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.PopularViewPayload.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.PopularViewPayload} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.PopularViewPayload.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        threadsList: jspb.Message.toObjectList(
+          msg.getThreadsList(),
+          feobjects_feobjects_pb.CompiledThreadEntity.toObject,
+          includeInstance,
+        ),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.PopularViewPayload}
  */
-proto.clapi.PopularViewPayload.deserializeBinary = function(bytes) {
+proto.clapi.PopularViewPayload.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.PopularViewPayload;
-  return proto.clapi.PopularViewPayload.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.PopularViewPayload();
+  return proto.clapi.PopularViewPayload.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -3520,37 +3671,42 @@ proto.clapi.PopularViewPayload.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.PopularViewPayload}
  */
-proto.clapi.PopularViewPayload.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.PopularViewPayload.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new feobjects_feobjects_pb.CompiledThreadEntity;
-      reader.readMessage(value,feobjects_feobjects_pb.CompiledThreadEntity.deserializeBinaryFromReader);
-      msg.addThreads(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new feobjects_feobjects_pb.CompiledThreadEntity();
+        reader.readMessage(
+          value,
+          feobjects_feobjects_pb.CompiledThreadEntity
+            .deserializeBinaryFromReader,
+        );
+        msg.addThreads(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.PopularViewPayload.prototype.serializeBinary = function() {
+proto.clapi.PopularViewPayload.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.PopularViewPayload.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -3559,50 +3715,61 @@ proto.clapi.PopularViewPayload.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.PopularViewPayload.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.PopularViewPayload.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getThreadsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      feobjects_feobjects_pb.CompiledThreadEntity.serializeBinaryToWriter
+      feobjects_feobjects_pb.CompiledThreadEntity.serializeBinaryToWriter,
     );
   }
 };
-
 
 /**
  * repeated feobjects.CompiledThreadEntity Threads = 1;
  * @return {!Array.<!proto.feobjects.CompiledThreadEntity>}
  */
-proto.clapi.PopularViewPayload.prototype.getThreadsList = function() {
+proto.clapi.PopularViewPayload.prototype.getThreadsList = function () {
   return /** @type{!Array.<!proto.feobjects.CompiledThreadEntity>} */ (
-    jspb.Message.getRepeatedWrapperField(this, feobjects_feobjects_pb.CompiledThreadEntity, 1));
+    jspb.Message.getRepeatedWrapperField(
+      this,
+      feobjects_feobjects_pb.CompiledThreadEntity,
+      1,
+    )
+  );
 };
-
 
 /** @param {!Array.<!proto.feobjects.CompiledThreadEntity>} value */
-proto.clapi.PopularViewPayload.prototype.setThreadsList = function(value) {
+proto.clapi.PopularViewPayload.prototype.setThreadsList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
-
 
 /**
  * @param {!proto.feobjects.CompiledThreadEntity=} opt_value
  * @param {number=} opt_index
  * @return {!proto.feobjects.CompiledThreadEntity}
  */
-proto.clapi.PopularViewPayload.prototype.addThreads = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.feobjects.CompiledThreadEntity, opt_index);
+proto.clapi.PopularViewPayload.prototype.addThreads = function (
+  opt_value,
+  opt_index,
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    1,
+    opt_value,
+    proto.feobjects.CompiledThreadEntity,
+    opt_index,
+  );
 };
 
-
-proto.clapi.PopularViewPayload.prototype.clearThreadsList = function() {
+proto.clapi.PopularViewPayload.prototype.clearThreadsList = function () {
   this.setThreadsList([]);
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -3614,64 +3781,65 @@ proto.clapi.PopularViewPayload.prototype.clearThreadsList = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.PopularViewResponse = function(opt_data) {
+proto.clapi.PopularViewResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.PopularViewResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.PopularViewResponse.displayName = 'proto.clapi.PopularViewResponse';
+  proto.clapi.PopularViewResponse.displayName =
+    "proto.clapi.PopularViewResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.PopularViewResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.PopularViewResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.PopularViewResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.PopularViewResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.PopularViewResponse.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.PopularViewResponse.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.PopularViewResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.PopularViewResponse.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {};
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.PopularViewResponse}
  */
-proto.clapi.PopularViewResponse.deserializeBinary = function(bytes) {
+proto.clapi.PopularViewResponse.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.PopularViewResponse;
-  return proto.clapi.PopularViewResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.PopularViewResponse();
+  return proto.clapi.PopularViewResponse.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -3680,32 +3848,33 @@ proto.clapi.PopularViewResponse.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.PopularViewResponse}
  */
-proto.clapi.PopularViewResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.PopularViewResponse.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    default:
-      reader.skipField();
-      break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.PopularViewResponse.prototype.serializeBinary = function() {
+proto.clapi.PopularViewResponse.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.PopularViewResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -3714,11 +3883,12 @@ proto.clapi.PopularViewResponse.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.PopularViewResponse.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.PopularViewResponse.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -3730,74 +3900,85 @@ proto.clapi.PopularViewResponse.serializeBinaryToWriter = function(message, writ
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.NewViewPayload = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.clapi.NewViewPayload.repeatedFields_, null);
+proto.clapi.NewViewPayload = function (opt_data) {
+  jspb.Message.initialize(
+    this,
+    opt_data,
+    0,
+    -1,
+    proto.clapi.NewViewPayload.repeatedFields_,
+    null,
+  );
 };
 goog.inherits(proto.clapi.NewViewPayload, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.NewViewPayload.displayName = 'proto.clapi.NewViewPayload';
+  proto.clapi.NewViewPayload.displayName = "proto.clapi.NewViewPayload";
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.clapi.NewViewPayload.repeatedFields_ = [1,2];
-
-
+proto.clapi.NewViewPayload.repeatedFields_ = [1, 2];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.NewViewPayload.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.NewViewPayload.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.NewViewPayload} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.NewViewPayload.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    threadsList: jspb.Message.toObjectList(msg.getThreadsList(),
-    feobjects_feobjects_pb.CompiledThreadEntity.toObject, includeInstance),
-    postsList: jspb.Message.toObjectList(msg.getPostsList(),
-    feobjects_feobjects_pb.CompiledPostEntity.toObject, includeInstance)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.NewViewPayload.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.NewViewPayload.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.NewViewPayload} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.NewViewPayload.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        threadsList: jspb.Message.toObjectList(
+          msg.getThreadsList(),
+          feobjects_feobjects_pb.CompiledThreadEntity.toObject,
+          includeInstance,
+        ),
+        postsList: jspb.Message.toObjectList(
+          msg.getPostsList(),
+          feobjects_feobjects_pb.CompiledPostEntity.toObject,
+          includeInstance,
+        ),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.NewViewPayload}
  */
-proto.clapi.NewViewPayload.deserializeBinary = function(bytes) {
+proto.clapi.NewViewPayload.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.NewViewPayload;
+  var msg = new proto.clapi.NewViewPayload();
   return proto.clapi.NewViewPayload.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -3806,42 +3987,50 @@ proto.clapi.NewViewPayload.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.NewViewPayload}
  */
-proto.clapi.NewViewPayload.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.NewViewPayload.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new feobjects_feobjects_pb.CompiledThreadEntity;
-      reader.readMessage(value,feobjects_feobjects_pb.CompiledThreadEntity.deserializeBinaryFromReader);
-      msg.addThreads(value);
-      break;
-    case 2:
-      var value = new feobjects_feobjects_pb.CompiledPostEntity;
-      reader.readMessage(value,feobjects_feobjects_pb.CompiledPostEntity.deserializeBinaryFromReader);
-      msg.addPosts(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new feobjects_feobjects_pb.CompiledThreadEntity();
+        reader.readMessage(
+          value,
+          feobjects_feobjects_pb.CompiledThreadEntity
+            .deserializeBinaryFromReader,
+        );
+        msg.addThreads(value);
+        break;
+      case 2:
+        var value = new feobjects_feobjects_pb.CompiledPostEntity();
+        reader.readMessage(
+          value,
+          feobjects_feobjects_pb.CompiledPostEntity.deserializeBinaryFromReader,
+        );
+        msg.addPosts(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.NewViewPayload.prototype.serializeBinary = function() {
+proto.clapi.NewViewPayload.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.NewViewPayload.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -3850,14 +4039,17 @@ proto.clapi.NewViewPayload.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.NewViewPayload.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.NewViewPayload.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getThreadsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      feobjects_feobjects_pb.CompiledThreadEntity.serializeBinaryToWriter
+      feobjects_feobjects_pb.CompiledThreadEntity.serializeBinaryToWriter,
     );
   }
   f = message.getPostsList();
@@ -3865,74 +4057,92 @@ proto.clapi.NewViewPayload.serializeBinaryToWriter = function(message, writer) {
     writer.writeRepeatedMessage(
       2,
       f,
-      feobjects_feobjects_pb.CompiledPostEntity.serializeBinaryToWriter
+      feobjects_feobjects_pb.CompiledPostEntity.serializeBinaryToWriter,
     );
   }
 };
-
 
 /**
  * repeated feobjects.CompiledThreadEntity Threads = 1;
  * @return {!Array.<!proto.feobjects.CompiledThreadEntity>}
  */
-proto.clapi.NewViewPayload.prototype.getThreadsList = function() {
+proto.clapi.NewViewPayload.prototype.getThreadsList = function () {
   return /** @type{!Array.<!proto.feobjects.CompiledThreadEntity>} */ (
-    jspb.Message.getRepeatedWrapperField(this, feobjects_feobjects_pb.CompiledThreadEntity, 1));
+    jspb.Message.getRepeatedWrapperField(
+      this,
+      feobjects_feobjects_pb.CompiledThreadEntity,
+      1,
+    )
+  );
 };
-
 
 /** @param {!Array.<!proto.feobjects.CompiledThreadEntity>} value */
-proto.clapi.NewViewPayload.prototype.setThreadsList = function(value) {
+proto.clapi.NewViewPayload.prototype.setThreadsList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
-
 
 /**
  * @param {!proto.feobjects.CompiledThreadEntity=} opt_value
  * @param {number=} opt_index
  * @return {!proto.feobjects.CompiledThreadEntity}
  */
-proto.clapi.NewViewPayload.prototype.addThreads = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.feobjects.CompiledThreadEntity, opt_index);
+proto.clapi.NewViewPayload.prototype.addThreads = function (
+  opt_value,
+  opt_index,
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    1,
+    opt_value,
+    proto.feobjects.CompiledThreadEntity,
+    opt_index,
+  );
 };
 
-
-proto.clapi.NewViewPayload.prototype.clearThreadsList = function() {
+proto.clapi.NewViewPayload.prototype.clearThreadsList = function () {
   this.setThreadsList([]);
 };
-
 
 /**
  * repeated feobjects.CompiledPostEntity Posts = 2;
  * @return {!Array.<!proto.feobjects.CompiledPostEntity>}
  */
-proto.clapi.NewViewPayload.prototype.getPostsList = function() {
+proto.clapi.NewViewPayload.prototype.getPostsList = function () {
   return /** @type{!Array.<!proto.feobjects.CompiledPostEntity>} */ (
-    jspb.Message.getRepeatedWrapperField(this, feobjects_feobjects_pb.CompiledPostEntity, 2));
+    jspb.Message.getRepeatedWrapperField(
+      this,
+      feobjects_feobjects_pb.CompiledPostEntity,
+      2,
+    )
+  );
 };
-
 
 /** @param {!Array.<!proto.feobjects.CompiledPostEntity>} value */
-proto.clapi.NewViewPayload.prototype.setPostsList = function(value) {
+proto.clapi.NewViewPayload.prototype.setPostsList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
-
 
 /**
  * @param {!proto.feobjects.CompiledPostEntity=} opt_value
  * @param {number=} opt_index
  * @return {!proto.feobjects.CompiledPostEntity}
  */
-proto.clapi.NewViewPayload.prototype.addPosts = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.feobjects.CompiledPostEntity, opt_index);
+proto.clapi.NewViewPayload.prototype.addPosts = function (
+  opt_value,
+  opt_index,
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    2,
+    opt_value,
+    proto.feobjects.CompiledPostEntity,
+    opt_index,
+  );
 };
 
-
-proto.clapi.NewViewPayload.prototype.clearPostsList = function() {
+proto.clapi.NewViewPayload.prototype.clearPostsList = function () {
   this.setPostsList([]);
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -3944,64 +4154,61 @@ proto.clapi.NewViewPayload.prototype.clearPostsList = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.NewViewResponse = function(opt_data) {
+proto.clapi.NewViewResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.NewViewResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.NewViewResponse.displayName = 'proto.clapi.NewViewResponse';
+  proto.clapi.NewViewResponse.displayName = "proto.clapi.NewViewResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.NewViewResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.NewViewResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.NewViewResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.NewViewResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.NewViewResponse.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.NewViewResponse.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.NewViewResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.NewViewResponse.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {};
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.NewViewResponse}
  */
-proto.clapi.NewViewResponse.deserializeBinary = function(bytes) {
+proto.clapi.NewViewResponse.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.NewViewResponse;
+  var msg = new proto.clapi.NewViewResponse();
   return proto.clapi.NewViewResponse.deserializeBinaryFromReader(msg, reader);
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -4010,32 +4217,33 @@ proto.clapi.NewViewResponse.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.NewViewResponse}
  */
-proto.clapi.NewViewResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.NewViewResponse.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    default:
-      reader.skipField();
-      break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.NewViewResponse.prototype.serializeBinary = function() {
+proto.clapi.NewViewResponse.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.NewViewResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -4044,11 +4252,12 @@ proto.clapi.NewViewResponse.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.NewViewResponse.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.NewViewResponse.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -4060,12 +4269,20 @@ proto.clapi.NewViewResponse.serializeBinaryToWriter = function(message, writer) 
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.NotificationsPayload = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.clapi.NotificationsPayload.repeatedFields_, null);
+proto.clapi.NotificationsPayload = function (opt_data) {
+  jspb.Message.initialize(
+    this,
+    opt_data,
+    0,
+    -1,
+    proto.clapi.NotificationsPayload.repeatedFields_,
+    null,
+  );
 };
 goog.inherits(proto.clapi.NotificationsPayload, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.NotificationsPayload.displayName = 'proto.clapi.NotificationsPayload';
+  proto.clapi.NotificationsPayload.displayName =
+    "proto.clapi.NotificationsPayload";
 }
 /**
  * List of repeated fields within this message type.
@@ -4074,59 +4291,63 @@ if (goog.DEBUG && !COMPILED) {
  */
 proto.clapi.NotificationsPayload.repeatedFields_ = [1];
 
-
-
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.NotificationsPayload.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.NotificationsPayload.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.NotificationsPayload} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.NotificationsPayload.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    notificationsList: jspb.Message.toObjectList(msg.getNotificationsList(),
-    feobjects_feobjects_pb.CompiledNotification.toObject, includeInstance),
-    lastseen: jspb.Message.getFieldWithDefault(msg, 2, 0)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.NotificationsPayload.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.NotificationsPayload.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.NotificationsPayload} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.NotificationsPayload.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        notificationsList: jspb.Message.toObjectList(
+          msg.getNotificationsList(),
+          feobjects_feobjects_pb.CompiledNotification.toObject,
+          includeInstance,
+        ),
+        lastseen: jspb.Message.getFieldWithDefault(msg, 2, 0),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.NotificationsPayload}
  */
-proto.clapi.NotificationsPayload.deserializeBinary = function(bytes) {
+proto.clapi.NotificationsPayload.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.NotificationsPayload;
-  return proto.clapi.NotificationsPayload.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.NotificationsPayload();
+  return proto.clapi.NotificationsPayload.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -4135,41 +4356,46 @@ proto.clapi.NotificationsPayload.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.NotificationsPayload}
  */
-proto.clapi.NotificationsPayload.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.NotificationsPayload.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new feobjects_feobjects_pb.CompiledNotification;
-      reader.readMessage(value,feobjects_feobjects_pb.CompiledNotification.deserializeBinaryFromReader);
-      msg.addNotifications(value);
-      break;
-    case 2:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setLastseen(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = new feobjects_feobjects_pb.CompiledNotification();
+        reader.readMessage(
+          value,
+          feobjects_feobjects_pb.CompiledNotification
+            .deserializeBinaryFromReader,
+        );
+        msg.addNotifications(value);
+        break;
+      case 2:
+        var value = /** @type {number} */ (reader.readInt64());
+        msg.setLastseen(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.NotificationsPayload.prototype.serializeBinary = function() {
+proto.clapi.NotificationsPayload.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.NotificationsPayload.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -4178,72 +4404,81 @@ proto.clapi.NotificationsPayload.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.NotificationsPayload.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.NotificationsPayload.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getNotificationsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      feobjects_feobjects_pb.CompiledNotification.serializeBinaryToWriter
+      feobjects_feobjects_pb.CompiledNotification.serializeBinaryToWriter,
     );
   }
   f = message.getLastseen();
   if (f !== 0) {
-    writer.writeInt64(
-      2,
-      f
-    );
+    writer.writeInt64(2, f);
   }
 };
-
 
 /**
  * repeated feobjects.CompiledNotification Notifications = 1;
  * @return {!Array.<!proto.feobjects.CompiledNotification>}
  */
-proto.clapi.NotificationsPayload.prototype.getNotificationsList = function() {
+proto.clapi.NotificationsPayload.prototype.getNotificationsList = function () {
   return /** @type{!Array.<!proto.feobjects.CompiledNotification>} */ (
-    jspb.Message.getRepeatedWrapperField(this, feobjects_feobjects_pb.CompiledNotification, 1));
+    jspb.Message.getRepeatedWrapperField(
+      this,
+      feobjects_feobjects_pb.CompiledNotification,
+      1,
+    )
+  );
 };
-
 
 /** @param {!Array.<!proto.feobjects.CompiledNotification>} value */
-proto.clapi.NotificationsPayload.prototype.setNotificationsList = function(value) {
+proto.clapi.NotificationsPayload.prototype.setNotificationsList = function (
+  value,
+) {
   jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
-
 
 /**
  * @param {!proto.feobjects.CompiledNotification=} opt_value
  * @param {number=} opt_index
  * @return {!proto.feobjects.CompiledNotification}
  */
-proto.clapi.NotificationsPayload.prototype.addNotifications = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.feobjects.CompiledNotification, opt_index);
+proto.clapi.NotificationsPayload.prototype.addNotifications = function (
+  opt_value,
+  opt_index,
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    1,
+    opt_value,
+    proto.feobjects.CompiledNotification,
+    opt_index,
+  );
 };
 
-
-proto.clapi.NotificationsPayload.prototype.clearNotificationsList = function() {
-  this.setNotificationsList([]);
-};
-
+proto.clapi.NotificationsPayload.prototype.clearNotificationsList =
+  function () {
+    this.setNotificationsList([]);
+  };
 
 /**
  * optional int64 LastSeen = 2;
  * @return {number}
  */
-proto.clapi.NotificationsPayload.prototype.getLastseen = function() {
+proto.clapi.NotificationsPayload.prototype.getLastseen = function () {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
-
 /** @param {number} value */
-proto.clapi.NotificationsPayload.prototype.setLastseen = function(value) {
+proto.clapi.NotificationsPayload.prototype.setLastseen = function (value) {
   jspb.Message.setField(this, 2, value);
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -4255,64 +4490,68 @@ proto.clapi.NotificationsPayload.prototype.setLastseen = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.NotificationsResponse = function(opt_data) {
+proto.clapi.NotificationsResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.NotificationsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.NotificationsResponse.displayName = 'proto.clapi.NotificationsResponse';
+  proto.clapi.NotificationsResponse.displayName =
+    "proto.clapi.NotificationsResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.NotificationsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.NotificationsResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.NotificationsResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.NotificationsResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.NotificationsResponse.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.NotificationsResponse.toObject(
+      opt_includeInstance,
+      this,
+    );
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.NotificationsResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.NotificationsResponse.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {};
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.NotificationsResponse}
  */
-proto.clapi.NotificationsResponse.deserializeBinary = function(bytes) {
+proto.clapi.NotificationsResponse.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.NotificationsResponse;
-  return proto.clapi.NotificationsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.NotificationsResponse();
+  return proto.clapi.NotificationsResponse.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -4321,32 +4560,33 @@ proto.clapi.NotificationsResponse.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.NotificationsResponse}
  */
-proto.clapi.NotificationsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.NotificationsResponse.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    default:
-      reader.skipField();
-      break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.NotificationsResponse.prototype.serializeBinary = function() {
+proto.clapi.NotificationsResponse.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.NotificationsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -4355,11 +4595,12 @@ proto.clapi.NotificationsResponse.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.NotificationsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.NotificationsResponse.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -4371,64 +4612,73 @@ proto.clapi.NotificationsResponse.serializeBinaryToWriter = function(message, wr
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.OnboardCompleteStatusPayload = function(opt_data) {
+proto.clapi.OnboardCompleteStatusPayload = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.OnboardCompleteStatusPayload, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.OnboardCompleteStatusPayload.displayName = 'proto.clapi.OnboardCompleteStatusPayload';
+  proto.clapi.OnboardCompleteStatusPayload.displayName =
+    "proto.clapi.OnboardCompleteStatusPayload";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.OnboardCompleteStatusPayload.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.OnboardCompleteStatusPayload.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.OnboardCompleteStatusPayload} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.OnboardCompleteStatusPayload.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    onboardcomplete: jspb.Message.getFieldWithDefault(msg, 1, false)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.OnboardCompleteStatusPayload.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.OnboardCompleteStatusPayload.toObject(
+      opt_includeInstance,
+      this,
+    );
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.OnboardCompleteStatusPayload} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.OnboardCompleteStatusPayload.toObject = function (
+    includeInstance,
+    msg,
+  ) {
+    var f,
+      obj = {
+        onboardcomplete: jspb.Message.getFieldWithDefault(msg, 1, false),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.OnboardCompleteStatusPayload}
  */
-proto.clapi.OnboardCompleteStatusPayload.deserializeBinary = function(bytes) {
+proto.clapi.OnboardCompleteStatusPayload.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.OnboardCompleteStatusPayload;
-  return proto.clapi.OnboardCompleteStatusPayload.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.OnboardCompleteStatusPayload();
+  return proto.clapi.OnboardCompleteStatusPayload.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -4437,36 +4687,39 @@ proto.clapi.OnboardCompleteStatusPayload.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.OnboardCompleteStatusPayload}
  */
-proto.clapi.OnboardCompleteStatusPayload.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.clapi.OnboardCompleteStatusPayload.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        case 1:
+          var value = /** @type {boolean} */ (reader.readBool());
+          msg.setOnboardcomplete(value);
+          break;
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setOnboardcomplete(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.OnboardCompleteStatusPayload.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.clapi.OnboardCompleteStatusPayload.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.clapi.OnboardCompleteStatusPayload.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.clapi.OnboardCompleteStatusPayload.serializeBinaryToWriter(
+      this,
+      writer,
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -4475,17 +4728,16 @@ proto.clapi.OnboardCompleteStatusPayload.prototype.serializeBinary = function() 
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.OnboardCompleteStatusPayload.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.OnboardCompleteStatusPayload.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getOnboardcomplete();
   if (f) {
-    writer.writeBool(
-      1,
-      f
-    );
+    writer.writeBool(1, f);
   }
 };
-
 
 /**
  * optional bool OnboardComplete = 1;
@@ -4493,17 +4745,18 @@ proto.clapi.OnboardCompleteStatusPayload.serializeBinaryToWriter = function(mess
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.clapi.OnboardCompleteStatusPayload.prototype.getOnboardcomplete = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 1, false));
-};
-
+proto.clapi.OnboardCompleteStatusPayload.prototype.getOnboardcomplete =
+  function () {
+    return /** @type {boolean} */ (
+      jspb.Message.getFieldWithDefault(this, 1, false)
+    );
+  };
 
 /** @param {boolean} value */
-proto.clapi.OnboardCompleteStatusPayload.prototype.setOnboardcomplete = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
+proto.clapi.OnboardCompleteStatusPayload.prototype.setOnboardcomplete =
+  function (value) {
+    jspb.Message.setField(this, 1, value);
+  };
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -4515,64 +4768,71 @@ proto.clapi.OnboardCompleteStatusPayload.prototype.setOnboardcomplete = function
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.OnboardCompleteStatusResponse = function(opt_data) {
+proto.clapi.OnboardCompleteStatusResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.OnboardCompleteStatusResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.OnboardCompleteStatusResponse.displayName = 'proto.clapi.OnboardCompleteStatusResponse';
+  proto.clapi.OnboardCompleteStatusResponse.displayName =
+    "proto.clapi.OnboardCompleteStatusResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.OnboardCompleteStatusResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.OnboardCompleteStatusResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.OnboardCompleteStatusResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.OnboardCompleteStatusResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.OnboardCompleteStatusResponse.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.OnboardCompleteStatusResponse.toObject(
+      opt_includeInstance,
+      this,
+    );
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.OnboardCompleteStatusResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.OnboardCompleteStatusResponse.toObject = function (
+    includeInstance,
+    msg,
+  ) {
+    var f,
+      obj = {};
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.OnboardCompleteStatusResponse}
  */
-proto.clapi.OnboardCompleteStatusResponse.deserializeBinary = function(bytes) {
+proto.clapi.OnboardCompleteStatusResponse.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.OnboardCompleteStatusResponse;
-  return proto.clapi.OnboardCompleteStatusResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.OnboardCompleteStatusResponse();
+  return proto.clapi.OnboardCompleteStatusResponse.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -4581,32 +4841,35 @@ proto.clapi.OnboardCompleteStatusResponse.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.OnboardCompleteStatusResponse}
  */
-proto.clapi.OnboardCompleteStatusResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.clapi.OnboardCompleteStatusResponse.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.OnboardCompleteStatusResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.clapi.OnboardCompleteStatusResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.clapi.OnboardCompleteStatusResponse.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.clapi.OnboardCompleteStatusResponse.serializeBinaryToWriter(
+      this,
+      writer,
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -4615,11 +4878,12 @@ proto.clapi.OnboardCompleteStatusResponse.prototype.serializeBinary = function()
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.OnboardCompleteStatusResponse.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.OnboardCompleteStatusResponse.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -4631,64 +4895,73 @@ proto.clapi.OnboardCompleteStatusResponse.serializeBinaryToWriter = function(mes
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.ModModeEnabledStatusPayload = function(opt_data) {
+proto.clapi.ModModeEnabledStatusPayload = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.ModModeEnabledStatusPayload, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.ModModeEnabledStatusPayload.displayName = 'proto.clapi.ModModeEnabledStatusPayload';
+  proto.clapi.ModModeEnabledStatusPayload.displayName =
+    "proto.clapi.ModModeEnabledStatusPayload";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.ModModeEnabledStatusPayload.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.ModModeEnabledStatusPayload.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.ModModeEnabledStatusPayload} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.ModModeEnabledStatusPayload.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    modmodeenabled: jspb.Message.getFieldWithDefault(msg, 1, false)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.ModModeEnabledStatusPayload.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.ModModeEnabledStatusPayload.toObject(
+      opt_includeInstance,
+      this,
+    );
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.ModModeEnabledStatusPayload} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.ModModeEnabledStatusPayload.toObject = function (
+    includeInstance,
+    msg,
+  ) {
+    var f,
+      obj = {
+        modmodeenabled: jspb.Message.getFieldWithDefault(msg, 1, false),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.ModModeEnabledStatusPayload}
  */
-proto.clapi.ModModeEnabledStatusPayload.deserializeBinary = function(bytes) {
+proto.clapi.ModModeEnabledStatusPayload.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.ModModeEnabledStatusPayload;
-  return proto.clapi.ModModeEnabledStatusPayload.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.ModModeEnabledStatusPayload();
+  return proto.clapi.ModModeEnabledStatusPayload.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -4697,36 +4970,41 @@ proto.clapi.ModModeEnabledStatusPayload.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.ModModeEnabledStatusPayload}
  */
-proto.clapi.ModModeEnabledStatusPayload.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.ModModeEnabledStatusPayload.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setModmodeenabled(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = /** @type {boolean} */ (reader.readBool());
+        msg.setModmodeenabled(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.ModModeEnabledStatusPayload.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.clapi.ModModeEnabledStatusPayload.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.clapi.ModModeEnabledStatusPayload.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.clapi.ModModeEnabledStatusPayload.serializeBinaryToWriter(
+      this,
+      writer,
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -4735,17 +5013,16 @@ proto.clapi.ModModeEnabledStatusPayload.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.ModModeEnabledStatusPayload.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.ModModeEnabledStatusPayload.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getModmodeenabled();
   if (f) {
-    writer.writeBool(
-      1,
-      f
-    );
+    writer.writeBool(1, f);
   }
 };
-
 
 /**
  * optional bool ModModeEnabled = 1;
@@ -4753,17 +5030,19 @@ proto.clapi.ModModeEnabledStatusPayload.serializeBinaryToWriter = function(messa
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.clapi.ModModeEnabledStatusPayload.prototype.getModmodeenabled = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 1, false));
-};
-
+proto.clapi.ModModeEnabledStatusPayload.prototype.getModmodeenabled =
+  function () {
+    return /** @type {boolean} */ (
+      jspb.Message.getFieldWithDefault(this, 1, false)
+    );
+  };
 
 /** @param {boolean} value */
-proto.clapi.ModModeEnabledStatusPayload.prototype.setModmodeenabled = function(value) {
+proto.clapi.ModModeEnabledStatusPayload.prototype.setModmodeenabled = function (
+  value,
+) {
   jspb.Message.setField(this, 1, value);
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -4775,64 +5054,71 @@ proto.clapi.ModModeEnabledStatusPayload.prototype.setModmodeenabled = function(v
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.ModModeEnabledStatusResponse = function(opt_data) {
+proto.clapi.ModModeEnabledStatusResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.ModModeEnabledStatusResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.ModModeEnabledStatusResponse.displayName = 'proto.clapi.ModModeEnabledStatusResponse';
+  proto.clapi.ModModeEnabledStatusResponse.displayName =
+    "proto.clapi.ModModeEnabledStatusResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.ModModeEnabledStatusResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.ModModeEnabledStatusResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.ModModeEnabledStatusResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.ModModeEnabledStatusResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.ModModeEnabledStatusResponse.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.ModModeEnabledStatusResponse.toObject(
+      opt_includeInstance,
+      this,
+    );
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.ModModeEnabledStatusResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.ModModeEnabledStatusResponse.toObject = function (
+    includeInstance,
+    msg,
+  ) {
+    var f,
+      obj = {};
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.ModModeEnabledStatusResponse}
  */
-proto.clapi.ModModeEnabledStatusResponse.deserializeBinary = function(bytes) {
+proto.clapi.ModModeEnabledStatusResponse.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.ModModeEnabledStatusResponse;
-  return proto.clapi.ModModeEnabledStatusResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.ModModeEnabledStatusResponse();
+  return proto.clapi.ModModeEnabledStatusResponse.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -4841,32 +5127,35 @@ proto.clapi.ModModeEnabledStatusResponse.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.ModModeEnabledStatusResponse}
  */
-proto.clapi.ModModeEnabledStatusResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.clapi.ModModeEnabledStatusResponse.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.ModModeEnabledStatusResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.clapi.ModModeEnabledStatusResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.clapi.ModModeEnabledStatusResponse.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.clapi.ModModeEnabledStatusResponse.serializeBinaryToWriter(
+      this,
+      writer,
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -4875,11 +5164,12 @@ proto.clapi.ModModeEnabledStatusResponse.prototype.serializeBinary = function() 
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.ModModeEnabledStatusResponse.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.ModModeEnabledStatusResponse.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -4891,64 +5181,75 @@ proto.clapi.ModModeEnabledStatusResponse.serializeBinaryToWriter = function(mess
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.AlwaysShowNSFWListStatusPayload = function(opt_data) {
+proto.clapi.AlwaysShowNSFWListStatusPayload = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.AlwaysShowNSFWListStatusPayload, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.AlwaysShowNSFWListStatusPayload.displayName = 'proto.clapi.AlwaysShowNSFWListStatusPayload';
+  proto.clapi.AlwaysShowNSFWListStatusPayload.displayName =
+    "proto.clapi.AlwaysShowNSFWListStatusPayload";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.AlwaysShowNSFWListStatusPayload.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.AlwaysShowNSFWListStatusPayload.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.AlwaysShowNSFWListStatusPayload} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.AlwaysShowNSFWListStatusPayload.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    alwaysshownsfwlist: jspb.Message.getFieldWithDefault(msg, 1, false)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.AlwaysShowNSFWListStatusPayload.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.AlwaysShowNSFWListStatusPayload.toObject(
+      opt_includeInstance,
+      this,
+    );
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.AlwaysShowNSFWListStatusPayload} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.AlwaysShowNSFWListStatusPayload.toObject = function (
+    includeInstance,
+    msg,
+  ) {
+    var f,
+      obj = {
+        alwaysshownsfwlist: jspb.Message.getFieldWithDefault(msg, 1, false),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.AlwaysShowNSFWListStatusPayload}
  */
-proto.clapi.AlwaysShowNSFWListStatusPayload.deserializeBinary = function(bytes) {
+proto.clapi.AlwaysShowNSFWListStatusPayload.deserializeBinary = function (
+  bytes,
+) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.AlwaysShowNSFWListStatusPayload;
-  return proto.clapi.AlwaysShowNSFWListStatusPayload.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.AlwaysShowNSFWListStatusPayload();
+  return proto.clapi.AlwaysShowNSFWListStatusPayload.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -4957,36 +5258,39 @@ proto.clapi.AlwaysShowNSFWListStatusPayload.deserializeBinary = function(bytes) 
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.AlwaysShowNSFWListStatusPayload}
  */
-proto.clapi.AlwaysShowNSFWListStatusPayload.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.clapi.AlwaysShowNSFWListStatusPayload.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        case 1:
+          var value = /** @type {boolean} */ (reader.readBool());
+          msg.setAlwaysshownsfwlist(value);
+          break;
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setAlwaysshownsfwlist(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.AlwaysShowNSFWListStatusPayload.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.clapi.AlwaysShowNSFWListStatusPayload.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.clapi.AlwaysShowNSFWListStatusPayload.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.clapi.AlwaysShowNSFWListStatusPayload.serializeBinaryToWriter(
+      this,
+      writer,
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -4995,17 +5299,16 @@ proto.clapi.AlwaysShowNSFWListStatusPayload.prototype.serializeBinary = function
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.AlwaysShowNSFWListStatusPayload.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.AlwaysShowNSFWListStatusPayload.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getAlwaysshownsfwlist();
   if (f) {
-    writer.writeBool(
-      1,
-      f
-    );
+    writer.writeBool(1, f);
   }
 };
-
 
 /**
  * optional bool AlwaysShowNSFWList = 1;
@@ -5013,17 +5316,18 @@ proto.clapi.AlwaysShowNSFWListStatusPayload.serializeBinaryToWriter = function(m
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.clapi.AlwaysShowNSFWListStatusPayload.prototype.getAlwaysshownsfwlist = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 1, false));
-};
-
+proto.clapi.AlwaysShowNSFWListStatusPayload.prototype.getAlwaysshownsfwlist =
+  function () {
+    return /** @type {boolean} */ (
+      jspb.Message.getFieldWithDefault(this, 1, false)
+    );
+  };
 
 /** @param {boolean} value */
-proto.clapi.AlwaysShowNSFWListStatusPayload.prototype.setAlwaysshownsfwlist = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
+proto.clapi.AlwaysShowNSFWListStatusPayload.prototype.setAlwaysshownsfwlist =
+  function (value) {
+    jspb.Message.setField(this, 1, value);
+  };
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -5035,64 +5339,73 @@ proto.clapi.AlwaysShowNSFWListStatusPayload.prototype.setAlwaysshownsfwlist = fu
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.AlwaysShowNSFWListStatusResponse = function(opt_data) {
+proto.clapi.AlwaysShowNSFWListStatusResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.AlwaysShowNSFWListStatusResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.AlwaysShowNSFWListStatusResponse.displayName = 'proto.clapi.AlwaysShowNSFWListStatusResponse';
+  proto.clapi.AlwaysShowNSFWListStatusResponse.displayName =
+    "proto.clapi.AlwaysShowNSFWListStatusResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.AlwaysShowNSFWListStatusResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.AlwaysShowNSFWListStatusResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.AlwaysShowNSFWListStatusResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.AlwaysShowNSFWListStatusResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.AlwaysShowNSFWListStatusResponse.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.AlwaysShowNSFWListStatusResponse.toObject(
+      opt_includeInstance,
+      this,
+    );
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.AlwaysShowNSFWListStatusResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.AlwaysShowNSFWListStatusResponse.toObject = function (
+    includeInstance,
+    msg,
+  ) {
+    var f,
+      obj = {};
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.AlwaysShowNSFWListStatusResponse}
  */
-proto.clapi.AlwaysShowNSFWListStatusResponse.deserializeBinary = function(bytes) {
+proto.clapi.AlwaysShowNSFWListStatusResponse.deserializeBinary = function (
+  bytes,
+) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.AlwaysShowNSFWListStatusResponse;
-  return proto.clapi.AlwaysShowNSFWListStatusResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.AlwaysShowNSFWListStatusResponse();
+  return proto.clapi.AlwaysShowNSFWListStatusResponse.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -5101,32 +5414,35 @@ proto.clapi.AlwaysShowNSFWListStatusResponse.deserializeBinary = function(bytes)
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.AlwaysShowNSFWListStatusResponse}
  */
-proto.clapi.AlwaysShowNSFWListStatusResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.clapi.AlwaysShowNSFWListStatusResponse.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.AlwaysShowNSFWListStatusResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.clapi.AlwaysShowNSFWListStatusResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.clapi.AlwaysShowNSFWListStatusResponse.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.clapi.AlwaysShowNSFWListStatusResponse.serializeBinaryToWriter(
+      this,
+      writer,
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -5135,11 +5451,10 @@ proto.clapi.AlwaysShowNSFWListStatusResponse.prototype.serializeBinary = functio
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.AlwaysShowNSFWListStatusResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-};
-
-
+proto.clapi.AlwaysShowNSFWListStatusResponse.serializeBinaryToWriter =
+  function (message, writer) {
+    var f = undefined;
+  };
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -5151,64 +5466,80 @@ proto.clapi.AlwaysShowNSFWListStatusResponse.serializeBinaryToWriter = function(
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.ExternalContentAutoloadDisabledStatusPayload = function(opt_data) {
+proto.clapi.ExternalContentAutoloadDisabledStatusPayload = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.clapi.ExternalContentAutoloadDisabledStatusPayload, jspb.Message);
+goog.inherits(
+  proto.clapi.ExternalContentAutoloadDisabledStatusPayload,
+  jspb.Message,
+);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.ExternalContentAutoloadDisabledStatusPayload.displayName = 'proto.clapi.ExternalContentAutoloadDisabledStatusPayload';
+  proto.clapi.ExternalContentAutoloadDisabledStatusPayload.displayName =
+    "proto.clapi.ExternalContentAutoloadDisabledStatusPayload";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.ExternalContentAutoloadDisabledStatusPayload.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.ExternalContentAutoloadDisabledStatusPayload.toObject(opt_includeInstance, this);
-};
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.ExternalContentAutoloadDisabledStatusPayload.prototype.toObject =
+    function (opt_includeInstance) {
+      return proto.clapi.ExternalContentAutoloadDisabledStatusPayload.toObject(
+        opt_includeInstance,
+        this,
+      );
+    };
 
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.ExternalContentAutoloadDisabledStatusPayload} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.ExternalContentAutoloadDisabledStatusPayload.toObject = function (
+    includeInstance,
+    msg,
+  ) {
+    var f,
+      obj = {
+        externalcontentautoloaddisabled: jspb.Message.getFieldWithDefault(
+          msg,
+          1,
+          false,
+        ),
+      };
 
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.ExternalContentAutoloadDisabledStatusPayload} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.ExternalContentAutoloadDisabledStatusPayload.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    externalcontentautoloaddisabled: jspb.Message.getFieldWithDefault(msg, 1, false)
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
   };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
 }
-
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.ExternalContentAutoloadDisabledStatusPayload}
  */
-proto.clapi.ExternalContentAutoloadDisabledStatusPayload.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.ExternalContentAutoloadDisabledStatusPayload;
-  return proto.clapi.ExternalContentAutoloadDisabledStatusPayload.deserializeBinaryFromReader(msg, reader);
-};
-
+proto.clapi.ExternalContentAutoloadDisabledStatusPayload.deserializeBinary =
+  function (bytes) {
+    var reader = new jspb.BinaryReader(bytes);
+    var msg = new proto.clapi.ExternalContentAutoloadDisabledStatusPayload();
+    return proto.clapi.ExternalContentAutoloadDisabledStatusPayload.deserializeBinaryFromReader(
+      msg,
+      reader,
+    );
+  };
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -5217,36 +5548,39 @@ proto.clapi.ExternalContentAutoloadDisabledStatusPayload.deserializeBinary = fun
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.ExternalContentAutoloadDisabledStatusPayload}
  */
-proto.clapi.ExternalContentAutoloadDisabledStatusPayload.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.clapi.ExternalContentAutoloadDisabledStatusPayload.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        case 1:
+          var value = /** @type {boolean} */ (reader.readBool());
+          msg.setExternalcontentautoloaddisabled(value);
+          break;
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setExternalcontentautoloaddisabled(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.ExternalContentAutoloadDisabledStatusPayload.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.clapi.ExternalContentAutoloadDisabledStatusPayload.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.clapi.ExternalContentAutoloadDisabledStatusPayload.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.clapi.ExternalContentAutoloadDisabledStatusPayload.serializeBinaryToWriter(
+      this,
+      writer,
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -5255,17 +5589,14 @@ proto.clapi.ExternalContentAutoloadDisabledStatusPayload.prototype.serializeBina
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.ExternalContentAutoloadDisabledStatusPayload.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getExternalcontentautoloaddisabled();
-  if (f) {
-    writer.writeBool(
-      1,
-      f
-    );
-  }
-};
-
+proto.clapi.ExternalContentAutoloadDisabledStatusPayload.serializeBinaryToWriter =
+  function (message, writer) {
+    var f = undefined;
+    f = message.getExternalcontentautoloaddisabled();
+    if (f) {
+      writer.writeBool(1, f);
+    }
+  };
 
 /**
  * optional bool ExternalContentAutoloadDisabled = 1;
@@ -5273,17 +5604,18 @@ proto.clapi.ExternalContentAutoloadDisabledStatusPayload.serializeBinaryToWriter
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.clapi.ExternalContentAutoloadDisabledStatusPayload.prototype.getExternalcontentautoloaddisabled = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 1, false));
-};
-
+proto.clapi.ExternalContentAutoloadDisabledStatusPayload.prototype.getExternalcontentautoloaddisabled =
+  function () {
+    return /** @type {boolean} */ (
+      jspb.Message.getFieldWithDefault(this, 1, false)
+    );
+  };
 
 /** @param {boolean} value */
-proto.clapi.ExternalContentAutoloadDisabledStatusPayload.prototype.setExternalcontentautoloaddisabled = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
+proto.clapi.ExternalContentAutoloadDisabledStatusPayload.prototype.setExternalcontentautoloaddisabled =
+  function (value) {
+    jspb.Message.setField(this, 1, value);
+  };
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -5295,64 +5627,74 @@ proto.clapi.ExternalContentAutoloadDisabledStatusPayload.prototype.setExternalco
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.ExternalContentAutoloadDisabledStatusResponse = function(opt_data) {
+proto.clapi.ExternalContentAutoloadDisabledStatusResponse = function (
+  opt_data,
+) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.clapi.ExternalContentAutoloadDisabledStatusResponse, jspb.Message);
+goog.inherits(
+  proto.clapi.ExternalContentAutoloadDisabledStatusResponse,
+  jspb.Message,
+);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.ExternalContentAutoloadDisabledStatusResponse.displayName = 'proto.clapi.ExternalContentAutoloadDisabledStatusResponse';
+  proto.clapi.ExternalContentAutoloadDisabledStatusResponse.displayName =
+    "proto.clapi.ExternalContentAutoloadDisabledStatusResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.ExternalContentAutoloadDisabledStatusResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.ExternalContentAutoloadDisabledStatusResponse.toObject(opt_includeInstance, this);
-};
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.ExternalContentAutoloadDisabledStatusResponse.prototype.toObject =
+    function (opt_includeInstance) {
+      return proto.clapi.ExternalContentAutoloadDisabledStatusResponse.toObject(
+        opt_includeInstance,
+        this,
+      );
+    };
 
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.ExternalContentAutoloadDisabledStatusResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.ExternalContentAutoloadDisabledStatusResponse.toObject =
+    function (includeInstance, msg) {
+      var f,
+        obj = {};
 
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.ExternalContentAutoloadDisabledStatusResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.ExternalContentAutoloadDisabledStatusResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
+      if (includeInstance) {
+        obj.$jspbMessageInstance = msg;
+      }
+      return obj;
+    };
 }
-
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.ExternalContentAutoloadDisabledStatusResponse}
  */
-proto.clapi.ExternalContentAutoloadDisabledStatusResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.ExternalContentAutoloadDisabledStatusResponse;
-  return proto.clapi.ExternalContentAutoloadDisabledStatusResponse.deserializeBinaryFromReader(msg, reader);
-};
-
+proto.clapi.ExternalContentAutoloadDisabledStatusResponse.deserializeBinary =
+  function (bytes) {
+    var reader = new jspb.BinaryReader(bytes);
+    var msg = new proto.clapi.ExternalContentAutoloadDisabledStatusResponse();
+    return proto.clapi.ExternalContentAutoloadDisabledStatusResponse.deserializeBinaryFromReader(
+      msg,
+      reader,
+    );
+  };
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -5361,32 +5703,35 @@ proto.clapi.ExternalContentAutoloadDisabledStatusResponse.deserializeBinary = fu
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.ExternalContentAutoloadDisabledStatusResponse}
  */
-proto.clapi.ExternalContentAutoloadDisabledStatusResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.clapi.ExternalContentAutoloadDisabledStatusResponse.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.ExternalContentAutoloadDisabledStatusResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.clapi.ExternalContentAutoloadDisabledStatusResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.clapi.ExternalContentAutoloadDisabledStatusResponse.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.clapi.ExternalContentAutoloadDisabledStatusResponse.serializeBinaryToWriter(
+      this,
+      writer,
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -5395,11 +5740,10 @@ proto.clapi.ExternalContentAutoloadDisabledStatusResponse.prototype.serializeBin
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.ExternalContentAutoloadDisabledStatusResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-};
-
-
+proto.clapi.ExternalContentAutoloadDisabledStatusResponse.serializeBinaryToWriter =
+  function (message, writer) {
+    var f = undefined;
+  };
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -5411,64 +5755,73 @@ proto.clapi.ExternalContentAutoloadDisabledStatusResponse.serializeBinaryToWrite
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.SFWListDisabledStatusPayload = function(opt_data) {
+proto.clapi.SFWListDisabledStatusPayload = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.SFWListDisabledStatusPayload, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.SFWListDisabledStatusPayload.displayName = 'proto.clapi.SFWListDisabledStatusPayload';
+  proto.clapi.SFWListDisabledStatusPayload.displayName =
+    "proto.clapi.SFWListDisabledStatusPayload";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.SFWListDisabledStatusPayload.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.SFWListDisabledStatusPayload.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.SFWListDisabledStatusPayload} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.SFWListDisabledStatusPayload.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    sfwlistdisabled: jspb.Message.getFieldWithDefault(msg, 1, false)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.SFWListDisabledStatusPayload.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.SFWListDisabledStatusPayload.toObject(
+      opt_includeInstance,
+      this,
+    );
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.SFWListDisabledStatusPayload} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.SFWListDisabledStatusPayload.toObject = function (
+    includeInstance,
+    msg,
+  ) {
+    var f,
+      obj = {
+        sfwlistdisabled: jspb.Message.getFieldWithDefault(msg, 1, false),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.SFWListDisabledStatusPayload}
  */
-proto.clapi.SFWListDisabledStatusPayload.deserializeBinary = function(bytes) {
+proto.clapi.SFWListDisabledStatusPayload.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.SFWListDisabledStatusPayload;
-  return proto.clapi.SFWListDisabledStatusPayload.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.SFWListDisabledStatusPayload();
+  return proto.clapi.SFWListDisabledStatusPayload.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -5477,36 +5830,39 @@ proto.clapi.SFWListDisabledStatusPayload.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.SFWListDisabledStatusPayload}
  */
-proto.clapi.SFWListDisabledStatusPayload.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.clapi.SFWListDisabledStatusPayload.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        case 1:
+          var value = /** @type {boolean} */ (reader.readBool());
+          msg.setSfwlistdisabled(value);
+          break;
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setSfwlistdisabled(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.SFWListDisabledStatusPayload.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.clapi.SFWListDisabledStatusPayload.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.clapi.SFWListDisabledStatusPayload.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.clapi.SFWListDisabledStatusPayload.serializeBinaryToWriter(
+      this,
+      writer,
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -5515,17 +5871,16 @@ proto.clapi.SFWListDisabledStatusPayload.prototype.serializeBinary = function() 
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.SFWListDisabledStatusPayload.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.SFWListDisabledStatusPayload.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getSfwlistdisabled();
   if (f) {
-    writer.writeBool(
-      1,
-      f
-    );
+    writer.writeBool(1, f);
   }
 };
-
 
 /**
  * optional bool SFWListDisabled = 1;
@@ -5533,17 +5888,18 @@ proto.clapi.SFWListDisabledStatusPayload.serializeBinaryToWriter = function(mess
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.clapi.SFWListDisabledStatusPayload.prototype.getSfwlistdisabled = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 1, false));
-};
-
+proto.clapi.SFWListDisabledStatusPayload.prototype.getSfwlistdisabled =
+  function () {
+    return /** @type {boolean} */ (
+      jspb.Message.getFieldWithDefault(this, 1, false)
+    );
+  };
 
 /** @param {boolean} value */
-proto.clapi.SFWListDisabledStatusPayload.prototype.setSfwlistdisabled = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
+proto.clapi.SFWListDisabledStatusPayload.prototype.setSfwlistdisabled =
+  function (value) {
+    jspb.Message.setField(this, 1, value);
+  };
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -5555,64 +5911,71 @@ proto.clapi.SFWListDisabledStatusPayload.prototype.setSfwlistdisabled = function
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.SFWListDisabledStatusResponse = function(opt_data) {
+proto.clapi.SFWListDisabledStatusResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.SFWListDisabledStatusResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.SFWListDisabledStatusResponse.displayName = 'proto.clapi.SFWListDisabledStatusResponse';
+  proto.clapi.SFWListDisabledStatusResponse.displayName =
+    "proto.clapi.SFWListDisabledStatusResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.SFWListDisabledStatusResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.SFWListDisabledStatusResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.SFWListDisabledStatusResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.SFWListDisabledStatusResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.SFWListDisabledStatusResponse.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.SFWListDisabledStatusResponse.toObject(
+      opt_includeInstance,
+      this,
+    );
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.SFWListDisabledStatusResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.SFWListDisabledStatusResponse.toObject = function (
+    includeInstance,
+    msg,
+  ) {
+    var f,
+      obj = {};
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.SFWListDisabledStatusResponse}
  */
-proto.clapi.SFWListDisabledStatusResponse.deserializeBinary = function(bytes) {
+proto.clapi.SFWListDisabledStatusResponse.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.SFWListDisabledStatusResponse;
-  return proto.clapi.SFWListDisabledStatusResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.SFWListDisabledStatusResponse();
+  return proto.clapi.SFWListDisabledStatusResponse.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -5621,32 +5984,35 @@ proto.clapi.SFWListDisabledStatusResponse.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.SFWListDisabledStatusResponse}
  */
-proto.clapi.SFWListDisabledStatusResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.clapi.SFWListDisabledStatusResponse.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.SFWListDisabledStatusResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.clapi.SFWListDisabledStatusResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.clapi.SFWListDisabledStatusResponse.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.clapi.SFWListDisabledStatusResponse.serializeBinaryToWriter(
+      this,
+      writer,
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -5655,11 +6021,12 @@ proto.clapi.SFWListDisabledStatusResponse.prototype.serializeBinary = function()
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.SFWListDisabledStatusResponse.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.SFWListDisabledStatusResponse.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -5671,79 +6038,100 @@ proto.clapi.SFWListDisabledStatusResponse.serializeBinaryToWriter = function(mes
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.SearchResultPayload = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.clapi.SearchResultPayload.repeatedFields_, null);
+proto.clapi.SearchResultPayload = function (opt_data) {
+  jspb.Message.initialize(
+    this,
+    opt_data,
+    0,
+    -1,
+    proto.clapi.SearchResultPayload.repeatedFields_,
+    null,
+  );
 };
 goog.inherits(proto.clapi.SearchResultPayload, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.SearchResultPayload.displayName = 'proto.clapi.SearchResultPayload';
+  proto.clapi.SearchResultPayload.displayName =
+    "proto.clapi.SearchResultPayload";
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.clapi.SearchResultPayload.repeatedFields_ = [2,3,4,5];
-
-
+proto.clapi.SearchResultPayload.repeatedFields_ = [2, 3, 4, 5];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.SearchResultPayload.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.SearchResultPayload.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.SearchResultPayload} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.SearchResultPayload.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    searchtype: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    boardsList: jspb.Message.toObjectList(msg.getBoardsList(),
-    feobjects_feobjects_pb.CompiledBoardEntity.toObject, includeInstance),
-    threadsList: jspb.Message.toObjectList(msg.getThreadsList(),
-    feobjects_feobjects_pb.CompiledThreadEntity.toObject, includeInstance),
-    postsList: jspb.Message.toObjectList(msg.getPostsList(),
-    feobjects_feobjects_pb.CompiledPostEntity.toObject, includeInstance),
-    usersList: jspb.Message.toObjectList(msg.getUsersList(),
-    feobjects_feobjects_pb.CompiledUserEntity.toObject, includeInstance)
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.SearchResultPayload.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.SearchResultPayload.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.SearchResultPayload} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.SearchResultPayload.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {
+        searchtype: jspb.Message.getFieldWithDefault(msg, 1, ""),
+        boardsList: jspb.Message.toObjectList(
+          msg.getBoardsList(),
+          feobjects_feobjects_pb.CompiledBoardEntity.toObject,
+          includeInstance,
+        ),
+        threadsList: jspb.Message.toObjectList(
+          msg.getThreadsList(),
+          feobjects_feobjects_pb.CompiledThreadEntity.toObject,
+          includeInstance,
+        ),
+        postsList: jspb.Message.toObjectList(
+          msg.getPostsList(),
+          feobjects_feobjects_pb.CompiledPostEntity.toObject,
+          includeInstance,
+        ),
+        usersList: jspb.Message.toObjectList(
+          msg.getUsersList(),
+          feobjects_feobjects_pb.CompiledUserEntity.toObject,
+          includeInstance,
+        ),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.SearchResultPayload}
  */
-proto.clapi.SearchResultPayload.deserializeBinary = function(bytes) {
+proto.clapi.SearchResultPayload.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.SearchResultPayload;
-  return proto.clapi.SearchResultPayload.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.SearchResultPayload();
+  return proto.clapi.SearchResultPayload.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -5752,56 +6140,71 @@ proto.clapi.SearchResultPayload.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.SearchResultPayload}
  */
-proto.clapi.SearchResultPayload.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.SearchResultPayload.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setSearchtype(value);
-      break;
-    case 2:
-      var value = new feobjects_feobjects_pb.CompiledBoardEntity;
-      reader.readMessage(value,feobjects_feobjects_pb.CompiledBoardEntity.deserializeBinaryFromReader);
-      msg.addBoards(value);
-      break;
-    case 3:
-      var value = new feobjects_feobjects_pb.CompiledThreadEntity;
-      reader.readMessage(value,feobjects_feobjects_pb.CompiledThreadEntity.deserializeBinaryFromReader);
-      msg.addThreads(value);
-      break;
-    case 4:
-      var value = new feobjects_feobjects_pb.CompiledPostEntity;
-      reader.readMessage(value,feobjects_feobjects_pb.CompiledPostEntity.deserializeBinaryFromReader);
-      msg.addPosts(value);
-      break;
-    case 5:
-      var value = new feobjects_feobjects_pb.CompiledUserEntity;
-      reader.readMessage(value,feobjects_feobjects_pb.CompiledUserEntity.deserializeBinaryFromReader);
-      msg.addUsers(value);
-      break;
-    default:
-      reader.skipField();
-      break;
+      case 1:
+        var value = /** @type {string} */ (reader.readString());
+        msg.setSearchtype(value);
+        break;
+      case 2:
+        var value = new feobjects_feobjects_pb.CompiledBoardEntity();
+        reader.readMessage(
+          value,
+          feobjects_feobjects_pb.CompiledBoardEntity
+            .deserializeBinaryFromReader,
+        );
+        msg.addBoards(value);
+        break;
+      case 3:
+        var value = new feobjects_feobjects_pb.CompiledThreadEntity();
+        reader.readMessage(
+          value,
+          feobjects_feobjects_pb.CompiledThreadEntity
+            .deserializeBinaryFromReader,
+        );
+        msg.addThreads(value);
+        break;
+      case 4:
+        var value = new feobjects_feobjects_pb.CompiledPostEntity();
+        reader.readMessage(
+          value,
+          feobjects_feobjects_pb.CompiledPostEntity.deserializeBinaryFromReader,
+        );
+        msg.addPosts(value);
+        break;
+      case 5:
+        var value = new feobjects_feobjects_pb.CompiledUserEntity();
+        reader.readMessage(
+          value,
+          feobjects_feobjects_pb.CompiledUserEntity.deserializeBinaryFromReader,
+        );
+        msg.addUsers(value);
+        break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.SearchResultPayload.prototype.serializeBinary = function() {
+proto.clapi.SearchResultPayload.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.SearchResultPayload.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -5810,21 +6213,21 @@ proto.clapi.SearchResultPayload.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.SearchResultPayload.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.SearchResultPayload.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
   f = message.getSearchtype();
   if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
+    writer.writeString(1, f);
   }
   f = message.getBoardsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       2,
       f,
-      feobjects_feobjects_pb.CompiledBoardEntity.serializeBinaryToWriter
+      feobjects_feobjects_pb.CompiledBoardEntity.serializeBinaryToWriter,
     );
   }
   f = message.getThreadsList();
@@ -5832,7 +6235,7 @@ proto.clapi.SearchResultPayload.serializeBinaryToWriter = function(message, writ
     writer.writeRepeatedMessage(
       3,
       f,
-      feobjects_feobjects_pb.CompiledThreadEntity.serializeBinaryToWriter
+      feobjects_feobjects_pb.CompiledThreadEntity.serializeBinaryToWriter,
     );
   }
   f = message.getPostsList();
@@ -5840,7 +6243,7 @@ proto.clapi.SearchResultPayload.serializeBinaryToWriter = function(message, writ
     writer.writeRepeatedMessage(
       4,
       f,
-      feobjects_feobjects_pb.CompiledPostEntity.serializeBinaryToWriter
+      feobjects_feobjects_pb.CompiledPostEntity.serializeBinaryToWriter,
     );
   }
   f = message.getUsersList();
@@ -5848,151 +6251,187 @@ proto.clapi.SearchResultPayload.serializeBinaryToWriter = function(message, writ
     writer.writeRepeatedMessage(
       5,
       f,
-      feobjects_feobjects_pb.CompiledUserEntity.serializeBinaryToWriter
+      feobjects_feobjects_pb.CompiledUserEntity.serializeBinaryToWriter,
     );
   }
 };
-
 
 /**
  * optional string SearchType = 1;
  * @return {string}
  */
-proto.clapi.SearchResultPayload.prototype.getSearchtype = function() {
+proto.clapi.SearchResultPayload.prototype.getSearchtype = function () {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
-
 /** @param {string} value */
-proto.clapi.SearchResultPayload.prototype.setSearchtype = function(value) {
+proto.clapi.SearchResultPayload.prototype.setSearchtype = function (value) {
   jspb.Message.setField(this, 1, value);
 };
-
 
 /**
  * repeated feobjects.CompiledBoardEntity Boards = 2;
  * @return {!Array.<!proto.feobjects.CompiledBoardEntity>}
  */
-proto.clapi.SearchResultPayload.prototype.getBoardsList = function() {
+proto.clapi.SearchResultPayload.prototype.getBoardsList = function () {
   return /** @type{!Array.<!proto.feobjects.CompiledBoardEntity>} */ (
-    jspb.Message.getRepeatedWrapperField(this, feobjects_feobjects_pb.CompiledBoardEntity, 2));
+    jspb.Message.getRepeatedWrapperField(
+      this,
+      feobjects_feobjects_pb.CompiledBoardEntity,
+      2,
+    )
+  );
 };
-
 
 /** @param {!Array.<!proto.feobjects.CompiledBoardEntity>} value */
-proto.clapi.SearchResultPayload.prototype.setBoardsList = function(value) {
+proto.clapi.SearchResultPayload.prototype.setBoardsList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
-
 
 /**
  * @param {!proto.feobjects.CompiledBoardEntity=} opt_value
  * @param {number=} opt_index
  * @return {!proto.feobjects.CompiledBoardEntity}
  */
-proto.clapi.SearchResultPayload.prototype.addBoards = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.feobjects.CompiledBoardEntity, opt_index);
+proto.clapi.SearchResultPayload.prototype.addBoards = function (
+  opt_value,
+  opt_index,
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    2,
+    opt_value,
+    proto.feobjects.CompiledBoardEntity,
+    opt_index,
+  );
 };
 
-
-proto.clapi.SearchResultPayload.prototype.clearBoardsList = function() {
+proto.clapi.SearchResultPayload.prototype.clearBoardsList = function () {
   this.setBoardsList([]);
 };
-
 
 /**
  * repeated feobjects.CompiledThreadEntity Threads = 3;
  * @return {!Array.<!proto.feobjects.CompiledThreadEntity>}
  */
-proto.clapi.SearchResultPayload.prototype.getThreadsList = function() {
+proto.clapi.SearchResultPayload.prototype.getThreadsList = function () {
   return /** @type{!Array.<!proto.feobjects.CompiledThreadEntity>} */ (
-    jspb.Message.getRepeatedWrapperField(this, feobjects_feobjects_pb.CompiledThreadEntity, 3));
+    jspb.Message.getRepeatedWrapperField(
+      this,
+      feobjects_feobjects_pb.CompiledThreadEntity,
+      3,
+    )
+  );
 };
-
 
 /** @param {!Array.<!proto.feobjects.CompiledThreadEntity>} value */
-proto.clapi.SearchResultPayload.prototype.setThreadsList = function(value) {
+proto.clapi.SearchResultPayload.prototype.setThreadsList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
-
 
 /**
  * @param {!proto.feobjects.CompiledThreadEntity=} opt_value
  * @param {number=} opt_index
  * @return {!proto.feobjects.CompiledThreadEntity}
  */
-proto.clapi.SearchResultPayload.prototype.addThreads = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.feobjects.CompiledThreadEntity, opt_index);
+proto.clapi.SearchResultPayload.prototype.addThreads = function (
+  opt_value,
+  opt_index,
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    3,
+    opt_value,
+    proto.feobjects.CompiledThreadEntity,
+    opt_index,
+  );
 };
 
-
-proto.clapi.SearchResultPayload.prototype.clearThreadsList = function() {
+proto.clapi.SearchResultPayload.prototype.clearThreadsList = function () {
   this.setThreadsList([]);
 };
-
 
 /**
  * repeated feobjects.CompiledPostEntity Posts = 4;
  * @return {!Array.<!proto.feobjects.CompiledPostEntity>}
  */
-proto.clapi.SearchResultPayload.prototype.getPostsList = function() {
+proto.clapi.SearchResultPayload.prototype.getPostsList = function () {
   return /** @type{!Array.<!proto.feobjects.CompiledPostEntity>} */ (
-    jspb.Message.getRepeatedWrapperField(this, feobjects_feobjects_pb.CompiledPostEntity, 4));
+    jspb.Message.getRepeatedWrapperField(
+      this,
+      feobjects_feobjects_pb.CompiledPostEntity,
+      4,
+    )
+  );
 };
-
 
 /** @param {!Array.<!proto.feobjects.CompiledPostEntity>} value */
-proto.clapi.SearchResultPayload.prototype.setPostsList = function(value) {
+proto.clapi.SearchResultPayload.prototype.setPostsList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 4, value);
 };
-
 
 /**
  * @param {!proto.feobjects.CompiledPostEntity=} opt_value
  * @param {number=} opt_index
  * @return {!proto.feobjects.CompiledPostEntity}
  */
-proto.clapi.SearchResultPayload.prototype.addPosts = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.feobjects.CompiledPostEntity, opt_index);
+proto.clapi.SearchResultPayload.prototype.addPosts = function (
+  opt_value,
+  opt_index,
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    4,
+    opt_value,
+    proto.feobjects.CompiledPostEntity,
+    opt_index,
+  );
 };
 
-
-proto.clapi.SearchResultPayload.prototype.clearPostsList = function() {
+proto.clapi.SearchResultPayload.prototype.clearPostsList = function () {
   this.setPostsList([]);
 };
-
 
 /**
  * repeated feobjects.CompiledUserEntity Users = 5;
  * @return {!Array.<!proto.feobjects.CompiledUserEntity>}
  */
-proto.clapi.SearchResultPayload.prototype.getUsersList = function() {
+proto.clapi.SearchResultPayload.prototype.getUsersList = function () {
   return /** @type{!Array.<!proto.feobjects.CompiledUserEntity>} */ (
-    jspb.Message.getRepeatedWrapperField(this, feobjects_feobjects_pb.CompiledUserEntity, 5));
+    jspb.Message.getRepeatedWrapperField(
+      this,
+      feobjects_feobjects_pb.CompiledUserEntity,
+      5,
+    )
+  );
 };
-
 
 /** @param {!Array.<!proto.feobjects.CompiledUserEntity>} value */
-proto.clapi.SearchResultPayload.prototype.setUsersList = function(value) {
+proto.clapi.SearchResultPayload.prototype.setUsersList = function (value) {
   jspb.Message.setRepeatedWrapperField(this, 5, value);
 };
-
 
 /**
  * @param {!proto.feobjects.CompiledUserEntity=} opt_value
  * @param {number=} opt_index
  * @return {!proto.feobjects.CompiledUserEntity}
  */
-proto.clapi.SearchResultPayload.prototype.addUsers = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 5, opt_value, proto.feobjects.CompiledUserEntity, opt_index);
+proto.clapi.SearchResultPayload.prototype.addUsers = function (
+  opt_value,
+  opt_index,
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    5,
+    opt_value,
+    proto.feobjects.CompiledUserEntity,
+    opt_index,
+  );
 };
 
-
-proto.clapi.SearchResultPayload.prototype.clearUsersList = function() {
+proto.clapi.SearchResultPayload.prototype.clearUsersList = function () {
   this.setUsersList([]);
 };
-
-
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -6004,64 +6443,65 @@ proto.clapi.SearchResultPayload.prototype.clearUsersList = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.clapi.SearchResultResponse = function(opt_data) {
+proto.clapi.SearchResultResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.clapi.SearchResultResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.clapi.SearchResultResponse.displayName = 'proto.clapi.SearchResultResponse';
+  proto.clapi.SearchResultResponse.displayName =
+    "proto.clapi.SearchResultResponse";
 }
-
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.clapi.SearchResultResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.clapi.SearchResultResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.clapi.SearchResultResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.clapi.SearchResultResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+  /**
+   * Creates an object representation of this proto suitable for use in Soy templates.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+   * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+   *     for transitional soy proto support: http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.clapi.SearchResultResponse.prototype.toObject = function (
+    opt_includeInstance,
+  ) {
+    return proto.clapi.SearchResultResponse.toObject(opt_includeInstance, this);
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Whether to include the JSPB
+   *     instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.clapi.SearchResultResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.clapi.SearchResultResponse.toObject = function (includeInstance, msg) {
+    var f,
+      obj = {};
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.clapi.SearchResultResponse}
  */
-proto.clapi.SearchResultResponse.deserializeBinary = function(bytes) {
+proto.clapi.SearchResultResponse.deserializeBinary = function (bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.clapi.SearchResultResponse;
-  return proto.clapi.SearchResultResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.clapi.SearchResultResponse();
+  return proto.clapi.SearchResultResponse.deserializeBinaryFromReader(
+    msg,
+    reader,
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -6070,32 +6510,33 @@ proto.clapi.SearchResultResponse.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.clapi.SearchResultResponse}
  */
-proto.clapi.SearchResultResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.clapi.SearchResultResponse.deserializeBinaryFromReader = function (
+  msg,
+  reader,
+) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    default:
-      reader.skipField();
-      break;
+      default:
+        reader.skipField();
+        break;
     }
   }
   return msg;
 };
 
-
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.clapi.SearchResultResponse.prototype.serializeBinary = function() {
+proto.clapi.SearchResultResponse.prototype.serializeBinary = function () {
   var writer = new jspb.BinaryWriter();
   proto.clapi.SearchResultResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
-
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -6104,9 +6545,11 @@ proto.clapi.SearchResultResponse.prototype.serializeBinary = function() {
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.clapi.SearchResultResponse.serializeBinaryToWriter = function(message, writer) {
+proto.clapi.SearchResultResponse.serializeBinaryToWriter = function (
+  message,
+  writer,
+) {
   var f = undefined;
 };
-
 
 goog.object.extend(exports, proto.clapi);
