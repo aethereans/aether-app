@@ -7,13 +7,16 @@ import (
 	"aether-core/aether/backend/feapiconsumer"
 	"aether-core/aether/io/api"
 	"fmt"
+
 	// _ "github.com/mattn/go-sqlite3"
 	// "aether-core/aether/backend/metrics"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/toolbox"
 	"errors"
+
 	"github.com/fatih/color"
+
 	// "github.com/jmoiron/sqlx/types"
 	// "github.com/davecgh/go-spew/spew"
 	// "runtime"
@@ -37,7 +40,7 @@ func InsertNode(n DbNode) error {
 				if strings.Contains(err2.Error(), "Database was locked") {
 					logging.LogCrash(fmt.Sprintf("The second attempt to commit this data to the database failed. The first attempt had failed because the database was locked. The second attempt failed with the error: %s This database is corrupted. Quitting.", err2))
 				} else { // err2 != nil, but error isn't "database was locked"
-					return errors.New(fmt.Sprintf("InsertNode encountered an error. Error: %s", err2))
+					return fmt.Errorf("InsertNode encountered an error. Error: %s", err2)
 				}
 			} else { // If the reattempted transaction succeeds
 				logging.Log(1,
@@ -45,7 +48,7 @@ func InsertNode(n DbNode) error {
 			}
 		} else { // err != nil, but error isn't "database was locked"
 			logging.Log(1, err)
-			return errors.New(fmt.Sprintf("InsertNode encountered an error. Error: %s", err))
+			return fmt.Errorf("InsertNode encountered an error. Error: %s", err)
 		}
 	}
 	return nil
@@ -56,7 +59,7 @@ func insertNode(n DbNode) error {
 	// spew.Dump(n)
 	// fmt.Printf("%#v\n", n)
 	if api.Fingerprint(globals.BackendConfig.GetNodeId()) == n.Fingerprint {
-		return errors.New(fmt.Sprintf("The node ID that was attempted to be inserted is the SAME AS the local node's ID. This could be an attempted attack. Node ID of the remote: %s", n.Fingerprint))
+		return fmt.Errorf("The node ID that was attempted to be inserted is the SAME AS the local node's ID. This could be an attempted attack. Node ID of the remote: %s", n.Fingerprint)
 	}
 	tx, err := globals.DbInstance.Beginx()
 	if err != nil {
@@ -147,7 +150,7 @@ func AddrTrustedInsert(a *[]api.Address) error {
 	if err8 != nil {
 		tx.Rollback()
 		logging.Log(1, fmt.Sprintf("AddrTrustedInsert encountered an error when trying to commit to the database. Error is: %s", err8))
-		return errors.New(fmt.Sprintf("AddrTrustedInsert encountered an error when trying to commit to the database.", err8))
+		return fmt.Errorf("AddrTrustedInsert encountered an error when trying to commit to the database.", err8)
 	}
 	return nil
 }
@@ -174,15 +177,11 @@ func InsertOrUpdateAddresses(a *[]api.Address) []error {
 
 func enforceNoEmptyTrustedAddressRequiredFields(obj AddressPack) error {
 	if obj.Address.LocationType == 0 || obj.Address.LastSuccessfulPing == 0 || obj.Address.ProtocolVersionMajor == 0 || obj.Address.ClientVersionMajor == 0 || obj.Address.ClientName == "" || obj.Address.EntityVersion == 0 || len(obj.Subprotocols) < 1 {
-		return errors.New(
-			fmt.Sprintf(
-				"This address has some required fields empty (One or more of: LocationType, LastSuccessfulPing, ProtocolVersionMajor, Subprotocols, ClientVersionMajor, ClientName, EntityVersion). Address: %#v\n", obj))
+		return fmt.Errorf("This address has some required fields empty (One or more of: LocationType, LastSuccessfulPing, ProtocolVersionMajor, Subprotocols, ClientVersionMajor, ClientName, EntityVersion). Address: %#v\n", obj)
 	}
 	for _, subprot := range obj.Subprotocols {
 		if subprot.Fingerprint == "" || subprot.Name == "" || subprot.VersionMajor == 0 || subprot.SupportedEntities == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This address' subprotocol has some required fields empty (One or more of: Fingerprint, Name, VersionMajor, SupportedEntities). Address: %#v\n Subprotocol: %#v\n", obj, subprot))
+			return fmt.Errorf("This address' subprotocol has some required fields empty (One or more of: Fingerprint, Name, VersionMajor, SupportedEntities). Address: %#v\n Subprotocol: %#v\n", obj, subprot)
 		}
 	}
 	return nil
@@ -208,7 +207,7 @@ func insertOrUpdateAddress(a api.Address) error {
 	if err7 != nil {
 		// If this unit does have empty identity fields, we pass on adding it to the database.
 
-		return errors.New(fmt.Sprintf("InsertOrUpdateAddress encountered an error. Error: %s", err7))
+		return fmt.Errorf("InsertOrUpdateAddress encountered an error. Error: %s", err7)
 	}
 	dbAddress := DbAddress{}
 	dbSubprotocols := []DbSubprotocol{}
@@ -431,9 +430,7 @@ func batchInsert(apiObjectsPtr *[]interface{}) (InsertMetrics, error) {
 		case DbTruststate:
 			bb.DbTruststates = append(bb.DbTruststates, dbObject)
 		default:
-			return InsertMetrics{}, errors.New(
-				fmt.Sprintf(
-					"This object type is something batch insert does not understand. Your object: %#v\n", dbObject))
+			return InsertMetrics{}, fmt.Errorf("This object type is something batch insert does not understand. Your object: %#v\n", dbObject)
 		}
 	}
 	im := InsertMetrics{}
@@ -760,45 +757,33 @@ func enforceNoEmptyIdentityFields(object interface{}) error {
 	switch obj := object.(type) {
 	case BoardPack:
 		if obj.Board.Fingerprint == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This board has an empty primary key. BoardPack: %#v\n", obj))
+			return fmt.Errorf("This board has an empty primary key. BoardPack: %#v\n", obj)
 		}
 		for _, bo := range obj.BoardOwners {
 			if bo.BoardFingerprint == "" || bo.KeyFingerprint == "" {
-				return errors.New(
-					fmt.Sprintf(
-						"This board owner has one or more empty primary key(s). BoardPack: %#v\n", obj))
+				return fmt.Errorf("This board owner has one or more empty primary key(s). BoardPack: %#v\n", obj)
 			}
 		}
 	case DbThread:
 		if obj.Fingerprint == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This thread has an empty primary key. Thread: %#v\n", obj))
+			return fmt.Errorf("This thread has an empty primary key. Thread: %#v\n", obj)
 		}
 	case DbPost:
 		if obj.Fingerprint == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This post has an empty primary key. Post: %#v\n", obj))
+			return fmt.Errorf("This post has an empty primary key. Post: %#v\n", obj)
 		}
 	case DbVote:
 		if obj.Fingerprint == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This vote has an empty primary key. Vote: %#v\n", obj))
+			return fmt.Errorf("This vote has an empty primary key. Vote: %#v\n", obj)
 		}
 
 	case AddressPack:
 		if obj.Address.Location == "" || obj.Address.Port == 0 {
-			return errors.New(
-				fmt.Sprintf(
-					"This address has one or more empty primary key(s). Address: %#v\n", obj))
+			return fmt.Errorf("This address has one or more empty primary key(s). Address: %#v\n", obj)
 		}
 		if !globals.BackendTransientConfig.AllowLocalhostRemotes {
 			if obj.Address.Location == "127.0.0.1" {
-				return errors.New(fmt.Sprintf("This address declares a localhost (127.0.0.1) address. Address: %#v", obj))
+				return fmt.Errorf("This address declares a localhost (127.0.0.1) address. Address: %#v", obj)
 			}
 		}
 		/*
@@ -823,15 +808,11 @@ func enforceNoEmptyIdentityFields(object interface{}) error {
 		// }
 	case DbKey:
 		if obj.Fingerprint == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This key has an empty primary key. Key: %#v\n", obj))
+			return fmt.Errorf("This key has an empty primary key. Key: %#v\n", obj)
 		}
 	case DbTruststate:
 		if obj.Fingerprint == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This trust state has an empty primary key. Truststate: %#v\n", obj))
+			return fmt.Errorf("This trust state has an empty primary key. Truststate: %#v\n", obj)
 		}
 	}
 	return nil
@@ -847,20 +828,14 @@ func enforceNoEmptyRequiredFields(object interface{}) error {
 			obj.Board.EntityVersion == 0 ||
 			len(obj.Board.Owner) == 0 ||
 			len(obj.Board.OwnerPublicKey) == 0 {
-			return errors.New(
-				fmt.Sprintf(
-					"This board has some required fields empty (One or more of: Name, Creation, PoW, EntityVersion, Owner, OwnerPublicKey). BoardPack: %#v\n", obj))
+			return fmt.Errorf("This board has some required fields empty (One or more of: Name, Creation, PoW, EntityVersion, Owner, OwnerPublicKey). BoardPack: %#v\n", obj)
 		}
 		if powEnabled() && obj.Board.ProofOfWork == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This board has the PoW field empty. BoardPack: %#v\n", obj))
+			return fmt.Errorf("This board has the PoW field empty. BoardPack: %#v\n", obj)
 		}
 		for _, bo := range obj.BoardOwners {
 			if bo.Level == 0 {
-				return errors.New(
-					fmt.Sprintf(
-						"This boardowner has some required fields empty (One or more of: Level). BoardPack: %#v\n", obj))
+				return fmt.Errorf("This boardowner has some required fields empty (One or more of: Level). BoardPack: %#v\n", obj)
 			}
 		}
 	case DbThread:
@@ -870,14 +845,10 @@ func enforceNoEmptyRequiredFields(object interface{}) error {
 			obj.EntityVersion == 0 ||
 			len(obj.Owner) == 0 ||
 			len(obj.OwnerPublicKey) == 0 {
-			return errors.New(
-				fmt.Sprintf(
-					"This thread has some required fields empty (One or more of: Board, Name, Creation, PoW, EntityVersion, Owner, OwnerPublicKey). Thread: %#v\n", obj))
+			return fmt.Errorf("This thread has some required fields empty (One or more of: Board, Name, Creation, PoW, EntityVersion, Owner, OwnerPublicKey). Thread: %#v\n", obj)
 		}
 		if powEnabled() && obj.ProofOfWork == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This thread has the PoW field empty. Thread: %#v\n", obj))
+			return fmt.Errorf("This thread has the PoW field empty. Thread: %#v\n", obj)
 		}
 	case DbPost:
 		if obj.Board == "" ||
@@ -888,14 +859,10 @@ func enforceNoEmptyRequiredFields(object interface{}) error {
 			obj.EntityVersion == 0 ||
 			len(obj.Owner) == 0 ||
 			len(obj.OwnerPublicKey) == 0 {
-			return errors.New(
-				fmt.Sprintf(
-					"This post has some required fields empty (One or more of: Board, Thread, Parent, Body, Creation, PoW, EntityVersion, Owner, OwnerPublicKey). Post: %#v\n", obj))
+			return fmt.Errorf("This post has some required fields empty (One or more of: Board, Thread, Parent, Body, Creation, PoW, EntityVersion, Owner, OwnerPublicKey). Post: %#v\n", obj)
 		}
 		if powEnabled() && obj.ProofOfWork == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This post has the PoW field empty. Post: %#v\n", obj))
+			return fmt.Errorf("This post has the PoW field empty. Post: %#v\n", obj)
 		}
 	case DbVote:
 		if obj.Board == "" ||
@@ -908,14 +875,10 @@ func enforceNoEmptyRequiredFields(object interface{}) error {
 			obj.Signature == "" ||
 			len(obj.Owner) == 0 ||
 			len(obj.OwnerPublicKey) == 0 {
-			return errors.New(
-				fmt.Sprintf(
-					"This vote has some required fields empty (One or more of: Board, Thread, Target, Owner, Type, Creation, Signature, PoW, EntityVersion, Owner, OwnerPublicKey). Vote: %#v\n", obj))
+			return fmt.Errorf("This vote has some required fields empty (One or more of: Board, Thread, Target, Owner, Type, Creation, Signature, PoW, EntityVersion, Owner, OwnerPublicKey). Vote: %#v\n", obj)
 		}
 		if powEnabled() && obj.ProofOfWork == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This vote has the PoW field empty. Vote: %#v\n", obj))
+			return fmt.Errorf("This vote has the PoW field empty. Vote: %#v\n", obj)
 		}
 	case AddressPack:
 		/*
@@ -924,9 +887,7 @@ func enforceNoEmptyRequiredFields(object interface{}) error {
 		*/
 
 		if obj.Address.Location == "" || obj.Address.Port == 0 || obj.Address.EntityVersion == 0 {
-			return errors.New(
-				fmt.Sprintf(
-					"This address has some required fields empty (One or more of: Location, Port, EntityVersion. Address: %#v", obj))
+			return fmt.Errorf("This address has some required fields empty (One or more of: Location, Port, EntityVersion. Address: %#v", obj)
 		}
 
 	case DbKey:
@@ -935,14 +896,10 @@ func enforceNoEmptyRequiredFields(object interface{}) error {
 			obj.Creation == 0 ||
 			obj.EntityVersion == 0 ||
 			obj.Signature == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This key has some required fields empty (One or more of: Type, PublicKey, Creation, PoW, Signature, EntityVersion) Key: %#v\n", obj))
+			return fmt.Errorf("This key has some required fields empty (One or more of: Type, PublicKey, Creation, PoW, Signature, EntityVersion) Key: %#v\n", obj)
 		}
 		if powEnabled() && obj.ProofOfWork == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This key has the PoW field empty. Key: %#v\n", obj))
+			return fmt.Errorf("This key has the PoW field empty. Key: %#v\n", obj)
 		}
 	case DbTruststate:
 		if obj.Target == "" ||
@@ -953,14 +910,10 @@ func enforceNoEmptyRequiredFields(object interface{}) error {
 			obj.Signature == "" ||
 			len(obj.Owner) == 0 ||
 			len(obj.OwnerPublicKey) == 0 {
-			return errors.New(
-				fmt.Sprintf(
-					"This trust state has some required fields empty (One or more of: Target, Owner, Type, Creation, PoW, Signature, EntityVersion, Owner, OwnerPublicKey). Truststate: %#v\n", obj))
+			return fmt.Errorf("This trust state has some required fields empty (One or more of: Target, Owner, Type, Creation, PoW, Signature, EntityVersion, Owner, OwnerPublicKey). Truststate: %#v\n", obj)
 		}
 		if powEnabled() && obj.ProofOfWork == "" {
-			return errors.New(
-				fmt.Sprintf(
-					"This truststate has the PoW field empty. Truststate: %#v\n", obj))
+			return fmt.Errorf("This truststate has the PoW field empty. Truststate: %#v\n", obj)
 		}
 	}
 	return nil

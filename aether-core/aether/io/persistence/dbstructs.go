@@ -10,8 +10,8 @@ import (
 	"aether-core/aether/services/logging"
 	"encoding/csv"
 	"encoding/json"
-	"errors"
 	"fmt"
+
 	// "github.com/jmoiron/sqlx/types"
 	"strings"
 	"time"
@@ -222,7 +222,7 @@ func APItoDB(object interface{}, ts time.Time) (interface{}, error) {
 	case api.Board:
 		// Corner case: board owners
 		if !obj.GetVerified() {
-			return BoardPack{}, errors.New(fmt.Sprintf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj))
+			return BoardPack{}, fmt.Errorf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj)
 		}
 		var dbObj DbBoard
 		dbObj.Fingerprint = obj.Fingerprint
@@ -264,7 +264,7 @@ func APItoDB(object interface{}, ts time.Time) (interface{}, error) {
 
 	case api.Thread:
 		if !obj.GetVerified() {
-			return DbThread{}, errors.New(fmt.Sprintf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj))
+			return DbThread{}, fmt.Errorf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj)
 		}
 		var dbObj DbThread
 		dbObj.Fingerprint = obj.Fingerprint
@@ -293,12 +293,12 @@ func APItoDB(object interface{}, ts time.Time) (interface{}, error) {
 
 	case api.Post:
 		if !obj.GetVerified() {
-			return DbPost{}, errors.New(fmt.Sprintf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj))
+			return DbPost{}, fmt.Errorf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj)
 		}
 		// If a post is its own parent, this is a maliciously crafted post and we do not accept this in. Verification system also checks for this.
 		if obj.Parent == obj.Fingerprint {
 			logging.Log(1, fmt.Sprintf("We've received a post whose parent is itself, attempting to cross into the database. This might happen normally if you have disabled the verification, but if the verification is enabled in this node, investigate. Post: %#v", obj))
-			return DbPost{}, errors.New(fmt.Sprintf("This post's parent is its own fingerprint, therefore attempting to insert this to the database would create infinite recursion up to recursion limit. This does not break the app, but it freezes it for a couple minutes until the recursion limit is reached. This post is thus denied conversion to the Db entity. Entity %#v", obj))
+			return DbPost{}, fmt.Errorf("This post's parent is its own fingerprint, therefore attempting to insert this to the database would create infinite recursion up to recursion limit. This does not break the app, but it freezes it for a couple minutes until the recursion limit is reached. This post is thus denied conversion to the Db entity. Entity %#v", obj)
 		}
 		var dbObj DbPost
 		dbObj.Fingerprint = obj.Fingerprint
@@ -327,7 +327,7 @@ func APItoDB(object interface{}, ts time.Time) (interface{}, error) {
 
 	case api.Vote:
 		if !obj.GetVerified() {
-			return DbVote{}, errors.New(fmt.Sprintf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj))
+			return DbVote{}, fmt.Errorf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj)
 		}
 		var dbObj DbVote
 		dbObj.Fingerprint = obj.Fingerprint
@@ -357,7 +357,7 @@ func APItoDB(object interface{}, ts time.Time) (interface{}, error) {
 
 	case api.Key:
 		if !obj.GetVerified() {
-			return DbKey{}, errors.New(fmt.Sprintf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj))
+			return DbKey{}, fmt.Errorf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj)
 		}
 		var dbObj DbKey
 		dbObj.Fingerprint = obj.Fingerprint
@@ -385,7 +385,7 @@ func APItoDB(object interface{}, ts time.Time) (interface{}, error) {
 
 	case api.Truststate:
 		if !obj.GetVerified() {
-			return DbTruststate{}, errors.New(fmt.Sprintf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj))
+			return DbTruststate{}, fmt.Errorf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj)
 		}
 		var dbObj DbTruststate
 		dbObj.Fingerprint = obj.Fingerprint
@@ -415,7 +415,7 @@ func APItoDB(object interface{}, ts time.Time) (interface{}, error) {
 
 	case api.Address:
 		if !obj.GetVerified() {
-			return AddressPack{}, errors.New(fmt.Sprintf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj))
+			return AddressPack{}, fmt.Errorf("This Api entity failed verification (or the verification hasn't been run on it), thus is denied conversion to the Db entity. Entity %#v", obj)
 		}
 		var dbObj DbAddress
 		dbObj.Location = obj.Location
@@ -465,9 +465,7 @@ func APItoDB(object interface{}, ts time.Time) (interface{}, error) {
 		return ap, nil
 
 	default:
-		return nil, errors.New(
-			fmt.Sprintf(
-				"APItoDB only takes API (not DB) objects. Your object: %#v\n", obj))
+		return nil, fmt.Errorf("APItoDB only takes API (not DB) objects. Your object: %#v\n", obj)
 	}
 }
 
@@ -669,13 +667,9 @@ func DBtoAPI(object interface{}) (interface{}, error) {
 		return apiObj, nil
 
 	case DbBoardOwner:
-		return nil, errors.New(
-			fmt.Sprintf(
-				"This object cannot be queried on its own. Try querying the parent Board object. Your object: %#v\n", obj))
+		return nil, fmt.Errorf("This object cannot be queried on its own. Try querying the parent Board object. Your object: %#v\n", obj)
 	default:
-		return nil, errors.New(
-			fmt.Sprintf(
-				"DBtoAPI only takes DB (not API) objects. Your object: %#v\n", obj))
+		return nil, fmt.Errorf("DBtoAPI only takes DB (not API) objects. Your object: %#v\n", obj)
 	}
 }
 
@@ -693,20 +687,14 @@ func parseCommaSeparatedStringToStringSlice(str string, maxLen int, maxCount int
 		for i, val := range result[0] {
 			if i >= maxCount {
 				// Too many items for the field. It's here, because otherwise somebody could send a 100 billion field string and brick the remote. We're still printing it, but not parsing it any more.
-				return nil, errors.New(
-					fmt.Sprintf(
-						"The string provided has too many items. String: %#v\n", val))
+				return nil, fmt.Errorf("The string provided has too many items. String: %#v\n", val)
 			}
 			if len(val) < maxLen && len(val) > 0 {
 				cleaned = append(cleaned, strings.Trim(val, " "))
 			} else if len(val) < maxLen { // The length of the string is zero.
-				err2 = errors.New(
-					fmt.Sprintf(
-						"This string is empty. String: %#v\n", val))
+				err2 = fmt.Errorf("This string is empty. String: %#v\n", val)
 			} else { // The string is longer than max length allowed for field.
-				err2 = errors.New(
-					fmt.Sprintf(
-						"This string is too long for this field. String: %#v\n", val))
+				err2 = fmt.Errorf("This string is too long for this field. String: %#v\n", val)
 			}
 		}
 		err3 := checkDuplicatesInStringSlice(cleaned)
@@ -728,9 +716,7 @@ func parseStringSliceToCommaSeparatedString(strs []string, entityType string) (s
 	var err error
 	var finalStr string
 	if len(strs) > maxCount {
-		return finalStr, errors.New(
-			fmt.Sprintf(
-				"The string slice provided has too many items. String slice: %#v\n", strs))
+		return finalStr, fmt.Errorf("The string slice provided has too many items. String slice: %#v\n", strs)
 	} else {
 		// We know it has an acceptable amount of elements. Let's check for duplicates.
 		err := checkDuplicatesInStringSlice(strs)
@@ -749,13 +735,9 @@ func parseStringSliceToCommaSeparatedString(strs []string, entityType string) (s
 				finalStr = fmt.Sprint(finalStr, ",", str)
 			}
 		} else if len(str) < maxLen { // The length of the string is zero.
-			err = errors.New(
-				fmt.Sprintf(
-					"This string is empty. String: %#v\n", str))
+			err = fmt.Errorf("This string is empty. String: %#v\n", str)
 		} else { // The string is longer than max length allowed for field.
-			err = errors.New(
-				fmt.Sprintf(
-					"This string is too long for this field. String: %#v\n", str))
+			err = fmt.Errorf("This string is too long for this field. String: %#v\n", str)
 		}
 	}
 	return finalStr, err
@@ -768,9 +750,7 @@ func checkDuplicatesInStringSlice(strs []string) error {
 	}
 	for str, occurrenceCount := range mappy {
 		if occurrenceCount > 1 {
-			return errors.New(
-				fmt.Sprintf(
-					"This list includes items that are duplicates. Duplicate item: %#v\n", str))
+			return fmt.Errorf("This list includes items that are duplicates. Duplicate item: %#v\n", str)
 		}
 	}
 	return nil
