@@ -80,8 +80,6 @@ func Plural(entityType string) string {
 		return "posts"
 	} else if entityType == "vote" {
 		return "votes"
-	} else if entityType == "vote" {
-		return "votes"
 	} else if entityType == "truststate" {
 		return "truststates"
 	} else if entityType == "address" {
