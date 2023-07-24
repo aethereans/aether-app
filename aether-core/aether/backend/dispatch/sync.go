@@ -12,13 +12,17 @@ import (
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/scheduling"
 	tb "aether-core/aether/services/toolbox"
+
 	// "aether-core/aether/services/verify"
 	"aether-core/aether/backend/metrics"
 	"errors"
 	"fmt"
+
 	// "github.com/davecgh/go-spew/spew"
-	"github.com/fatih/color"
 	"net"
+
+	"github.com/fatih/color"
+
 	// "strconv"
 	"strings"
 	"time"
@@ -227,7 +231,8 @@ func Sync(a api.Address, lineup []string, reverseConn *net.Conn) error {
 		"truststates": n.TruststatesLastCheckin}
 	logging.Log(2, fmt.Sprintf("SYNC:PULL STARTED with data from node: %s:%d", a.Location, a.Port))
 	logging.Log(2, fmt.Sprintf("Endpoints: %#v", endpoints))
-	ims := []persistence.InsertMetrics{}
+	var ims []persistence.InsertMetrics
+
 	// callOrder := []string{"addresses", "votes", "truststates", "posts", "threads", "boards", "keys"}
 	callOrder := constructCallOrder(addr, lineup)
 	for _, endpointName := range callOrder {

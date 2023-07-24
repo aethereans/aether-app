@@ -233,7 +233,8 @@ func SendHomeView() {
 		logging.Logf(1, "Home view fetch in SendHomeView encountered an error. Error: %v", err)
 		return
 	}
-	thr := []*feobjects.CompiledThreadEntity{}
+	var thr []*feobjects.CompiledThreadEntity
+
 	for k, _ := range hvc.Threads {
 		thr = append(thr, hvc.Threads[k].Protobuf())
 	}
@@ -257,7 +258,8 @@ func SendPopularView() {
 		logging.Logf(1, "Popular view fetch in SendPopularView encountered an error. Error: %v", err)
 		return
 	}
-	thr := []*feobjects.CompiledThreadEntity{}
+	var thr []*feobjects.CompiledThreadEntity
+
 	for k, _ := range hvc.Threads {
 		thr = append(thr, hvc.Threads[k].Protobuf())
 	}
@@ -281,7 +283,8 @@ func SendNewView() {
 		logging.Logf(1, "New view fetch in SendNewView encountered an error. Error: %v", err)
 		return
 	}
-	thrs := []*feobjects.CompiledThreadEntity{}
+	var thrs []*feobjects.CompiledThreadEntity
+
 	for k, _ := range nvc.Threads {
 		protoEntity := nvc.Threads[k].Protobuf()
 		// Get board name for thread
@@ -295,7 +298,8 @@ func SendNewView() {
 		protoEntity.ViewMeta_BoardName = ab.Name
 		thrs = append(thrs, protoEntity)
 	}
-	psts := []*feobjects.CompiledPostEntity{}
+	var psts []*feobjects.CompiledPostEntity
+
 	for k, _ := range nvc.Posts {
 		protoEntity := nvc.Posts[k].Protobuf()
 		// Get board name for post

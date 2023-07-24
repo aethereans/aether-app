@@ -57,7 +57,7 @@ type POSTResponseRepo struct {
 
 // Internal helper functions
 
-//deleteFromDisk deletes the POST response from the directory. This only triggers when the item is also removed from the Responses repo.
+// deleteFromDisk deletes the POST response from the directory. This only triggers when the item is also removed from the Responses repo.
 func deleteFromDisk(url string) {
 	// postDir := fmt.Sprintf("%s/", bc.GetProtURLVersion(), "/responses/%s", bc.GetCachesDirectory(), url)
 	postDir := filepath.Join(bc.GetCachesDirectory(), bc.GetProtURLVersion(), "responses", url)
@@ -172,7 +172,8 @@ func (r *POSTResponseRepo) GetPostResponseChain(start Timestamp, end Timestamp, 
 	defer r.lock.Unlock()
 	// fmt.Printf("This is all post responses available for chaining: %#v\n", r)
 	// return &[]POSTResponseEntry{}, Timestamp(0), Timestamp(0), EntityCount{}
-	chain := []POSTResponseEntry{}
+	var chain []POSTResponseEntry
+
 	linkStart := start
 	firstLinkStartsFrom := Timestamp(0)
 	lastLinkEndsAt := Timestamp(0)

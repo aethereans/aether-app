@@ -130,7 +130,8 @@ func (s *server) GetBoardAndThreads(ctx context.Context, req *pb.BoardAndThreads
 		threads.SortByCreation()
 	}
 	// Convert all threads to protos
-	tprotos := []*feobjects.CompiledThreadEntity{}
+	var tprotos []*feobjects.CompiledThreadEntity
+
 	for k, _ := range threads {
 		tprotos = append(tprotos, threads[k].Protobuf())
 	}
@@ -157,7 +158,8 @@ func (s *server) GetAllBoards(ctx context.Context, req *pb.AllBoardsRequest) (*p
 		}
 	}
 	cb.SortByThreadsCount()
-	cproto := []*feobjects.CompiledBoardEntity{}
+	var cproto []*feobjects.CompiledBoardEntity
+
 	for k, _ := range cb {
 		item := cb[k].Protobuf()
 		cproto = append(cproto, item)
@@ -262,7 +264,8 @@ func (s *server) GetUncompiledEntityByKey(ctx context.Context, req *pb.Uncompile
 	logging.Logf(1, "We've received an uncompiled entity by key request. Event: %v", *req)
 	switch req.GetEntityType() {
 	case pb.UncompiledEntityType_BOARD:
-		entities := []*mimapi.Board{}
+		var entities []*mimapi.Board
+
 		if boardName := req.GetBoardName(); len(boardName) > 0 {
 			entities = beapiconsumer.GetBoardsByName(boardName)
 		} else {
@@ -295,7 +298,8 @@ func (s *server) GetUncompiledEntityByKey(ctx context.Context, req *pb.Uncompile
 		}
 		return &resp, nil
 	case pb.UncompiledEntityType_KEY:
-		entities := []*mimapi.Key{}
+		var entities []*mimapi.Key
+
 		if keyName := req.GetKeyName(); len(keyName) > 0 {
 			entities = beapiconsumer.GetKeysByName(keyName)
 		} else {
@@ -450,12 +454,14 @@ func ApplyFEConfigChanges(req *pb.FEConfigChangesPayload) {
 }
 
 func (s *server) RequestBoardReports(ctx context.Context, req *pb.BoardReportsRequest) (*pb.BoardReportsResponse, error) {
-	threadCarriers := []festructs.ThreadCarrier{}
+	var threadCarriers []festructs.ThreadCarrier
+
 	err := globals.KvInstance.Find("ParentFingerprint", req.GetBoardFingerprint(), &threadCarriers)
 	if err != nil {
 		logging.Logf(1, "Fetching threads of this board to get the reports failed. Error: %v Board FP: %v", err, req.GetBoardFingerprint())
 	}
-	rtes := []*feobjects.ReportsTabEntry{}
+	var rtes []*feobjects.ReportsTabEntry
+
 	for k, _ := range threadCarriers {
 		// Get all reportes threads and posts in this thread carrier
 		thrs := getReportedThreads(threadCarriers[k].Threads)
@@ -478,7 +484,8 @@ func (s *server) RequestBoardReports(ctx context.Context, req *pb.BoardReportsRe
 }
 
 func getReportedThreads(sl []festructs.CompiledThread) []festructs.CompiledThread {
-	reported := []festructs.CompiledThread{}
+	var reported []festructs.CompiledThread
+
 	for k, _ := range sl {
 		if len(sl[k].CompiledContentSignals.Reports) > 0 && !sl[k].CompiledContentSignals.SelfModIgnored {
 			reported = append(reported, sl[k])
@@ -488,7 +495,8 @@ func getReportedThreads(sl []festructs.CompiledThread) []festructs.CompiledThrea
 }
 
 func getReportedPosts(sl []festructs.CompiledPost) []festructs.CompiledPost {
-	reported := []festructs.CompiledPost{}
+	var reported []festructs.CompiledPost
+
 	for k, _ := range sl {
 		if len(sl[k].CompiledContentSignals.Reports) > 0 && !sl[k].CompiledContentSignals.SelfModIgnored {
 			reported = append(reported, sl[k])
@@ -499,12 +507,14 @@ func getReportedPosts(sl []festructs.CompiledPost) []festructs.CompiledPost {
 
 func (s *server) RequestBoardModActions(ctx context.Context, req *pb.BoardModActionsRequest) (*pb.BoardModActionsResponse, error) {
 	logging.Logf(1, "request board mod actions called.")
-	threadCarriers := []festructs.ThreadCarrier{}
+	var threadCarriers []festructs.ThreadCarrier
+
 	err := globals.KvInstance.Find("ParentFingerprint", req.GetBoardFingerprint(), &threadCarriers)
 	if err != nil {
 		logging.Logf(1, "Fetching threads of this board to get the ModActions failed. Error: %v Board FP: %v", err, req.GetBoardFingerprint())
 	}
-	rtes := []*feobjects.ModActionsTabEntry{}
+	var rtes []*feobjects.ModActionsTabEntry
+
 	for k, _ := range threadCarriers {
 		// Get all ModActioned threads and posts in this thread carrier
 		thrs := getModActionedThreads(threadCarriers[k].Threads)
@@ -528,7 +538,8 @@ func (s *server) RequestBoardModActions(ctx context.Context, req *pb.BoardModAct
 
 // For these two below, we also want to do modapprovals in the future, not just modblocks. TODO
 func getModActionedThreads(sl []festructs.CompiledThread) []festructs.CompiledThread {
-	modBlocked := []festructs.CompiledThread{}
+	var modBlocked []festructs.CompiledThread
+
 	for k, _ := range sl {
 		if len(sl[k].CompiledContentSignals.ModBlocks) > 0 && !sl[k].CompiledContentSignals.SelfModIgnored {
 			modBlocked = append(modBlocked, sl[k])
@@ -538,7 +549,8 @@ func getModActionedThreads(sl []festructs.CompiledThread) []festructs.CompiledTh
 }
 
 func getModActionedPosts(sl []festructs.CompiledPost) []festructs.CompiledPost {
-	modBlocked := []festructs.CompiledPost{}
+	var modBlocked []festructs.CompiledPost
+
 	for k, _ := range sl {
 		if len(sl[k].CompiledContentSignals.ModBlocks) > 0 && !sl[k].CompiledContentSignals.SelfModIgnored {
 			modBlocked = append(modBlocked, sl[k])
@@ -567,13 +579,15 @@ func (s *server) SendMintedUsernames(ctx context.Context, req *pb.SendMintedUser
 	logging.Logf(1, "We've received a send minted usernames request. Event: %v", *req)
 	resp := pb.SendMintedUsernamesResponse{}
 	jsonTs := req.GetMintedUsernamesRawJSON()
-	tses := []api.Truststate{}
+	var tses []api.Truststate
+
 	err := json.Unmarshal([]byte(jsonTs), &tses)
 	if err != nil {
 		logging.Logf(1, "Unmarshalling from JSON Unique name Truststate failed. Error: %v", err)
 		return &resp, err
 	}
-	tsProtosSlice := []*mimapi.Truststate{}
+	var tsProtosSlice []*mimapi.Truststate
+
 	for _, ts := range tses {
 		tsProto := ts.Protobuf()
 		tsProtosSlice = append(tsProtosSlice, &tsProto)

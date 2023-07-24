@@ -56,7 +56,8 @@ func BOSliceToProtobuf(bos []BoardOwner) []*pb.BoardOwner {
 	if bos == nil {
 		return []*pb.BoardOwner{}
 	}
-	pbos := []*pb.BoardOwner{}
+	var pbos []*pb.BoardOwner
+
 	for key, _ := range bos {
 		pbos = append(pbos, bos[key].Protobuf())
 	}
@@ -67,7 +68,8 @@ func FPSliceToProtobuf(fps []Fingerprint) []string {
 	if fps == nil {
 		return []string{}
 	}
-	fpstr := []string{}
+	var fpstr []string
+
 	for key, _ := range fps {
 		fpstr = append(fpstr, string(fps[key]))
 	}
@@ -240,7 +242,8 @@ func BoardOwnerSliceProtoToAPI(pbos []*pb.BoardOwner) []BoardOwner {
 	if pbos == nil {
 		return []BoardOwner{}
 	}
-	abos := []BoardOwner{}
+	var abos []BoardOwner
+
 	for key, _ := range pbos {
 		bo := BoardOwner{}
 		bo.FillFromProtobuf(*pbos[key])
@@ -253,7 +256,8 @@ func FPSliceProtoToAPI(pfps []string) []Fingerprint {
 	if pfps == nil {
 		return []Fingerprint{}
 	}
-	afps := []Fingerprint{}
+	var afps []Fingerprint
+
 	for key, _ := range pfps {
 		var fp Fingerprint
 		fp.FillFromProtobuf(pfps[key])

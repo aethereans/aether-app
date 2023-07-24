@@ -9,6 +9,7 @@ import (
 	"aether-core/aether/services/ca"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
+
 	// "github.com/willf/bloom"
 	pbstructs "aether-core/aether/protos/mimapi"
 	"math"
@@ -412,7 +413,8 @@ func (batch *CPostBatch) Sort() {
 }
 
 func (batch *CPostBatch) ToProtobuf() []*feobjects.CompiledPostEntity {
-	protos := []*feobjects.CompiledPostEntity{}
+	var protos []*feobjects.CompiledPostEntity
+
 	for k, _ := range *batch {
 		p := (*batch)[k].Protobuf()
 		protos = append(protos, p)
@@ -711,7 +713,8 @@ func (batch *CThreadBatch) SortByCreation() {
 }
 
 func (batch *CThreadBatch) ToProtobuf() []*feobjects.CompiledThreadEntity {
-	protos := []*feobjects.CompiledThreadEntity{}
+	var protos []*feobjects.CompiledThreadEntity
+
 	for k, _ := range *batch {
 		p := (*batch)[k].Protobuf()
 		protos = append(protos, p)
@@ -1003,7 +1006,8 @@ func (cb *CompiledBoard) GetDefaultMods() []string {
 	for k, _ := range dm {
 		m[dm[k]] = true
 	}
-	result := []string{}
+	var result []string
+
 	for k, _ := range m {
 		result = append(result, k)
 	}
@@ -1573,7 +1577,8 @@ func (s *CompiledContentSignals) Insert(
 	i2 := cfgs.Find(targetfp)
 	if i2 != -1 {
 		cfg := (*cfgs)[i2]
-		expss := []ExplainedSignal{}
+		var expss []ExplainedSignal
+
 		for k, _ := range cfg.FGs {
 			expss = append(expss, cfg.FGs[k].CnvToExplainedSignal())
 			// if cfg.FGs[k].Self {
@@ -1668,8 +1673,7 @@ func InitialiseKvStore() {
 /*----------  Reports tab entry  ----------*/
 
 /*
-	This is generated after the fact, after the core entities are compiled. It collects all the items with reports and puts them into a sortable payload form.
-
+This is generated after the fact, after the core entities are compiled. It collects all the items with reports and puts them into a sortable payload form.
 */
 type ReportsTabEntry struct {
 	Fingerprint   string
@@ -1720,8 +1724,7 @@ type ReportsTabEntryBatch []ReportsTabEntry
 =============================================*/
 
 /*
-	This is generated after the fact, after the core entities are compiled. It collects all the items with reports and puts them into a sortable payload form.
-
+This is generated after the fact, after the core entities are compiled. It collects all the items with reports and puts them into a sortable payload form.
 */
 type ModActionsTabEntry struct {
 	Fingerprint   string

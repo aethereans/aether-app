@@ -10,14 +10,17 @@ import (
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/scheduling"
+
 	// "github.com/fatih/color"
 	// "aether-core/aether/services/ports"
 	"encoding/json"
 	"fmt"
+
 	// "github.com/davecgh/go-spew/spew"
-	"github.com/spf13/cobra"
 	"io/ioutil"
 	"time"
+
+	"github.com/spf13/cobra"
 )
 
 func init() {
@@ -131,7 +134,8 @@ func constructCallAddress(ip api.Location, port int, addrtype int) api.Address {
 func parsePlansForThisNode(planAsByte []byte) []PlanCommand {
 	// This is just JSON parsing without a backing struct. The other alternative was copying over the struct (I don't want to have a swarmtest dependency here, I can't import from there), so this is arguably cleaner.
 	// var f interface{}
-	plancmd := []PlanCommand{}
+	var plancmd []PlanCommand
+
 	err2 := json.Unmarshal(planAsByte, &plancmd)
 	if err2 != nil {
 		logging.LogCrash(fmt.Sprintf("The swarm plan JSON parsing failed. Error: %s", err2))

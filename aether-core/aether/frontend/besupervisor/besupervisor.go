@@ -132,7 +132,8 @@ func generateBackendPath() string {
 }
 
 func constructArgs(development bool) []string {
-	baseCmd := []string{}
+	var baseCmd []string
+
 	// backendLogginglevel := 1
 	if development {
 		compilerTags := ""

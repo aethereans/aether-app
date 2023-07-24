@@ -9,6 +9,7 @@ import (
 	"aether-core/aether/services/configstore"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
+
 	// "github.com/davecgh/go-spew/spew"
 	"time"
 )
@@ -26,7 +27,8 @@ func getBootstrappers() []api.Address {
 		logging.Logf(1, "Getting bootstrappers failed from this address. Error: %v, Address: %v/%v:%v", err, bsLoc, bsSubloc, bsPort)
 	}
 	// spew.Dump(resp)
-	bsers := []api.Address{}
+	var bsers []api.Address
+
 	if resp.Address.Type == 254 || resp.Address.Type == 3 {
 		resp.Address.Location = bsLoc
 		resp.Address.Sublocation = bsSubloc
@@ -52,12 +54,14 @@ func constructExecPlans(bootstrappers []api.Address) []execPlan {
 	if len(bootstrappers) == 0 {
 		return []execPlan{}
 	}
-	execplans := []execPlan{}
+	var execplans []execPlan
+
 	for key, _ := range bootstrappers {
 		execplans = append(execplans, execPlan{addr: bootstrappers[key]})
 	}
 	servingSubprots := globals.BackendConfig.GetServingSubprotocols()
-	entities := []string{}
+	var entities []string
+
 	for _, subprot := range servingSubprots {
 		entities = append(entities, subprot.SupportedEntities...)
 	}
@@ -113,7 +117,8 @@ func doBootstrap() {
 	logging.Logf(1, "Online bootstrappers: %#v", onlineBootstrappers)
 	execPlans := constructExecPlans(onlineBootstrappers)
 	// Do a partial sync for everything in the exec plan.
-	errs := []error{}
+	var errs []error
+
 	// Go through each remote in the exec plans and call them based on the types we want to pull from it.
 	for key, _ := range execPlans {
 		err := Sync(execPlans[key].addr, execPlans[key].endpoints, nil)

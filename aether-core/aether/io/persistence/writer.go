@@ -7,13 +7,16 @@ import (
 	"aether-core/aether/backend/feapiconsumer"
 	"aether-core/aether/io/api"
 	"fmt"
+
 	// _ "github.com/mattn/go-sqlite3"
 	// "aether-core/aether/backend/metrics"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/toolbox"
 	"errors"
+
 	"github.com/fatih/color"
+
 	// "github.com/jmoiron/sqlx/types"
 	// "github.com/davecgh/go-spew/spew"
 	// "runtime"
@@ -154,7 +157,8 @@ func AddrTrustedInsert(a *[]api.Address) error {
 
 // InsertOrUpdateAddresses is the multi-entry of the core function InsertOrUpdateAddress. This is the only public API, and it should be used exclusively, because this is where we have the connection retry logic that we need.
 func InsertOrUpdateAddresses(a *[]api.Address) []error {
-	errs := []error{}
+	var errs []error
+
 	for key, _ := range *a {
 		(*a)[key].SetVerified(true)
 		valid, err := (*a)[key].CheckBounds()
@@ -211,9 +215,11 @@ func insertOrUpdateAddress(a api.Address) error {
 		return errors.New(fmt.Sprintf("InsertOrUpdateAddress encountered an error. Error: %s", err7))
 	}
 	dbAddress := DbAddress{}
-	dbSubprotocols := []DbSubprotocol{}
-	dbJunctionItems := []DbAddressSubprotocol{} // Junction table.
-	dbAddress = addressPack.Address             // We only have one address.
+	var dbSubprotocols []DbSubprotocol
+
+	var dbJunctionItems []DbAddressSubprotocol
+	// Junction table.
+	dbAddress = addressPack.Address // We only have one address.
 	for _, dbSubprot := range addressPack.Subprotocols {
 		dbSubprotocols = append(dbSubprotocols, dbSubprot)
 		jItem := generateAdrSprotJunctionItem(addressPack.Address, dbSubprot)
@@ -526,7 +532,8 @@ func insert(batchBucket *batchBucket, im *InsertMetrics) error {
 	// (Hot code path.) Start transaction.
 	start := time.Now()
 	bb := *batchBucket
-	insertType := []string{}
+	var insertType []string
+
 	tx, err := globals.DbInstance.Beginx()
 	if err != nil {
 		logging.Log(1, err)

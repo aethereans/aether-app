@@ -10,6 +10,7 @@ import (
 	pbstructs "aether-core/aether/protos/mimapi"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
+
 	// "fmt"
 	// "github.com/davecgh/go-spew/spew"
 	// "golang.org/x/net/context"
@@ -45,7 +46,8 @@ If you want to get all types in a typeclass, specify type as -1.
 // Three types of query to support: get all since timestamp, get pts for a certain target since timestamp, get all pts for a certain target since timestamp in a certain board.
 func GetPTs(targetfp, domainfp string, startts, nowts int64) []PublicTrustSignal {
 	rawSignals := getTsBasedSignal(targetfp, domainfp, startts, nowts, 1, -1)
-	sgns := []PublicTrustSignal{}
+	var sgns []PublicTrustSignal
+
 	for k, _ := range rawSignals {
 		sgns = append(sgns, PublicTrustSignal{
 			BaseTruststateSignal: BaseTruststateSignal{
@@ -70,7 +72,8 @@ func GetPTs(targetfp, domainfp string, startts, nowts int64) []PublicTrustSignal
 
 func GetCNs(targetfp, domainfp string, startts, nowts int64) []CanonicalNameSignal {
 	rawSignals := getTsBasedSignal(targetfp, domainfp, startts, nowts, 2, -1)
-	sgns := []CanonicalNameSignal{}
+	var sgns []CanonicalNameSignal
+
 	for k, _ := range rawSignals {
 		tsmeta, err := metaparse.ReadMeta("Truststate", rawSignals[k].GetMeta())
 		if err != nil {
@@ -104,7 +107,8 @@ func GetCNs(targetfp, domainfp string, startts, nowts int64) []CanonicalNameSign
 
 func GetF451s(targetfp, domainfp string, startts, nowts int64) []F451Signal {
 	rawSignals := getTsBasedSignal(targetfp, domainfp, startts, nowts, 3, -1)
-	sgns := []F451Signal{}
+	var sgns []F451Signal
+
 	for k, _ := range rawSignals {
 		sgns = append(sgns, F451Signal{
 			BaseTruststateSignal: BaseTruststateSignal{
@@ -129,7 +133,8 @@ func GetF451s(targetfp, domainfp string, startts, nowts int64) []F451Signal {
 
 func GetPEs(targetfp, domainfp string, startts, nowts int64) []PublicElectSignal {
 	rawSignals := getTsBasedSignal(targetfp, domainfp, startts, nowts, 4, -1)
-	sgns := []PublicElectSignal{}
+	var sgns []PublicElectSignal
+
 	for k, _ := range rawSignals {
 		sgns = append(sgns, PublicElectSignal{
 			BaseTruststateSignal: BaseTruststateSignal{

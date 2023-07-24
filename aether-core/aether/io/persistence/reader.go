@@ -7,12 +7,14 @@ import (
 	"aether-core/aether/io/api"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
+
 	// "aether-core/aether/services/toolbox"
 	"errors"
 	"fmt"
-	"github.com/jmoiron/sqlx"
 	"strconv"
 	"time"
+
+	"github.com/jmoiron/sqlx"
 )
 
 // ReadNode provides the ability to seek a specific node.
@@ -1115,10 +1117,11 @@ func readDbAddressesTimeRangeSearch(
 	return &dbArr, nil
 }
 
-//readAddressContainerResponse is a direct prepared response to a container generation request, whether be it for a cache generation or POST response generation.
+// readAddressContainerResponse is a direct prepared response to a container generation request, whether be it for a cache generation or POST response generation.
 func readAddressContainerResponse(beg, end api.Timestamp, addrType uint8, limit int) (*[]DbAddress, error) {
 	// Filter by time range given, sort by fixed elements, and limit the results to limit
-	results := []DbAddress{}
+	var results []DbAddress
+
 	q := "SELECT * FROM Addresses WHERE (LastSuccessfulPing > ? AND LastSuccessfulPing < ? AND AddressType = ?) ORDER BY LastSuccessfulSync DESC, LastSuccessfulPing DESC LIMIT ?"
 	r, err := globals.DbInstance.Queryx(q, beg, end, addrType, limit)
 	defer r.Close() // In case of premature exit.
@@ -1139,7 +1142,8 @@ func readAddressContainerResponse(beg, end api.Timestamp, addrType uint8, limit 
 }
 
 func readDBAddressesAll(isDesc bool) (*[]DbAddress, error) {
-	results := []DbAddress{}
+	var results []DbAddress
+
 	q := ""
 	if isDesc {
 		q = "SELECT * FROM Addresses ORDER BY LastSuccessfulSync DESC, LastSuccessfulPing DESC, LocalArrival DESC LIMIT ?"
@@ -1171,12 +1175,14 @@ func ReadDbAddresses(
 		live, err1 := readAddressContainerResponse(beg, end, 2, (limit/10)*8)
 		bs, err2 := readAddressContainerResponse(beg, end, 3, (limit / 10))
 		static, err3 := readAddressContainerResponse(beg, end, 255, (limit / 10))
-		all := []DbAddress{}
+		var all []DbAddress
+
 		all = append(all, (*live)...)
 		all = append(all, (*bs)...)
 		all = append(all, (*static)...)
 		if err1 != nil || err2 != nil || err3 != nil {
-			errs := []error{}
+			var errs []error
+
 			return &all, errors.New(fmt.Sprintf("Some errors appeared while trying to prepare this address response to a remote request. Errors: %#v", errs))
 		}
 		return &all, nil

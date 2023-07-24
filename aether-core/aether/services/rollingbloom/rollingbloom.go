@@ -20,9 +20,10 @@ package rollingbloom
 import (
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
-	"github.com/willf/bloom"
 	"sync"
 	"time"
+
+	"github.com/willf/bloom"
 )
 
 type constituentBloom struct {
@@ -129,7 +130,8 @@ func (r *RollingBloom) maintain() {
 		// 23 hours because even in the highest resolution (1 day per bloom) lastMaintainRun cannot possibly prevent maintain() in a case where a most recent bloom that covers now() does not exist.
 	}
 	r.lastMaintainRun = now.Unix()
-	cleanedCBlooms := []constituentBloom{}
+	var cleanedCBlooms []constituentBloom
+
 	var lastBloomEnd int64
 	for k, _ := range r.ConstituentBlooms {
 		// Move to the new list only if the new bloom is still valid in duration

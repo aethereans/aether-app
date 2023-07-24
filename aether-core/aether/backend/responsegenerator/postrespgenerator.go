@@ -12,9 +12,11 @@ import (
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/randomhashgen"
+
 	// "encoding/json"
 	"errors"
 	"fmt"
+
 	// "github.com/davecgh/go-spew/spew"
 	// "io/ioutil"
 	// "os"
@@ -299,7 +301,8 @@ func insertIntoPOSTResponseReuseTracker(resultPage *api.ApiResponse, foldername 
 }
 
 func generateResultCachesFromPostRespChain(chain []configstore.POSTResponseEntry) []api.ResultCache {
-	rcachs := []api.ResultCache{}
+	var rcachs []api.ResultCache
+
 	for i, _ := range chain {
 		rcachs = append(rcachs, constructResultCache(
 			api.Timestamp(chain[i].StartsFrom),

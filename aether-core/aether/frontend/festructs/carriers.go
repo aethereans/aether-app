@@ -11,6 +11,7 @@ import (
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/rollingbloom"
+
 	// "aether-core/aether/services/toolbox"
 	// "fmt"
 	// "github.com/davecgh/go-spew/spew"
@@ -234,7 +235,8 @@ func (c *BoardCarrier) generateUserFingerprintsFromContent(nowts int64) []string
 		ufps[npe[k].GetOwner()] = true
 	}
 	// Convert to slice
-	ufpsSlice := []string{}
+	var ufpsSlice []string
+
 	for key, _ := range ufps {
 		ufpsSlice = append(ufpsSlice, key)
 	}
@@ -308,7 +310,8 @@ func (c *BoardCarrier) generateNeededUserHeaderFingerprints() []string {
 		uhfps[dm[k]] = true
 	}
 	// Convert to slice
-	uhfpsSlice := []string{}
+	var uhfpsSlice []string
+
 	for key, _ := range uhfps {
 		uhfpsSlice = append(uhfpsSlice, key)
 	}
@@ -346,7 +349,8 @@ func (c *BoardCarrier) refreshLSUserHeadersBucket(targetsfp []string, boardfp st
 }
 
 func (c *BoardCarrier) ConstructAmbientBoards(hasNewThreads bool, nowts int64) []AmbientBoard {
-	abs := []AmbientBoard{}
+	var abs []AmbientBoard
+
 	for key, _ := range c.Boards {
 		abs = append(abs, c.Boards[key].ConvertToAmbientBoard(hasNewThreads, nowts))
 	}
@@ -360,7 +364,8 @@ func (c *BoardCarrier) ConstructAmbientBoards(hasNewThreads bool, nowts int64) [
 // GetTopThreadsForView gets top threads up to the asked number, and filters out the blocked threads.
 func (c *BoardCarrier) GetTopThreadsForView(num int) *[]CompiledThread {
 	foundCount := 0
-	foundThr := []CompiledThread{}
+	var foundThr []CompiledThread
+
 	for k, _ := range c.Threads {
 		if foundCount > num {
 			break
@@ -477,7 +482,8 @@ func (c *ThreadCarrier) refreshPosts(boardSpecificUserHeaders CUserBatch, bc *Bo
 
 		Here, we create the header delta and return it. This will be utilised later at the end of the global refresh function for this thread.
 	*/
-	postsDelta := []CompiledPost{}
+	var postsDelta []CompiledPost
+
 	for k, _ := range newPostsInThread {
 		if i := c.Posts.Find(newPostsInThread[k].Provable.Fingerprint); i != -1 {
 			postsDelta = append(postsDelta, c.Posts[i])
@@ -544,8 +550,10 @@ func (c *ThreadCarrier) MakeTree(showDeleted, showOrphans bool) *feobjects.Compi
 		}
 	}
 	// Split the pool to roots and orphans
-	roots := []*feobjects.CompiledPostEntity{}
-	orphans := []*feobjects.CompiledPostEntity{}
+	var roots []*feobjects.CompiledPostEntity
+
+	var orphans []*feobjects.CompiledPostEntity
+
 	for k, _ := range pool {
 		if pool[k].GetParent() == c.Fingerprint {
 			roots = append(roots, pool[k])
@@ -856,7 +864,8 @@ func (g *GlobalStatisticsCarrier) Refresh(nowts int64) []*pbstructs.Key {
 	g.now = nowts
 	// Get all new user entities / updates since lastref
 	newUserEntities := beapiconsumer.GetKeys(g.LastReferenced, g.now, []string{}, false, false)
-	fps := []string{}
+	var fps []string
+
 	// Put their fingerprints into the bloom
 	for k, _ := range newUserEntities {
 		if fp := newUserEntities[k].GetProvable().GetFingerprint(); len(fp) > 0 {

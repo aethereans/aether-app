@@ -12,9 +12,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+
 	// "github.com/jmoiron/sqlx"
 	"crypto/tls"
-	"golang.org/x/net/proxy"
 	"io"
 	"io/ioutil"
 	"net"
@@ -22,6 +22,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"golang.org/x/net/proxy"
 	// "context"
 	// "github.com/davecgh/go-spew/spew"
 	// "reflect"
@@ -501,7 +503,8 @@ func GetPageRaw(host string, subhost string, port uint16, location string, metho
 		return ApiResponse{}, errs[0]
 	}
 	if len(errs) >= 3 {
-		errStrs := []string{}
+		var errStrs []string
+
 		for _, err := range errs {
 			errStrs = append(errStrs, err.Error())
 		}
