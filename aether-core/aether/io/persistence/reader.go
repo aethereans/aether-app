@@ -1120,7 +1120,8 @@ func readDbAddressesTimeRangeSearch(
 // readAddressContainerResponse is a direct prepared response to a container generation request, whether be it for a cache generation or POST response generation.
 func readAddressContainerResponse(beg, end api.Timestamp, addrType uint8, limit int) (*[]DbAddress, error) {
 	// Filter by time range given, sort by fixed elements, and limit the results to limit
-	results := []DbAddress{}
+	var results []DbAddress
+
 	q := "SELECT * FROM Addresses WHERE (LastSuccessfulPing > ? AND LastSuccessfulPing < ? AND AddressType = ?) ORDER BY LastSuccessfulSync DESC, LastSuccessfulPing DESC LIMIT ?"
 	r, err := globals.DbInstance.Queryx(q, beg, end, addrType, limit)
 	defer r.Close() // In case of premature exit.
@@ -1141,7 +1142,8 @@ func readAddressContainerResponse(beg, end api.Timestamp, addrType uint8, limit 
 }
 
 func readDBAddressesAll(isDesc bool) (*[]DbAddress, error) {
-	results := []DbAddress{}
+	var results []DbAddress
+
 	q := ""
 	if isDesc {
 		q = "SELECT * FROM Addresses ORDER BY LastSuccessfulSync DESC, LastSuccessfulPing DESC, LocalArrival DESC LIMIT ?"
@@ -1173,7 +1175,8 @@ func ReadDbAddresses(
 		live, err1 := readAddressContainerResponse(beg, end, 2, (limit/10)*8)
 		bs, err2 := readAddressContainerResponse(beg, end, 3, (limit / 10))
 		static, err3 := readAddressContainerResponse(beg, end, 255, (limit / 10))
-		all := []DbAddress{}
+		var all []DbAddress
+
 		all = append(all, (*live)...)
 		all = append(all, (*bs)...)
 		all = append(all, (*static)...)

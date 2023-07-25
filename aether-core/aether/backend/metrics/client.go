@@ -9,11 +9,14 @@ import (
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
 	"fmt"
+
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
+
 	// "log"
 	"aether-core/aether/io/api"
 	"aether-core/aether/io/persistence"
+
 	// "github.com/davecgh/go-spew/spew"
 	"strconv"
 	"time"
@@ -182,7 +185,8 @@ func insertNodeEntityAsMetricForm(input map[string]string, proto *pb.Metrics) {
 	n.KeysLastCheckin = int64(klc)
 	n.TruststatesLastCheckin = int64(trlc)
 	n.AddressesLastCheckin = int64(alc)
-	nArr := []*pb.NodeEntity{}
+	var nArr []*pb.NodeEntity
+
 	nArr = append(nArr, &n)
 	proto.Persistence.NodeInsertionsSinceLastMetricsDbg = nArr
 	// spew.Dump(proto)

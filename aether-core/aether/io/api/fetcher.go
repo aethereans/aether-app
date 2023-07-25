@@ -503,7 +503,8 @@ func GetPageRaw(host string, subhost string, port uint16, location string, metho
 		return ApiResponse{}, errs[0]
 	}
 	if len(errs) >= 3 {
-		errStrs := []string{}
+		var errStrs []string
+
 		for _, err := range errs {
 			errStrs = append(errStrs, err.Error())
 		}

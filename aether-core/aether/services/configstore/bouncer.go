@@ -7,6 +7,7 @@ import (
 	"aether-core/aether/services/toolbox"
 	"fmt"
 	"log"
+
 	// "github.com/davecgh/go-spew/spew"
 	"aether-core/aether/services/extverify"
 	// "log"
@@ -153,7 +154,8 @@ func (n *Bouncer) insert(direction string, loc, subloc string, port uint16, isRe
 }
 
 func (n *Bouncer) removeItem(direction string, i int) {
-	finalList := []ConnectionRecord{}
+	var finalList []ConnectionRecord
+
 	switch direction {
 	case "inbound":
 		finalList = append(n.Inbounds[0:i], n.Inbounds[i+1:len(n.Inbounds)]...)
@@ -480,7 +482,8 @@ func (b *Bouncer) GetInboundsInLastXMinutes(min uint, onlySuccessful bool) []Con
 	defer b.lock.Unlock()
 	b.flush()
 	cutoff := Timestamp(toolbox.CnvToCutoffMinutes(int(min)))
-	results := []ConnectionRecord{}
+	var results []ConnectionRecord
+
 	/*
 		Logic below:
 		- A normal (non-reverse) inbound is interpreted successful by default
@@ -541,7 +544,8 @@ func (b *Bouncer) GetOutboundsInLastXMinutes(min uint, onlySuccessful bool) []Co
 	defer b.lock.Unlock()
 	b.flush()
 	cutoff := Timestamp(toolbox.CnvToCutoffMinutes(int(min)))
-	results := []ConnectionRecord{}
+	var results []ConnectionRecord
+
 	if onlySuccessful {
 		for key, _ := range b.Outbounds {
 			if b.Outbounds[key].Outbound_Successful &&

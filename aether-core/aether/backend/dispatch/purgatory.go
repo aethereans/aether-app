@@ -31,6 +31,7 @@ import (
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/toolbox"
+
 	// "fmt"
 	"sync"
 	"time"
@@ -163,7 +164,8 @@ func cnvToVertexIdx(item api.ProvableIndex) vertex {
 }
 
 func (p *Purgatory) getDirectDescendants(vs []vertex) []vertex {
-	children := []vertex{}
+	var children []vertex
+
 	for key1, _ := range vs {
 		switch vs[key1].entityType {
 		case "board":
@@ -295,12 +297,18 @@ func (p *Purgatory) verify(item api.Provable) bool {
 }
 
 func (p *Purgatory) process() {
-	newB := []api.Board{}
-	newT := []api.Thread{}
-	newP := []api.Post{}
-	newV := []api.Vote{}
-	newK := []api.Key{}
-	newTs := []api.Truststate{}
+	var newB []api.Board
+
+	var newT []api.Thread
+
+	var newP []api.Post
+
+	var newV []api.Vote
+
+	var newK []api.Key
+
+	var newTs []api.Truststate
+
 	for key, _ := range p.BoardsPurg {
 		if p.verify(&p.BoardsPurg[key]) {
 			newB = append(newB, p.BoardsPurg[key])
@@ -477,7 +485,8 @@ func (p *Purgatory) accept(items []api.Provable) {
 
 func (p *Purgatory) removeFromResp(r *api.Response) {
 	if len(r.Boards) > 0 {
-		removalIdxs := []int{}
+		var removalIdxs []int
+
 		for key, _ := range p.BoardsPurg {
 			idx := r.IndexOf(&p.BoardsPurg[key])
 			if idx != -1 {
@@ -487,7 +496,8 @@ func (p *Purgatory) removeFromResp(r *api.Response) {
 		r.MassRemoveByIndex(removalIdxs, "board")
 	}
 	if len(r.Threads) > 0 {
-		removalIdxs := []int{}
+		var removalIdxs []int
+
 		for key, _ := range p.ThreadsPurg {
 			idx := r.IndexOf(&p.ThreadsPurg[key])
 			if idx != -1 {
@@ -497,7 +507,8 @@ func (p *Purgatory) removeFromResp(r *api.Response) {
 		r.MassRemoveByIndex(removalIdxs, "thread")
 	}
 	if len(r.Posts) > 0 {
-		removalIdxs := []int{}
+		var removalIdxs []int
+
 		for key, _ := range p.PostsPurg {
 			idx := r.IndexOf(&p.PostsPurg[key])
 			if idx != -1 {
@@ -507,7 +518,8 @@ func (p *Purgatory) removeFromResp(r *api.Response) {
 		r.MassRemoveByIndex(removalIdxs, "post")
 	}
 	if len(r.Votes) > 0 {
-		removalIdxs := []int{}
+		var removalIdxs []int
+
 		for key, _ := range p.VotesPurg {
 			idx := r.IndexOf(&p.VotesPurg[key])
 			if idx != -1 {
@@ -517,7 +529,8 @@ func (p *Purgatory) removeFromResp(r *api.Response) {
 		r.MassRemoveByIndex(removalIdxs, "vote")
 	}
 	if len(r.Keys) > 0 {
-		removalIdxs := []int{}
+		var removalIdxs []int
+
 		for key, _ := range p.KeysPurg {
 			idx := r.IndexOf(&p.KeysPurg[key])
 			if idx != -1 {
@@ -527,7 +540,8 @@ func (p *Purgatory) removeFromResp(r *api.Response) {
 		r.MassRemoveByIndex(removalIdxs, "key")
 	}
 	if len(r.Truststates) > 0 {
-		removalIdxs := []int{}
+		var removalIdxs []int
+
 		for key, _ := range p.TruststatesPurg {
 			idx := r.IndexOf(&p.TruststatesPurg[key])
 			if idx != -1 {
@@ -542,27 +556,33 @@ func (p *Purgatory) Filter(r *api.Response) {
 	p.lock.Lock()
 	defer p.lock.Unlock()
 	start := time.Now()
-	bProv := []api.Provable{}
+	var bProv []api.Provable
+
 	for key, _ := range r.Boards {
 		bProv = append(bProv, api.Provable(&r.Boards[key]))
 	}
-	tProv := []api.Provable{}
+	var tProv []api.Provable
+
 	for key, _ := range r.Threads {
 		tProv = append(tProv, api.Provable(&r.Threads[key]))
 	}
-	pProv := []api.Provable{}
+	var pProv []api.Provable
+
 	for key, _ := range r.Posts {
 		pProv = append(pProv, api.Provable(&r.Posts[key]))
 	}
-	vProv := []api.Provable{}
+	var vProv []api.Provable
+
 	for key, _ := range r.Votes {
 		vProv = append(vProv, api.Provable(&r.Votes[key]))
 	}
-	kProv := []api.Provable{}
+	var kProv []api.Provable
+
 	for key, _ := range r.Keys {
 		kProv = append(kProv, api.Provable(&r.Keys[key]))
 	}
-	tsProv := []api.Provable{}
+	var tsProv []api.Provable
+
 	for key, _ := range r.Truststates {
 		tsProv = append(tsProv, api.Provable(&r.Truststates[key]))
 	}

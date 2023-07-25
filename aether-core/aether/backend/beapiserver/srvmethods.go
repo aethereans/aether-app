@@ -11,9 +11,11 @@ import (
 	"aether-core/aether/services/create"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
+
 	// "google.golang.org/grpc"
 	// "google.golang.org/grpc/reflection"
 	"fmt"
+
 	"golang.org/x/net/context"
 )
 
@@ -42,7 +44,8 @@ func (s *server) GetBoards(
 	if fps == nil {
 		fps = &pb.Fingerprints{}
 	}
-	apiFps := []api.Fingerprint{}
+	var apiFps []api.Fingerprint
+
 	for key, _ := range fps.Fingerprints {
 		apiFps = append(apiFps, api.Fingerprint(fps.Fingerprints[key]))
 	}
@@ -74,7 +77,8 @@ func (s *server) GetThreads(
 	start := req.GetFilters().GetLastRefTimeRange().GetStart()
 	end := req.GetFilters().GetLastRefTimeRange().GetEnd()
 	fps := req.GetFilters().GetFingerprints().GetFingerprints()
-	apiFps := []api.Fingerprint{}
+	var apiFps []api.Fingerprint
+
 	for key, _ := range fps {
 		apiFps = append(apiFps, api.Fingerprint(fps[key]))
 	}
@@ -107,7 +111,8 @@ func (s *server) GetPosts(
 	start := api.Timestamp(req.GetFilters().GetLastRefTimeRange().GetStart())
 	end := api.Timestamp(req.GetFilters().GetLastRefTimeRange().GetEnd())
 	fps := req.GetFilters().GetFingerprints().GetFingerprints()
-	apiFps := []api.Fingerprint{}
+	var apiFps []api.Fingerprint
+
 	for key, _ := range fps {
 		apiFps = append(apiFps, api.Fingerprint(fps[key]))
 	}
@@ -138,7 +143,8 @@ func (s *server) GetVotes(
 	start := api.Timestamp(req.GetFilters().GetLastRefTimeRange().GetStart())
 	end := api.Timestamp(req.GetFilters().GetLastRefTimeRange().GetEnd())
 	fps := req.GetFilters().GetFingerprints().GetFingerprints()
-	apiFps := []api.Fingerprint{}
+	var apiFps []api.Fingerprint
+
 	for key, _ := range fps {
 		apiFps = append(apiFps, api.Fingerprint(fps[key]))
 	}
@@ -176,7 +182,8 @@ func (s *server) GetKeys(
 	if fps == nil {
 		fps = &pb.Fingerprints{}
 	}
-	apiFps := []api.Fingerprint{}
+	var apiFps []api.Fingerprint
+
 	for key, _ := range fps.Fingerprints {
 		apiFps = append(apiFps, api.Fingerprint(fps.Fingerprints[key]))
 	}
@@ -208,7 +215,8 @@ func (s *server) GetTruststates(
 	start := api.Timestamp(req.GetFilters().GetLastRefTimeRange().GetStart())
 	end := api.Timestamp(req.GetFilters().GetLastRefTimeRange().GetEnd())
 	fps := req.GetFilters().GetFingerprints().GetFingerprints()
-	apiFps := []api.Fingerprint{}
+	var apiFps []api.Fingerprint
+
 	for key, _ := range fps {
 		apiFps = append(apiFps, api.Fingerprint(fps[key]))
 	}
@@ -290,7 +298,8 @@ func (s *server) SendMintedContent(
 		resp.Status.StatusCode = 401 // HTTP 401 Unauthorised
 		return &resp, nil
 	}
-	allItems := []interface{}{}
+	var allItems []interface{}
+
 	boardsProto := req.GetBoards()
 	for k, _ := range boardsProto {
 		e := api.Board{}

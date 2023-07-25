@@ -6,6 +6,7 @@ import (
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/toolbox"
 	"sort"
+
 	// "fmt"
 	"time"
 )
@@ -170,7 +171,8 @@ func (o *NewFeedItem) GetUserFp() string {
 }
 
 func GenerateNewFeed(firstEverGeneration bool) []NewFeedItem {
-	newFeed := []NewFeedItem{}
+	var newFeed []NewFeedItem
+
 	sfwlist := make(map[string]bool)
 	for _, v := range globals.FrontendConfig.ContentRelations.SFWList.Boards {
 		sfwlist[v] = true

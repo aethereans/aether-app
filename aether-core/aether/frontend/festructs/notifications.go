@@ -381,7 +381,8 @@ func (nc *NotificationsCarrier) Listify() (CNotificationsList, int64) {
 				continue
 			}
 			// Convert fingerprints:lastupdate map to []string fp
-			rpFps := []string{}
+			var rpFps []string
+
 			rpUsers := nc.Containers[k].NotificationsBuckets[k2].ResponsePostsUsers
 			for k, _ := range nc.Containers[k].NotificationsBuckets[k2].ResponsePosts {
 				rpFps = append(rpFps, k)

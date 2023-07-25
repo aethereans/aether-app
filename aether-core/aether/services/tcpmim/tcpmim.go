@@ -76,7 +76,8 @@ func ParseMimMessage(rawmsg []byte) TCPMimMessage {
 }
 
 func MakeMimMessage(codePoint TCPMimMessage) []byte {
-	msgCode := []byte{}
+	var msgCode []byte
+
 	if codePoint == 2 {
 		msgCode = append(msgCode, []byte("ROR")...)
 	}

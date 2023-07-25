@@ -7,6 +7,7 @@ package inflights
 import (
 	"aether-core/aether/frontend/beapiconsumer"
 	"aether-core/aether/frontend/clapiconsumer"
+
 	// "aether-core/aether/frontend/festructs"
 	"aether-core/aether/frontend/refresher"
 	"aether-core/aether/io/api"
@@ -155,7 +156,7 @@ func (o *inflights) getNextItem() interface{} {
 /*----------  Board  ----------*/
 
 /*
-  These are all fairly similar, but most documentation is on the Key entity since that has a special case.
+These are all fairly similar, but most documentation is on the Key entity since that has a special case.
 */
 func (o *InflightBoard) ingestCreate(ifl *inflights) {
 	switch o.Status.StatusText {
@@ -183,7 +184,8 @@ func (o *InflightBoard) ingestCreate(ifl *inflights) {
 			return
 		}
 		ep := e.Protobuf()
-		eps := []*pbstructs.Board{}
+		var eps []*pbstructs.Board
+
 		eps = append(eps, &ep)
 		o.Entity.Provable.Fingerprint = string(e.Fingerprint)
 		/*----------  Send to backend  ----------*/
@@ -250,7 +252,8 @@ func (o *InflightBoard) ingestUpdate(ifl *inflights) {
 			return
 		}
 		ep := entity.Protobuf()
-		eps := []*pbstructs.Board{}
+		var eps []*pbstructs.Board
+
 		eps = append(eps, &ep)
 		o.Entity.Provable.Fingerprint = string(entity.Fingerprint)
 		/*----------  Send to backend  ----------*/
@@ -304,7 +307,8 @@ func (o *InflightThread) ingestCreate(ifl *inflights) {
 			return
 		}
 		ep := e.Protobuf()
-		eps := []*pbstructs.Thread{}
+		var eps []*pbstructs.Thread
+
 		eps = append(eps, &ep)
 		o.Entity.Provable.Fingerprint = string(e.Fingerprint)
 		/*----------  Send to backend  ----------*/
@@ -367,7 +371,8 @@ func (o *InflightThread) ingestUpdate(ifl *inflights) {
 			return
 		}
 		ep := entity.Protobuf()
-		eps := []*pbstructs.Thread{}
+		var eps []*pbstructs.Thread
+
 		eps = append(eps, &ep)
 		o.Entity.Provable.Fingerprint = string(entity.Fingerprint)
 		/*----------  Send to backend  ----------*/
@@ -421,7 +426,8 @@ func (o *InflightPost) ingestCreate(ifl *inflights) {
 			return
 		}
 		ep := e.Protobuf()
-		eps := []*pbstructs.Post{}
+		var eps []*pbstructs.Post
+
 		eps = append(eps, &ep)
 		o.Entity.Provable.Fingerprint = string(e.Fingerprint)
 		/*----------  Send to backend  ----------*/
@@ -482,7 +488,8 @@ func (o *InflightPost) ingestUpdate(ifl *inflights) {
 			return
 		}
 		ep := entity.Protobuf()
-		eps := []*pbstructs.Post{}
+		var eps []*pbstructs.Post
+
 		eps = append(eps, &ep)
 		o.Entity.Provable.Fingerprint = string(entity.Fingerprint)
 		/*----------  Send to backend  ----------*/
@@ -537,7 +544,8 @@ func (o *InflightVote) ingestCreate(ifl *inflights) {
 			return
 		}
 		ep := e.Protobuf()
-		eps := []*pbstructs.Vote{}
+		var eps []*pbstructs.Vote
+
 		eps = append(eps, &ep)
 		o.Entity.Provable.Fingerprint = string(e.Fingerprint)
 		/*----------  Send to backend  ----------*/
@@ -598,7 +606,8 @@ func (o *InflightVote) ingestUpdate(ifl *inflights) {
 			return
 		}
 		ep := entity.Protobuf()
-		eps := []*pbstructs.Vote{}
+		var eps []*pbstructs.Vote
+
 		eps = append(eps, &ep)
 		o.Entity.Provable.Fingerprint = string(entity.Fingerprint)
 		/*----------  Send to backend  ----------*/
@@ -683,7 +692,8 @@ func (o *InflightKey) ingestCreate(ifl *inflights) {
 		globals.FrontendConfig.SetDehydratedLocalUserKeyEntity(string(kJson))
 		/*----------  Special logic for key (send to Client)  ----------*/
 		kp := key.Protobuf()
-		eps := []*pbstructs.Key{}
+		var eps []*pbstructs.Key
+
 		eps = append(eps, &kp)
 		// Stick it to the key refresher and have it compile this (so that we can get the canonical name and other compiled properties, if any)
 		observableUniverse := make(map[string]bool)
@@ -765,7 +775,8 @@ func (o *InflightKey) ingestUpdate(ifl *inflights) {
 		globals.FrontendConfig.SetDehydratedLocalUserKeyEntity(string(kJson))
 		/*----------  Special logic for key (send to Client)  ----------*/
 		kp := key.Protobuf()
-		eps := []*pbstructs.Key{}
+		var eps []*pbstructs.Key
+
 		eps = append(eps, &kp)
 		observableUniverse := make(map[string]bool)
 		observableUniverse[string(key.Fingerprint)] = true
@@ -823,7 +834,8 @@ func (o *InflightTruststate) ingestCreate(ifl *inflights) {
 			return
 		}
 		ep := e.Protobuf()
-		eps := []*pbstructs.Truststate{}
+		var eps []*pbstructs.Truststate
+
 		eps = append(eps, &ep)
 		o.Entity.Provable.Fingerprint = string(e.Fingerprint)
 		/*----------  Send to backend  ----------*/
@@ -886,7 +898,8 @@ func (o *InflightTruststate) ingestUpdate(ifl *inflights) {
 			return
 		}
 		ep := entity.Protobuf()
-		eps := []*pbstructs.Truststate{}
+		var eps []*pbstructs.Truststate
+
 		eps = append(eps, &ep)
 		o.Entity.Provable.Fingerprint = string(entity.Fingerprint)
 		/*----------  Send to backend  ----------*/

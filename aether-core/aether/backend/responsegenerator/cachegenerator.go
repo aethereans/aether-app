@@ -176,8 +176,10 @@ func deleteTooOldCaches(etype string, cacheIndex *api.ApiResponse) {
 	if threshold > oldestCacheEnd {
 		// We have more caches than needed. We need to delete some starting from the oldest.
 		logging.Log(1, fmt.Sprintf("We have caches for a longer duration of time than we need. (The oldest cache.EndsAt is %d, the threshold is %d) Caches will be purged starting from the oldest. Purge is starting.", oldestCacheEnd, threshold))
-		oldCaches := []api.ResultCache{}
-		stillValidCaches := []api.ResultCache{}
+		var oldCaches []api.ResultCache
+
+		var stillValidCaches []api.ResultCache
+
 		for _, cache := range cacheIndex.Results {
 			if cache.EndsAt < threshold {
 				// This cache is too old.
@@ -574,7 +576,8 @@ func generateRequestedCachesTableV2(etype string, mostRecentExtantCacheEndTs api
 	currentEndTs := mostRecentExtantCacheEndTs
 	newtt := NewCacheTimeTable(currentEndTs, now, cacheTimeBlocks)
 	// Get the currently present cache index.
-	extanttt := []api.ResultCache{}
+	var extanttt []api.ResultCache
+
 	cacheIndex, err := readEndpointIndex(etype)
 	if err != nil {
 		logging.Logf(1, "Read cache index errored out we'll regenerate every cache from scratch. Err: %v", err)
@@ -606,7 +609,8 @@ func GenerateCachedEndpointV2(etype string) int64 {
 	logging.Logf(1, "New caches table: %v", cachesTable)
 	currentCacheEnd = int64(cachesTable[len(cachesTable)-1].EndsAt)
 	// ^ We have caches to generate. The end of our last cache is going to be our last cache generation timestamp.
-	finalCachesTable := []api.ResultCache{}
+	var finalCachesTable []api.ResultCache
+
 	for _, val := range cachesTable {
 		if len(val.ResponseUrl) > 0 {
 			// If this is a cache we are keeping intact, just add it to the final caches table.

@@ -5,15 +5,17 @@ package simplemetricsserver
 import (
 	pb "aether-core/aether/backend/metrics/proto"
 	"fmt"
+
 	// "github.com/davecgh/go-spew/spew"
-	"golang.org/x/net/context"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
 	"os"
 	"path/filepath"
 	"time"
+
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 var Buf map[int64][]pb.Metrics // There can be multiple metrics pages arriving in the same UNIX timestamp, hence the []slice.
@@ -322,9 +324,12 @@ func calcCSNodeEquilibriumState(numberOfNodes int, conns []CSConn) (bool, int64,
 
 // CSConns above has open and close saved as separate conns. We want to make it so that we merge them and fill in the timestamps.
 func processCSConns(conns []CSConn) []CSConn {
-	finalConns := []CSConn{}
-	opens := []CSConn{}
-	closes := []CSConn{}
+	var finalConns []CSConn
+
+	var opens []CSConn
+
+	var closes []CSConn
+
 	for _, val := range conns {
 		if val.State == true {
 			opens = append(opens, val)

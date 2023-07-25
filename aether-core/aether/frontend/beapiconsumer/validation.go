@@ -5,7 +5,8 @@ import (
 )
 
 func validateBoards(eSet []*pbstructs.Board) []*pbstructs.Board {
-	valids := []*pbstructs.Board{}
+	var valids []*pbstructs.Board
+
 	for k, _ := range eSet {
 		if boardValid(eSet[k]) {
 			valids = append(valids, eSet[k])
@@ -15,7 +16,8 @@ func validateBoards(eSet []*pbstructs.Board) []*pbstructs.Board {
 }
 
 func validateThreads(eSet []*pbstructs.Thread) []*pbstructs.Thread {
-	valids := []*pbstructs.Thread{}
+	var valids []*pbstructs.Thread
+
 	for k, _ := range eSet {
 		if threadValid(eSet[k]) {
 			valids = append(valids, eSet[k])
@@ -25,7 +27,8 @@ func validateThreads(eSet []*pbstructs.Thread) []*pbstructs.Thread {
 }
 
 func validatePosts(eSet []*pbstructs.Post) []*pbstructs.Post {
-	valids := []*pbstructs.Post{}
+	var valids []*pbstructs.Post
+
 	for k, _ := range eSet {
 		if postValid(eSet[k]) {
 			valids = append(valids, eSet[k])
@@ -35,7 +38,8 @@ func validatePosts(eSet []*pbstructs.Post) []*pbstructs.Post {
 }
 
 func validateVotes(eSet []*pbstructs.Vote) []*pbstructs.Vote {
-	valids := []*pbstructs.Vote{}
+	var valids []*pbstructs.Vote
+
 	for k, _ := range eSet {
 		if voteValid(eSet[k]) {
 			valids = append(valids, eSet[k])
@@ -45,7 +49,8 @@ func validateVotes(eSet []*pbstructs.Vote) []*pbstructs.Vote {
 }
 
 func validateKeys(eSet []*pbstructs.Key) []*pbstructs.Key {
-	valids := []*pbstructs.Key{}
+	var valids []*pbstructs.Key
+
 	for k, _ := range eSet {
 		if keyValid(eSet[k]) {
 			valids = append(valids, eSet[k])
@@ -55,7 +60,8 @@ func validateKeys(eSet []*pbstructs.Key) []*pbstructs.Key {
 }
 
 func validateTruststates(eSet []*pbstructs.Truststate) []*pbstructs.Truststate {
-	valids := []*pbstructs.Truststate{}
+	var valids []*pbstructs.Truststate
+
 	for k, _ := range eSet {
 		if truststateValid(eSet[k]) {
 			valids = append(valids, eSet[k])

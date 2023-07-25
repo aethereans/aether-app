@@ -8,10 +8,11 @@ import (
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/toolbox"
-	"github.com/asdine/storm"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/asdine/storm"
 	// "strconv"
 )
 
@@ -111,7 +112,8 @@ func CheckKVStoreReady() {
 	if err6 == nil {
 		logging.LogCrashf("KVStore readiness check failed when attempting to read a deleted object. This should have failed with an error not found. We got no error instead.")
 	}
-	diags := []diag{}
+	var diags []diag
+
 	globals.KvInstance.All(&diags)
 	if len(diags) > 0 {
 		logging.LogCrashf("KVStore readiness check failed when attempting to read deleted objects. This query should have returned no results, but it has some entries. Entries: %#v", diags)

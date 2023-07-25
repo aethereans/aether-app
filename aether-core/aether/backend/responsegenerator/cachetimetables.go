@@ -25,10 +25,11 @@ var cacheTimeBlocks = []api.Timestamp{6000000, 600000, 60000, 6000, 600}
 //                            69d      6.9d
 
 /*
-  NewCacheTimeTable generates caches table based on the given beginning and the end. If multiple intervals are provided, it needs to start from the largest interval and go in order, and all the intervals need to be divisible with each other for the minimal disturbances to existing caches.
+NewCacheTimeTable generates caches table based on the given beginning and the end. If multiple intervals are provided, it needs to start from the largest interval and go in order, and all the intervals need to be divisible with each other for the minimal disturbances to existing caches.
 */
 func NewCacheTimeTable(beginning api.Timestamp, end api.Timestamp, intervals []api.Timestamp) []api.ResultCache {
-	timetable := []api.ResultCache{}
+	var timetable []api.ResultCache
+
 	// return timetable
 	/*
 	   For each time block, scan through the range and insert the biggest block possible first, then go to smaller blocks and insert those.
@@ -52,7 +53,8 @@ func NewCacheTimeTable(beginning api.Timestamp, end api.Timestamp, intervals []a
 }
 
 func MakeConsolidatedTimeTable(tt *[]api.ResultCache, timeBlocks []api.Timestamp) []api.ResultCache {
-	ctt := []api.ResultCache{}
+	var ctt []api.ResultCache
+
 	for _, timeBlock := range timeBlocks {
 		for {
 			cti, err := MakeConsolidatedCacheItem(tt, timeBlock)

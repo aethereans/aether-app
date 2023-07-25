@@ -230,7 +230,8 @@ func Sync(a api.Address, lineup []string, reverseConn *net.Conn) error {
 		"truststates": n.TruststatesLastCheckin}
 	logging.Log(2, fmt.Sprintf("SYNC:PULL STARTED with data from node: %s:%d", a.Location, a.Port))
 	logging.Log(2, fmt.Sprintf("Endpoints: %#v", endpoints))
-	ims := []persistence.InsertMetrics{}
+	var ims []persistence.InsertMetrics
+
 	// callOrder := []string{"addresses", "votes", "truststates", "posts", "threads", "boards", "keys"}
 	callOrder := constructCallOrder(addr, lineup)
 	for _, endpointName := range callOrder {

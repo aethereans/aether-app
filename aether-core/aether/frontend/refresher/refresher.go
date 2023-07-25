@@ -7,19 +7,22 @@ import (
 	"aether-core/aether/frontend/beapiconsumer"
 	"aether-core/aether/frontend/clapiconsumer"
 	"aether-core/aether/frontend/festructs"
+
 	// "aether-core/aether/frontend/kvstore"
 	"aether-core/aether/io/api"
 	pbstructs "aether-core/aether/protos/mimapi"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/toolbox"
+
 	// "github.com/davecgh/go-spew/spew"
 	// "fmt"
 	"encoding/json"
-	"github.com/asdine/storm/q"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/asdine/storm/q"
 )
 
 var (
@@ -104,14 +107,16 @@ func DeleteStaleData(nowts int64) {
 	/*==================================================
 	=            Deletion from search index            =
 	==================================================*/
-	bcs := []festructs.BoardCarrier{}
+	var bcs []festructs.BoardCarrier
+
 	query.Find(&bcs)
 	for i, _ := range bcs {
 		for j, _ := range bcs[i].Boards {
 			bcs[i].Boards[j].DeleteFromSearchIndex()
 		}
 	}
-	tcs := []festructs.ThreadCarrier{}
+	var tcs []festructs.ThreadCarrier
+
 	query.Find(&tcs)
 	for i, _ := range tcs {
 		for j, _ := range tcs[i].Threads {
@@ -121,7 +126,8 @@ func DeleteStaleData(nowts int64) {
 			bcs[i].Posts[j].DeleteFromSearchIndex()
 		}
 	}
-	uhcs := []festructs.UserHeaderCarrier{}
+	var uhcs []festructs.UserHeaderCarrier
+
 	query.Find(&uhcs)
 	for i, _ := range uhcs {
 		for j, _ := range uhcs[i].Users {

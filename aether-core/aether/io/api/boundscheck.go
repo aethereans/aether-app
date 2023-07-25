@@ -401,7 +401,8 @@ func filterBC(item *Filter) bool {
 			MIN_APIRESPONSE_FILTER_VALUES_EMBED_V1_0, MAX_APIRESPONSE_FILTER_VALUES_EMBED_V1_0,
 			MIN_APIRESPONSE_FILTER_VALUES_EMBED_NAME_V1_0, MAX_APIRESPONSE_FILTER_VALUES_EMBED_NAME_V1_0)
 	} else if item.Type == "timestamp" {
-		tss := []Timestamp{}
+		var tss []Timestamp
+
 		for _, val := range item.Values {
 			ts, _ := strconv.ParseInt(val, 10, 64)
 			tss = append(tss, Timestamp(ts))

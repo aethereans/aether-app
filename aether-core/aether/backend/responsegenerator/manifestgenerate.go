@@ -10,6 +10,7 @@ import (
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
 	"aether-core/aether/services/toolbox"
+
 	// "aether-core/aether/services/randomhashgen"
 	// "encoding/json"
 	// "errors"
@@ -75,7 +76,8 @@ func addToPageManifestSlice(pmans *[]api.PageManifest, item *unbakedManifestItem
 }
 
 func constructManifestStructure(items *[]unbakedManifestItem) *[]api.PageManifest {
-	pmans := []api.PageManifest{}
+	var pmans []api.PageManifest
+
 	for i, _ := range *items {
 		addToPageManifestSlice(&pmans, &(*items)[i])
 	}

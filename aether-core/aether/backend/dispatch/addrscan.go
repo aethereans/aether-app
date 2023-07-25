@@ -37,7 +37,8 @@ func getAllAddresses(isDesc bool) ([]api.Address, error) {
 }
 
 func filterByLastSuccessfulPing(addrs []api.Address, scanStart api.Timestamp) []api.Address {
-	live := []api.Address{}
+	var live []api.Address
+
 	cutoff := api.Timestamp(time.Unix(int64(scanStart), 0).Add(-2 * time.Minute).Unix())
 	// Cutoff is 2 minutes before the threshold, because our pinger accepts a node whose last successful ping was within 2 minutes as online.
 	for key, _ := range addrs {
@@ -49,8 +50,10 @@ func filterByLastSuccessfulPing(addrs []api.Address, scanStart api.Timestamp) []
 }
 
 func filterByAddressType(addrType uint8, addrs []api.Address) ([]api.Address, []api.Address) {
-	filteredAddrs := []api.Address{}
-	remainder := []api.Address{}
+	var filteredAddrs []api.Address
+
+	var remainder []api.Address
+
 	for key, _ := range addrs {
 		if addrs[key].Type == addrType {
 			filteredAddrs = append(filteredAddrs, addrs[key])
@@ -239,7 +242,8 @@ func findOnlineNodesV2(count int, reqType, addrType int, excl *[]api.Address, re
 	/*=====================================================================
 	=            Enforce exclusions for too-recently-connected            =
 	=====================================================================*/
-	l := []api.Address{}
+	var l []api.Address
+
 	if !reverse {
 		// If this is a non-reverse (normal) find online request, we use the reverse dispatcher exclusion queue.
 		for k, _ := range liveNodes {
@@ -265,8 +269,10 @@ func findOnlineNodesV2(count int, reqType, addrType int, excl *[]api.Address, re
 }
 
 func pickUnconnectedAddrs(addrs []api.Address) ([]api.Address, []api.Address) {
-	nonconnecteds := []api.Address{}
-	connecteds := []api.Address{}
+	var nonconnecteds []api.Address
+
+	var connecteds []api.Address
+
 	for key, _ := range addrs {
 		if addrs[key].LastSuccessfulSync == 0 {
 			nonconnecteds = append(nonconnecteds, addrs[key])

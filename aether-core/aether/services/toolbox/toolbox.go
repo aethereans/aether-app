@@ -10,6 +10,7 @@ import (
 	"math/rand"
 	"net"
 	"os"
+
 	// "path/filepath"
 	"runtime"
 	"strconv"
@@ -148,7 +149,8 @@ func GetInsecureRands(max, count int) []int {
 	if max < count {
 		max = count
 	}
-	ints := []int{}
+	var ints []int
+
 	for count > 0 {
 		rnd := GetInsecureRand(max)
 		if IndexOfInt(rnd, ints) == -1 {

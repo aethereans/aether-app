@@ -16,6 +16,7 @@ import (
 	// "encoding/json"
 
 	"fmt"
+
 	// "github.com/davecgh/go-spew/spew"
 	// "io/ioutil"
 	// "os"
@@ -300,7 +301,8 @@ func insertIntoPOSTResponseReuseTracker(resultPage *api.ApiResponse, foldername 
 }
 
 func generateResultCachesFromPostRespChain(chain []configstore.POSTResponseEntry) []api.ResultCache {
-	rcachs := []api.ResultCache{}
+	var rcachs []api.ResultCache
+
 	for i, _ := range chain {
 		rcachs = append(rcachs, constructResultCache(
 			api.Timestamp(chain[i].StartsFrom),

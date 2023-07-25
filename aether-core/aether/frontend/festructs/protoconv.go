@@ -98,7 +98,8 @@ func ExplainedSignalSliceToProtobuf(exps []ExplainedSignal) []*pb.ExplainedSigna
 	if exps == nil {
 		return []*pb.ExplainedSignalEntity{}
 	}
-	pbexps := []*pb.ExplainedSignalEntity{}
+	var pbexps []*pb.ExplainedSignalEntity
+
 	for key, _ := range exps {
 		pbexps = append(pbexps, exps[key].Protobuf())
 	}
@@ -153,7 +154,8 @@ func (e *AmbientBoard) Protobuf() *pb.AmbientBoardEntity {
 }
 
 func (e *AmbientBoardBatch) Protobuf() []*pb.AmbientBoardEntity {
-	abes := []*pb.AmbientBoardEntity{}
+	var abes []*pb.AmbientBoardEntity
+
 	for key, _ := range e.Boards {
 		abes = append(abes, e.Boards[key].Protobuf())
 	}
@@ -190,7 +192,8 @@ func (e *CUserUsername) Protobuf() *pb.CUserUsername {
 }
 
 func (e *CNotificationsList) Protobuf() []*pb.CompiledNotification {
-	cns := []*pb.CompiledNotification{}
+	var cns []*pb.CompiledNotification
+
 	for key, _ := range *e {
 		cns = append(cns, (*e)[key].Protobuf())
 	}
@@ -220,7 +223,8 @@ func (e *ModActionsTabEntry) Protobuf() *pb.ModActionsTabEntry {
 }
 
 func (e *ReportsTabEntryBatch) Protobuf() []*pb.ReportsTabEntry {
-	eProtos := []*pb.ReportsTabEntry{}
+	var eProtos []*pb.ReportsTabEntry
+
 	for k, _ := range *e {
 		eProtos = append(eProtos, (*e)[k].Protobuf())
 	}
@@ -230,7 +234,8 @@ func (e *ReportsTabEntryBatch) Protobuf() []*pb.ReportsTabEntry {
 /*----------  Batch conversions  ----------*/
 
 func (e *CBoardBatch) Protobuf() []*pb.CompiledBoardEntity {
-	eProtos := []*pb.CompiledBoardEntity{}
+	var eProtos []*pb.CompiledBoardEntity
+
 	for k, _ := range *e {
 		eProtos = append(eProtos, (*e)[k].Protobuf())
 	}
@@ -238,7 +243,8 @@ func (e *CBoardBatch) Protobuf() []*pb.CompiledBoardEntity {
 }
 
 func (e *CThreadBatch) Protobuf() []*pb.CompiledThreadEntity {
-	eProtos := []*pb.CompiledThreadEntity{}
+	var eProtos []*pb.CompiledThreadEntity
+
 	for k, _ := range *e {
 		eProtos = append(eProtos, (*e)[k].Protobuf())
 	}
@@ -246,7 +252,8 @@ func (e *CThreadBatch) Protobuf() []*pb.CompiledThreadEntity {
 }
 
 func (e *CPostBatch) Protobuf() []*pb.CompiledPostEntity {
-	eProtos := []*pb.CompiledPostEntity{}
+	var eProtos []*pb.CompiledPostEntity
+
 	for k, _ := range *e {
 		eProtos = append(eProtos, (*e)[k].Protobuf())
 	}
@@ -254,7 +261,8 @@ func (e *CPostBatch) Protobuf() []*pb.CompiledPostEntity {
 }
 
 func (e *CUserBatch) Protobuf() []*pb.CompiledUserEntity {
-	eProtos := []*pb.CompiledUserEntity{}
+	var eProtos []*pb.CompiledUserEntity
+
 	for k, _ := range *e {
 		eProtos = append(eProtos, (*e)[k].Protobuf())
 	}

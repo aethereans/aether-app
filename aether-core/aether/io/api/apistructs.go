@@ -484,7 +484,8 @@ type ApiResponse struct {
 
 // GetProvables gets all provables in an ApiResponse.
 func (r *ApiResponse) GetProvables() *[]Provable {
-	p := []Provable{}
+	var p []Provable
+
 	for key, _ := range r.ResponseBody.Boards {
 		p = append(p, Provable(&r.ResponseBody.Boards[key]))
 	}
@@ -526,7 +527,8 @@ func (r *ApiResponse) Dump() error {
 
 // Verify verifies all items and flags them appropriately in a response.
 func (r *ApiResponse) Verify() []error {
-	errs := []error{}
+	var errs []error
+
 	// First of all, run boundary check on the apiresponse. This does NOT check for the .Address field, neither does it check the entities contained within. We'll do those afterwards.
 	boundsOk, err := r.CheckBounds()
 	if len(r.ResponseBody.PostIndexes) > 0 && boundsOk {
@@ -584,7 +586,8 @@ func (r *ApiResponse) ToJSON() ([]byte, error) {
 
 func (r *ApiResponse) Prefill() {
 	subprotsAsShims := globals.BackendConfig.GetServingSubprotocols()
-	subprotsSupported := []Subprotocol{}
+	var subprotsSupported []Subprotocol
+
 	for _, val := range subprotsAsShims {
 		subprotsSupported = append(subprotsSupported, Subprotocol(val))
 	}
@@ -1027,7 +1030,8 @@ func (r *Response) MassRemoveByIndex(idxs []int, entityType string) {
 			r.Boards = []Board{}
 			return
 		}
-		retained := []Board{}
+		var retained []Board
+
 		for key, _ := range r.Boards {
 			if !isInIndexSlice(key, idxs) {
 				retained = append(retained, r.Boards[key])
@@ -1039,7 +1043,8 @@ func (r *Response) MassRemoveByIndex(idxs []int, entityType string) {
 			r.Threads = []Thread{}
 			return
 		}
-		retained := []Thread{}
+		var retained []Thread
+
 		for key, _ := range r.Threads {
 			if !isInIndexSlice(key, idxs) {
 				retained = append(retained, r.Threads[key])
@@ -1051,7 +1056,8 @@ func (r *Response) MassRemoveByIndex(idxs []int, entityType string) {
 			r.Posts = []Post{}
 			return
 		}
-		retained := []Post{}
+		var retained []Post
+
 		for key, _ := range r.Posts {
 			if !isInIndexSlice(key, idxs) {
 				retained = append(retained, r.Posts[key])
@@ -1063,7 +1069,8 @@ func (r *Response) MassRemoveByIndex(idxs []int, entityType string) {
 			r.Votes = []Vote{}
 			return
 		}
-		retained := []Vote{}
+		var retained []Vote
+
 		for key, _ := range r.Votes {
 			if !isInIndexSlice(key, idxs) {
 				retained = append(retained, r.Votes[key])
@@ -1075,7 +1082,8 @@ func (r *Response) MassRemoveByIndex(idxs []int, entityType string) {
 			r.Keys = []Key{}
 			return
 		}
-		retained := []Key{}
+		var retained []Key
+
 		for key, _ := range r.Keys {
 			if !isInIndexSlice(key, idxs) {
 				retained = append(retained, r.Keys[key])
@@ -1087,7 +1095,8 @@ func (r *Response) MassRemoveByIndex(idxs []int, entityType string) {
 			r.Truststates = []Truststate{}
 			return
 		}
-		retained := []Truststate{}
+		var retained []Truststate
+
 		for key, _ := range r.Truststates {
 			if !isInIndexSlice(key, idxs) {
 				retained = append(retained, r.Truststates[key])
