@@ -9,11 +9,12 @@ import (
 	// "aether-core/aether/io/persistence"
 	"aether-core/aether/services/ca"
 	"aether-core/aether/services/globals"
+
 	// "aether-core/aether/services/logging"
 	"aether-core/aether/services/toolbox"
 	// tb "aether-core/aether/services/toolbox"
 	// "aether-core/aether/services/verify"
-	"errors"
+
 	"fmt"
 	// "github.com/davecgh/go-spew/spew"
 	// "github.com/fatih/color"
@@ -113,11 +114,11 @@ func Check(a api.Address, reverseConn *net.Conn, purpose string) (api.Address, b
 		// }
 		if err3 != nil {
 			// Mind that this can fail for verification failure also (if 4 entities in a page fails verification, the page fails verification. This is a page that actually has entities.)
-			return api.Address{}, NODE_STATIC, apiResp, directlyConnectible, errors.New(fmt.Sprintf("Getting POST Endpoint in Check() routine for this entity type failed. Endpoint type: %s, Error: %s", "node", err3))
+			return api.Address{}, NODE_STATIC, apiResp, directlyConnectible, fmt.Errorf("Getting POST Endpoint in Check() routine for this entity type failed. Endpoint type: %s, Error: %s", "node", err3)
 		}
 		// Guard against the case where the node says something on GET, and something else on POST.
 		if postApiResp.NodePublicKey != apiResp.NodePublicKey {
-			return api.Address{}, NODE_STATIC, apiResp, directlyConnectible, errors.New(fmt.Sprintf("This node is declaring itself to be different nodes in GET and POST requests. Endpoint type: %s, GET NodePublicKey: %v, POST NodePublicKey: %v", "node", apiResp.NodePublicKey, postApiResp.NodePublicKey))
+			return api.Address{}, NODE_STATIC, apiResp, directlyConnectible, fmt.Errorf("This node is declaring itself to be different nodes in GET and POST requests. Endpoint type: %s, GET NodePublicKey: %v, POST NodePublicKey: %v", "node", apiResp.NodePublicKey, postApiResp.NodePublicKey)
 		}
 	}
 	// if a.Location == "127.0.0.1" {
@@ -173,7 +174,7 @@ func makeStatusGETCall(a api.Address, reverseConn *net.Conn, purpose string) err
 	case "sync":
 		_, err = api.Fetch(string(a.Location), string(a.Sublocation), a.Port, "status", "GET", []byte{}, reverseConn)
 	default:
-		return errors.New(fmt.Sprintf("makeStatusGETCall: Purpose given is not recognised. Purpose: %v", purpose))
+		return fmt.Errorf("makeStatusGETCall: Purpose given is not recognised. Purpose: %v", purpose)
 	}
 	return err
 }
@@ -191,7 +192,7 @@ func makeNodeGETCall(a api.Address, reverseConn *net.Conn, purpose string) (api.
 	case "sync":
 		apiResp, err = api.GetPageRaw(string(a.Location), string(a.Sublocation), a.Port, "node", "GET", []byte{}, reverseConn)
 	default:
-		return apiResp, errors.New(fmt.Sprintf("makeNodeGETCall: Purpose given is not recognised. Purpose: %v", purpose))
+		return apiResp, fmt.Errorf("makeNodeGETCall: Purpose given is not recognised. Purpose: %v", purpose)
 	}
 	return apiResp, err
 }
@@ -209,7 +210,7 @@ func makeNodePOSTCall(a api.Address, reverseConn *net.Conn, reqAsJson []byte, pu
 	case "sync":
 		postApiResp, err = api.GetPageRaw(string(a.Location), string(a.Sublocation), a.Port, "node", "POST", reqAsJson, reverseConn)
 	default:
-		return postApiResp, errors.New(fmt.Sprintf("makeNodeGETCall: Purpose given is not recognised. Purpose: %v", purpose))
+		return postApiResp, fmt.Errorf("makeNodeGETCall: Purpose given is not recognised. Purpose: %v", purpose)
 	}
 	return postApiResp, err
 }
@@ -221,12 +222,12 @@ func permissible(apiResp api.ApiResponse, a api.Address) (bool, error) {
 		/*
 		   This node is using the same NodeId as we do. This is, in most cases, a node connecting to itself over a loopback interface. Most router will not allow their own address to be pinged from within network, but in testing and in other rare occasions this can happen.
 		*/
-		return false, errors.New(fmt.Sprintf("This node appears to have found itself through a loopback interface, or via calling its own IP. IP: %s:%d", a.Location, a.Port))
+		return false, fmt.Errorf("This node appears to have found itself through a loopback interface, or via calling its own IP. IP: %s:%d", a.Location, a.Port)
 	}
 	if apiResp.Address.Type == 253 || apiResp.Address.Type == 4 {
 		// This is a CA node. Make sure that it is a CA we trust, otherwise, terminate the connection.
 		if !ca.IsTrustedCAKeyByPK(apiResp.NodePublicKey) {
-			return false, errors.New(fmt.Sprintf("This is a CA node, and it is a CA that we do not trust. IP: %s:%d", a.Location, a.Port))
+			return false, fmt.Errorf("This is a CA node, and it is a CA that we do not trust. IP: %s:%d", a.Location, a.Port)
 		}
 	}
 	return true, nil

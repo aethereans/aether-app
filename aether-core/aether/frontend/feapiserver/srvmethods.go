@@ -37,7 +37,7 @@ func (s *server) BackendReady(ctx context.Context, req *pb.BEReadyRequest) (*pb.
 	peer, ok := peer.FromContext(ctx)
 	if !ok {
 		logging.Logf(1, "The backend peer address on the GRPC connection in BackendReady could not be read. Something went very wrong, and we are not able to communicate with the backend. Peer: %#v", peer)
-		return nil, errors.New(fmt.Sprintf("The backend peer address on the GRPC connection in BackendReady could not be read. Something went very wrong, and we are not able to communicate with the backend. Peer: %#v", peer))
+		return nil, fmt.Errorf("The backend peer address on the GRPC connection in BackendReady could not be read. Something went very wrong, and we are not able to communicate with the backend. Peer: %#v", peer)
 	}
 	beAddr := peer.Addr.(*net.TCPAddr)
 	backendIp := beAddr.IP.String()

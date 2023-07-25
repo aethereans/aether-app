@@ -6,9 +6,10 @@ package create
 import (
 	"aether-core/aether/io/api"
 	"aether-core/aether/services/globals"
+
 	// "aether-core/aether/services/logging"
 	// "aether-core/aether/services/verify"
-	"errors"
+
 	"fmt"
 	"time"
 )
@@ -21,8 +22,7 @@ func Bake(entity api.Provable) error {
 	// logging.Logf(1, "globals.FrontendConfig.GetUserKeyPair(): %#s", globals.FrontendConfig.GetUserKeyPair())
 	err := entity.CreateSignature(globals.FrontendConfig.GetUserKeyPair())
 	if err != nil {
-		return errors.New(fmt.Sprintf(
-			"Entity creation failed. Error: %s, Entity: %#v\n", err, entity))
+		return fmt.Errorf("Entity creation failed. Error: %s, Entity: %#v\n", err, entity)
 	}
 	err2 := *new(error)
 	switch ent := entity.(type) {
@@ -40,8 +40,7 @@ func Bake(entity api.Provable) error {
 		err2 = ent.CreatePoW(globals.FrontendConfig.GetUserKeyPair(), globals.FrontendConfig.GetMinimumPoWStrengths().Truststate)
 	}
 	if err2 != nil {
-		return errors.New(fmt.Sprintf(
-			"Entity creation failed. Error: %s, Entity: %#v\n", err2, entity))
+		return fmt.Errorf("Entity creation failed. Error: %s, Entity: %#v\n", err2, entity)
 	}
 	entity.CreateFingerprint()
 	return nil
@@ -52,8 +51,7 @@ func Bake(entity api.Provable) error {
 func Rebake(entity api.Updateable) error {
 	err := entity.CreateUpdateSignature(globals.FrontendConfig.GetUserKeyPair())
 	if err != nil {
-		return errors.New(fmt.Sprintf(
-			"Update signature creation failed. Error: %s, Entity: %#v\n", err, entity))
+		return fmt.Errorf("Update signature creation failed. Error: %s, Entity: %#v\n", err, entity)
 	}
 	err2 := *new(error)
 	switch ent := entity.(type) {
@@ -71,8 +69,7 @@ func Rebake(entity api.Updateable) error {
 		err2 = ent.CreateUpdatePoW(globals.FrontendConfig.GetUserKeyPair(), globals.FrontendConfig.GetMinimumPoWStrengths().TruststateUpdate)
 	}
 	if err2 != nil {
-		return errors.New(fmt.Sprintf(
-			"Entity creation failed. Error: %s, Entity: %#v\n", err2, entity))
+		return fmt.Errorf("Entity creation failed. Error: %s, Entity: %#v\n", err2, entity)
 	}
 	return nil
 }

@@ -11,16 +11,19 @@ import (
 	"aether-core/aether/services/extverify"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
+
 	// "aether-core/aether/services/tcpmim"
 	"aether-core/aether/services/toolbox"
 	"encoding/json"
-	"errors"
 	"fmt"
-	"github.com/NYTimes/gziphandler"
 	"net/http"
+
+	"github.com/NYTimes/gziphandler"
+
 	// "github.com/davecgh/go-spew/spew"
 	"io/ioutil"
 	"net"
+
 	// "net/http"
 	// "strconv"
 	// "bufio"
@@ -170,7 +173,7 @@ func StartMimServer() {
 				}
 				jsonResp, err := resp.ToJSON()
 				if err != nil {
-					logging.Log(1, errors.New(fmt.Sprintf("The response that was prepared to respond to this query failed to convert to JSON. Error: %#v\n", err)))
+					logging.Log(1, fmt.Errorf("The response that was prepared to respond to this query failed to convert to JSON. Error: %#v\n", err))
 				}
 				if len(jsonResp) == 0 {
 					w.WriteHeader(http.StatusBadRequest)
@@ -241,7 +244,7 @@ func StartMimServer() {
 				}
 				jsonResp, err := resp.ToJSON()
 				if err != nil {
-					logging.Log(1, errors.New(fmt.Sprintf("The response that was prepared to respond to this query failed to convert to JSON. Error: %#v\n", err)))
+					logging.Log(1, fmt.Errorf("The response that was prepared to respond to this query failed to convert to JSON. Error: %#v\n", err))
 				}
 				if len(jsonResp) == 0 {
 					w.WriteHeader(http.StatusBadRequest)
@@ -278,7 +281,7 @@ func StartMimServer() {
 				}
 				jsonResp, err := resp.ToJSON()
 				if err != nil {
-					logging.Log(1, errors.New(fmt.Sprintf("The response that was prepared to respond to this query failed to convert to JSON. Error: %#v\n", err)))
+					logging.Log(1, fmt.Errorf("The response that was prepared to respond to this query failed to convert to JSON. Error: %#v\n", err))
 				}
 				if len(jsonResp) == 0 {
 					w.WriteHeader(http.StatusBadRequest)
@@ -521,7 +524,7 @@ func SaveRemote(req api.ApiResponse) error {
 	addrs := []api.Address{req.Address}
 	errs := persistence.InsertOrUpdateAddresses(&addrs)
 	if len(errs) > 0 {
-		err := errors.New(fmt.Sprintf("Some errors were encountered when the SaveRemote attempted InsertOrUpdateAddresses. Process aborted. Errors: %s", errs))
+		err := fmt.Errorf("Some errors were encountered when the SaveRemote attempted InsertOrUpdateAddresses. Process aborted. Errors: %s", errs)
 		logging.Log(1, err)
 		return err
 	}
@@ -540,10 +543,10 @@ func insertLocallySourcedRemoteAddressDetails(r *http.Request, req *api.ApiRespo
 		host = extverify.Verifier.GetRemoteIP(r.Header)
 	}
 	if err != nil {
-		return errors.New(fmt.Sprintf("The address from which the remote is connecting could not be parsed. Remote Address: %s, Error: %s", r.RemoteAddr, err))
+		return fmt.Errorf("The address from which the remote is connecting could not be parsed. Remote Address: %s, Error: %s", r.RemoteAddr, err)
 	}
 	if len(host) == 0 {
-		return errors.New(fmt.Sprintf("The address from which the remote is connecting seems to be empty. Remote Address: %#v. %#v", r.RemoteAddr, err))
+		return fmt.Errorf("The address from which the remote is connecting seems to be empty. Remote Address: %#v. %#v", r.RemoteAddr, err)
 	}
 	ipAddrAsIP := net.ParseIP(host)
 	ipV4Test := ipAddrAsIP.To4()
@@ -565,11 +568,11 @@ func ParsePOSTRequest(r *http.Request) (api.ApiResponse, error) {
 	var req api.ApiResponse
 	b, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		return req, errors.New(fmt.Sprintf("This HTTP body could not be read. Error: %#v\n", err))
+		return req, fmt.Errorf("This HTTP body could not be read. Error: %#v\n", err)
 	}
 	err2 := json.Unmarshal(b, &req)
 	if err2 != nil {
-		return req, errors.New(fmt.Sprintf("The HTTP body could not be parsed into a valid request. Raw Body: %#v\n, Error: %#v\n", string(b), err2.Error()))
+		return req, fmt.Errorf("The HTTP body could not be parsed into a valid request. Raw Body: %#v\n, Error: %#v\n", string(b), err2.Error())
 	}
 	// Rules for the request:
 	// - http.Request content-type == application/json
@@ -586,14 +589,14 @@ func ParsePOSTRequest(r *http.Request) (api.ApiResponse, error) {
 		// Verify remote software type and version and make sure we can negotiate with it.
 		if !verifyRemoteClient(req.Address.Client) {
 			logging.Logf(1, "This ApiResponse is created by a remote client we do not support. Client: %#v", req.Address.Client)
-			return req, errors.New(fmt.Sprintf("This ApiResponse is created by a remote client we do not support. Client: %#v", req.Address.Client))
+			return req, fmt.Errorf("This ApiResponse is created by a remote client we do not support. Client: %#v", req.Address.Client)
 		}
 
 		// Check PoW, since this is a POST request, it is required to have a PoW.
 		valid, err := req.VerifyPoW()
 		if !valid || err != nil {
 			logging.Logf(1, "This ApiResponse failed PoW verification. Possible error: %v", err)
-			return req, errors.New(fmt.Sprintf("This ApiResponse failed PoW verification. Possible error: %v", err))
+			return req, fmt.Errorf("This ApiResponse failed PoW verification. Possible error: %v", err)
 		}
 		for _, ext := range req.Address.Protocol.Subprotocols {
 			if ext.Name == "c0" {
@@ -606,7 +609,7 @@ func ParsePOSTRequest(r *http.Request) (api.ApiResponse, error) {
 			}
 		}
 	}
-	return req, errors.New(fmt.Sprintf("The request is syntactically valid JSON, but it does not include certain vital information. Remote: %v", r.RemoteAddr))
+	return req, fmt.Errorf("The request is syntactically valid JSON, but it does not include certain vital information. Remote: %v", r.RemoteAddr)
 }
 
 func verifyRemoteClient(cl api.Client) bool {

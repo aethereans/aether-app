@@ -15,7 +15,6 @@ import (
 
 	// "aether-core/aether/services/verify"
 	"aether-core/aether/backend/metrics"
-	"errors"
 	"fmt"
 
 	// "github.com/davecgh/go-spew/spew"
@@ -115,7 +114,7 @@ func Sync(a api.Address, lineup []string, reverseConn *net.Conn) error {
 	allowed, releaseLease, renewLease := OutboundAllowed(a, reverseConn)
 	if !allowed {
 		logging.Logf(1, "Sync: Failed to secure an outbound lease. Addr: %#v, isReverseConn: %v", a, reverseConn != nil)
-		return errors.New(fmt.Sprintf("Sync: Failed to secure an outbound lease. Addr: %#v, isReverseConn: %v", a, reverseConn != nil))
+		return fmt.Errorf("Sync: Failed to secure an outbound lease. Addr: %#v, isReverseConn: %v", a, reverseConn != nil)
 	}
 
 	// Set the defer to release the lease when the sync is done, either via failure or success. (We set syncSuccessful to true when it's successfully completed.)
@@ -186,7 +185,7 @@ func Sync(a api.Address, lineup []string, reverseConn *net.Conn) error {
 		*/
 		errs := persistence.InsertOrUpdateAddresses(&addrs)
 		if len(errs) > 0 {
-			err := errors.New(fmt.Sprintf("Some errors were encountered when the Sync attempted InsertOrUpdateAddresses. Sync aborted. Errors: %s", errs))
+			err := fmt.Errorf("Some errors were encountered when the Sync attempted InsertOrUpdateAddresses. Sync aborted. Errors: %s", errs)
 			logging.Log(1, err)
 			abortClr := color.New(color.FgWhite, color.BgRed)
 			logging.Log(1, abortClr.Sprintf("SYNC ABORTED. Err: %s", err))
@@ -434,7 +433,7 @@ func Sync(a api.Address, lineup []string, reverseConn *net.Conn) error {
 		addrs[0].LastSuccessfulSync = api.Timestamp(time.Now().Unix())
 		errs2 := persistence.InsertOrUpdateAddresses(&addrs)
 		if len(errs2) > 0 {
-			err := errors.New(fmt.Sprintf("Some errors were encountered when the Sync attempted InsertOrUpdateAddresses. Sync aborted. Errors: %s", errs2))
+			err := fmt.Errorf("Some errors were encountered when the Sync attempted InsertOrUpdateAddresses. Sync aborted. Errors: %s", errs2)
 			logging.Log(1, err)
 			abortClr := color.New(color.FgWhite, color.BgRed)
 			logging.Log(1, abortClr.Sprintf("SYNC ABORTED. Err: %s", err))

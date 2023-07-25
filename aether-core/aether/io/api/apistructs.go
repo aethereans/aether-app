@@ -537,18 +537,18 @@ func (r *ApiResponse) Verify() []error {
 		fmt.Println("this api response has post indexes in it and it did not verify.")
 	}
 	if err != nil {
-		return []error{errors.New(fmt.Sprintf("This ApiResponse failed the boundary check for its general structure (not for its contents -- it didn't come to that.) Error: %#v, ApiResponse: %#v", err, r))}
+		return []error{fmt.Errorf("This ApiResponse failed the boundary check for its general structure (not for its contents -- it didn't come to that.) Error: %#v, ApiResponse: %#v", err, r)}
 	}
 	if !boundsOk {
 		// logging.LogCrash("yo")
-		return []error{errors.New(fmt.Sprintf("This ApiResponse failed the boundary check for its general structure (not for its contents -- it didn't come to that.) ApiResponse: %#v", r))}
+		return []error{fmt.Errorf("This ApiResponse failed the boundary check for its general structure (not for its contents -- it didn't come to that.) ApiResponse: %#v", r)}
 	}
 	remoteAddrOk, err := r.Address.CheckBounds()
 	if err != nil {
 		return []error{err}
 	}
 	if !remoteAddrOk {
-		return []error{errors.New(fmt.Sprintf("This ApiResponse's remote Address failed the boundary check. ApiResponse.Address: %#v", r.Address))}
+		return []error{fmt.Errorf("This ApiResponse's remote Address failed the boundary check. ApiResponse.Address: %#v", r.Address)}
 	}
 	// This is all the verification we need for addresses - just a bounds check. It does not go into the more involved Verify() flow.
 	for key, _ := range r.ResponseBody.Addresses { // this is a concrete type..

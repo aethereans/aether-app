@@ -14,7 +14,7 @@ import (
 	"aether-core/aether/services/randomhashgen"
 
 	// "encoding/json"
-	"errors"
+
 	"fmt"
 
 	// "github.com/davecgh/go-spew/spew"
@@ -192,7 +192,7 @@ func GeneratePOSTResponse(respType string, req api.ApiResponse) ([]byte, error) 
 		localData, dbError := persistence.Read(respType, filterset.Fingerprints, filterset.Embeds, dbReadStartLoc, filterset.TimeEnd, false, nil)
 
 		if dbError != nil {
-			return []byte{}, errors.New(fmt.Sprintf("The query coming from the remote caused an error in the local database while trying to respond to this request. Error: %#v\n, Request: %#v\n", dbError, req))
+			return []byte{}, fmt.Errorf("The query coming from the remote caused an error in the local database while trying to respond to this request. Error: %#v\n, Request: %#v\n", dbError, req)
 		}
 		// Generate main data & count the entities resulting. This will go to all three of the response entity pages themselves, the index and the manifest pages.
 		pages := splitEntitiesToPages(&localData)
@@ -224,7 +224,7 @@ func GeneratePOSTResponse(respType string, req api.ApiResponse) ([]byte, error) 
 		finalResponse, err := bakeFinalPOSTApiResponse(pagesAsApiResponses, indexApiResponse, manifestApiResponse, entityCounts, &filters, dirname, &mergedEntityCounts, chain, dbReadStartLoc)
 		// fmt.Printf("%#v", finalResponse)
 		if err != nil {
-			return []byte{}, errors.New(fmt.Sprintf("An error was encountered while trying to finalise the API response. Error: %#v\n, Request: %#v\n", err, req))
+			return []byte{}, fmt.Errorf("An error was encountered while trying to finalise the API response. Error: %#v\n, Request: %#v\n", err, req)
 		}
 		resp = *finalResponse
 	case "addresses": // Addresses can't do address search by loc/subloc/port. Only time search is available, since adresses don't have fingerprints defined.
@@ -248,7 +248,7 @@ func GeneratePOSTResponse(respType string, req api.ApiResponse) ([]byte, error) 
 		var localData api.Response
 		localData.Addresses = addresses
 		if dbError != nil {
-			return []byte{}, errors.New(fmt.Sprintf("The query coming from the remote caused an error in the local database while trying to respond to this request. Error: %#v\n, Request: %#v\n", dbError, req))
+			return []byte{}, fmt.Errorf("The query coming from the remote caused an error in the local database while trying to respond to this request. Error: %#v\n, Request: %#v\n", dbError, req)
 		}
 		// Addresses do not have indexes or manifests, so this is much simpler.
 		pages := splitEntitiesToPages(&localData)
@@ -258,7 +258,7 @@ func GeneratePOSTResponse(respType string, req api.ApiResponse) ([]byte, error) 
 		mergedEntityCounts := mergeCounts(entityCounts, chainCount)
 		finalResponse, err := bakeFinalPOSTApiResponse(pagesAsApiResponses, nil, nil, entityCounts, &filters, dirname, &mergedEntityCounts, chain, dbReadStartLoc)
 		if err != nil {
-			return []byte{}, errors.New(fmt.Sprintf("An error was encountered while trying to finalise the API response. Error: %#v\n, Request: %#v\n", err, req))
+			return []byte{}, fmt.Errorf("An error was encountered while trying to finalise the API response. Error: %#v\n, Request: %#v\n", err, req)
 		}
 		resp = *finalResponse
 		resp.Endpoint = "entity"
@@ -268,13 +268,13 @@ func GeneratePOSTResponse(respType string, req api.ApiResponse) ([]byte, error) 
 	resp.Timestamp = api.Timestamp(time.Now().Unix())
 	signingErr := resp.CreateSignature(globals.BackendConfig.GetBackendKeyPair())
 	if signingErr != nil {
-		return []byte{}, errors.New(fmt.Sprintf("The response that was prepared to respond to this query failed to be page-signed. Error: %#v Response Body: %#v\n", signingErr, resp))
+		return []byte{}, fmt.Errorf("The response that was prepared to respond to this query failed to be page-signed. Error: %#v Response Body: %#v\n", signingErr, resp)
 	}
 	// Construct the query, and run an index to determine how many entries we have for the filter.
 	// jsonResp, err := ConvertApiResponseToJson(&resp)
 	jsonResp, err := resp.ToJSON()
 	if err != nil {
-		return []byte{}, errors.New(fmt.Sprintf("The response that was prepared to respond to this query failed to convert to JSON. Error: %#v\n, Request Body: %#v\n", err, req))
+		return []byte{}, fmt.Errorf("The response that was prepared to respond to this query failed to convert to JSON. Error: %#v\n, Request Body: %#v\n", err, req)
 	}
 	return jsonResp, nil
 }

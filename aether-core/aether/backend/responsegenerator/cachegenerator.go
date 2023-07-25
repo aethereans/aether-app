@@ -48,7 +48,7 @@ func GatherCacheData(etype string, start api.Timestamp, end api.Timestamp) (Cach
 	case "boards", "threads", "posts", "votes", "keys", "truststates":
 		localData, dbError := persistence.Read(etype, []api.Fingerprint{}, []string{}, start, end, true, nil)
 		if dbError != nil {
-			return cacheRespStruct, errors.New(fmt.Sprintf("This cache generation request caused an error in the local database while trying to respond to this request. Error: %#v\n", dbError))
+			return cacheRespStruct, fmt.Errorf("This cache generation request caused an error in the local database while trying to respond to this request. Error: %#v\n", dbError)
 		}
 		// if len(localData.Boards) == 0 &&
 		// 	len(localData.Threads) == 0 &&
@@ -92,7 +92,7 @@ func GatherCacheData(etype string, start api.Timestamp, end api.Timestamp) (Cach
 		cacheRespStruct.counts = entityCounts
 		cn, err := randomhashgen.GenerateInsecureRandomHash()
 		if err != nil {
-			return cacheRespStruct, errors.New(fmt.Sprintf("There was an error in the cache generation request serving. Error: %#v\n", err))
+			return cacheRespStruct, fmt.Errorf("There was an error in the cache generation request serving. Error: %#v\n", err)
 		}
 		cacheRespStruct.cacheName = cn
 		cacheRespStruct.start = start
@@ -101,7 +101,7 @@ func GatherCacheData(etype string, start api.Timestamp, end api.Timestamp) (Cach
 	case "addresses":
 		addresses, dbError := persistence.ReadAddresses("", "", 0, start, end, 0, 0, 0, "timerange_all") // Cache generation only generates caches for addresses that this computer has personally connected to.
 		if dbError != nil {
-			return cacheRespStruct, errors.New(fmt.Sprintf("This cache generation request caused an error in the local database while trying to respond to this request. Error: %#v\n", dbError))
+			return cacheRespStruct, fmt.Errorf("This cache generation request caused an error in the local database while trying to respond to this request. Error: %#v\n", dbError)
 		}
 		addresses = *sanitiseOutboundAddresses(&addresses)
 		if len(addresses) == 0 {
@@ -124,14 +124,14 @@ func GatherCacheData(etype string, start api.Timestamp, end api.Timestamp) (Cach
 		cacheRespStruct.entityPages = entityPages
 		cn, err := randomhashgen.GenerateInsecureRandomHash()
 		if err != nil {
-			return cacheRespStruct, errors.New(fmt.Sprintf("There was an error in the cache generation request serving. Error: %#v\n", err))
+			return cacheRespStruct, fmt.Errorf("There was an error in the cache generation request serving. Error: %#v\n", err)
 		}
 		cacheRespStruct.cacheName = cn
 		// count entities
 		entityCounts := countEntities(&localData)
 		cacheRespStruct.counts = entityCounts
 	default:
-		return cacheRespStruct, errors.New(fmt.Sprintf("The requested entity type is unknown to the cache generator. Entity type: %s", etype))
+		return cacheRespStruct, fmt.Errorf("The requested entity type is unknown to the cache generator. Entity type: %s", etype)
 	}
 	return cacheRespStruct, nil
 }
@@ -273,7 +273,7 @@ func generateEndpointDir(etype string) (string, error) {
 	} else if etype == "addresses" {
 		ecd = filepath.Join(globals.BackendConfig.GetCachesDirectory(), protv, etype)
 	} else {
-		return ecd, errors.New(fmt.Sprintf("Unknown response type: %s", etype))
+		return ecd, fmt.Errorf("Unknown response type: %s", etype)
 	}
 	return ecd, nil
 }
@@ -291,7 +291,7 @@ func generateEndpointRelativePath(etype string) (string, error) {
 	} else if etype == "addresses" {
 		ecd = filepath.Join(protv, etype)
 	} else {
-		return ecd, errors.New(fmt.Sprintf("Unknown response type: %s", etype))
+		return ecd, fmt.Errorf("Unknown response type: %s", etype)
 	}
 	return ecd, nil
 }
@@ -304,7 +304,7 @@ func CreateNewCache(etype string, start api.Timestamp, end api.Timestamp, allPri
 	// fmt.Printf("CreateNewCache was asked to generate a cache for the resp type %#v that ended at the timestamp: %#v\n", etype, end)
 	cacheData, err := GatherCacheData(etype, start, end)
 	if err != nil {
-		return false, errors.New(fmt.Sprintf("Cache creation process encountered an error. Error: %s", err))
+		return false, fmt.Errorf("Cache creation process encountered an error. Error: %s", err)
 	}
 	// if (*cacheData.entityPages)[0].Empty() && allPriorCachesGeneratedSoFarAreEmpty {
 	// 	// fmt.Printf("This cache and all prior caches generated so far were empty, skipping generation of this cache. Entity type: %s, Start: %d, End: %d\n", etype, start, end)
@@ -344,7 +344,7 @@ func CreateNewCache(etype string, start api.Timestamp, end api.Timestamp, allPri
 		// The index is corrupted. The user knowingly modified it or filesystem did, or some other process did.
 		//FUTURE: We should regenerate this cache, maybe. But if the user (or a process running as user) modified this cache, we have no guarantee that it will not do that again in the future, so regenerating it might just be a waste of resources.
 		logging.Logf(1, "Cache creation process encountered an error. Error: %s", err3)
-		return false, errors.New(fmt.Sprintf("Cache creation process encountered an error. Error: %s", err3))
+		return false, fmt.Errorf("Cache creation process encountered an error. Error: %s", err3)
 	} else {
 		// err3 is nil
 		json.Unmarshal(endpointIndexAsJson, &endpointIndex)
@@ -354,7 +354,7 @@ func CreateNewCache(etype string, start api.Timestamp, end api.Timestamp, allPri
 	deleteTooOldCaches(etype, &endpointIndex)
 	signingErr := endpointIndex.CreateSignature(globals.BackendConfig.GetBackendKeyPair())
 	if signingErr != nil {
-		return false, errors.New(fmt.Sprintf("This entity index failed to be page-signed. Error: %#v Page: %#v\n", signingErr, endpointIndex))
+		return false, fmt.Errorf("This entity index failed to be page-signed. Error: %#v Page: %#v\n", signingErr, endpointIndex)
 	}
 	json, err4 := endpointIndex.ToJSON()
 	if err4 != nil {
@@ -369,7 +369,7 @@ func CreateNewCacheV2(etype string, start, end api.Timestamp) (cachegenSkipped b
 	// logging.Logf((1, "CreateNewCache was asked to generate a cache for the resp type %#v that ended at the timestamp: %#v\n", etype, end)
 	cacheData, err := GatherCacheData(etype, start, end)
 	if err != nil {
-		return false, api.ResultCache{}, errors.New(fmt.Sprintf("Cache creation process encountered an error. Error: %s", err))
+		return false, api.ResultCache{}, fmt.Errorf("Cache creation process encountered an error. Error: %s", err)
 	}
 	ePagesApiresp := convertResponsesToApiResponses(cacheData.entityPages)
 	iPagesApiresp := convertResponsesToApiResponses(cacheData.indexPages)
@@ -418,17 +418,17 @@ func saveEndpointIndex(epi api.ApiResponse, etype string) error {
 	signingErr := epi.CreateSignature(globals.BackendConfig.GetBackendKeyPair())
 	if signingErr != nil {
 		logging.Logf(1, "saveEndpointIndex could not sign this entity index: failed to be page-signed. Error: %#v Page: %#v\n", signingErr, epi)
-		return errors.New(fmt.Sprintf("This entity index failed to be page-signed. Error: %#v Page: %#v\n", signingErr, epi))
+		return fmt.Errorf("This entity index failed to be page-signed. Error: %#v Page: %#v\n", signingErr, epi)
 	}
 	epiJson, err := epi.ToJSON()
 	if err != nil {
 		logging.Logf(1, "saveEndpointIndex could not convert the endpoint index to JSON. Err: %v", err)
-		return errors.New(fmt.Sprintf("saveEndpointIndex could not convert the endpoint index to JSON. Err: %v", err))
+		return fmt.Errorf("saveEndpointIndex could not convert the endpoint index to JSON. Err: %v", err)
 	}
 	endpointDir, err := generateEndpointDir(etype)
 	if err != nil {
 		logging.Logf(1, "saveEndpointIndex could not generate the endpoint path. Err: %v", err)
-		return errors.New(fmt.Sprintf("saveEndpointIndex could not generate the endpoint path. Err: %v", err))
+		return fmt.Errorf("saveEndpointIndex could not generate the endpoint path. Err: %v", err)
 	}
 	saveFileToDisk(epiJson, endpointDir, "index.json")
 	return nil

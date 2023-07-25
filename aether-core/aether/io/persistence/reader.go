@@ -39,7 +39,7 @@ func ReadNode(fingerprint api.Fingerprint) (DbNode, error) {
 		rows.Close()
 	}
 	if len(n.Fingerprint) == 0 {
-		return n, errors.New(fmt.Sprintf("The node you have asked for could not be found. You asked for: %s", fingerprint))
+		return n, fmt.Errorf("The node you have asked for could not be found. You asked for: %s", fingerprint)
 	}
 	return n, nil
 }
@@ -69,7 +69,7 @@ func enforceReadValidity(
 		valid = true
 	}
 	if !valid {
-		return errors.New(fmt.Sprintf("You can either search for a time range, or for fingerprint(s). You can't do both or neither at the same time - you have to do one. Asked fingerprints: %#v, BeginTimestamp: %s, EndTimestamp: %s", fingerprints, strconv.Itoa(int(beginTimestamp)), strconv.Itoa(int(endTimestamp))))
+		return fmt.Errorf("You can either search for a time range, or for fingerprint(s). You can't do both or neither at the same time - you have to do one. Asked fingerprints: %#v, BeginTimestamp: %s, EndTimestamp: %s", fingerprints, strconv.Itoa(int(beginTimestamp)), strconv.Itoa(int(endTimestamp)))
 	}
 	return nil
 }
@@ -108,7 +108,7 @@ func SanitiseTimeRange(
 	}
 	// If the begin is newer than the end, flip. We haven't started to enforce limits yet, so the change here will be entirely coming from the remote.
 	if beginTimestamp > endTimestamp {
-		return beginTimestamp, endTimestamp, errors.New(fmt.Sprintf("Your BeginTimestamp is larger than your EndTimestamp. BeginTimestamp: %s, EndTimestamp: %s", strconv.Itoa(int(beginTimestamp)), strconv.Itoa(int(endTimestamp))))
+		return beginTimestamp, endTimestamp, fmt.Errorf("Your BeginTimestamp is larger than your EndTimestamp. BeginTimestamp: %s, EndTimestamp: %s", strconv.Itoa(int(beginTimestamp)), strconv.Itoa(int(endTimestamp)))
 	}
 	// Internal processing starts.
 
@@ -125,7 +125,7 @@ func SanitiseTimeRange(
 	}
 	//If beginTimestamp is in the future, return error.
 	if beginTimestamp > now {
-		return beginTimestamp, endTimestamp, errors.New(fmt.Sprintf("Your beginTimestamp is in the future. BeginTimestamp: %s, Now: %s", strconv.Itoa(int(beginTimestamp)), strconv.Itoa(int(now))))
+		return beginTimestamp, endTimestamp, fmt.Errorf("Your beginTimestamp is in the future. BeginTimestamp: %s, Now: %s", strconv.Itoa(int(beginTimestamp)), strconv.Itoa(int(now)))
 	}
 	// End of internal processing
 	// After we do these things, if we end up with a begin timestamp that is newer than the end, the end timestamp will be 'now'. This can happen in the case where both the start and end timestamps are within the cached period.
@@ -640,7 +640,7 @@ func ReadDbBoards(
 		}
 	default:
 		logging.Logf(1, "The request you've made to ReadDbBoards was invalid. Fps: %v, Start: %v, End: %v", fingerprints, beginTimestamp, endTimestamp)
-		return dbArr, errors.New(fmt.Sprintf("The request you've made to ReadDbBoards was invalid. Fps: %v, Start: %v, End: %v All opts: %#v", fingerprints, beginTimestamp, endTimestamp, opts))
+		return dbArr, fmt.Errorf("The request you've made to ReadDbBoards was invalid. Fps: %v, Start: %v, End: %v All opts: %#v", fingerprints, beginTimestamp, endTimestamp, opts)
 	}
 	rows, err := globals.DbInstance.Queryx(query, args...)
 	if err != nil {
@@ -741,7 +741,7 @@ func ReadDbThreads(
 		}
 	default:
 		logging.Logf(1, "The request you've made to ReadDbThreads was invalid. Reqtype: %v, Fps: %v, Start: %v, End: %v", reqtyp, fingerprints, beginTimestamp, endTimestamp)
-		return dbArr, errors.New(fmt.Sprintf("The request you've made to ReadDbThreads was invalid. Fps: %v, Start: %v, End: %v", fingerprints, beginTimestamp, endTimestamp))
+		return dbArr, fmt.Errorf("The request you've made to ReadDbThreads was invalid. Fps: %v, Start: %v, End: %v", fingerprints, beginTimestamp, endTimestamp)
 	}
 	rows, err := globals.DbInstance.Queryx(query, args...)
 	if err != nil {
@@ -853,7 +853,7 @@ func ReadDbPosts(
 		}
 	default:
 		logging.Logf(1, "The request you've made to ReadDbPosts was invalid. Fps: %v, Start: %v, End: %v", fingerprints, beginTimestamp, endTimestamp)
-		return dbArr, errors.New(fmt.Sprintf("The request you've made to ReadDbPosts was invalid. Fps: %v, Start: %v, End: %v", fingerprints, beginTimestamp, endTimestamp))
+		return dbArr, fmt.Errorf("The request you've made to ReadDbPosts was invalid. Fps: %v, Start: %v, End: %v", fingerprints, beginTimestamp, endTimestamp)
 	}
 	rows, err := globals.DbInstance.Queryx(query, args...)
 	if err != nil {
@@ -998,7 +998,7 @@ func ReadDbVotes(
 		}
 	default:
 		logging.Logf(1, "The request you've made to ReadDbVotes was invalid. Fps: %v, Start: %v, End: %v, ReqType: %v", fingerprints, beginTimestamp, endTimestamp, reqtyp)
-		return dbArr, errors.New(fmt.Sprintf("The request you've made to ReadDbVotes was invalid. Fps: %v, Start: %v, End: %v ReqType: %v", fingerprints, beginTimestamp, endTimestamp, reqtyp))
+		return dbArr, fmt.Errorf("The request you've made to ReadDbVotes was invalid. Fps: %v, Start: %v, End: %v ReqType: %v", fingerprints, beginTimestamp, endTimestamp, reqtyp)
 	}
 	rows, err := globals.DbInstance.Queryx(query, args...)
 	if err != nil {
@@ -1097,7 +1097,7 @@ func readDbAddressesTimeRangeSearch(
 	} else if searchType == "timerange_lastsuccessfulsync" {
 		rangeSearchColumn = "LastSuccessfulSync"
 	} else {
-		return &dbArr, errors.New(fmt.Sprintf("You have provided an invalid time range search type. You provided: %s", searchType))
+		return &dbArr, fmt.Errorf("You have provided an invalid time range search type. You provided: %s", searchType)
 	}
 	query := fmt.Sprintf("SELECT DISTINCT * from Addresses WHERE (%s > ? AND %s < ?) ORDER BY %s DESC", rangeSearchColumn, rangeSearchColumn, rangeSearchColumn)
 	rows, err := globals.DbInstance.Queryx(query, beginTimestamp, endTs)
@@ -1181,9 +1181,8 @@ func ReadDbAddresses(
 		all = append(all, (*bs)...)
 		all = append(all, (*static)...)
 		if err1 != nil || err2 != nil || err3 != nil {
-			var errs []error
-
-			return &all, errors.New(fmt.Sprintf("Some errors appeared while trying to prepare this address response to a remote request. Errors: %#v", errs))
+			errs := []error{}
+			return &all, fmt.Errorf("Some errors appeared while trying to prepare this address response to a remote request. Errors: %#v", errs)
 		}
 		return &all, nil
 	} else if searchType == "basic" {
@@ -1304,7 +1303,7 @@ func ReadDbKeys(
 		}
 	default:
 		logging.Logf(1, "The request you've made to ReadDbKeys was invalid. Fps: %v, Start: %v, End: %v", fingerprints, beginTimestamp, endTimestamp)
-		return dbArr, errors.New(fmt.Sprintf("The request you've made to ReadDbKeys was invalid. Fps: %v, Start: %v, End: %v All opts: %#v", fingerprints, beginTimestamp, endTimestamp, opts))
+		return dbArr, fmt.Errorf("The request you've made to ReadDbKeys was invalid. Fps: %v, Start: %v, End: %v All opts: %#v", fingerprints, beginTimestamp, endTimestamp, opts)
 	}
 	rows, err := globals.DbInstance.Queryx(query, args...)
 	if err != nil {
@@ -1441,7 +1440,7 @@ func ReadDbTruststates(
 		}
 	default:
 		logging.Logf(1, "The request you've made to ReadDbTruststates was invalid. Fps: %v, Start: %v, End: %v, Opts: %#v", fingerprints, beginTimestamp, endTimestamp, opts)
-		return dbArr, errors.New(fmt.Sprintf("The request you've made to ReadDbTruststates was invalid. Fps: %v, Start: %v, End: %v, Opts: %#v", fingerprints, beginTimestamp, endTimestamp, opts))
+		return dbArr, fmt.Errorf("The request you've made to ReadDbTruststates was invalid. Fps: %v, Start: %v, End: %v, Opts: %#v", fingerprints, beginTimestamp, endTimestamp, opts)
 	}
 
 	rows, err := globals.DbInstance.Queryx(query, args...)
