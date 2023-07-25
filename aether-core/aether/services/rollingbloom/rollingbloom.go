@@ -87,7 +87,7 @@ func (r *RollingBloom) TestString(str string) bool {
 // Count is guaranteed to not double count anything, because when we add things, we check *all* constituent blooms, and if it is present in any, we don't add.
 func (r *RollingBloom) Count() int {
 	var c int
-	for k, _ := range r.ConstituentBlooms {
+	for k := range r.ConstituentBlooms {
 		c += r.ConstituentBlooms[k].Count
 	}
 	return c
@@ -108,7 +108,7 @@ func NewRollingBloom(maxDurationDays, GranularityDays, maxSize uint) RollingBloo
 }
 
 func (r *RollingBloom) teststr(str string) bool {
-	for k, _ := range r.ConstituentBlooms {
+	for k := range r.ConstituentBlooms {
 		if r.ConstituentBlooms[k].TestString(str) {
 			return true
 		}
@@ -133,7 +133,7 @@ func (r *RollingBloom) maintain() {
 	var cleanedCBlooms []constituentBloom
 
 	var lastBloomEnd int64
-	for k, _ := range r.ConstituentBlooms {
+	for k := range r.ConstituentBlooms {
 		// Move to the new list only if the new bloom is still valid in duration
 		if b := r.ConstituentBlooms[k]; b.EndTimestamp > now.Add(-24*time.Hour*time.Duration(int(r.MaxDurationDays))).Unix() {
 			// This bloom is valid.
@@ -159,7 +159,7 @@ func (r *RollingBloom) maintain() {
 
 func (r *RollingBloom) getCurrentConstituentBloom() *constituentBloom {
 	now := time.Now().Unix()
-	for k, _ := range r.ConstituentBlooms {
+	for k := range r.ConstituentBlooms {
 		if r.ConstituentBlooms[k].EndTimestamp > now {
 			return &r.ConstituentBlooms[k]
 		}

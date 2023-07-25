@@ -226,7 +226,7 @@ func Read(
 		result.Boards = entities
 		// Convert the result to []api.Provable
 
-		for i, _ := range entities {
+		for i := range entities {
 			provableArr = append(provableArr, &entities[i])
 		}
 
@@ -237,7 +237,7 @@ func Read(
 		}
 		result.Threads = entities
 		// Convert the result to []api.Provable
-		for i, _ := range entities {
+		for i := range entities {
 			provableArr = append(provableArr, &entities[i])
 		}
 	case "posts":
@@ -247,7 +247,7 @@ func Read(
 		}
 		result.Posts = entities
 		// Convert the result to []api.Provable
-		for i, _ := range entities {
+		for i := range entities {
 			provableArr = append(provableArr, &entities[i])
 		}
 
@@ -258,7 +258,7 @@ func Read(
 		}
 		result.Votes = entities
 		// Convert the result to []api.Provable
-		for i, _ := range entities {
+		for i := range entities {
 			provableArr = append(provableArr, &entities[i])
 		}
 	case "addresses":
@@ -270,7 +270,7 @@ func Read(
 		}
 		result.Keys = entities
 		// Convert the result to []api.Provable
-		for i, _ := range entities {
+		for i := range entities {
 			provableArr = append(provableArr, &entities[i])
 		}
 	case "truststates":
@@ -280,7 +280,7 @@ func Read(
 		}
 		result.Truststates = entities
 		// Convert the result to []api.Provable
-		for i, _ := range entities {
+		for i := range entities {
 			provableArr = append(provableArr, &entities[i])
 		}
 	}
@@ -298,7 +298,7 @@ func Read(
 
 func existsInEmbed(asked string, embeds []string) bool {
 	if len(embeds) > 0 {
-		for i, _ := range embeds {
+		for i := range embeds {
 			if embeds[i] == asked {
 				return true
 			}
@@ -316,7 +316,7 @@ func handleEmbeds(entities []api.Provable, result *api.Response, embeds []string
 			return err
 		}
 		result.Threads = thr
-		for i, _ := range thr {
+		for i := range thr {
 			firstEmbedCache = append(firstEmbedCache, &thr[i])
 		}
 
@@ -328,7 +328,7 @@ func handleEmbeds(entities []api.Provable, result *api.Response, embeds []string
 			return err
 		}
 		result.Posts = posts
-		for i, _ := range posts {
+		for i := range posts {
 			firstEmbedCache = append(firstEmbedCache, &posts[i])
 		}
 	}
@@ -338,7 +338,7 @@ func handleEmbeds(entities []api.Provable, result *api.Response, embeds []string
 			return err
 		}
 		result.Votes = votes
-		for i, _ := range votes {
+		for i := range votes {
 			firstEmbedCache = append(firstEmbedCache, &votes[i])
 		}
 	}
@@ -374,7 +374,7 @@ func ReadThreadEmbed(entities []api.Provable) ([]api.Thread, error) {
 	case *api.Board:
 		// Only defined for boards. No other entity has thread embeds.
 		entity = entity // Stop complaining
-		for i, _ := range entities {
+		for i := range entities {
 			entityFingerprints = append(entityFingerprints, entities[i].GetFingerprint())
 		}
 		query, args, err := sqlx.In("SELECT DISTINCT * FROM Threads WHERE Board IN (?);", entityFingerprints)
@@ -423,7 +423,7 @@ func ReadPostEmbed(entities []api.Provable) ([]api.Post, error) {
 	case *api.Thread:
 		// Only defined for threads. No other entity has post embeds.
 		entity = entity // Stop complaining
-		for i, _ := range entities {
+		for i := range entities {
 			entityFingerprints = append(entityFingerprints, entities[i].GetFingerprint())
 		}
 		query, args, err := sqlx.In("SELECT DISTINCT * FROM Posts WHERE Thread IN (?);", entityFingerprints)
@@ -472,7 +472,7 @@ func ReadVoteEmbed(entities []api.Provable) ([]api.Vote, error) {
 	case *api.Post:
 		// Only defined for posts. No other entity has vote embeds.
 		entity = entity // Stop complaining
-		for i, _ := range entities {
+		for i := range entities {
 			entityFingerprints = append(entityFingerprints, entities[i].GetFingerprint())
 		}
 		query, args, err := sqlx.In("SELECT DISTINCT * FROM Votes WHERE Target IN (?);", entityFingerprints)
@@ -517,12 +517,12 @@ func ReadKeyEmbed(entities []api.Provable, firstEmbedCache []api.Provable) ([]ap
 		return arr, nil
 	}
 	entities = append(entities, firstEmbedCache...)
-	for i, _ := range entities {
+	for i := range entities {
 		switch entity := entities[i].(type) {
 		// entity: typed API object.
 		case *api.Board:
 			entityOwners = append(entityOwners, entity.GetOwner())
-			for j, _ := range entity.BoardOwners {
+			for j := range entity.BoardOwners {
 				entityOwners = append(entityOwners, entity.BoardOwners[j].KeyFingerprint)
 			}
 		case *api.Thread, *api.Post, *api.Truststate:

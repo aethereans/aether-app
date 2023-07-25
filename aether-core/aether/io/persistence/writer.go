@@ -104,7 +104,7 @@ func AddrTrustedInsert(a *[]api.Address) error {
 	if dbErr != nil {
 		logging.LogCrash(dbErr)
 	}
-	for key, _ := range *a {
+	for key := range *a {
 		(*a)[key].SetVerified(true)
 		aPkIface, err := APItoDB((*a)[key], time.Now())
 		if err != nil {
@@ -159,7 +159,7 @@ func AddrTrustedInsert(a *[]api.Address) error {
 func InsertOrUpdateAddresses(a *[]api.Address) []error {
 	var errs []error
 
-	for key, _ := range *a {
+	for key := range *a {
 		(*a)[key].SetVerified(true)
 		valid, err := (*a)[key].CheckBounds()
 		if err != nil {

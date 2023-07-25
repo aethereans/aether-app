@@ -257,7 +257,7 @@ func ProcessConnectionStates(rawData []pb.ConnState, rawDbStateData []pb.DbState
 		n.Connections = append(n.Connections, connConvert(*val.Connection))
 		finalData.AddNode(n)
 	}
-	for key, _ := range finalData.Nodes {
+	for key := range finalData.Nodes {
 		// Get Db Size.
 		fi, _ := os.Stat(filepath.Join("/Users/Helios/Library/Application Support/Air Labs", finalData.Nodes[key].Name, "backend/AetherDB.db"))
 		// get the size

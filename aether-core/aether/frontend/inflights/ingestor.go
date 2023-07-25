@@ -117,32 +117,32 @@ func (o *inflights) getNextItem() interface{} {
 	now := time.Now().Unix()
 	var oldestEntity interface{}
 	oldestTs := now
-	for k, _ := range o.InflightBoards {
+	for k := range o.InflightBoards {
 		if e := o.InflightBoards[k]; e.Status.RequestedTimestamp <= oldestTs && (e.Status.StatusText == STATUS_WAITING || e.Status.StatusText == STATUS_MINTING) {
 			oldestEntity = interface{}(&o.InflightBoards[k])
 		}
 	}
-	for k, _ := range o.InflightThreads {
+	for k := range o.InflightThreads {
 		if e := o.InflightThreads[k]; e.Status.RequestedTimestamp <= oldestTs && (e.Status.StatusText == STATUS_WAITING || e.Status.StatusText == STATUS_MINTING) {
 			oldestEntity = interface{}(&o.InflightThreads[k])
 		}
 	}
-	for k, _ := range o.InflightPosts {
+	for k := range o.InflightPosts {
 		if e := o.InflightPosts[k]; e.Status.RequestedTimestamp <= oldestTs && (e.Status.StatusText == STATUS_WAITING || e.Status.StatusText == STATUS_MINTING) {
 			oldestEntity = interface{}(&o.InflightPosts[k])
 		}
 	}
-	for k, _ := range o.InflightVotes {
+	for k := range o.InflightVotes {
 		if e := o.InflightVotes[k]; e.Status.RequestedTimestamp <= oldestTs && (e.Status.StatusText == STATUS_WAITING || e.Status.StatusText == STATUS_MINTING) {
 			oldestEntity = interface{}(&o.InflightVotes[k])
 		}
 	}
-	for k, _ := range o.InflightKeys {
+	for k := range o.InflightKeys {
 		if e := o.InflightKeys[k]; e.Status.RequestedTimestamp <= oldestTs && (e.Status.StatusText == STATUS_WAITING || e.Status.StatusText == STATUS_MINTING) {
 			oldestEntity = interface{}(&o.InflightKeys[k])
 		}
 	}
-	for k, _ := range o.InflightTruststates {
+	for k := range o.InflightTruststates {
 		if e := o.InflightTruststates[k]; e.Status.RequestedTimestamp <= oldestTs && (e.Status.StatusText == STATUS_WAITING || e.Status.StatusText == STATUS_MINTING) {
 			oldestEntity = interface{}(&o.InflightTruststates[k])
 		}

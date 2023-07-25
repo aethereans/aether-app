@@ -67,7 +67,7 @@ func deleteFromDisk(url string) {
 // collectCounts assumes there is only one type of entity - this function is internal to this library, do not use is elsewhere as that assumption won't hold anywhere else.
 func collectCounts(pres []POSTResponseEntry) EntityCount {
 	ec := EntityCount{}
-	for i, _ := range pres {
+	for i := range pres {
 		if i == 0 {
 			// [0] below because they will only have one. (Guaranteed in getLongestUniqueTimespan)
 			ec.Name = pres[i].EntityCounts[0].Name
@@ -96,7 +96,7 @@ func (e *POSTResponseEntry) eligible() bool {
 // Basic repo actions
 
 func (r *POSTResponseRepo) indexOf(url string) int {
-	for i, _ := range r.Responses {
+	for i := range r.Responses {
 		if r.Responses[i].ResponseUrl == url {
 			return i
 		}
@@ -141,7 +141,7 @@ func (r *POSTResponseRepo) flush(cutoff Timestamp) {
 func (r *POSTResponseRepo) getLongestUniqueTimespan(t Timestamp, entityName string) *POSTResponseEntry {
 	index := -1
 	longestDuration := Timestamp(0) // This starts from 0, which means we do not allow for the chain to start after the given timestamp. It has to start before.
-	for i, _ := range r.Responses {
+	for i := range r.Responses {
 		only1Ec := len(r.Responses[i].EntityCounts) == 1
 		entityNameMatches := r.Responses[i].EntityCounts[0].Name == entityName
 		hasEnoughTime := r.Responses[i].eligible()

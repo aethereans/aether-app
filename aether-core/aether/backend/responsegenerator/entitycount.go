@@ -94,7 +94,7 @@ func mergeCounts(entityCount *[]api.EntityCount, csEntityCount configstore.Entit
 		return ec
 	}
 	// ec := *entityCount // create a copy, don't manipulate the original
-	for i, _ := range ec {
+	for i := range ec {
 		if ec[i].Name == csEntityCount.Name {
 			ec[i].Count = ec[i].Count + csEntityCount.Count
 		}

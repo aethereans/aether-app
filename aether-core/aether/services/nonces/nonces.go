@@ -96,9 +96,9 @@ func (rn *RemotesNonces) flush(cutoff int64) {
 	}
 	newRn := make(map[publicKey][]nonce)
 	// Go through every pk,
-	for key, _ := range rn.NoncesMap {
+	for key := range rn.NoncesMap {
 		// And every nonce,
-		for i, _ := range rn.NoncesMap[key] {
+		for i := range rn.NoncesMap[key] {
 			// If the nonce creation is after cutoff (i.e. still within MACS)
 			if rn.NoncesMap[key][i].afterCutoff(cutoff) {
 				// add it to the new list.
@@ -141,7 +141,7 @@ func (rn *RemotesNonces) IsValid(pk, nonceStr string, apiRespTimestamp int64) bo
 		return false
 	}
 	// Check if the nonce exists.
-	for i, _ := range rn.NoncesMap[pkey] {
+	for i := range rn.NoncesMap[pkey] {
 		if rn.NoncesMap[pkey][i].nStr == nonceStr {
 			return false // We already have this nonce, this is a replay.
 		}

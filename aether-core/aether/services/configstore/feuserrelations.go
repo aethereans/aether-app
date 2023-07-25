@@ -77,7 +77,7 @@ func (u *UserRelations) UnModDisqualifyUser(fp, domain string) {
 type BatchUser []User
 
 func (b *BatchUser) Find(fp, domain string) int {
-	for k, _ := range *b {
+	for k := range *b {
 		if (*b)[k].Fingerprint == fp && (*b)[k].Domain == domain {
 			return k
 		}

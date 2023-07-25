@@ -34,7 +34,7 @@ func Explore() {
 			logging.Logf(1, "There was an error when we tried to read static bootstrapper addresses for Explore schedule. Error: %#v", err2)
 		}
 		bsAddrs := append(liveBs, staticBs...)
-		for key, _ := range bsAddrs {
+		for key := range bsAddrs {
 			Sync(bsAddrs[key], []string{}, nil)
 		}
 		// call all CA nodes and sync with them. These should be fairly short. We are not limiting them to x number of CAs because each CA will likely have their own data only. (We terminate the connection without sync if it's a CA that we do not trust.)
@@ -47,7 +47,7 @@ func Explore() {
 			logging.Logf(1, "There was an error when we tried to read static CA addresses for Explore schedule. Error: %#v", err4)
 		}
 		caAddrs := append(liveCA, staticCA...)
-		for key, _ := range caAddrs {
+		for key := range caAddrs {
 			Sync(caAddrs[key], []string{}, nil)
 		}
 	} else if ticker%6 == 0 && ticker != 0 {
@@ -62,7 +62,7 @@ func Explore() {
 		if err != nil {
 			logging.Logf(1, "There was an error when we tried to read static addresses for Explore schedule. Error: %#v", err)
 		}
-		for key, _ := range statics {
+		for key := range statics {
 			Sync(statics[key], []string{}, nil)
 		}
 	} else {

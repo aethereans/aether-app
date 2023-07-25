@@ -49,7 +49,7 @@ type unbakedManifestCarrier struct {
 
 // pgNoExistsInSlice looks whether a certain page number was ever created in this manifest slice. This isn't super efficient, but also not a hot path. Page numbers rarely go above 1000.
 func pgNoExistsInSlice(pgNo uint64, slc *[]api.PageManifest) int {
-	for i, _ := range *slc {
+	for i := range *slc {
 		if (*slc)[i].Page == pgNo {
 			return i
 		}
@@ -78,7 +78,7 @@ func addToPageManifestSlice(pmans *[]api.PageManifest, item *unbakedManifestItem
 func constructManifestStructure(items *[]unbakedManifestItem) *[]api.PageManifest {
 	var pmans []api.PageManifest
 
-	for i, _ := range *items {
+	for i := range *items {
 		addToPageManifestSlice(&pmans, &(*items)[i])
 	}
 	return &pmans
@@ -87,23 +87,23 @@ func constructManifestStructure(items *[]unbakedManifestItem) *[]api.PageManifes
 // createUnbakedManifests returns a unbakedManifestCarrier because manifest is a two-level deep entity. It looks something like page:0 > manifest manifest manifest, page:1 > manifest manifest manifest. If you use the top level page count as the page border, it is useless because they can carry arbitrary amounts of data. Instead, we need to count manifests, split to pages based on manifest counts, and THEN bundle them up to page:0 > ... structure which is the final structure.
 func createUnbakedManifests(fullData *[]api.Response) *unbakedManifestCarrier {
 	umc := unbakedManifestCarrier{}
-	for i, _ := range *fullData {
-		for j, _ := range (*fullData)[i].Boards {
+	for i := range *fullData {
+		for j := range (*fullData)[i].Boards {
 			umc.BoardManifests = append(umc.BoardManifests, createUnbakedManifestItem(&(*fullData)[i].Boards[j], uint64(i)))
 		}
-		for j, _ := range (*fullData)[i].Threads {
+		for j := range (*fullData)[i].Threads {
 			umc.ThreadManifests = append(umc.ThreadManifests, createUnbakedManifestItem(&(*fullData)[i].Threads[j], uint64(i)))
 		}
-		for j, _ := range (*fullData)[i].Posts {
+		for j := range (*fullData)[i].Posts {
 			umc.PostManifests = append(umc.PostManifests, createUnbakedManifestItem(&(*fullData)[i].Posts[j], uint64(i)))
 		}
-		for j, _ := range (*fullData)[i].Votes {
+		for j := range (*fullData)[i].Votes {
 			umc.VoteManifests = append(umc.VoteManifests, createUnbakedManifestItem(&(*fullData)[i].Votes[j], uint64(i)))
 		}
-		for j, _ := range (*fullData)[i].Keys {
+		for j := range (*fullData)[i].Keys {
 			umc.KeyManifests = append(umc.KeyManifests, createUnbakedManifestItem(&(*fullData)[i].Keys[j], uint64(i)))
 		}
-		for j, _ := range (*fullData)[i].Truststates {
+		for j := range (*fullData)[i].Truststates {
 			umc.TruststateManifests = append(umc.TruststateManifests, createUnbakedManifestItem(&(*fullData)[i].Truststates[j], uint64(i)))
 		}
 		// for j, _ := range (*fullData)[i].Addresses {

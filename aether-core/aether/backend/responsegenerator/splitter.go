@@ -27,17 +27,19 @@ splitManifestToPages is split off from the main entity splitter because manifest
 In other words, manifest structure is:
 
 responsebody >
-  posts_manifest >
-    page:0 >
-      m1, m2, m3
-    page:1 >
-      m4,m5,m6 ..
+
+	posts_manifest >
+	  page:0 >
+	    m1, m2, m3
+	  page:1 >
+	    m4,m5,m6 ..
 
 while others are:
 
 responsebody >
-  posts >
-    e1, e2, e3 ...
+
+	posts >
+	  e1, e2, e3 ...
 
 This means if we count the first level entity count as a page splitting gate, it's not gonna work. We need to count manifests themselves. We can do this based on the manifests and try to figure out which page to put each page:0 item, but that's going to be wonky. In the default case it might not matter, but in the case where somebody breaks the config in a way that the page entity counts are vastly higher than the manifest counts (i.e. entity page takes 60k items while manifest takes 30k items) it might cause weird manifest sizings.
 
@@ -78,7 +80,7 @@ func splitManifestToPages(fullData *unbakedManifestCarrier) *[]api.Response {
 		entityTypes = append(entityTypes, "blankpage")
 		// Why? because we still want to generate a blank manifest page if there is nothing inside, to communicate that this cache is empty.
 	}
-	for i, _ := range entityTypes {
+	for i := range entityTypes {
 		if entityTypes[i] == "boardmanifests" {
 			dataSet := fullData.BoardManifests
 			pageSize := globals.BackendConfig.GetEntityPageSizes().BoardManifests
@@ -277,7 +279,7 @@ func splitEntitiesToPages(fullData *api.Response) *[]api.Response {
 
 	var pages []api.Response
 	// This is a lot of copy paste. This is because there is no automatic conversion from []api.Boards being recognised as []api.Provable. Without that, I have to convert them explicitly to be able to put them into a map[string:struct] which is a lot of extra work - more work than copy paste.
-	for i, _ := range entityTypes {
+	for i := range entityTypes {
 		if entityTypes[i] == "boards" {
 			dataSet := fullData.Boards
 			pageSize := globals.BackendConfig.GetEntityPageSizes().Boards

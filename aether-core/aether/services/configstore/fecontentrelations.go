@@ -64,7 +64,7 @@ func (c *ContentRelations) IsSubbedBoard(fp string) (isSubbed, notifyEnabled boo
 }
 
 func (c *ContentRelations) FindBoard(fp string) int {
-	for key, _ := range c.SubbedBoards {
+	for key := range c.SubbedBoards {
 		if c.SubbedBoards[key].Fingerprint == fp {
 			return key
 		}
@@ -73,7 +73,7 @@ func (c *ContentRelations) FindBoard(fp string) int {
 }
 
 func (c *ContentRelations) FindThread(fp string) int {
-	for key, _ := range c.SubbedThreads {
+	for key := range c.SubbedThreads {
 		if c.SubbedThreads[key].Fingerprint == fp {
 			return key
 		}
@@ -255,7 +255,7 @@ func (list *sfwlist) IsSFWListedBoard(fp string) (isSFWListed bool) {
 }
 
 func (list *sfwlist) FindBoardInSFWList(fp string) int {
-	for key, _ := range list.Boards {
+	for key := range list.Boards {
 		if list.Boards[key] == fp {
 			return key
 		}

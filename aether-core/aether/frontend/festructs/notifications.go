@@ -54,7 +54,7 @@ func NewNotificationsBucket(now int64) NotificationsBucket {
 
 func (c *NotificationsContainer) Insert(ce CompiledPost, now int64) {
 	// Check if post exists anywhere. We might have raised a notification for it already.
-	for k, _ := range c.NotificationsBuckets {
+	for k := range c.NotificationsBuckets {
 		if c.NotificationsBuckets[k].ResponsePosts[ce.Fingerprint] != 0 {
 			return
 		}
@@ -62,7 +62,7 @@ func (c *NotificationsContainer) Insert(ce CompiledPost, now int64) {
 	// Go through all notifications buckets available that aren't already read.
 	var latestNonReadNBLastUpdate int64
 	latestNonReadNBIndex := -1
-	for k, _ := range c.NotificationsBuckets {
+	for k := range c.NotificationsBuckets {
 		if c.NotificationsBuckets[k].Read {
 			// If bucket is read, pass, we can't do anything to that any more.
 			continue
@@ -149,15 +149,15 @@ func (nc *NotificationsCarrier) MarkRead(fp string) {
 	nc.lock.Lock()
 	defer nc.lock.Unlock()
 	container := nc.Containers[fp]
-	for k, _ := range container.NotificationsBuckets {
+	for k := range container.NotificationsBuckets {
 		container.NotificationsBuckets[k].Read = true
 	}
 	nc.Containers[fp] = container
 }
 
 func (nc *NotificationsCarrier) markAllAsRead() {
-	for i, _ := range nc.Containers {
-		for j, _ := range nc.Containers[i].NotificationsBuckets {
+	for i := range nc.Containers {
+		for j := range nc.Containers[i].NotificationsBuckets {
 			nc.Containers[i].NotificationsBuckets[j].Read = true
 		}
 	}
@@ -173,7 +173,7 @@ func (nc *NotificationsCarrier) MarkAllAsRead() {
 
 func (nc *NotificationsCarrier) Prune() {
 	cutoff := toolbox.CnvToCutoffDays(30)
-	for k, _ := range nc.Containers {
+	for k := range nc.Containers {
 		if nc.Containers[k].LastUpdate < cutoff {
 			delete(nc.Containers, k)
 		}
@@ -189,7 +189,7 @@ func (nc *NotificationsCarrier) InsertPosts(posts []CompiledPost) {
 	var nonSelfPosts []CompiledPost
 	now := time.Now().Unix()
 	// If it's a self post, add to the map
-	for k, _ := range posts {
+	for k := range posts {
 		if posts[k].SelfCreated {
 			nContainer := nc.Containers[posts[k].Fingerprint]
 			nContainer.Post = posts[k]
@@ -201,7 +201,7 @@ func (nc *NotificationsCarrier) InsertPosts(posts []CompiledPost) {
 	}
 	// ^ Be mindful that we're removing self posts from the lists to be checked. That means responding to yourself will not raise a notification. Neat.
 	// If not a self post, check if its parent matches a known self thread or post.
-	for k, _ := range nonSelfPosts {
+	for k := range nonSelfPosts {
 		if nc.responseToSelfPost(&nonSelfPosts[k]) {
 			logging.Logf(2, "This is a response to a self post! %v", nonSelfPosts[k].Fingerprint)
 			// It's a response to a self post. Insert it.
@@ -225,7 +225,7 @@ func (nc *NotificationsCarrier) InsertPosts(posts []CompiledPost) {
 func (nc *NotificationsCarrier) InsertThreads(threads []CompiledThread) {
 	nc.lock.Lock()
 	defer nc.lock.Unlock()
-	for k, _ := range threads {
+	for k := range threads {
 		if !threads[k].SelfCreated {
 			continue
 		}
@@ -364,7 +364,7 @@ func (nc *NotificationsCarrier) Listify() (CNotificationsList, int64) {
 
 	cnl := CNotificationsList{}
 	// For each container
-	for k, _ := range nc.Containers {
+	for k := range nc.Containers {
 		// Skip if muted
 		if nc.Containers[k].Muted {
 			continue
@@ -375,7 +375,7 @@ func (nc *NotificationsCarrier) Listify() (CNotificationsList, int64) {
 			nType = REPLY_TO_THREAD
 		}
 		// For every bucket in container
-		for k2, _ := range nc.Containers[k].NotificationsBuckets {
+		for k2 := range nc.Containers[k].NotificationsBuckets {
 			if len(nc.Containers[k].NotificationsBuckets[k2].ResponsePosts) == 0 {
 				// Skip if no responses (generally impossible, but good to guard against)
 				continue
@@ -384,12 +384,12 @@ func (nc *NotificationsCarrier) Listify() (CNotificationsList, int64) {
 			var rpFps []string
 
 			rpUsers := nc.Containers[k].NotificationsBuckets[k2].ResponsePostsUsers
-			for k, _ := range nc.Containers[k].NotificationsBuckets[k2].ResponsePosts {
+			for k := range nc.Containers[k].NotificationsBuckets[k2].ResponsePosts {
 				rpFps = append(rpFps, k)
 			}
 			// Figure out the newest response in the bucket and use its timestamp
 			var newest int64
-			for k3, _ := range nc.Containers[k].NotificationsBuckets[k2].ResponsePosts {
+			for k3 := range nc.Containers[k].NotificationsBuckets[k2].ResponsePosts {
 				if nc.Containers[k].NotificationsBuckets[k2].ResponsePosts[k3] > newest {
 					newest = nc.Containers[k].NotificationsBuckets[k2].ResponsePosts[k3]
 				}

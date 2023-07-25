@@ -56,37 +56,37 @@ type Purgatory struct {
 func (p *Purgatory) indexOf(item api.Provable) int {
 	switch entity := item.(type) {
 	case *api.Board:
-		for key, _ := range p.BoardsPurg {
+		for key := range p.BoardsPurg {
 			if p.BoardsPurg[key].Fingerprint == entity.Fingerprint {
 				return key
 			}
 		}
 	case *api.Thread:
-		for key, _ := range p.ThreadsPurg {
+		for key := range p.ThreadsPurg {
 			if p.ThreadsPurg[key].Fingerprint == entity.Fingerprint {
 				return key
 			}
 		}
 	case *api.Post:
-		for key, _ := range p.PostsPurg {
+		for key := range p.PostsPurg {
 			if p.PostsPurg[key].Fingerprint == entity.Fingerprint {
 				return key
 			}
 		}
 	case *api.Vote:
-		for key, _ := range p.VotesPurg {
+		for key := range p.VotesPurg {
 			if p.VotesPurg[key].Fingerprint == entity.Fingerprint {
 				return key
 			}
 		}
 	case *api.Key:
-		for key, _ := range p.KeysPurg {
+		for key := range p.KeysPurg {
 			if p.KeysPurg[key].Fingerprint == entity.Fingerprint {
 				return key
 			}
 		}
 	case *api.Truststate:
-		for key, _ := range p.TruststatesPurg {
+		for key := range p.TruststatesPurg {
 			if p.TruststatesPurg[key].Fingerprint == entity.Fingerprint {
 				return key
 			}
@@ -166,22 +166,22 @@ func cnvToVertexIdx(item api.ProvableIndex) vertex {
 func (p *Purgatory) getDirectDescendants(vs []vertex) []vertex {
 	var children []vertex
 
-	for key1, _ := range vs {
+	for key1 := range vs {
 		switch vs[key1].entityType {
 		case "board":
-			for key, _ := range p.ThreadIndexes {
+			for key := range p.ThreadIndexes {
 				if p.ThreadIndexes[key].Board == vs[key1].fingerprint {
 					children = append(children, cnvToVertexIdx(&p.ThreadIndexes[key]))
 				}
 			}
 		case "thread":
-			for key, _ := range p.PostIndexes {
+			for key := range p.PostIndexes {
 				if p.PostIndexes[key].Thread == vs[key1].fingerprint {
 					children = append(children, cnvToVertexIdx(&p.PostIndexes[key]))
 				}
 			}
 		case "post":
-			for key, _ := range p.PostIndexes {
+			for key := range p.PostIndexes {
 				if p.PostIndexes[key].Parent == vs[key1].fingerprint {
 					children = append(children, cnvToVertexIdx(&p.PostIndexes[key]))
 				}
@@ -189,27 +189,27 @@ func (p *Purgatory) getDirectDescendants(vs []vertex) []vertex {
 		case "vote":
 			// no descendants
 		case "key":
-			for key, _ := range p.BoardIndexes {
+			for key := range p.BoardIndexes {
 				if p.BoardIndexes[key].Owner == vs[key1].fingerprint {
 					children = append(children, cnvToVertexIdx(&p.BoardIndexes[key]))
 				}
 			}
-			for key, _ := range p.ThreadIndexes {
+			for key := range p.ThreadIndexes {
 				if p.ThreadIndexes[key].Owner == vs[key1].fingerprint {
 					children = append(children, cnvToVertexIdx(&p.ThreadIndexes[key]))
 				}
 			}
-			for key, _ := range p.PostIndexes {
+			for key := range p.PostIndexes {
 				if p.PostIndexes[key].Owner == vs[key1].fingerprint {
 					children = append(children, cnvToVertexIdx(&p.PostIndexes[key]))
 				}
 			}
-			for key, _ := range p.VoteIndexes {
+			for key := range p.VoteIndexes {
 				if p.VoteIndexes[key].Owner == vs[key1].fingerprint {
 					children = append(children, cnvToVertexIdx(&p.VoteIndexes[key]))
 				}
 			}
-			for key, _ := range p.TruststateIndexes {
+			for key := range p.TruststateIndexes {
 				if p.TruststateIndexes[key].Owner == vs[key1].fingerprint {
 					children = append(children, cnvToVertexIdx(&p.TruststateIndexes[key]))
 				}
@@ -225,7 +225,7 @@ func (p *Purgatory) getDirectDescendants(vs []vertex) []vertex {
 
 func getMostRecentLastModified(vs []vertex) api.Timestamp {
 	var mostRecentLm api.Timestamp
-	for key, _ := range vs {
+	for key := range vs {
 		if vs[key].lastModified > mostRecentLm {
 			mostRecentLm = vs[key].lastModified
 		}
@@ -309,32 +309,32 @@ func (p *Purgatory) process() {
 
 	var newTs []api.Truststate
 
-	for key, _ := range p.BoardsPurg {
+	for key := range p.BoardsPurg {
 		if p.verify(&p.BoardsPurg[key]) {
 			newB = append(newB, p.BoardsPurg[key])
 		}
 	}
-	for key, _ := range p.ThreadsPurg {
+	for key := range p.ThreadsPurg {
 		if p.verify(&p.ThreadsPurg[key]) {
 			newT = append(newT, p.ThreadsPurg[key])
 		}
 	}
-	for key, _ := range p.PostsPurg {
+	for key := range p.PostsPurg {
 		if p.verify(&p.PostsPurg[key]) {
 			newP = append(newP, p.PostsPurg[key])
 		}
 	}
-	for key, _ := range p.VotesPurg {
+	for key := range p.VotesPurg {
 		if p.verify(&p.VotesPurg[key]) {
 			newV = append(newV, p.VotesPurg[key])
 		}
 	}
-	for key, _ := range p.KeysPurg {
+	for key := range p.KeysPurg {
 		if p.verify(&p.KeysPurg[key]) {
 			newK = append(newK, p.KeysPurg[key])
 		}
 	}
-	for key, _ := range p.TruststatesPurg {
+	for key := range p.TruststatesPurg {
 		if p.verify(&p.TruststatesPurg[key]) {
 			newTs = append(newTs, p.TruststatesPurg[key])
 		}
@@ -349,22 +349,22 @@ func (p *Purgatory) process() {
 
 func (p *Purgatory) convertAllToIface() []interface{} {
 	var carrier []interface{}
-	for i, _ := range p.BoardsPurg {
+	for i := range p.BoardsPurg {
 		carrier = append(carrier, p.BoardsPurg[i])
 	}
-	for i, _ := range p.ThreadsPurg {
+	for i := range p.ThreadsPurg {
 		carrier = append(carrier, p.ThreadsPurg[i])
 	}
-	for i, _ := range p.PostsPurg {
+	for i := range p.PostsPurg {
 		carrier = append(carrier, p.PostsPurg[i])
 	}
-	for i, _ := range p.VotesPurg {
+	for i := range p.VotesPurg {
 		carrier = append(carrier, p.VotesPurg[i])
 	}
-	for i, _ := range p.KeysPurg {
+	for i := range p.KeysPurg {
 		carrier = append(carrier, p.KeysPurg[i])
 	}
-	for i, _ := range p.TruststatesPurg {
+	for i := range p.TruststatesPurg {
 		carrier = append(carrier, p.TruststatesPurg[i])
 	}
 	return carrier
@@ -402,7 +402,7 @@ func (p *Purgatory) accept(items []api.Provable) {
 	// nhD := globals.BackendConfig.GetNetworkHeadDays()
 	// nhCutoff := api.Timestamp(toolbox.CnvToCutoffDays(nhD))
 	cutoff := api.Timestamp(globals.BackendConfig.GetEventHorizonTimestamp()) // todo: should purgatory be gated on network head or event horizon?
-	for key, _ := range items {
+	for key := range items {
 		// gate := calcGate(items[key])
 		if cutoff > items[key].GetLastModified() {
 			// Entity older than our network head. Enters purgatory.
@@ -487,7 +487,7 @@ func (p *Purgatory) removeFromResp(r *api.Response) {
 	if len(r.Boards) > 0 {
 		var removalIdxs []int
 
-		for key, _ := range p.BoardsPurg {
+		for key := range p.BoardsPurg {
 			idx := r.IndexOf(&p.BoardsPurg[key])
 			if idx != -1 {
 				removalIdxs = append(removalIdxs, idx)
@@ -498,7 +498,7 @@ func (p *Purgatory) removeFromResp(r *api.Response) {
 	if len(r.Threads) > 0 {
 		var removalIdxs []int
 
-		for key, _ := range p.ThreadsPurg {
+		for key := range p.ThreadsPurg {
 			idx := r.IndexOf(&p.ThreadsPurg[key])
 			if idx != -1 {
 				removalIdxs = append(removalIdxs, idx)
@@ -509,7 +509,7 @@ func (p *Purgatory) removeFromResp(r *api.Response) {
 	if len(r.Posts) > 0 {
 		var removalIdxs []int
 
-		for key, _ := range p.PostsPurg {
+		for key := range p.PostsPurg {
 			idx := r.IndexOf(&p.PostsPurg[key])
 			if idx != -1 {
 				removalIdxs = append(removalIdxs, idx)
@@ -520,7 +520,7 @@ func (p *Purgatory) removeFromResp(r *api.Response) {
 	if len(r.Votes) > 0 {
 		var removalIdxs []int
 
-		for key, _ := range p.VotesPurg {
+		for key := range p.VotesPurg {
 			idx := r.IndexOf(&p.VotesPurg[key])
 			if idx != -1 {
 				removalIdxs = append(removalIdxs, idx)
@@ -531,7 +531,7 @@ func (p *Purgatory) removeFromResp(r *api.Response) {
 	if len(r.Keys) > 0 {
 		var removalIdxs []int
 
-		for key, _ := range p.KeysPurg {
+		for key := range p.KeysPurg {
 			idx := r.IndexOf(&p.KeysPurg[key])
 			if idx != -1 {
 				removalIdxs = append(removalIdxs, idx)
@@ -542,7 +542,7 @@ func (p *Purgatory) removeFromResp(r *api.Response) {
 	if len(r.Truststates) > 0 {
 		var removalIdxs []int
 
-		for key, _ := range p.TruststatesPurg {
+		for key := range p.TruststatesPurg {
 			idx := r.IndexOf(&p.TruststatesPurg[key])
 			if idx != -1 {
 				removalIdxs = append(removalIdxs, idx)
@@ -558,32 +558,32 @@ func (p *Purgatory) Filter(r *api.Response) {
 	start := time.Now()
 	var bProv []api.Provable
 
-	for key, _ := range r.Boards {
+	for key := range r.Boards {
 		bProv = append(bProv, api.Provable(&r.Boards[key]))
 	}
 	var tProv []api.Provable
 
-	for key, _ := range r.Threads {
+	for key := range r.Threads {
 		tProv = append(tProv, api.Provable(&r.Threads[key]))
 	}
 	var pProv []api.Provable
 
-	for key, _ := range r.Posts {
+	for key := range r.Posts {
 		pProv = append(pProv, api.Provable(&r.Posts[key]))
 	}
 	var vProv []api.Provable
 
-	for key, _ := range r.Votes {
+	for key := range r.Votes {
 		vProv = append(vProv, api.Provable(&r.Votes[key]))
 	}
 	var kProv []api.Provable
 
-	for key, _ := range r.Keys {
+	for key := range r.Keys {
 		kProv = append(kProv, api.Provable(&r.Keys[key]))
 	}
 	var tsProv []api.Provable
 
-	for key, _ := range r.Truststates {
+	for key := range r.Truststates {
 		tsProv = append(tsProv, api.Provable(&r.Truststates[key]))
 	}
 	p.accept(bProv)

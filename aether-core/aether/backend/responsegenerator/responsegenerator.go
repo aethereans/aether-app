@@ -7,9 +7,11 @@ import (
 	// "fmt"
 	"aether-core/aether/io/api"
 	"aether-core/aether/io/persistence"
+
 	// "aether-core/aether/services/configstore"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
+
 	// "aether-core/aether/services/randomhashgen"
 	// "aether-core/aether/services/toolbox"
 	// "encoding/json"
@@ -77,7 +79,7 @@ func convertResponsesToApiResponses(r *[]api.Response) *[]api.ApiResponse {
 	if r == nil {
 		return &responses
 	}
-	for i, _ := range *r {
+	for i := range *r {
 		resp := api.ApiResponse{}
 		resp.Prefill()
 		// resp := GeneratePrefilledApiResponse()
@@ -247,7 +249,7 @@ func constructResultCache(beg api.Timestamp, end api.Timestamp, url string) api.
 // sanitiseOutboundAddresses removes untrusted address data from the addresses destined to go out of this node. The remote node will also remove it, but there is no reason to leak information unnecessarily.
 func sanitiseOutboundAddresses(addrsPtr *[]api.Address) *[]api.Address {
 	addrs := *addrsPtr
-	for key, _ := range addrs {
+	for key := range addrs {
 		addrs[key].LocationType = 0
 		addrs[key].Type = 0
 		addrs[key].LastSuccessfulPing = 0

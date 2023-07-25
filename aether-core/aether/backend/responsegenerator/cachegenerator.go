@@ -198,7 +198,7 @@ func deleteTooOldCaches(etype string, cacheIndex *api.ApiResponse) {
 	}
 	// Now, we want to take a look at the folder structure, and see which ones need to go.
 	validsMap := make(map[string]bool)
-	for k, _ := range cacheIndex.Results {
+	for k := range cacheIndex.Results {
 		validsMap[cacheIndex.Results[k].ResponseUrl] = true
 	}
 	folders, err := ioutil.ReadDir(entityCacheDir)
@@ -206,7 +206,7 @@ func deleteTooOldCaches(etype string, cacheIndex *api.ApiResponse) {
 		logging.Logf(1, "deleteTooOldCaches had an error trying to read the cache directory. Dir: %v, Error: %v", entityCacheDir, err)
 		return
 	}
-	for k, _ := range folders {
+	for k := range folders {
 		cacheName := folders[k].Name()
 		if cacheName == "index.json" {
 			// This folder not only has cache folders. Avoid that one.

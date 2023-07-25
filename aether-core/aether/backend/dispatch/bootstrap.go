@@ -56,7 +56,7 @@ func constructExecPlans(bootstrappers []api.Address) []execPlan {
 	}
 	var execplans []execPlan
 
-	for key, _ := range bootstrappers {
+	for key := range bootstrappers {
 		execplans = append(execplans, execPlan{addr: bootstrappers[key]})
 	}
 	servingSubprots := globals.BackendConfig.GetServingSubprotocols()
@@ -65,7 +65,7 @@ func constructExecPlans(bootstrappers []api.Address) []execPlan {
 	for _, subprot := range servingSubprots {
 		entities = append(entities, subprot.SupportedEntities...)
 	}
-	for key, _ := range entities {
+	for key := range entities {
 		mod := key % len(execplans) // 0 % 7 = 0, 3 % 7 = 3, 7 % 7 = 0 (loops over)
 		execplans[mod].endpoints = append(execplans[mod].endpoints, entities[key])
 	}
@@ -100,7 +100,7 @@ func doBootstrap() {
 			feapiconsumer.BackendAmbientStatus.LastBootstrapTimestamp = lastBs
 			feapiconsumer.BackendAmbientStatus.TriggerBootstrapRefresh = true
 			logging.Logf(1, "Bootstrap successful. Here are the bootstrappers that are about to be added to the exclusions list. %#v", onlineBootstrappers)
-			for k, _ := range onlineBootstrappers {
+			for k := range onlineBootstrappers {
 
 				dpe.Add(onlineBootstrappers[k])
 				// ^ If the bootstrap was successful, we mark all of them as hit.
@@ -120,7 +120,7 @@ func doBootstrap() {
 	var errs []error
 
 	// Go through each remote in the exec plans and call them based on the types we want to pull from it.
-	for key, _ := range execPlans {
+	for key := range execPlans {
 		err := Sync(execPlans[key].addr, execPlans[key].endpoints, nil)
 		if err != nil {
 			errs = append(errs, err)
@@ -128,7 +128,7 @@ func doBootstrap() {
 	}
 	// If there are more than one bootstrap remote, go through each remote in the exec plan and call all endpoints in them. This should cause a manifest scan and not much download, and a timestamp setting. This is insurance to make sure that the data we have is the union of all bootstrappers we connected to.
 	if len(execPlans) > 1 {
-		for key, _ := range execPlans {
+		for key := range execPlans {
 			err := Sync(execPlans[key].addr, []string{}, nil)
 			if err != nil {
 				errs = append(errs, err)

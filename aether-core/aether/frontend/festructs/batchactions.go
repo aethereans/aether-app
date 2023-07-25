@@ -9,7 +9,7 @@ import (
 // GetAllBoards gets all boards within our observable universe. Observable universe is all entities that it could possibly be changed by the entities we have in this current bucket, at this single instant in time.
 func GetAllBoards(targetPtr *[]BoardCarrier, observableUniverse map[string]bool) error {
 	var bc []BoardCarrier
-	for fp, _ := range observableUniverse {
+	for fp := range observableUniverse {
 		b := BoardCarrier{}
 		err := globals.KvInstance.One("Fingerprint", fp, &b)
 		if err != nil {
@@ -26,7 +26,7 @@ func GetAllBoards(targetPtr *[]BoardCarrier, observableUniverse map[string]bool)
 
 func GetAllUserHeaderCarriers(targetPtr *[]UserHeaderCarrier, observableUniverse map[string]bool) error {
 	var uhcs []UserHeaderCarrier
-	for fp, _ := range observableUniverse {
+	for fp := range observableUniverse {
 		uhc := UserHeaderCarrier{}
 		err := globals.KvInstance.One("Fingerprint", fp, &uhc)
 		if err != nil {

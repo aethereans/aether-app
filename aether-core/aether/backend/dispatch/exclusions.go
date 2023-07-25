@@ -67,7 +67,7 @@ func (d *dispatcherExclusions) maintain() {
 	maintenanceCutoff := now.Add(-1 * time.Hour).Unix()
 	exclusionsCutoff := now.Add(-12 * time.Hour).Unix()
 	if d.LastMaintained > maintenanceCutoff {
-		for k, _ := range d.Exclusions {
+		for k := range d.Exclusions {
 			if d.Exclusions[k].Unix() > exclusionsCutoff {
 				delete(d.Exclusions, k)
 			}

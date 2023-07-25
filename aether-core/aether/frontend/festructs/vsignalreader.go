@@ -49,7 +49,7 @@ func GetATDs(parentfp, parenttype, targetfp string, startts, nowts int64, noDesc
 	rawSignals := getVoteBasedSignal(parentfp, parenttype, targetfp, startts, nowts, 1, -1, noDescendants)
 	var sgns []AddsToDiscussionSignal
 
-	for k, _ := range rawSignals {
+	for k := range rawSignals {
 		sgns = append(sgns, AddsToDiscussionSignal{
 			BaseVoteSignal: BaseVoteSignal{
 				Fingerprint:       rawSignals[k].GetProvable().GetFingerprint(),
@@ -71,7 +71,7 @@ func GetFGs(parentfp, parenttype, targetfp string, startts, nowts int64, noDesce
 	rawSignals := getVoteBasedSignal(parentfp, parenttype, targetfp, startts, nowts, 2, -1, noDescendants)
 	var sgns []FollowsGuidelinesSignal
 
-	for k, _ := range rawSignals {
+	for k := range rawSignals {
 		vmeta, err := metaparse.ReadMeta("Vote", rawSignals[k].GetMeta())
 		if err != nil {
 			logging.Logf(2, "We failed to parse this Meta field. Raw Meta field: %v, Entity: %v Error: %v", targetfp, err)
@@ -102,7 +102,7 @@ func GetMAs(parentfp, parenttype, targetfp string, startts, nowts int64, noDesce
 	rawSignals := getVoteBasedSignal(parentfp, parenttype, targetfp, startts, nowts, 3, -1, noDescendants)
 	var sgns []ModActionsSignal
 
-	for k, _ := range rawSignals {
+	for k := range rawSignals {
 		vmeta, err := metaparse.ReadMeta("Vote", rawSignals[k].GetMeta())
 		if err != nil {
 			logging.Logf(2, "We failed to parse this Meta field. Raw Meta field: %v, Entity: %v Error: %v", targetfp, err)
