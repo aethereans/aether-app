@@ -10,6 +10,7 @@ import (
 	// "aether-core/aether/services/configstore"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
+
 	// "aether-core/aether/services/randomhashgen"
 	"aether-core/aether/services/toolbox"
 	// "encoding/json"
@@ -37,7 +38,7 @@ func bakeEntityPages(resultPages *[]api.ApiResponse, entityCounts *[]api.EntityC
 	}
 	// responsedir := fmt.Sprint(globals.BackendConfig.GetCachesDirectory(), "/",protv,"/responses/", foldername)
 	toolbox.CreatePath(responsedir)
-	for i, _ := range *resultPages {
+	for i := range *resultPages {
 		// entityType := findEntityInApiResponse((*resultPages)[i], entityType)
 		// Set timestamp, number of items in it, total page count, and which page, filters.
 		if filters != nil {

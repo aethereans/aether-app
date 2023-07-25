@@ -138,14 +138,14 @@ func (c *BoardCarrier) RefreshWithoutSave(nowts int64) bool {
 	c.generateSignalsTablesForThreadEntities()
 	// pull in new changes to the thread entities and using the local scope user headers, refresh those.
 	hasNewThreads := c.refreshThreadEntities(c.Boards.GetBoardSpecificUserHeaders())
-	for k, _ := range c.Threads {
+	for k := range c.Threads {
 		c.Threads[k].PostsCount = -1
 	}
 	// -1 = No data, will be hidden in UI. If we end up compiling the underlying thread, that compilation process will provide the data upstream, and it'll be saved as such.
 	c.applyMetas()
 	c.LastReferenced = c.now
 	// Save the number of posts. (Make sure that this is not based on incremental but on the total number of posts.)
-	for k, _ := range c.Boards {
+	for k := range c.Boards {
 		if c.Boards[k].Fingerprint == c.Fingerprint {
 			// Move compiled data that is needed on the client side to the compiled object so it can be transmitted over.
 			c.Boards[k].ThreadsCount = len(c.Threads)
@@ -178,7 +178,7 @@ func (c *BoardCarrier) refreshThreadEntities(boardSpecificUserHeaders CUserBatch
 	c.Threads.Refresh(c.GetThreadsCATDs(), c.GetThreadsCFGs(), c.GetThreadsCMAs(), boardSpecificUserHeaders, c.now, c)
 	// If there is a parent, then we've actually managed to find a thread entity, which means the thread entity actually exists, which means this is a valid container.
 	c.WellFormed = true
-	for k, _ := range c.Threads {
+	for k := range c.Threads {
 		if len(c.Threads[k].Fingerprint) == 0 {
 			c.WellFormed = false
 			break
@@ -226,18 +226,18 @@ func (c *BoardCarrier) generateUserFingerprintsFromContent(nowts int64) []string
 	ufps := make(map[string]bool)
 	// Thread owners fps in delta
 	nte := beapiconsumer.GetThreads(c.LastReferenced, nowts, []string{}, c.Fingerprint, false, false)
-	for k, _ := range nte {
+	for k := range nte {
 		ufps[nte[k].GetOwner()] = true
 	}
 	// post owners' fps in delta
 	npe := beapiconsumer.GetPosts(c.LastReferenced, nowts, []string{}, c.Fingerprint, "board", false, false)
-	for k, _ := range npe {
+	for k := range npe {
 		ufps[npe[k].GetOwner()] = true
 	}
 	// Convert to slice
 	var ufpsSlice []string
 
-	for key, _ := range ufps {
+	for key := range ufps {
 		ufpsSlice = append(ufpsSlice, key)
 	}
 	return ufpsSlice
@@ -250,9 +250,9 @@ func (c *BoardCarrier) getLocalDefaultMods() []string {
 // refreshLocalScopeUserHeadersWithLocalSignals refreshes the local signals of the user header entities brought forward in this specific delta.
 func (c *BoardCarrier) refreshLocalScopeUserHeadersWithLocalSignals() {
 	// for every board in this board carrier
-	for k, _ := range c.Boards {
+	for k := range c.Boards {
 		// Make it so that every user header is refreshed via the signals we have. We don't want to do a full insert - our headers' contents are already updated.
-		for j, _ := range c.Boards[k].LocalScopeUserHeaders {
+		for j := range c.Boards[k].LocalScopeUserHeaders {
 			c.Boards[k].LocalScopeUserHeaders[j].RefreshUserSignals(&c.LSUHPublicTrusts, &c.LSUHCanonicalNames, &c.LSUHF451s, &c.LSUHPublicElects, c.getLocalDefaultMods(), c.Fingerprint, c.Statistics.UserCount)
 		}
 	}
@@ -261,9 +261,9 @@ func (c *BoardCarrier) refreshLocalScopeUserHeadersWithLocalSignals() {
 // refreshLocalScopeUserHeadersWithGlobalUpdatesAndSignals refreshes the user headers in the local scope with the content and signals from the global scope. Since global scope user headers update ran before, by doing this, we don't have to pull updates from the backend again, the content will automatically update. By the virtue of that, the global signals within those entities will also be updated, making us ready for a delta insert of the local signals.
 func (c *BoardCarrier) refreshLocalScopeUserHeadersWithGlobalUpdatesAndSignals() {
 	// for every board in this board carrier
-	for k, _ := range c.Boards {
+	for k := range c.Boards {
 		// Make it so that every user header is refreshed via its global counterpart.
-		for j, _ := range c.Boards[k].LocalScopeUserHeaders {
+		for j := range c.Boards[k].LocalScopeUserHeaders {
 			globalUserHeader := UserHeaderCarrier{}
 			logging.Logf(3, "Single read happens in refreshLocalScopeUserHeadersWithGlobalUpdatesAndSignals>One")
 			err := globals.KvInstance.One("Fingerprint", c.Boards[k].LocalScopeUserHeaders[j].Fingerprint, &globalUserHeader)
@@ -292,27 +292,27 @@ func (c *BoardCarrier) generateNeededUserHeaderFingerprints() []string {
 		This text is here because I just tried to add the thread and post owner fingerprints into this list before realising that it's a two-tier system. So this is not a bug.
 	*/
 	uhfps := make(map[string]bool)
-	for k, _ := range c.LSUHPublicTrusts {
+	for k := range c.LSUHPublicTrusts {
 		uhfps[c.LSUHPublicTrusts[k].TargetFingerprint] = true
 	}
-	for k, _ := range c.LSUHCanonicalNames {
+	for k := range c.LSUHCanonicalNames {
 		uhfps[c.LSUHCanonicalNames[k].TargetFingerprint] = true
 	}
-	for k, _ := range c.LSUHF451s {
+	for k := range c.LSUHF451s {
 		uhfps[c.LSUHF451s[k].TargetFingerprint] = true
 	}
-	for k, _ := range c.LSUHPublicElects {
+	for k := range c.LSUHPublicElects {
 		uhfps[c.LSUHPublicElects[k].TargetFingerprint] = true
 	}
 	// Always add the fingerprints of the board's creator and boardowners assigned by it.
 	dm := c.getLocalDefaultMods()
-	for k, _ := range dm {
+	for k := range dm {
 		uhfps[dm[k]] = true
 	}
 	// Convert to slice
 	var uhfpsSlice []string
 
-	for key, _ := range uhfps {
+	for key := range uhfps {
 		uhfpsSlice = append(uhfpsSlice, key)
 	}
 	// logging.Logf(1, "For board %v, Length of needed user header fingerprints for board: %#v, These are the fps: %v", c.Fingerprint, len(uhfpsSlice), uhfpsSlice)
@@ -329,7 +329,7 @@ func (c *BoardCarrier) refreshLSUserHeadersBucket(targetsfp []string, boardfp st
 	}
 	// For each target fp, make sure they either exist in our local set, or find it from the global set and add it to the local set.
 	for _, targetfp := range targetsfp {
-		for k, _ := range b.LocalScopeUserHeaders {
+		for k := range b.LocalScopeUserHeaders {
 			if b.LocalScopeUserHeaders[k].Fingerprint == targetfp {
 				return
 				// We have the uh in the board. No need to do anything.
@@ -351,7 +351,7 @@ func (c *BoardCarrier) refreshLSUserHeadersBucket(targetsfp []string, boardfp st
 func (c *BoardCarrier) ConstructAmbientBoards(hasNewThreads bool, nowts int64) []AmbientBoard {
 	var abs []AmbientBoard
 
-	for key, _ := range c.Boards {
+	for key := range c.Boards {
 		abs = append(abs, c.Boards[key].ConvertToAmbientBoard(hasNewThreads, nowts))
 	}
 	return abs
@@ -366,7 +366,7 @@ func (c *BoardCarrier) GetTopThreadsForView(num int) *[]CompiledThread {
 	foundCount := 0
 	var foundThr []CompiledThread
 
-	for k, _ := range c.Threads {
+	for k := range c.Threads {
 		if foundCount > num {
 			break
 		}
@@ -383,7 +383,7 @@ func (c *BoardCarrier) GetTopThreadsForView(num int) *[]CompiledThread {
 type BCBatch []BoardCarrier
 
 func (c *BCBatch) Find(fp string) int {
-	for k, _ := range *c {
+	for k := range *c {
 		if (*c)[k].Fingerprint == fp {
 			return k
 		}
@@ -399,7 +399,7 @@ func (c *BCBatch) Insert(newBoardEntities []*pbstructs.Board) {
 		The issue with that is, when you have a 1:1 mapping between a carrier and a compiled item, that means your batch size for indexing will always be 1. This is not too big of an issue, it just makes indexing take a little longer — but in the case this starts to become a problem, we can always make it batch by re-enabling this.
 	*/
 	// toBeIndexed := CBoardBatch{}
-	for k, _ := range newBoardEntities {
+	for k := range newBoardEntities {
 		if i := c.Find(newBoardEntities[k].GetProvable().GetFingerprint()); i != -1 {
 			(*c)[i].Boards.InsertFromProtobuf([]*pbstructs.Board{newBoardEntities[k]})
 			// toBeIndexed = append(toBeIndexed, (*c)[i].Boards[0])
@@ -451,7 +451,7 @@ func (c *ThreadCarrier) refreshThreadEntities(boardSpecificUserHeaders CUserBatc
 	c.Threads.Refresh(c.GetThreadsCATDs(), c.GetThreadsCFGs(), c.GetThreadsCMAs(), boardSpecificUserHeaders, c.now, bc)
 	// If there is a parent, then we've actually managed to find a thread entity, which means the thread entity actually exists, which means this is a valid container.
 	allWellFormed := true
-	for k, _ := range c.Threads {
+	for k := range c.Threads {
 		if len(c.Threads[k].Fingerprint) == 0 {
 			allWellFormed = false
 			break
@@ -484,7 +484,7 @@ func (c *ThreadCarrier) refreshPosts(boardSpecificUserHeaders CUserBatch, bc *Bo
 	*/
 	var postsDelta []CompiledPost
 
-	for k, _ := range newPostsInThread {
+	for k := range newPostsInThread {
 		if i := c.Posts.Find(newPostsInThread[k].Provable.Fingerprint); i != -1 {
 			postsDelta = append(postsDelta, c.Posts[i])
 		}
@@ -503,7 +503,7 @@ func (c *ThreadCarrier) generateSignalsTablesForPostsInThread() {
 type postPool []*feobjects.CompiledPostEntity
 
 func (p *postPool) Find(fp string) int {
-	for k, _ := range *p {
+	for k := range *p {
 		if (*p)[k].Fingerprint == fp {
 			return k
 		}
@@ -522,7 +522,7 @@ func (p *postPool) Find(fp string) int {
 func (c *ThreadCarrier) MakeTree(showDeleted, showOrphans bool) *feobjects.CompiledThreadEntity {
 	pool := postPool{}
 	c.Posts.Sort()
-	for k, _ := range c.Posts {
+	for k := range c.Posts {
 		if !showDeleted {
 			// If deleted show is disabled, filter them out.
 			if c.Posts[k].CompiledContentSignals.ModApproved || c.Posts[k].CompiledContentSignals.SelfModApproved {
@@ -536,13 +536,13 @@ func (c *ThreadCarrier) MakeTree(showDeleted, showOrphans bool) *feobjects.Compi
 		pool = append(pool, c.Posts[k].Protobuf())
 	}
 	var thr *feobjects.CompiledThreadEntity
-	for k, _ := range c.Threads {
+	for k := range c.Threads {
 		if c.Threads[k].Fingerprint == c.Fingerprint {
 			thr = c.Threads[k].Protobuf()
 		}
 	}
 
-	for k, _ := range pool {
+	for k := range pool {
 		// If exists in pool map it to the parent's children
 		if i := pool.Find(pool[k].Parent); i != -1 {
 			pool[i].Children = append(pool[i].Children, pool[k])
@@ -554,7 +554,7 @@ func (c *ThreadCarrier) MakeTree(showDeleted, showOrphans bool) *feobjects.Compi
 
 	var orphans []*feobjects.CompiledPostEntity
 
-	for k, _ := range pool {
+	for k := range pool {
 		if pool[k].GetParent() == c.Fingerprint {
 			roots = append(roots, pool[k])
 			continue
@@ -661,7 +661,7 @@ func (c *ThreadCarrier) Refresh(boardSpecificUserHeaders CUserBatch, bc *BoardCa
 	// Set the last referenced to now, so next refresh will use it as a base.
 	c.LastReferenced = c.now
 	// Save the number of posts. (Make sure that this is not based on incremental but on the total number of posts.)
-	for k, _ := range c.Threads {
+	for k := range c.Threads {
 		if c.Threads[k].Fingerprint == c.Fingerprint {
 			c.Threads[k].PostsCount = len(c.Posts)
 		}
@@ -742,7 +742,7 @@ func (c *UserHeaderCarrier) refreshUserEntity(localDefaultMods []string, totalPo
 type UHCBatch []UserHeaderCarrier
 
 func (c *UHCBatch) Find(fp string) int {
-	for k, _ := range *c {
+	for k := range *c {
 		if (*c)[k].Fingerprint == fp {
 			return k
 		}
@@ -751,7 +751,7 @@ func (c *UHCBatch) Find(fp string) int {
 }
 
 func (c *UHCBatch) Refresh(localDefaultMods []string, totalPop int, nowts int64) {
-	for k, _ := range *c {
+	for k := range *c {
 		u := (*c)[k]
 		(&u).Refresh(localDefaultMods, totalPop, nowts)
 	}
@@ -832,7 +832,7 @@ func NewStatisticsCarrier(bloomsize uint) StatisticsCarrier {
 
 func (g *StatisticsCarrier) Refresh(newUserFingerprints []string) {
 	// Put their fingerprints into the bloom
-	for k, _ := range newUserFingerprints {
+	for k := range newUserFingerprints {
 		if len(newUserFingerprints[k]) > 0 {
 			g.UserCountBloom.AddString(newUserFingerprints[k])
 		}
@@ -867,7 +867,7 @@ func (g *GlobalStatisticsCarrier) Refresh(nowts int64) []*pbstructs.Key {
 	var fps []string
 
 	// Put their fingerprints into the bloom
-	for k, _ := range newUserEntities {
+	for k := range newUserEntities {
 		if fp := newUserEntities[k].GetProvable().GetFingerprint(); len(fp) > 0 {
 			fps = append(fps, fp)
 		}

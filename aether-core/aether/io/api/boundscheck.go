@@ -237,7 +237,7 @@ func fingerprintSliceBC(item *[]Fingerprint, minLen, maxLen int) bool {
 	if !sliceValid {
 		return false
 	}
-	for key, _ := range *item {
+	for key := range *item {
 		if !fingerprintBC((*item)[key]) {
 			return false
 		}
@@ -256,7 +256,7 @@ func timestampSliceBC(item *[]Timestamp, minLen, maxLen int) bool {
 	if !sliceValid {
 		return false
 	}
-	for key, _ := range *item {
+	for key := range *item {
 		if !timestampBC((*item)[key]) {
 			return false
 		}
@@ -324,7 +324,7 @@ func boardOwnerSliceBC(item *[]BoardOwner) bool {
 	sliceValid := intBC(int64(len(*item)), MIN_BOARD_BOARDOWNERS_V1, MAX_BOARD_BOARDOWNERS_V1)
 	boardOwnersValid := true
 	if sliceValid {
-		for key, _ := range *item {
+		for key := range *item {
 			if !boardOwnerBC(&(*item)[key]) {
 				boardOwnersValid = false
 				break
@@ -347,7 +347,7 @@ func subprotocolSliceBC(item *[]Subprotocol) bool {
 	sliceValid := intBC(int64(len(*item)), MIN_ADDRESS_PROTOCOL_SUBPROTOCOL_V1, MAX_ADDRESS_PROTOCOL_SUBPROTOCOL_V1)
 	subprotocolsValid := true
 	if sliceValid {
-		for key, _ := range *item {
+		for key := range *item {
 			if !subprotocolBC(&(*item)[key]) {
 				subprotocolsValid = false
 				break
@@ -419,7 +419,7 @@ func filterSliceBC(item *[]Filter, minLen, maxLen int) bool {
 	if !sliceValid {
 		return false
 	}
-	for key, _ := range *item {
+	for key := range *item {
 		if !filterBC(&(*item)[key]) {
 			return false
 		}
@@ -446,7 +446,7 @@ func resultCacheSliceBC(item *[]ResultCache, minLen, maxLen int) bool {
 	if !sliceValid {
 		return false
 	}
-	for key, _ := range *item {
+	for key := range *item {
 		if !resultCacheBC(&(*item)[key]) {
 			return false
 		}
@@ -464,7 +464,7 @@ func pageManifestEntitySliceBC(item *[]PageManifestEntity, minLen, maxLen int) b
 	if !sliceValid {
 		return false
 	}
-	for key, _ := range *item {
+	for key := range *item {
 		if !pageManifestEntityBC(&(*item)[key]) {
 			return false
 		}
@@ -492,7 +492,7 @@ func pageManifestSliceBC(item *[]PageManifest, minLen, maxLen int) bool {
 	if !sliceValid {
 		return false
 	}
-	for key, _ := range *item {
+	for key := range *item {
 		if !pageManifestBC(&(*item)[key]) {
 			return false
 		}
@@ -512,7 +512,7 @@ func entityCountSliceBC(item *[]EntityCount, minLen, maxLen int) bool {
 	if !sliceValid {
 		return false
 	}
-	for key, _ := range *item {
+	for key := range *item {
 		if !entityCountBC(&(*item)[key]) {
 			return false
 		}
@@ -779,7 +779,7 @@ func (item *Address) CheckBounds() (bool, error) {
 }
 
 func checkIndexes(item *Answer) (bool, error) {
-	for key, _ := range item.BoardIndexes {
+	for key := range item.BoardIndexes {
 		valid, err := item.BoardIndexes[key].CheckBounds()
 		if err != nil {
 			return false, fmt.Errorf("Check Index encountered a failure. Object: %#v", item.BoardIndexes[key])
@@ -788,7 +788,7 @@ func checkIndexes(item *Answer) (bool, error) {
 			return false, nil
 		}
 	}
-	for key, _ := range item.ThreadIndexes {
+	for key := range item.ThreadIndexes {
 		valid, err := item.ThreadIndexes[key].CheckBounds()
 		if err != nil {
 			return false, fmt.Errorf("Check Index encountered a failure. Object: %#v", item.ThreadIndexes[key])
@@ -797,7 +797,7 @@ func checkIndexes(item *Answer) (bool, error) {
 			return false, nil
 		}
 	}
-	for key, _ := range item.PostIndexes {
+	for key := range item.PostIndexes {
 		valid, err := item.PostIndexes[key].CheckBounds()
 		if err != nil {
 			return false, fmt.Errorf("Check Index encountered a failure. Object: %#v", item.PostIndexes[key])
@@ -806,7 +806,7 @@ func checkIndexes(item *Answer) (bool, error) {
 			return false, nil
 		}
 	}
-	for key, _ := range item.VoteIndexes {
+	for key := range item.VoteIndexes {
 		valid, err := item.VoteIndexes[key].CheckBounds()
 		if err != nil {
 			return false, fmt.Errorf("Check Index encountered a failure. Object: %#v", item.VoteIndexes[key])
@@ -815,7 +815,7 @@ func checkIndexes(item *Answer) (bool, error) {
 			return false, nil
 		}
 	}
-	for key, _ := range item.KeyIndexes {
+	for key := range item.KeyIndexes {
 		valid, err := item.KeyIndexes[key].CheckBounds()
 		if err != nil {
 			return false, fmt.Errorf("Check Index encountered a failure. Object: %#v", item.KeyIndexes[key])
@@ -824,7 +824,7 @@ func checkIndexes(item *Answer) (bool, error) {
 			return false, nil
 		}
 	}
-	for key, _ := range item.TruststateIndexes {
+	for key := range item.TruststateIndexes {
 		valid, err := item.TruststateIndexes[key].CheckBounds()
 		if err != nil {
 			return false, fmt.Errorf("Check Index encountered a failure. Object: %#v", item.TruststateIndexes[key])
@@ -833,7 +833,7 @@ func checkIndexes(item *Answer) (bool, error) {
 			return false, nil
 		}
 	}
-	for key, _ := range item.AddressIndexes {
+	for key := range item.AddressIndexes {
 		valid, err := item.AddressIndexes[key].CheckBounds()
 		if err != nil {
 			return false, fmt.Errorf("Check Index encountered a failure. Object: %#v", item.AddressIndexes[key])

@@ -50,7 +50,7 @@ type AmbientBoardBatch struct {
 func (b *AmbientBoardBatch) UpdateBatch(abs []AmbientBoard) {
 	b.lock.Lock()
 	defer b.lock.Unlock()
-	for key, _ := range abs {
+	for key := range abs {
 		if loc := b.Find(abs[key]); loc != -1 {
 			// AB already exists, update last updated timestamp
 			// Heads up: board name can't change, that's why we don't have it here.
@@ -65,7 +65,7 @@ func (b *AmbientBoardBatch) UpdateBatch(abs []AmbientBoard) {
 }
 
 func (b *AmbientBoardBatch) Find(ab AmbientBoard) int {
-	for key, _ := range b.Boards {
+	for key := range b.Boards {
 		if b.Boards[key].Fingerprint == ab.Fingerprint {
 			return key
 		}
@@ -81,7 +81,7 @@ func (b *AmbientBoardBatch) Save() {
 		return
 	}
 	defer tx.Rollback()
-	for key, _ := range b.Boards {
+	for key := range b.Boards {
 		err := tx.Save(&b.Boards[key])
 		if err != nil {
 			logging.Logf(1, "AmbientBoardBatch add board to transaction failed. Error: %#v", err)
@@ -104,7 +104,7 @@ func GetCurrentAmbients() *AmbientBoardBatch {
 		logging.Logf(1, "Existing ambient board retrieval encountered an error. Err: %v", err)
 	}
 	var filteredAbs []AmbientBoard
-	for k, _ := range abs {
+	for k := range abs {
 		subbed, notify, lastseen := globals.FrontendConfig.ContentRelations.IsSubbedBoard(abs[k].Fingerprint)
 		if subbed {
 			abs[k].Notify = notify

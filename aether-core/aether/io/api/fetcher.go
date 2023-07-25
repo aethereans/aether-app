@@ -572,7 +572,7 @@ func generateHitlist(host string, subhost string, port uint16, location string, 
 	// Look at everything in the index and find the things that we want to pull. Page Number : bool pairs help us find which pages to hit.
 	allPgs := make(map[int]bool)
 BoardLoop:
-	for key, _ := range manifestResponse.BoardManifests {
+	for key := range manifestResponse.BoardManifests {
 		for _, val := range manifestResponse.BoardManifests[key].Entities {
 			if !ExistsInDB("board", val.Fingerprint, val.LastUpdate) {
 				// Grab the whole page and insert into to-be-fetched queue, DB will remove useless stuff.
@@ -582,7 +582,7 @@ BoardLoop:
 		}
 	}
 ThreadLoop:
-	for key, _ := range manifestResponse.ThreadManifests {
+	for key := range manifestResponse.ThreadManifests {
 		for _, val := range manifestResponse.ThreadManifests[key].Entities {
 			if !ExistsInDB("thread", val.Fingerprint, val.LastUpdate) {
 				// Grab the whole page and insert into to-be-fetched queue, DB will remove useless stuff.
@@ -592,7 +592,7 @@ ThreadLoop:
 		}
 	}
 PostLoop:
-	for key, _ := range manifestResponse.PostManifests {
+	for key := range manifestResponse.PostManifests {
 		for _, val := range manifestResponse.PostManifests[key].Entities {
 			if !ExistsInDB("post", val.Fingerprint, val.LastUpdate) {
 				// Grab the whole page and insert into to-be-fetched queue, DB will remove useless stuff.
@@ -602,7 +602,7 @@ PostLoop:
 		}
 	}
 VoteLoop:
-	for key, _ := range manifestResponse.VoteManifests {
+	for key := range manifestResponse.VoteManifests {
 		for _, val := range manifestResponse.VoteManifests[key].Entities {
 			if !ExistsInDB("vote", val.Fingerprint, val.LastUpdate) {
 				// Grab the whole page and insert into to-be-fetched queue, DB will remove useless stuff.
@@ -612,7 +612,7 @@ VoteLoop:
 		}
 	}
 KeyLoop:
-	for key, _ := range manifestResponse.KeyManifests {
+	for key := range manifestResponse.KeyManifests {
 		for _, val := range manifestResponse.KeyManifests[key].Entities {
 			if !ExistsInDB("key", val.Fingerprint, val.LastUpdate) {
 				// Grab the whole page and insert into to-be-fetched queue, DB will remove useless stuff.
@@ -622,7 +622,7 @@ KeyLoop:
 		}
 	}
 TruststateLoop:
-	for key, _ := range manifestResponse.TruststateManifests {
+	for key := range manifestResponse.TruststateManifests {
 		for _, val := range manifestResponse.TruststateManifests[key].Entities {
 			if !ExistsInDB("truststate", val.Fingerprint, val.LastUpdate) {
 				// Grab the whole page and insert into to-be-fetched queue, DB will remove useless stuff.
@@ -735,7 +735,7 @@ func GetManifestGatedCache(host string, subhost string, port uint16, location st
 
 	// For each page we have for this post response, hit the main cache and gather the data.
 	mainResp := Response{}
-	for key, _ := range allPgs {
+	for key := range allPgs {
 		loc := fmt.Sprint(location, "/", key, ".json")
 		logging.Log(2, fmt.Sprintf("Making a request to %s\n", loc))
 		resp, _, err := GetPage(host, subhost, port, loc, "GET", []byte{}, reverseConn)

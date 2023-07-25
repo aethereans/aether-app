@@ -121,7 +121,7 @@ func ResetPath(path string) {
 }
 
 func IndexOf(searchString string, stringSlice []string) int {
-	for key, _ := range stringSlice {
+	for key := range stringSlice {
 		if stringSlice[key] == searchString {
 			return key
 		}

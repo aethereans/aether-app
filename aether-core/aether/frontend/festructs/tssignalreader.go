@@ -48,7 +48,7 @@ func GetPTs(targetfp, domainfp string, startts, nowts int64) []PublicTrustSignal
 	rawSignals := getTsBasedSignal(targetfp, domainfp, startts, nowts, 1, -1)
 	var sgns []PublicTrustSignal
 
-	for k, _ := range rawSignals {
+	for k := range rawSignals {
 		sgns = append(sgns, PublicTrustSignal{
 			BaseTruststateSignal: BaseTruststateSignal{
 				BaseSignal: BaseSignal{
@@ -74,7 +74,7 @@ func GetCNs(targetfp, domainfp string, startts, nowts int64) []CanonicalNameSign
 	rawSignals := getTsBasedSignal(targetfp, domainfp, startts, nowts, 2, -1)
 	var sgns []CanonicalNameSignal
 
-	for k, _ := range rawSignals {
+	for k := range rawSignals {
 		tsmeta, err := metaparse.ReadMeta("Truststate", rawSignals[k].GetMeta())
 		if err != nil {
 			logging.Logf(2, "We failed to parse this Meta field. Raw Meta field: %v, Entity: %v Error: %v", targetfp, err)
@@ -109,7 +109,7 @@ func GetF451s(targetfp, domainfp string, startts, nowts int64) []F451Signal {
 	rawSignals := getTsBasedSignal(targetfp, domainfp, startts, nowts, 3, -1)
 	var sgns []F451Signal
 
-	for k, _ := range rawSignals {
+	for k := range rawSignals {
 		sgns = append(sgns, F451Signal{
 			BaseTruststateSignal: BaseTruststateSignal{
 				BaseSignal: BaseSignal{
@@ -135,7 +135,7 @@ func GetPEs(targetfp, domainfp string, startts, nowts int64) []PublicElectSignal
 	rawSignals := getTsBasedSignal(targetfp, domainfp, startts, nowts, 4, -1)
 	var sgns []PublicElectSignal
 
-	for k, _ := range rawSignals {
+	for k := range rawSignals {
 		sgns = append(sgns, PublicElectSignal{
 			BaseTruststateSignal: BaseTruststateSignal{
 				BaseSignal: BaseSignal{

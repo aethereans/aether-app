@@ -6,12 +6,15 @@ package search
 import (
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
+
 	"github.com/blevesearch/bleve"
+
 	// bleveMapping "github.com/blevesearch/bleve/mapping"
 	// "github.com/davecgh/go-spew/spew"
-	"github.com/json-iterator/go"
 	"os"
 	"path/filepath"
+
+	"github.com/json-iterator/go"
 )
 
 var (
@@ -151,7 +154,7 @@ func Search(searchText string) (SearchResults, error) {
 		return SearchResults{}, err
 	}
 	srs := SearchResults{Query: searchText}
-	for k, _ := range results.Hits {
+	for k := range results.Hits {
 		resultId := SearchId{}
 		err := json.Unmarshal([]byte(results.Hits[k].ID), &resultId)
 		if err != nil {

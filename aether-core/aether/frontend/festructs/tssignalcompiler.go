@@ -41,7 +41,7 @@ func (c *CompiledPT) Insert(s PublicTrustSignal, nowts int64) {
 	/*
 		This used to have s.Expiry > nowts as a condition below. It's removed because it can cut off updates to an item that was not expired when it was updated, but expired in the time it took for it to arrive. It should still be ineffectual, but it should be ineffectual in the right state. We should probably prevent propagation of the expired truststates in the backend, though.
 	*/
-	for k, _ := range c.PTs {
+	for k := range c.PTs {
 		if c.PTs[k].Fingerprint == s.Fingerprint &&
 			s.LastRefreshed > c.PTs[k].LastRefreshed {
 			c.PTs[k] = s
@@ -72,7 +72,7 @@ func (c *CompiledCN) Insert(s CanonicalNameSignal, nowts int64) {
 		return
 	}
 	// Check if already exists
-	for k, _ := range c.CNs {
+	for k := range c.CNs {
 		if c.CNs[k].Fingerprint != s.Fingerprint {
 			continue
 		}
@@ -112,7 +112,7 @@ func (c *CompiledF451) Insert(s F451Signal, nowts int64) {
 		return
 	}
 	// Check if already exists
-	for k, _ := range c.F451s {
+	for k := range c.F451s {
 		if c.F451s[k].Fingerprint != s.Fingerprint {
 			continue
 		}
@@ -232,7 +232,7 @@ func (c *CompiledPE) Insert(s PublicElectSignal, nowts int64) {
 type CPTBatch []CompiledPT
 
 func (cbatch *CPTBatch) Insert(pts []PublicTrustSignal, nowts int64) {
-	for k, _ := range pts {
+	for k := range pts {
 		// cpt := cbatch.FindOrCreate(pts[k].TargetFingerprint)
 		var cpt *CompiledPT
 		i := cbatch.Find(pts[k].TargetFingerprint)
@@ -248,7 +248,7 @@ func (cbatch *CPTBatch) Insert(pts []PublicTrustSignal, nowts int64) {
 }
 
 func (cbatch *CPTBatch) Find(targetfp string) int {
-	for k, _ := range *cbatch {
+	for k := range *cbatch {
 		if targetfp == (*cbatch)[k].TargetFingerprint {
 			return k
 		}
@@ -267,7 +267,7 @@ func (cbatch *CPTBatch) FindObj(targetfp string) CompiledPT {
 type CCNBatch []CompiledCN
 
 func (cbatch *CCNBatch) Insert(cns []CanonicalNameSignal, nowts int64) {
-	for k, _ := range cns {
+	for k := range cns {
 		// ccn := cbatch.FindOrCreate(cns[k].TargetFingerprint)
 		var ccn *CompiledCN
 		i := cbatch.Find(cns[k].TargetFingerprint)
@@ -283,7 +283,7 @@ func (cbatch *CCNBatch) Insert(cns []CanonicalNameSignal, nowts int64) {
 }
 
 func (cbatch *CCNBatch) Find(targetfp string) int {
-	for k, _ := range *cbatch {
+	for k := range *cbatch {
 		if targetfp == (*cbatch)[k].TargetFingerprint {
 			return k
 		}
@@ -302,7 +302,7 @@ func (cbatch *CCNBatch) FindObj(targetfp string) CompiledCN {
 type CF451Batch []CompiledF451
 
 func (cbatch *CF451Batch) Insert(f451s []F451Signal, nowts int64) {
-	for k, _ := range f451s {
+	for k := range f451s {
 		// cf451 := cbatch.FindOrCreate(f451s[k].TargetFingerprint)
 		var cf451 *CompiledF451
 		i := cbatch.Find(f451s[k].TargetFingerprint)
@@ -318,7 +318,7 @@ func (cbatch *CF451Batch) Insert(f451s []F451Signal, nowts int64) {
 }
 
 func (cbatch *CF451Batch) Find(targetfp string) int {
-	for k, _ := range *cbatch {
+	for k := range *cbatch {
 		if targetfp == (*cbatch)[k].TargetFingerprint {
 			return k
 		}
@@ -337,7 +337,7 @@ func (cbatch *CF451Batch) FindObj(targetfp string) CompiledF451 {
 type CPEBatch []CompiledPE
 
 func (cbatch *CPEBatch) Insert(pes []PublicElectSignal, nowts int64) {
-	for k, _ := range pes {
+	for k := range pes {
 		var cpe *CompiledPE
 		i := cbatch.Find(pes[k].TargetFingerprint)
 		if i == -1 {
@@ -352,7 +352,7 @@ func (cbatch *CPEBatch) Insert(pes []PublicElectSignal, nowts int64) {
 }
 
 func (cbatch *CPEBatch) Find(targetfp string) int {
-	for k, _ := range *cbatch {
+	for k := range *cbatch {
 		if targetfp == (*cbatch)[k].TargetFingerprint {
 			return k
 		}

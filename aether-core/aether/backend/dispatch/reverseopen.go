@@ -107,7 +107,7 @@ func ReverseScout() error {
 		return errors.New("ReverseScout got no unconnected addresses. Bailing.")
 	}
 	attempts := 0
-	for k, _ := range addrs {
+	for k := range addrs {
 		if addrs[k].LocationType == 3 {
 			continue
 			// If it's an URL (type=3), we don't attempt to do a reverse open.

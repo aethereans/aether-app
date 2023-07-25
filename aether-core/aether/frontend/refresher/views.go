@@ -33,7 +33,7 @@ func GenerateHomeView() {
 	// Get the underlying compiled boards
 	var subbedBoardFps []string
 
-	for k, _ := range sbs {
+	for k := range sbs {
 		if !sbs[k].Notify {
 			continue
 		}
@@ -41,11 +41,11 @@ func GenerateHomeView() {
 	}
 	boardCarriers := *getBoardsByFpList(subbedBoardFps)
 	var thrs festructs.CThreadBatch
-	for k, _ := range boardCarriers {
+	for k := range boardCarriers {
 		// thrlen := min(len(boardCarriers[k].Threads), 10)
 		// boardThreads := boardCarriers[k].Threads[0:thrlen]
 		boardThreads := *(boardCarriers[k].GetTopThreadsForView(10))
-		for j, _ := range boardThreads {
+		for j := range boardThreads {
 			boardThreads[j].ViewMeta_BoardName = boardCarriers[k].Boards[0].Name
 		}
 		thrs = append(thrs, boardThreads...)
@@ -96,12 +96,12 @@ func GeneratePopularView() {
 	logging.Logf(1, "base board carriers length: %v", len(boardCarriers))
 	logging.Logf(1, "sfwlist length: %v", len(globals.FrontendConfig.ContentRelations.SFWList.Boards))
 	var thrs festructs.CThreadBatch
-	for k, _ := range boardCarriers {
+	for k := range boardCarriers {
 		// thrlen := min(len(boardCarriers[k].Threads), 10)
 		// boardThreads := boardCarriers[k].Threads[0:thrlen]
 		// thrs = append(thrs, boardThreads...)
 		boardThreads := *(boardCarriers[k].GetTopThreadsForView(10))
-		for j, _ := range boardThreads {
+		for j := range boardThreads {
 			boardThreads[j].ViewMeta_BoardName = boardCarriers[k].Boards[0].Name
 		}
 		thrs = append(thrs, boardThreads...)
@@ -204,7 +204,7 @@ func dedupePosts(posts []festructs.CompiledPost) festructs.CPostBatch {
 	m := make(map[string]bool)
 	var deduped []festructs.CompiledPost
 
-	for k, _ := range posts {
+	for k := range posts {
 		if m[posts[k].Fingerprint] {
 			// Already exists on the map - we have seen this before.
 			continue
@@ -220,7 +220,7 @@ func dedupeThreads(threads []festructs.CompiledThread) festructs.CThreadBatch {
 	m := make(map[string]bool)
 	var deduped []festructs.CompiledThread
 
-	for k, _ := range threads {
+	for k := range threads {
 		if m[threads[k].Fingerprint] {
 			// Already exists on the map - we have seen this before.
 			logging.Logf(0, "This thread already exists, dedupe is removing it: %#v", threads[k])

@@ -393,7 +393,7 @@ func main() {
 	// For each node that we have requested
 	nodes := generateSwarmNames()
 	// spew.Dump(ports.GetFreePorts(100))
-	for i, _ := range nodes {
+	for i := range nodes {
 		generateNodeData(&nodes[i])
 		serverInstance := startServingStaticNodeAsDataDonor(nodes[i])
 		insertDataIntoBackendNodeInstance(nodes[i])

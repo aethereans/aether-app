@@ -522,25 +522,25 @@ func constructCallOrder(remote api.Address, lineup []string) []string {
 func prepareForBatchInsert(r *api.Response) *[]interface{} {
 	resp := *r
 	var carrier []interface{}
-	for i, _ := range resp.Boards {
+	for i := range resp.Boards {
 		carrier = append(carrier, resp.Boards[i])
 	}
-	for i, _ := range resp.Threads {
+	for i := range resp.Threads {
 		carrier = append(carrier, resp.Threads[i])
 	}
-	for i, _ := range resp.Posts {
+	for i := range resp.Posts {
 		carrier = append(carrier, resp.Posts[i])
 	}
-	for i, _ := range resp.Votes {
+	for i := range resp.Votes {
 		carrier = append(carrier, resp.Votes[i])
 	}
-	for i, _ := range resp.Keys {
+	for i := range resp.Keys {
 		carrier = append(carrier, resp.Keys[i])
 	}
-	for i, _ := range resp.Truststates {
+	for i := range resp.Truststates {
 		carrier = append(carrier, resp.Truststates[i])
 	}
-	for i, _ := range resp.Addresses {
+	for i := range resp.Addresses {
 		carrier = append(carrier, resp.Addresses[i])
 	}
 	return &carrier
