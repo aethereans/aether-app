@@ -4,10 +4,9 @@
 package metaparse
 
 import (
-	"errors"
 	"fmt"
 
-	"github.com/json-iterator/go"
+	jsoniter "github.com/json-iterator/go"
 )
 
 var (
