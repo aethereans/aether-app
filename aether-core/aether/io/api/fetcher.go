@@ -12,9 +12,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+
 	// "github.com/jmoiron/sqlx"
 	"crypto/tls"
-	"golang.org/x/net/proxy"
 	"io"
 	"io/ioutil"
 	"net"
@@ -22,6 +22,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"golang.org/x/net/proxy"
 	// "context"
 	// "github.com/davecgh/go-spew/spew"
 	// "reflect"
@@ -483,7 +485,7 @@ func GetPageRaw(host string, subhost string, port uint16, location string, metho
 	// }
 	pageVerified, err := apiresp.VerifySignature() // If signature check is disabled, this will always return true.
 	if err != nil {
-		return ApiResponse{}, errors.New(fmt.Sprintf("Page signature verification failed with an error. Error: %s", err))
+		return ApiResponse{}, fmt.Errorf("Page signature verification failed with an error. Error: %s", err)
 	}
 	if !pageVerified {
 		return ApiResponse{}, errors.New("Page signature verification failed. The signature does not match.")
@@ -506,7 +508,7 @@ func GetPageRaw(host string, subhost string, port uint16, location string, metho
 			errStrs = append(errStrs, err.Error())
 		}
 		logging.Log(1, fmt.Sprintf("This page has 3 or more entities who has failed verification. Errors: %#v", errStrs))
-		return ApiResponse{}, errors.New(fmt.Sprintf("This page has 3 or more entities who has failed verification"))
+		return ApiResponse{}, fmt.Errorf("This page has 3 or more entities who has failed verification")
 	}
 	return apiresp, nil
 }
@@ -562,7 +564,7 @@ func generateHitlist(host string, subhost string, port uint16, location string, 
 	manifestResponse, err := getManifestOfCache(host, subhost, port, location, reverseConn)
 	// logging.Logf(1, "Manifest Response: %#v", manifestResponse)
 	if err != nil {
-		return make(map[int]bool), errors.New(fmt.Sprintf("Error raised from GetManifestOfCache inside generateHitlist. Error: %s", err))
+		return make(map[int]bool), fmt.Errorf("Error raised from GetManifestOfCache inside generateHitlist. Error: %s", err)
 	}
 	countManifests(manifestResponse)
 
@@ -725,8 +727,8 @@ func GetManifestGatedCache(host string, subhost string, port uint16, location st
 		resp, err2 := GetCache(host, subhost, port, location, endpoint == "addresses", reverseConn)
 		return resp, err2
 	} else if err != nil {
-		logging.Log(1, errors.New(fmt.Sprintf("Error raised from generateHitlist inside GetManifestGatedCache. Error: %s", err)))
-		return Response{}, errors.New(fmt.Sprintf("Error raised from generateHitlist inside GetManifestGatedCache. Error: %s", err))
+		logging.Log(1, fmt.Errorf("Error raised from generateHitlist inside GetManifestGatedCache. Error: %s", err))
+		return Response{}, fmt.Errorf("Error raised from generateHitlist inside GetManifestGatedCache. Error: %s", err)
 	}
 	logging.Log(2, fmt.Sprintf("The pages we have to make a call to are: %#v\n", allPgs))
 
@@ -887,7 +889,7 @@ func GetPOSTEndpoint(host string, subhost string, port uint16, endpoint string, 
 	}
 	postResp, respDuration, err7 := GetPage(host, subhost, port, endpointsMap[endpoint], "POST", reqAsJson, reverseConn)
 	if err7 != nil {
-		return Response{}, respDuration, errors.New(fmt.Sprintf("Getting POST Endpoint for this entity type failed. Endpoint type: %s, Error: %s", endpoint, err7))
+		return Response{}, respDuration, fmt.Errorf("Getting POST Endpoint for this entity type failed. Endpoint type: %s, Error: %s", endpoint, err7)
 	}
 	// presp := dbg_CheckIfExistsInDb(postResp)
 	allResults := Response{}
@@ -909,7 +911,7 @@ func GetPOSTEndpoint(host string, subhost string, port uint16, endpoint string, 
 			postCacheResp, err8 := GetManifestGatedCache(host, subhost, port, fmt.Sprintf("responses/%s", clink.ResponseUrl), endpoint, reverseConn)
 			// We're adding /responses/ because that's where the singular responses will be.
 			if err8 != nil {
-				return allResults, respDuration, errors.New(fmt.Sprintf("Getting Multi page POST Endpoint for this entity type failed. Endpoint type: %s, Error: %s", endpoint, err8))
+				return allResults, respDuration, fmt.Errorf("Getting Multi page POST Endpoint for this entity type failed. Endpoint type: %s, Error: %s", endpoint, err8)
 			}
 			logging.Logf(2, "postCacheResp counts at Get POST endpoint: \nB: %v, T: %v, P: %v, V: %v, K: %v, TS: %v, A: %v",
 				len(postCacheResp.Boards),

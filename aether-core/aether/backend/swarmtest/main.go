@@ -19,8 +19,8 @@ import (
 	"aether-core/aether/services/ports"
 	"aether-core/aether/services/toolbox"
 	"encoding/json"
-	"errors"
 	"fmt"
+
 	// "github.com/davecgh/go-spew/spew"
 	"io/ioutil"
 	"log"
@@ -196,7 +196,7 @@ func findPort(name string, nodes *[]node) (int, error) {
 			return n.externalPort, nil
 		}
 	}
-	return 0, errors.New(fmt.Sprintf("The bootstrap node name (AppIdentifier) you've given does not exist in the Swarm. You've given: %s", name))
+	return 0, fmt.Errorf("The bootstrap node name (AppIdentifier) you've given does not exist in the Swarm. You've given: %s", name)
 }
 
 /*
@@ -206,7 +206,6 @@ generateSwarmSchedules generates the connection requests that we need to deal wi
 
 Simple:
 You have one bootstrap node, and all other nodes connect to that node at the same time. What this does is that it gets all the data from the bootstrap node and puts them in each. Now, in the first load, the other nodes might not be able to find each other, because they're connecting at the same time and the bs node might not be able to add them to its database fast enough so that their link communicates to others. However, The second sync with that node a minute later will be able to distribute to each of them each other's addresses, and they should then start syncing.
-
 */
 func generateSwarmSchedules(nodes []node, testType string) {
 	var planCommands []PlanCommand

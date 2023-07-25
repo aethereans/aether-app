@@ -13,8 +13,8 @@ import (
 	"aether-core/aether/services/randomhashgen"
 	"aether-core/aether/services/signaturing"
 	"encoding/json"
-	"errors"
 	"fmt"
+
 	"golang.org/x/crypto/ed25519"
 	// "github.com/davecgh/go-spew/spew"
 )
@@ -31,7 +31,7 @@ func (b *Board) CreatePoW(keyPair *ed25519.PrivateKey, difficulty int) error {
 	if b.GetVersion() == 1 {
 		return createBoardPoW_V1(b, keyPair, difficulty)
 	} else {
-		return errors.New(fmt.Sprintf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", b))
+		return fmt.Errorf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", b)
 	}
 }
 
@@ -39,7 +39,7 @@ func (t *Thread) CreatePoW(keyPair *ed25519.PrivateKey, difficulty int) error {
 	if t.GetVersion() == 1 {
 		return createThreadPoW_V1(t, keyPair, difficulty)
 	} else {
-		return errors.New(fmt.Sprintf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", t))
+		return fmt.Errorf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", t)
 	}
 }
 
@@ -47,7 +47,7 @@ func (p *Post) CreatePoW(keyPair *ed25519.PrivateKey, difficulty int) error {
 	if p.GetVersion() == 1 {
 		return createPostPoW_V1(p, keyPair, difficulty)
 	} else {
-		return errors.New(fmt.Sprintf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", p))
+		return fmt.Errorf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", p)
 	}
 }
 
@@ -55,7 +55,7 @@ func (v *Vote) CreatePoW(keyPair *ed25519.PrivateKey, difficulty int) error {
 	if v.GetVersion() == 1 {
 		return createVotePoW_V1(v, keyPair, difficulty)
 	} else {
-		return errors.New(fmt.Sprintf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", v))
+		return fmt.Errorf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", v)
 	}
 }
 
@@ -63,7 +63,7 @@ func (k *Key) CreatePoW(keyPair *ed25519.PrivateKey, difficulty int) error {
 	if k.GetVersion() == 1 {
 		return createKeyPoW_V1(k, keyPair, difficulty)
 	} else {
-		return errors.New(fmt.Sprintf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", k))
+		return fmt.Errorf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", k)
 	}
 }
 
@@ -71,7 +71,7 @@ func (ts *Truststate) CreatePoW(keyPair *ed25519.PrivateKey, difficulty int) err
 	if ts.GetVersion() == 1 {
 		return createTruststatePoW_V1(ts, keyPair, difficulty)
 	} else {
-		return errors.New(fmt.Sprintf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", ts))
+		return fmt.Errorf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", ts)
 	}
 }
 
@@ -81,7 +81,7 @@ func (b *Board) CreateUpdatePoW(keyPair *ed25519.PrivateKey, difficulty int) err
 	if b.GetVersion() == 1 {
 		return createBoardUpdatePoW_V1(b, keyPair, difficulty)
 	} else {
-		return errors.New(fmt.Sprintf("PoW update creation of this version of this entity is not supported in this version of the app. Entity: %#v", b))
+		return fmt.Errorf("PoW update creation of this version of this entity is not supported in this version of the app. Entity: %#v", b)
 	}
 }
 
@@ -89,7 +89,7 @@ func (t *Thread) CreateUpdatePoW(keyPair *ed25519.PrivateKey, difficulty int) er
 	if t.GetVersion() == 1 {
 		return createThreadUpdatePoW_V1(t, keyPair, difficulty)
 	} else {
-		return errors.New(fmt.Sprintf("PoW update creation of this version of this entity is not supported in this version of the app. Entity: %#v", t))
+		return fmt.Errorf("PoW update creation of this version of this entity is not supported in this version of the app. Entity: %#v", t)
 	}
 }
 
@@ -97,7 +97,7 @@ func (p *Post) CreateUpdatePoW(keyPair *ed25519.PrivateKey, difficulty int) erro
 	if p.GetVersion() == 1 {
 		return createPostUpdatePoW_V1(p, keyPair, difficulty)
 	} else {
-		return errors.New(fmt.Sprintf("PoW update creation of this version of this entity is not supported in this version of the app. Entity: %#v", p))
+		return fmt.Errorf("PoW update creation of this version of this entity is not supported in this version of the app. Entity: %#v", p)
 	}
 }
 
@@ -105,7 +105,7 @@ func (v *Vote) CreateUpdatePoW(keyPair *ed25519.PrivateKey, difficulty int) erro
 	if v.GetVersion() == 1 {
 		return createVoteUpdatePoW_V1(v, keyPair, difficulty)
 	} else {
-		return errors.New(fmt.Sprintf("PoW update creation of this version of this entity is not supported in this version of the app. Entity: %#v", v))
+		return fmt.Errorf("PoW update creation of this version of this entity is not supported in this version of the app. Entity: %#v", v)
 	}
 }
 
@@ -113,7 +113,7 @@ func (k *Key) CreateUpdatePoW(keyPair *ed25519.PrivateKey, difficulty int) error
 	if k.GetVersion() == 1 {
 		return createKeyUpdatePoW_V1(k, keyPair, difficulty)
 	} else {
-		return errors.New(fmt.Sprintf("PoW update creation of this version of this entity is not supported in this version of the app. Entity: %#v", k))
+		return fmt.Errorf("PoW update creation of this version of this entity is not supported in this version of the app. Entity: %#v", k)
 	}
 }
 
@@ -121,7 +121,7 @@ func (ts *Truststate) CreateUpdatePoW(keyPair *ed25519.PrivateKey, difficulty in
 	if ts.GetVersion() == 1 {
 		return createTruststateUpdatePoW_V1(ts, keyPair, difficulty)
 	} else {
-		return errors.New(fmt.Sprintf("PoW update creation of this version of this entity is not supported in this version of the app. Entity: %#v", ts))
+		return fmt.Errorf("PoW update creation of this version of this entity is not supported in this version of the app. Entity: %#v", ts)
 	}
 }
 
@@ -206,7 +206,7 @@ func (b *Board) CreateFingerprint() error {
 		createBoardFp_V1(b)
 		return nil
 	} else {
-		return errors.New(fmt.Sprintf("Fingerprint creation of this version of this entity is not supported in this version of the app. Entity: %#v", b))
+		return fmt.Errorf("Fingerprint creation of this version of this entity is not supported in this version of the app. Entity: %#v", b)
 	}
 }
 
@@ -215,7 +215,7 @@ func (t *Thread) CreateFingerprint() error {
 		createThreadFp_V1(t)
 		return nil
 	} else {
-		return errors.New(fmt.Sprintf("Fingerprint creation of this version of this entity is not supported in this version of the app. Entity: %#v", t))
+		return fmt.Errorf("Fingerprint creation of this version of this entity is not supported in this version of the app. Entity: %#v", t)
 	}
 }
 
@@ -224,7 +224,7 @@ func (p *Post) CreateFingerprint() error {
 		createPostFp_V1(p)
 		return nil
 	} else {
-		return errors.New(fmt.Sprintf("Fingerprint creation of this version of this entity is not supported in this version of the app. Entity: %#v", p))
+		return fmt.Errorf("Fingerprint creation of this version of this entity is not supported in this version of the app. Entity: %#v", p)
 	}
 }
 
@@ -233,7 +233,7 @@ func (v *Vote) CreateFingerprint() error {
 		createVoteFp_V1(v)
 		return nil
 	} else {
-		return errors.New(fmt.Sprintf("Fingerprint creation of this version of this entity is not supported in this version of the app. Entity: %#v", v))
+		return fmt.Errorf("Fingerprint creation of this version of this entity is not supported in this version of the app. Entity: %#v", v)
 	}
 }
 
@@ -242,7 +242,7 @@ func (k *Key) CreateFingerprint() error {
 		createKeyFp_V1(k)
 		return nil
 	} else {
-		return errors.New(fmt.Sprintf("Fingerprint creation of this version of this entity is not supported in this version of the app. Entity: %#v", k))
+		return fmt.Errorf("Fingerprint creation of this version of this entity is not supported in this version of the app. Entity: %#v", k)
 	}
 }
 
@@ -251,7 +251,7 @@ func (ts *Truststate) CreateFingerprint() error {
 		createTruststateFp_V1(ts)
 		return nil
 	} else {
-		return errors.New(fmt.Sprintf("Fingerprint creation of this version of this entity is not supported in this version of the app. Entity: %#v", ts))
+		return fmt.Errorf("Fingerprint creation of this version of this entity is not supported in this version of the app. Entity: %#v", ts)
 	}
 }
 
@@ -334,7 +334,7 @@ func (b *Board) CreateSignature(keyPair *ed25519.PrivateKey) error {
 	if b.GetVersion() == 1 {
 		return createBoardSignature_V1(b, keyPair)
 	} else {
-		return errors.New(fmt.Sprintf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", b))
+		return fmt.Errorf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", b)
 	}
 }
 
@@ -342,7 +342,7 @@ func (t *Thread) CreateSignature(keyPair *ed25519.PrivateKey) error {
 	if t.GetVersion() == 1 {
 		return createThreadSignature_V1(t, keyPair)
 	} else {
-		return errors.New(fmt.Sprintf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", t))
+		return fmt.Errorf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", t)
 	}
 }
 
@@ -350,7 +350,7 @@ func (p *Post) CreateSignature(keyPair *ed25519.PrivateKey) error {
 	if p.GetVersion() == 1 {
 		return createPostSignature_V1(p, keyPair)
 	} else {
-		return errors.New(fmt.Sprintf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", p))
+		return fmt.Errorf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", p)
 	}
 }
 
@@ -358,7 +358,7 @@ func (v *Vote) CreateSignature(keyPair *ed25519.PrivateKey) error {
 	if v.GetVersion() == 1 {
 		return createVoteSignature_V1(v, keyPair)
 	} else {
-		return errors.New(fmt.Sprintf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", v))
+		return fmt.Errorf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", v)
 	}
 }
 
@@ -366,7 +366,7 @@ func (k *Key) CreateSignature(keyPair *ed25519.PrivateKey) error {
 	if k.GetVersion() == 1 {
 		return createKeySignature_V1(k, keyPair)
 	} else {
-		return errors.New(fmt.Sprintf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", k))
+		return fmt.Errorf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", k)
 	}
 }
 
@@ -374,7 +374,7 @@ func (ts *Truststate) CreateSignature(keyPair *ed25519.PrivateKey) error {
 	if ts.GetVersion() == 1 {
 		return createTruststateSignature_V1(ts, keyPair)
 	} else {
-		return errors.New(fmt.Sprintf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", ts))
+		return fmt.Errorf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", ts)
 	}
 }
 
@@ -384,7 +384,7 @@ func (b *Board) CreateUpdateSignature(keyPair *ed25519.PrivateKey) error {
 	if b.GetVersion() == 1 {
 		return createBoardUpdateSignature_V1(b, keyPair)
 	} else {
-		return errors.New(fmt.Sprintf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", b))
+		return fmt.Errorf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", b)
 	}
 }
 
@@ -392,7 +392,7 @@ func (t *Thread) CreateUpdateSignature(keyPair *ed25519.PrivateKey) error {
 	if t.GetVersion() == 1 {
 		return createThreadUpdateSignature_V1(t, keyPair)
 	} else {
-		return errors.New(fmt.Sprintf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", t))
+		return fmt.Errorf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", t)
 	}
 }
 
@@ -400,7 +400,7 @@ func (p *Post) CreateUpdateSignature(keyPair *ed25519.PrivateKey) error {
 	if p.GetVersion() == 1 {
 		return createPostUpdateSignature_V1(p, keyPair)
 	} else {
-		return errors.New(fmt.Sprintf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", p))
+		return fmt.Errorf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", p)
 	}
 }
 
@@ -408,7 +408,7 @@ func (v *Vote) CreateUpdateSignature(keyPair *ed25519.PrivateKey) error {
 	if v.GetVersion() == 1 {
 		return createVoteUpdateSignature_V1(v, keyPair)
 	} else {
-		return errors.New(fmt.Sprintf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", v))
+		return fmt.Errorf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", v)
 	}
 }
 
@@ -416,7 +416,7 @@ func (k *Key) CreateUpdateSignature(keyPair *ed25519.PrivateKey) error {
 	if k.GetVersion() == 1 {
 		return createKeyUpdateSignature_V1(k, keyPair)
 	} else {
-		return errors.New(fmt.Sprintf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", k))
+		return fmt.Errorf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", k)
 	}
 }
 
@@ -424,7 +424,7 @@ func (ts *Truststate) CreateUpdateSignature(keyPair *ed25519.PrivateKey) error {
 	if ts.GetVersion() == 1 {
 		return createTruststateUpdateSignature_V1(ts, keyPair)
 	} else {
-		return errors.New(fmt.Sprintf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", ts))
+		return fmt.Errorf("Signature creation of this version of this entity is not supported in this version of the app. Entity: %#v", ts)
 	}
 }
 
@@ -558,8 +558,7 @@ func (ar *ApiResponse) VerifySignature() (bool, error) {
 	}
 	// 2) Check if required fields are empty.
 	if !(len(ar.NodePublicKey) > 0 && len(ar.Signature) > 0) {
-		return false, errors.New(fmt.Sprintf(
-			"Page signature check is enabled, but the page has some fields (Public Key or Signature) empty. Public Key: %s, Signature: %s", ar.NodePublicKey, ar.Signature))
+		return false, fmt.Errorf("Page signature check is enabled, but the page has some fields (Public Key or Signature) empty. Public Key: %s, Signature: %s", ar.NodePublicKey, ar.Signature)
 	}
 	// 3) Verify signature.
 	cpI := *ar
@@ -577,8 +576,7 @@ func (ar *ApiResponse) VerifySignature() (bool, error) {
 	if verifyResult {
 		return true, nil
 	} else {
-		return false, errors.New(fmt.Sprintf(
-			"This signature is invalid, but no reason given as to why. Signature: %s", signature))
+		return false, fmt.Errorf("This signature is invalid, but no reason given as to why. Signature: %s", signature)
 	}
 }
 
@@ -592,7 +590,7 @@ func (ar *ApiResponse) CreatePoW() error {
 	if ar.GetVersion() == 1 {
 		return createApiResponsePoW_V1(ar, globals.BackendConfig.GetBackendKeyPair(), globals.BackendConfig.GetMinimumPoWStrengths().ApiResponse)
 	} else {
-		return errors.New(fmt.Sprintf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", ar))
+		return fmt.Errorf("PoW creation of this version of this entity is not supported in this version of the app. Entity: %#v", ar)
 	}
 }
 
@@ -631,23 +629,22 @@ func Verify(e interface{}) error {
 	case Provable:
 		encrypted := len(entity.GetEncrContent()) > 0
 		if encrypted {
-			return errors.New(fmt.Sprintf("This item appears to be encrypted. Please decrypt before requesting verification. EncrContent: %s, Entity: %#v", entity.GetEncrContent(), entity))
+			return fmt.Errorf("This item appears to be encrypted. Please decrypt before requesting verification. EncrContent: %s, Entity: %#v", entity.GetEncrContent(), entity)
 		}
 		realmed := len(entity.GetRealmId()) > 0
 		if realmed {
-			return errors.New(fmt.Sprintf("This item appears to belong to a realm that is different than the mainnet. Non-mainnet realms are currently not supported, but might be in the future. RealmId: %s, Entity: %#v", entity.GetRealmId(), entity))
+			return fmt.Errorf("This item appears to belong to a realm that is different than the mainnet. Non-mainnet realms are currently not supported, but might be in the future. RealmId: %s, Entity: %#v", entity.GetRealmId(), entity)
 		}
 		boundsOk, err := entity.CheckBounds()
 		if err != nil {
 			return err
 		}
 		if !boundsOk {
-			return errors.New(fmt.Sprintf("Field boundaries of this entity is invalid. Entity: %#v", entity))
+			return fmt.Errorf("Field boundaries of this entity is invalid. Entity: %#v", entity)
 		}
 		fpOk := entity.VerifyFingerprint()
 		if !fpOk {
-			return errors.New(fmt.Sprintf(
-				"Fingerprint of this entity is invalid. Fingerprint: %s, Entity: %#v\n", entity.GetFingerprint(), entity))
+			return fmt.Errorf("Fingerprint of this entity is invalid. Fingerprint: %s, Entity: %#v\n", entity.GetFingerprint(), entity)
 		}
 		// Bounds ok, Fp ok
 		powOk, err2 := entity.VerifyPoW(entity.GetOwnerPublicKey())
@@ -655,8 +652,7 @@ func Verify(e interface{}) error {
 			return err2
 		}
 		if !powOk {
-			return errors.New(fmt.Sprintf(
-				"ProofOfWork of this entity is invalid. ProofOfWork: %s, Entity: %#v\n", entity.GetProofOfWork(), entity))
+			return fmt.Errorf("ProofOfWork of this entity is invalid. ProofOfWork: %s, Entity: %#v\n", entity.GetProofOfWork(), entity)
 		}
 		// Bounds ok, Fp ok, PoW ok
 		sigOk, err3 := entity.VerifySignature(entity.GetOwnerPublicKey())
@@ -664,19 +660,16 @@ func Verify(e interface{}) error {
 			return err3
 		}
 		if !sigOk {
-			return errors.New(fmt.Sprintf(
-				"Signature of this entity is invalid. Signature: %s, Entity: %#v\n", entity.GetSignature(), entity))
+			return fmt.Errorf("Signature of this entity is invalid. Signature: %s, Entity: %#v\n", entity.GetSignature(), entity)
 		}
 		// Bounds ok, Fp ok, PoW ok, Sig ok
 		entOk := entity.VerifyEntitlements()
 		if !entOk {
-			return errors.New(fmt.Sprintf(
-				"Entitlements of this entity is invalid. This entity is attempting to do something that it is not authorised to do. (Ex: A CA-specific TypeClass from a CA that we do not trust.) Entity: %#v\n", entity))
+			return fmt.Errorf("Entitlements of this entity is invalid. This entity is attempting to do something that it is not authorised to do. (Ex: A CA-specific TypeClass from a CA that we do not trust.) Entity: %#v\n", entity)
 		}
 		badlistOk := entity.NotInBadlist()
 		if !badlistOk {
-			return errors.New(fmt.Sprintf(
-				"This entity is in a badlist, either directly or indirectly (via its parent being in a badlist) Entity: %#v\n", entity))
+			return fmt.Errorf("This entity is in a badlist, either directly or indirectly (via its parent being in a badlist) Entity: %#v\n", entity)
 		}
 		entity.SetVerified(true)
 		return nil
@@ -687,19 +680,18 @@ func Verify(e interface{}) error {
 			return err
 		}
 		if !boundsOk {
-			return errors.New(fmt.Sprintf("Field boundaries of this entity is invalid. Entity: %#v", entity))
+			return fmt.Errorf("Field boundaries of this entity is invalid. Entity: %#v", entity)
 		}
 		badlistOk := entity.NotInBadlist()
 		if !badlistOk {
-			return errors.New(fmt.Sprintf(
-				"This entity is in a badlist, either directly or indirectly (via its parent being in a badlist) Entity: %#v\n", entity))
+			return fmt.Errorf("This entity is in a badlist, either directly or indirectly (via its parent being in a badlist) Entity: %#v\n", entity)
 		}
 		// Bounds ok
 		entity.SetVerified(true)
 		return nil
 
 	default:
-		return errors.New(fmt.Sprintf("Verify could not recognise this entity type. Entity: %#v", entity))
+		return fmt.Errorf("Verify could not recognise this entity type. Entity: %#v", entity)
 	}
 
 }

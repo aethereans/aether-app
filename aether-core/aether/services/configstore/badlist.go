@@ -7,9 +7,7 @@ package configstore
 import (
 	"aether-core/aether/services/toolbox"
 	"encoding/json"
-	"errors"
 	"fmt"
-	cdir "github.com/shibukawa/configdir"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -17,6 +15,8 @@ import (
 	"path/filepath"
 	"sync"
 	"time"
+
+	cdir "github.com/shibukawa/configdir"
 )
 
 type BadBoard struct {
@@ -179,7 +179,7 @@ func (list *Badlist) fillFromDisk() error {
 		listJson, _ := folder.ReadFile(filepath.Join(binI, "badlist.json"))
 		err := json.Unmarshal(listJson, list)
 		if err != nil || fmt.Sprintf("%#v", string(listJson)) == "\"{}\"" {
-			return errors.New(fmt.Sprintf("Badlist file is corrupted. Please fix the file, or delete it. If deleted a new badlist will be generated with default values. Error: %#v, ListJson: %#v", err, string(listJson)))
+			return fmt.Errorf("Badlist file is corrupted. Please fix the file, or delete it. If deleted a new badlist will be generated with default values. Error: %#v, ListJson: %#v", err, string(listJson))
 		}
 	}
 	// Folder is nil - this file does not exist. We fill nothing. We write an empty file as a starting point.

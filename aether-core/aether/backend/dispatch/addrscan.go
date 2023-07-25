@@ -8,9 +8,11 @@ import (
 	pers "aether-core/aether/io/persistence"
 	"aether-core/aether/services/globals"
 	"aether-core/aether/services/logging"
+
 	// "aether-core/aether/services/safesleep"
 	"errors"
 	"fmt"
+
 	// "github.com/pkg/errors"
 	// "strings"
 	"aether-core/aether/services/toolbox"
@@ -29,7 +31,7 @@ func getAllAddresses(isDesc bool) ([]api.Address, error) {
 	}
 	resp, err := pers.ReadAddresses("", "", 0, 0, 0, 0, 0, 0, searchType)
 	if err != nil {
-		errors.New(fmt.Sprintf("getAllAddresses in AddressScanner failed.", err))
+		fmt.Errorf("getAllAddresses in AddressScanner failed.", err)
 	}
 	return resp, nil
 }
@@ -74,7 +76,7 @@ func updateAddrs(addrs []api.Address) ([]api.Address, error) {
 	updatedAddrs := Pinger(addrs)
 	err := pers.AddrTrustedInsert(&updatedAddrs)
 	if err != nil {
-		return []api.Address{}, errors.New(fmt.Sprintf("updateAddrs encountered an error in AddrTrustedInsert.", err))
+		return []api.Address{}, fmt.Errorf("updateAddrs encountered an error in AddrTrustedInsert.", err)
 	}
 	return updatedAddrs, nil
 }
@@ -213,7 +215,7 @@ func findOnlineNodesV2(count int, reqType, addrType int, excl *[]api.Address, re
 	logging.Logf(1, "Network scan complete within findOnlineNodes.")
 	addrs, err := getAllAddresses(true) // desc - last synced first primary, last pinged first secondary sort
 	if err != nil {
-		return []api.Address{}, errors.New(fmt.Sprintf("findOnlineNodes: getAllAddresses within this function failed.", err))
+		return []api.Address{}, fmt.Errorf("findOnlineNodes: getAllAddresses within this function failed.", err)
 	}
 	if addrType > -1 {
 		addrs, _ = filterByAddressType(uint8(addrType), addrs)
@@ -278,7 +280,7 @@ func pickUnconnectedAddrs(addrs []api.Address) ([]api.Address, []api.Address) {
 func RefreshAddresses() error {
 	addrs, err := getAllAddresses(false) // asc - the oldest unconnected first
 	if err != nil {
-		return errors.New(fmt.Sprintf("RefreshAddresses: getAllAddresses within this function failed.", err))
+		return fmt.Errorf("RefreshAddresses: getAllAddresses within this function failed.", err)
 	}
 	updateAddrs(addrs)
 	return nil
