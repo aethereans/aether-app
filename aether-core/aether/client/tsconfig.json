@@ -25,7 +25,7 @@
     // "isolatedModules": true,               /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
 
     /* Strict Type-Checking Options */
-    "strict": true,
+    "strict": false,
     /* Enable all strict type-checking options. */
     // "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
     // "strictNullChecks": true,              /* Enable strict null checks. */
@@ -67,7 +67,7 @@
     /* Experimental Options */
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
-    "suppressImplicitAnyIndexErrors": true, // todo remove this
+    //"suppressImplicitAnyIndexErrors": true, // todo remove this
     "lib": ["es2015", "dom"]
   }
 }
